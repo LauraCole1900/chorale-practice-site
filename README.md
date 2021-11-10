@@ -46,7 +46,7 @@ This project is intended to be used to house practice materials for members of t
 
 ## Technologies Used
 
-MongoDB, Express, React, Node.js, GraphQL, JavaScript, TypeScript, auth0.com, Day.js, thenBy.js
+[![MongoDB](https://img.shields.io/badge/built%20with-MongoDB-4db33d)](https://www.mongodb.com/) [![Express.js](https://img.shields.io/badge/built%20with-Express.js-303030)](https://expressjs.com/) [![React](https://img.shields.io/badge/built%20with-React-61dbfb)](https://reactjs.org/) [![Node.js](https://img.shields.io/badge/built%20with-Node.js-3c873a)](https://nodejs.org/en/) [![GraphQL](https://img.shields.io/badge/built%20with-GraphQL-c00095)](https://graphql.org/) [![JavaScript](https://img.shields.io/badge/built%20with-JavaScript-f0db4f)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![TypeScript](https://img.shields.io/badge/built%20with-TypeScript-007acc)](https://www.typescriptlang.org/) [![Day.js](https://img.shields.io/badge/built%20with-Day.js-dd6655)](https://day.js.org/) [![Auth0](https://img.shields.io/badge/built%20with-Auth0-eb5424)](https://auth0.com/)
 
 ## Tests
 
@@ -66,4 +66,4 @@ If you have further questions, you can reach me at lauracole1900@comcast.net. Fo
 
 ## Badges
 
-![License badge](https://img.shields.io/badge/license-MIT-303030) [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/LauraCole1900/bcms)
+[![License badge](https://img.shields.io/badge/license-MIT-303030)](./LICENSE) [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/LauraCole1900/bcms)
