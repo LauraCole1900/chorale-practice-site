@@ -16,6 +16,14 @@ const Lander = () => {
           <h1>Upcoming Events</h1>
         </Card.Header>
         <Card.Body className="cardBody">
+          <h2>Chorale auditions</h2>
+          <p>Wednesday, January 12 & Saturday, January 15 | By Appointment Only</p>
+          <h2>Pops & Pasta Solo & Small Group Auditions</h2>
+          <p>Saturday, January 15</p>
+          <h2>Pops & Pasta ONLY Rehearsal</h2>
+          <p>Wednesday January 12 | 7:15pm | Frasier 63</p>
+          <h2>First Spring Concert Rehearsal</h2>
+          <p>Wednesday, January 19 | 7:15pm | Frasier 63</p>
           <h2>26th Annual Pops & Pasta!</h2>
           <p>
             Saturday, February 26th | 1pm & 6pm | Greeley Recreation Center

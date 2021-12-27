@@ -5,7 +5,7 @@ import "./style.css"
 const Section = () => {
   const [songs, setSongs] = useState([]);
 
-  // Determines which section-page user is on
+  // Determines which section-page user is on and pulls out the section name
   const urlArray = window.location.href.split("/")
   const urlSection = urlArray[urlArray.length - 1]
 

@@ -8,6 +8,17 @@
   --bodyFont: 'Lato', sans-serif;
 }
 
+a.sideLinks {
+  color: var(--gcRed);
+}
+a.sideLinks:visited {
+  color: var(--gcCharcoal);
+}
+a.sideLinks:hover {
+  font-family: var(--headerFont);
+  font-size: 18px;
+}
+
 .card {
   margin: 1rem;
   border-radius: 15px;
@@ -25,4 +36,19 @@
   color: var(--gcCharcoal);
   background-color: var(--gcGray);
   border-radius: 0 0 15px 15px;
+}
+
+.sideInfo {
+  font-family: var(--bodyFont);
+  font-size: 18px;
+  margin-top: 1.5rem;
+  color: var(--gcBlack);
+  text-decoration: underline;
+}
+
+.sideLinks {
+  font-family: var(--bodyFont);
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
 }

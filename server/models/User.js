@@ -16,6 +16,22 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
+    isSectionLeader: {
+      type: Boolean,
+      default: false
+    },
+    isPnPChair: {
+      type: Boolean,
+      default: false
+    },
+    isTravelChair: {
+      type: Boolean,
+      default: false
     }
   }
 );
