@@ -16,7 +16,16 @@ const songSchema = new Schema(
     copyrightDate: {
       type: String
     },
-    practiceTrackUrl: {
+    practiceTrackUrlSop: {
+      type: String
+    },
+    practiceTrackUrlAlto: {
+      type: String
+    },
+    practiceTrackUrlTen: {
+      type: String
+    },
+    practiceTrackUrlBass: {
       type: String
     },
     videoUrl: {
