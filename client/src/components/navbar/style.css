@@ -1,0 +1,41 @@
+:root {
+  --gcWhite: #fdfdfd;
+  --gcGray: #a19f95;
+  --gcCharcoal: #282825;
+  --gcBlack: #020201;
+  --gcRed: #971316;
+  --headerFont: 'Sree Krushnadevaraya', serif;
+  --bodyFont: 'Lato', sans-serif;
+}
+
+/* div {
+  border: 1px solid red;
+} */
+
+.navbar {
+  background-color: var(--gcCharcoal);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 20px;
+}
+
+.navbarCollapse {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 1rem;
+}
+
+.navlink {
+  color: var(--gcWhite);
+  justify-self: flex-end;
+  font-family: var(--headerFont);
+  padding: 1rem;
+}
+
+:is(.navlink:visited, .logo:visited) {
+  color: var(--gcGray);
+}
+:is(.navlink:hover, .logo:hover) {
+  color: var(--gcGray);
+}

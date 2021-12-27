@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
-// import Navbar from "./components/navbar";
+import Navibar from "./components/navbar";
 // import Footer from "./components/footer";
 import "./App.css";
 
@@ -16,6 +16,7 @@ function App() {
     <>
     <ApolloProvider client={client}>
       <Router>
+        <Navibar />
         <h1>Hello World</h1>
       </Router>
     </ApolloProvider>
