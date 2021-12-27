@@ -4,8 +4,8 @@
   --gcCharcoal: #282825;
   --gcBlack: #020201;
   --gcRed: #971316;
-  --headerFont: 'Sree Krushnadevaraya', serif;
-  --bodyFont: 'Lato', sans-serif;
+  --headerFont: "Sree Krushnadevaraya", serif;
+  --bodyFont: "Lato", sans-serif;
 }
 
 /* div {
@@ -26,6 +26,18 @@
   padding-right: 1rem;
 }
 
+.navBtn {
+  color: var(--gcWhite);
+  background-color: var(--gcRed);
+  margin: 0.5rem;
+  border: 1px solid var(--gcWhite);
+}
+.navBtn:hover {
+  color: var(--gcRed);
+  background-color: var(--gcGray);
+  border: 1px solid var(--gcRed);
+}
+
 .navlink {
   color: var(--gcWhite);
   justify-self: flex-end;
@@ -37,5 +49,12 @@
   color: var(--gcGray);
 }
 :is(.navlink:hover, .logo:hover) {
-  color: var(--gcGray);
+  color: var(--gcRed);
+}
+
+.sideNav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  border-radius: 5px;;
 }

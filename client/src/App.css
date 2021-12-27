@@ -1,46 +1,24 @@
 :root {
+  --lightSil: #e2e2e2;
   --gcWhite: #fdfdfd;
   --gcGray: #a19f95;
   --gcCharcoal: #282825;
   --gcBlack: #020201;
   --gcRed: #971316;
+  --headerFont: 'Sree Krushnadevaraya', serif;
+  --bodyFont: 'Lato', sans-serif;
 }
 
-.App {
-  text-align: center;
+body {
+  background-color: var(--lightSil);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1,
+h2,
+h3 {
+  font-family: var(--headerFont);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  font-family: var(--bodyFont);
 }

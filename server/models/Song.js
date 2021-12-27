@@ -28,7 +28,13 @@ const songSchema = new Schema(
     practiceTrackUrlBass: {
       type: String
     },
-    videoUrl: {
+    videoUrl1: {
+      type: String
+    },
+    videoUrl2: {
+      type: String
+    },
+    videoUrl3: {
       type: String
     }
   }

@@ -1,0 +1,28 @@
+:root {
+  --gcWhite: #fdfdfd;
+  --gcGray: #a19f95;
+  --gcCharcoal: #282825;
+  --gcBlack: #020201;
+  --gcRed: #971316;
+  --headerFont: 'Sree Krushnadevaraya', serif;
+  --bodyFont: 'Lato', sans-serif;
+}
+
+.card {
+  margin: 1rem;
+  border-radius: 15px;
+  box-shadow: 10px 10px 10px 5px var(--gcCharcoal);
+}
+
+.cardTitle {
+  color: var(--gcWhite);
+  background-color: var(--gcRed);
+  text-align: center;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+.cardBody {
+  color: var(--gcCharcoal);
+  background-color: var(--gcGray);
+  border-radius: 0 0 15px 15px;
+}
