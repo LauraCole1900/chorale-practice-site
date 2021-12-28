@@ -13,9 +13,20 @@ const userSchema = new Schema(
       required: true,
       unique: true
     },
+    phone: {
+      type: String
+    },
     password: {
       type: String,
       required: true
+    },
+    section: {
+      type: String,
+      required: true
+    },
+    position: {
+      type: String,
+      default: "singer"
     },
     isAdmin: {
       type: Boolean,

@@ -4,6 +4,8 @@ import { Sidenav } from "../components/navbar";
 import "./style.css";
 
 const Members = () => {
+  const [admins, setAdmins] = useState([]);
+
 
 
   return (
