@@ -57,6 +57,13 @@ a.sideLinks:hover {
   cursor: pointer;
 }
 
+.login {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .red {
   color: var(--gcRed);
 }

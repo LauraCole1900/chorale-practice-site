@@ -4,9 +4,16 @@ import "./style.css";
 
 const Lander = () => {
 
-  // useEffect(() => {
+  useEffect(() => {
+    console.log(`=============================
+|       You found me!       |
+|                           |
+|   Visit my portfolio at   |
+|   https://lcolearts.com   |
+=============================
+`)
     // will grab upcoming concerts from database & throw them into an array
-  // }, []);
+  }, []);
 
   
   return (
