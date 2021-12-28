@@ -4,8 +4,9 @@
   --gcCharcoal: #282825;
   --gcBlack: #020201;
   --gcRed: #971316;
-  --headerFont: 'Sree Krushnadevaraya', serif;
-  --bodyFont: 'Lato', sans-serif;
+  --disabled: #b14748;
+  --headerFont: "Sree Krushnadevaraya", serif;
+  --bodyFont: "Lato", sans-serif;
 }
 
 a.sideLinks {
@@ -36,6 +37,28 @@ a.sideLinks:hover {
   color: var(--gcCharcoal);
   background-color: var(--gcGray);
   border-radius: 0 0 15px 15px;
+}
+
+.formBtn {
+  color: var(--gcWhite);
+  background-color: var(--gcRed);
+  border: 1px solid var(--gcWhite);
+  width: 5rem;
+  margin: 15px 0 0 15px;
+}
+.formBtn:disabled {
+  color: var(--gcWhite);
+  background-color: var(--disabled);
+  border: 1px solid var(--gcWhite);
+}
+.formBtn:hover {
+  background-color: var(--gcCharcoal);
+  border: 1px solid var(--gcWhite);
+  cursor: pointer;
+}
+
+.red {
+  color: var(--gcRed);
 }
 
 .sideInfo {

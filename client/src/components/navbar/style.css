@@ -36,6 +36,7 @@
   color: var(--gcRed);
   background-color: var(--gcGray);
   border: 1px solid var(--gcRed);
+  cursor: pointer;
 }
 
 .navlink {
@@ -50,6 +51,7 @@
 }
 :is(.navlink:hover, .logo:hover) {
   color: var(--gcRed);
+  cursor: pointer;
 }
 
 .sideNav {

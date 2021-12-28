@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
 // import Footer from "./components/footer";
-import { Lander, Members, Section } from "./pages";
+import { Lander, Login, Members, Section } from "./pages";
 import "./App.css";
 
 const client = new ApolloClient({
@@ -21,6 +21,7 @@ function App() {
           <Container fluid>
             <Routes>
               <Route path="/" element={<Lander />} />
+              <Route path="login" element={<Login />} />
               <Route path="/members" element={<Members />} />
               <Route path="/section/soprano" element={<Section />} />
               <Route path="/section/alto" element={<Section />} />
