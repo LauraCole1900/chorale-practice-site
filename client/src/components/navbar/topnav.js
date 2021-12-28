@@ -19,7 +19,7 @@ const Navibar = () => {
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav" className="navbarCollapse">
           <Nav>
-            <a href="https://www.greeleychorale.org/" className="navlink">greeleychorale.org</a>
+            <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="navlink">greeleychorale.org</a>
             <Link to="/" className="navlink">
               Home
             </Link>
