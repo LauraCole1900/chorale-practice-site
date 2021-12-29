@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
+import { EventCard } from "../components/cards";
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ALL_EVENTS } from '../utils/queries';
 
@@ -13,20 +14,23 @@ const Lander = () => {
   const chorEvents = data || [];
 
   const upcomingEvents = chorEvents.filter(chorEvent => (dayjs(chorEvent.date[0], "MM-DD-YYYY")) > dayjs());
-  console.log(upcomingEvents);
+  const sortedEvents = upcomingEvents.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+  console.log({ upcomingEvents });
+  console.log({ sortedEvents });
 
-  useEffect(() => {
-    console.log(`=============================
-|       You found me!       |
+  const message = `=============================
+|     Looking for a job     |
 |                           |
 |   Visit my portfolio at   |
 |   https://lcolearts.com   |
-=============================
-`)
-    // will grab upcoming concerts from database & throw them into an array
+=============================`
+  const style = "color: #00ff00";
+
+  useEffect(() => {
+    console.log(`%c${message}`, style)
   }, []);
 
-  
+
   return (
     <>
       <Card className="card">
@@ -50,6 +54,8 @@ const Lander = () => {
           <p>
             Saturday, April 9th | 7:30pm | First Congregational Church, Greeley
           </p>
+          {chorEvents.length > 0 &&
+            <EventCard chorEvents={sortedEvents} />}
         </Card.Body>
       </Card>
     </>
