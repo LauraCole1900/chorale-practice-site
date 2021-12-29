@@ -2,24 +2,28 @@ const { Schema, model } = require("mongoose");
 
 const Song = require("./Song");
 
-const concertSchema = new Schema(
+const eventSchema = new Schema(
   {
     name: {
       type: String,
       required: true
     },
     date: {
-      type: String,
+      type: [String],
+      required: true
+    },
+    time: {
+      type: [String],
       required: true
     },
     venue: {
-      type: String,
+      type: [String],
       required: true
     },
     songs: [Song]
   }
 );
 
-const Concert = model("Concert", concertSchema);
+const Event = model("Event", eventSchema);
 
-module.exports = Concert;
+module.exports = Event;
