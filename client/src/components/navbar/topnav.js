@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Image, Nav, Navbar } from "react-bootstrap";
 // import gclogo from "../../pix/chorale-logo.webp";
+import Auth from "../../utils/auth";
 import "./style.css";
 
 const Navibar = () => {
@@ -23,9 +24,13 @@ const Navibar = () => {
             <Link to="/" className="navlink">
               Home
             </Link>
-            <Link to="/login" className="navlink">
-              Login
-            </Link>
+            {Auth.loggedIn() ? (
+              <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+            ) : (
+              <Link to="/login" className="navlink">
+                Login
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

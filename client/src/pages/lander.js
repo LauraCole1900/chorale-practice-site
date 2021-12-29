@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import dayjs from "dayjs";
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_ME, QUERY_ALL_EVENTS } from '../utils/queries';
+
+import Auth from '../utils/auth';
 import "./style.css";
 
 const Lander = () => {
+  const { userLoading, userData } = useQuery(QUERY_ME);
+  const { eventLoading, eventData } = useQuery(QUERY_ALL_EVENTS);
+
+  const user = userData?.me || {};
+  const chorEvents = eventData || [];
+
+  const upcomingEvents = chorEvents.filter(chorEvent => (dayjs(chorEvent.date[0], "MM-DD-YYYY")) > dayjs());
+  console.log(upcomingEvents);
 
   useEffect(() => {
     console.log(`=============================
