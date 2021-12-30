@@ -1,5 +1,5 @@
 module.exports = {
-  Event: require("./Event"),
+  Concert: require("./Concert"),
   Post: require("./Post"),
   User: require("./User")
 };

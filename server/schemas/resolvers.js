@@ -1,4 +1,4 @@
-const { Event, User } = require("../models");
+const { Concert, User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -11,8 +11,8 @@ const resolvers = {
       }
       throw new AuthenticationError("You must be logged in!");
     },
-    events: async () => {
-      return Event.find({});
+    concerts: async () => {
+      return Concert.find({});
     }
   },
 

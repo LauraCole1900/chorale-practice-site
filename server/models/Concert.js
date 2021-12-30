@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const Song = require("./Song");
 
-const eventSchema = new Schema(
+const concertSchema = new Schema(
   {
     name: {
       type: String,
@@ -24,6 +24,6 @@ const eventSchema = new Schema(
   }
 );
 
-const Event = model("Event", eventSchema);
+const Concert = model("Concert", concertSchema);
 
-module.exports = Event;
+module.exports = Concert;

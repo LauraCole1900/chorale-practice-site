@@ -1,5 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const path = require("path");
 const http = require("http");
 
@@ -16,6 +17,7 @@ async function startApolloServer(resolvers, typeDefs) {
     typeDefs,
     resolvers,
     context: authMiddleware,
+    // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
   });
 
   await server.start();
@@ -32,6 +34,9 @@ async function startApolloServer(resolvers, typeDefs) {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
+
+  // await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
+  // console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 
   db.once('open', () => {
     httpServer.listen(PORT, () => {
