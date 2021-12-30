@@ -13,5 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^6.4.0"
+  },
+  "dependencies": {
+    "graphql": "^15.8.0"
   }
 }
