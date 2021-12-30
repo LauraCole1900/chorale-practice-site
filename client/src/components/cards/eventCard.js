@@ -3,19 +3,19 @@ import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import "./style.css";
 
-const EventCard = ({ chorEvents }) => {
-  const dates = chorEvents.date > 1 ? chorEvents.date.join(", ") : chorEvents.date.toString();
-  const times = chorEvents.time > 1 ? chorEvents.time.join(", ") : chorEvents.time.toString();
-  const venues = chorEvents.venue > 1 ? chorEvents.venue.join(", ") : chorEvents.venue.toString();
+const ConcertCard = ({ concerts }) => {
+  const dates = concerts.date > 1 ? concerts.date.join(", ") : concerts.date.toString();
+  const times = concerts.time > 1 ? concerts.time.join(", ") : concerts.time.toString();
+  const venues = concerts.venue > 1 ? concerts.venue.join(", ") : concerts.venue.toString();
 
   return (
     <>
-      {chorEvents.map(chorEvent => (
-        <Card className="eventCard">
-          <Card.Header className="eventTitle">
-            <h2>{chorEvents.name}</h2>
+      {concerts.map(concert => (
+        <Card className="concertCard">
+          <Card.Header className="concertTitle">
+            <h2>{concert.name}</h2>
           </Card.Header>
-          <Card.Body className="eventBody">
+          <Card.Body className="concertBody">
             {dates.includes(",")
               ? <p>Dates: {dates}</p>
               : <p>Date: {dates}</p>}
@@ -32,4 +32,4 @@ const EventCard = ({ chorEvents }) => {
 }
 
 
-export default EventCard;
+export default ConcertCard;

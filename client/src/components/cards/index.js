@@ -1,1 +1,1 @@
-export { default as EventCard } from "./eventCard";
+export { default as ConcertCard } from "./concertCard";

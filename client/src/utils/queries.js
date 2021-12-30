@@ -12,9 +12,9 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_ALL_EVENTS = gql`
-  query getAllEvents {
-    getAllEvents {
+export const QUERY_ALL_CONCERTS = gql`
+  query getAllConcerts {
+    getAllConcerts {
       _id
       name
       date

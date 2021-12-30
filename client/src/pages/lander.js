@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import { EventCard } from "../components/cards";
+import { ConcertCard } from "../components/cards";
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ALL_EVENTS } from '../utils/queries';
+import { QUERY_ALL_CONCERTS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import "./style.css";
 
 const Lander = () => {
-  const { loading, data } = useQuery(QUERY_ALL_EVENTS);
+  const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
 
-  const chorEvents = data || [];
+  const concerts = data || [];
 
-  const upcomingEvents = chorEvents.filter(chorEvent => (dayjs(chorEvent.date[0], "MM-DD-YYYY")) > dayjs());
-  const sortedEvents = upcomingEvents.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
-  console.log({ upcomingEvents });
-  console.log({ sortedEvents });
+  const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) > dayjs());
+  const sortedConcerts = upcomingConcerts.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+  console.log({ upcomingConcerts });
+  console.log({ sortedConcerts });
 
   const message = `=============================
 |     Looking for a job     |
@@ -54,8 +54,8 @@ const Lander = () => {
           <p>
             Saturday, April 9th | 7:30pm | First Congregational Church, Greeley
           </p>
-          {chorEvents.length > 0 &&
-            <EventCard chorEvents={sortedEvents} />}
+          {concerts.length > 0 &&
+            <ConcertCard concerts={sortedConcerts} />}
         </Card.Body>
       </Card>
     </>
