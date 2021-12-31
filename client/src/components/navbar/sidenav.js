@@ -20,9 +20,6 @@ const Sidenav = () => {
         <Nav>
           <Link to="/section/bass"><Button className="navBtn">Bass</Button></Link>
         </Nav>
-        <Nav>
-          <Link to="/members"><Button className="navBtn">Members</Button></Link>
-        </Nav>
       </Navbar>
     </>
   )
