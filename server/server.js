@@ -1,10 +1,10 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
-const { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault,  ApolloServerPluginLandingPageProductionDefault } = require("apollo-server-core");
+const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const path = require("path");
 const http = require("http");
 
-const { typeDefs, resolvers } = require("./schemas");
+const { typeDefs, resolvers } = require("./schema");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 
@@ -17,13 +17,7 @@ async function startApolloServer(resolvers, typeDefs) {
     typeDefs,
     resolvers,
     context: authMiddleware,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }),
-      process.env.NODE_ENV === 'production'
-        ? ApolloServerPluginLandingPageProductionDefault({
-          graphRef: "my-graph-id@my-graph-variant",
-          footer: false,
-        })
-        : ApolloServerPluginLandingPageLocalDefault({ footer: false })]
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
   });
 
   await server.start();
@@ -40,9 +34,6 @@ async function startApolloServer(resolvers, typeDefs) {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
-
-  // await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
-  // console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 
   db.once('open', () => {
     httpServer.listen(PORT, () => {
