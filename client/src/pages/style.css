@@ -39,6 +39,12 @@ a.sideLinks:hover {
   border-radius: 0 0 15px 15px;
 }
 
+.eventCards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
 .formBtn {
   color: var(--gcWhite);
   background-color: var(--gcRed);

@@ -13,14 +13,14 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_ALL_CONCERTS = gql`
-  query getAllConcerts {
+  query concerts {
     concerts {
       _id
       name
       date
       time
       venue
-      songs
+      # songs
     }
   }
 `;

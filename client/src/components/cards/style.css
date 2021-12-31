@@ -1,0 +1,32 @@
+:root {
+  --lightSil: #e2e2e2;
+  --gcWhite: #fdfdfd;
+  --gcGray: #a19f95;
+  --gcCharcoal: #282825;
+  --gcBlack: #020201;
+  --gcRed: #971316;
+  --disabled: #b14748;
+  --headerFont: "Sree Krushnadevaraya", serif;
+  --bodyFont: "Lato", sans-serif;
+}
+
+.concertCard {
+  width: 100%;
+}
+
+.concertTitle {
+  color: var(--gcWhite);
+  background-color: var(--gcCharcoal);
+  border-radius: 15px 15px 0 0 !important;
+  height: 9rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.concertBody {
+  color: var(--gcCharcoal);
+  background-color: var(--lightSil);
+  border-radius: 0 0 15px 15px;
+}
