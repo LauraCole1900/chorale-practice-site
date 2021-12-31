@@ -1,6 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
-const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
+const { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault,  ApolloServerPluginLandingPageProductionDefault } = require("apollo-server-core");
 const path = require("path");
 const http = require("http");
 
@@ -17,7 +17,13 @@ async function startApolloServer(resolvers, typeDefs) {
     typeDefs,
     resolvers,
     context: authMiddleware,
-    // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }),
+      process.env.NODE_ENV === 'production'
+        ? ApolloServerPluginLandingPageProductionDefault({
+          graphRef: "my-graph-id@my-graph-variant",
+          footer: false,
+        })
+        : ApolloServerPluginLandingPageLocalDefault({ footer: false })]
   });
 
   await server.start();
