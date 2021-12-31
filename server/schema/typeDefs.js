@@ -36,13 +36,19 @@ type User {
   isAdmin: Boolean!
 }
 
+type Auth {
+  token: ID!
+  user: User
+}
+
 type Query {
   me: User
-  concerts: [Event]
+  concerts: [Concert]
 }
 
 type Mutation {
   login(email: String! password: String!): Auth
+  addUser(fullName: String!, email: String!, phone: String, password: String!, section: String!, position: String!, isAdmin: Boolean!): Auth
 }
 `
 

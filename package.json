@@ -11,9 +11,6 @@
     "build": "cd client && npm run build"
   },
   "license": "MIT",
-  "dependencies": {
-    "graphql": "^16.2.0"
-  },
   "devDependencies": {
     "concurrently": "^6.5.1"
   }

@@ -14,7 +14,7 @@ export const QUERY_ME = gql`
 
 export const QUERY_ALL_CONCERTS = gql`
   query getAllConcerts {
-    getAllConcerts {
+    concerts {
       _id
       name
       date

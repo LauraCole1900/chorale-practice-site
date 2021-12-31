@@ -42,3 +42,5 @@ async function startApolloServer(resolvers, typeDefs) {
     });
   });
 };
+
+startApolloServer(resolvers, typeDefs);
