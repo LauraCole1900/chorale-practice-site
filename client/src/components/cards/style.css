@@ -10,6 +10,11 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+.bold {
+  color: var(--gcRed);
+  font-weight: 700;
+}
+
 .concertCard {
   width: 100%;
 }
