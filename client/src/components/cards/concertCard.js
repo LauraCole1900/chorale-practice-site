@@ -15,7 +15,7 @@ const ConcertCard = ({ concert }) => {
   const dates = formatDate(concert.date);
   const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
   const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
-  console.log(concert.time, times);
+  
 
   return (
     <>

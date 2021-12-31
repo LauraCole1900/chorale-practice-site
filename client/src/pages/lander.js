@@ -9,7 +9,6 @@ import { QUERY_ALL_CONCERTS } from '../utils/queries';
 import "./style.css";
 
 const Lander = () => {
-  // let sorted;
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
@@ -29,10 +28,9 @@ const Lander = () => {
 
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) < dayjs());
-      console.log({ upcomingConcerts });
-      const sorted = upcomingConcerts.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
-      console.log({ sorted })
-      setSortedConcerts(sorted);
+      const sortedByDate = upcomingConcerts.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+      console.log({ sortedByDate })
+      setSortedConcerts(sortedByDate);
       setPageReady(true);
     }
   }, [concerts, message])
@@ -53,7 +51,7 @@ const Lander = () => {
             <Row>
               {sortedConcerts.length > 0 &&
                 sortedConcerts.map(concert => (
-                  <Col sm={12} md={6} lg={4} className="eventCards">
+                  <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
                     <ConcertCard concert={concert} />
                   </Col>
                 ))}
