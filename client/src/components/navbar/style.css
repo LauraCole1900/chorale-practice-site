@@ -40,17 +40,18 @@
 }
 
 .navlink {
-  color: var(--gcWhite);
+  color: var(--gcWhite) !important;
+  text-decoration: underline;
   justify-self: flex-end;
   font-family: var(--headerFont);
   padding: 1rem;
 }
 
 :is(.navlink:visited, .logo:visited) {
-  color: var(--gcGray);
+  color: var(--gcGray) !important;
 }
 :is(.navlink:hover, .logo:hover) {
-  color: var(--gcRed);
+  color: var(--gcRed) !important;
   cursor: pointer;
 }
 

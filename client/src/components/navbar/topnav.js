@@ -26,10 +26,10 @@ const Navibar = () => {
             </Link>
             {Auth.loggedIn() ? (
               <>
-                <Link to="/members" className="navLink">
+                <Link to="/members" className="navlink">
                   Members
                 </Link>
-                <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                <Nav.Link onClick={Auth.logout} className="navlink">Logout</Nav.Link>
               </>
             ) : (
               <Link to="/login" className="navlink">
