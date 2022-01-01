@@ -3,7 +3,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
 import { useQuery } from '@apollo/client';
-import { QUERY_ALL_CONCERTS } from '../utils/queries';
+import { QUERY_ALL_CONCERTS } from '../utils';
 
 // import Auth from '../utils/auth';
 import "./style.css";
