@@ -7,7 +7,7 @@ const songSchema = new Schema(
       required: true
     },
     composer: {
-      type: String,
+      type: [String],
       required: true
     },
     publisher: {
