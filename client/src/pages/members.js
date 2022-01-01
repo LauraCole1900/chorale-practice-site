@@ -18,7 +18,7 @@ const Members = () => {
       setAdmins(adminArr);
       setPageReady(true);
     }
-  }, [])
+  }, [adminArr])
 
   if (adminLoading) {
     return <h1>Loading....</h1>
