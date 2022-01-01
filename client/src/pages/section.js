@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
+import { useQuery } from "@apollo/client";
+import { QUERY_TRUE_CONCERTS } from "../utils/queries";
 import "./style.css"
 
 const Section = () => {
   const [songs, setSongs] = useState([]);
+  const { loading, data } = useQuery(QUERY_TRUE_CONCERTS);
+
+  const concertArr = data?.concerts || [];
+  console.log(concertArr);
 
   // Determines which section-page user is on and pulls out the section name
   const urlArray = window.location.href.split("/")
