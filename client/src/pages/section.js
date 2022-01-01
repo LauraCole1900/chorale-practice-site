@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
@@ -8,6 +9,7 @@ import "./style.css"
 
 const Section = () => {
   const [songs, setSongs] = useState([]);
+  const [sortedConcerts, setSortedConcerts] = useState([]);
   const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
 
   const concertArr = data?.concerts || [];
@@ -20,9 +22,18 @@ const Section = () => {
   // Capitalizes first letter of section name
   const capsSection = urlSection.charAt(0).toUpperCase() + urlSection.slice(1);
 
-  // useEffect(() => {
-  // useEffect will pull section leader announcements & practice tracks list
-  // }, []);
+  useEffect(() => {
+    if (concertArr.length) {
+      const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) < dayjs());
+      console.log({ upcomingConcerts });
+      const trueConcerts = upcomingConcerts.filter(concert => concert.songs?.length > 0);
+      console.log({ trueConcerts });
+      const sortedByTime = trueConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
+      const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+      setSortedConcerts(sortedByDate);
+      // setPageReady(true);
+    }
+  }, [concertArr])
 
   if (loading) {
     return <h1>Loading....</h1>
@@ -49,30 +60,6 @@ const Section = () => {
               concertArr.map(concert => (
                 <TracksCard concert={concert} />
               ))}
-            <Card>
-              <Card.Header className="cardTitle">
-                <h2>Title of First Song Goes Here</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <p>Either a link to a practice track or an embedded practice track will go here</p>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Header className="cardTitle">
-                <h2>Title of Second Song Goes Here</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <p>Either a link to a practice track or an embedded practice track will go here</p>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Header className="cardTitle">
-                <h2>Title of Third Song Goes Here</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <p>Either a link to a practice track or an embedded practice track will go here</p>
-              </Card.Body>
-            </Card>
           </Col>
         </Row>
       </Container>

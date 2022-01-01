@@ -20,7 +20,10 @@ export const QUERY_ALL_CONCERTS = gql`
       date
       time
       venue
-      # songs
+      # songs {
+      #   title
+      #   composer
+      # }
     }
   }
 `;
