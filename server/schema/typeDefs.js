@@ -44,6 +44,7 @@ type Auth {
 type Query {
   me: User
   concerts: [Concert]
+  admins: [User]
 }
 
 type Mutation {

@@ -24,3 +24,14 @@ export const QUERY_ALL_CONCERTS = gql`
     }
   }
 `;
+
+export const QUERY_ALL_ADMINS = gql`
+query admins {
+  admins {
+    _id
+    fullName
+    section
+    position
+    isAdmin
+  }
+}`
