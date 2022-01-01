@@ -8,26 +8,26 @@ import "./style.css";
 const Members = () => {
   const [admins, setAdmins] = useState([]);
   const [pageReady, setPageReady] = useState(false);
-  const { adminLoading, adminData } = useQuery(QUERY_ALL_ADMINS);
+  const { loading, data } = useQuery(QUERY_ALL_ADMINS);
 
-  const adminArr = adminData || [];
+  const adminArr = data?.admins || [];
+  console.log(adminArr);
 
   useEffect(() => {
     if (adminArr.length) {
-      console.log(adminArr);
       setAdmins(adminArr);
       setPageReady(true);
     }
   }, [adminArr])
 
-  if (adminLoading) {
+  if (loading) {
     return <h1>Loading....</h1>
   }
 
 
   return (
     <>
-      {pageReady === true &&
+      {/* {pageReady === true && */}
         <Container>
           <Row>
             <Col sm={2}>
@@ -99,7 +99,7 @@ const Members = () => {
             </Col>
           </Row>
         </Container>
-      }
+      {/* } */}
     </>
   )
 }

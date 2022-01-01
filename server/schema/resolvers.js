@@ -4,7 +4,7 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    me: async (_, args, context) => {
+    me: async (_, __, context) => {
       if (context.user) {
         const loggedInUser = await User.findOne({ _id: context.user._id }).select("-__v -password");
         return loggedInUser;
@@ -15,8 +15,7 @@ const resolvers = {
       return Concert.find({});
     },
     admins: async () => {
-      const admins = await User.find({ isAdmin: true });
-      return admins;
+      return await User.find({});
     }
   },
 
