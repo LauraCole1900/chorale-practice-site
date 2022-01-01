@@ -5,17 +5,14 @@ import "./style.css";
 
 const ConcertCard = ({ concert }) => {
   const formatDate = (dates) => {
-    for (const date of dates) {
-      const formattedDate = dayjs(date, "MM-DD-YYYY").format("dddd, MMM D, YYYY");
-      return formattedDate;
-    }
-    return dates.length > 1 ? dates.join(" & ") : dates[0].toString();
+    const formattedDate = dates.map(date => dayjs(date, "MM-DD-YYYY").format("dddd, MMM D, YYYY"));
+    return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
   }
 
   const dates = formatDate(concert.date);
   const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
   const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
-  
+
 
   return (
     <>
