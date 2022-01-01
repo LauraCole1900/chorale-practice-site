@@ -15,14 +15,19 @@
   font-weight: 700;
 }
 
-.concertCard {
+.concertCard,
+.tracksCard {
   width: 100%;
 }
 
-.concertTitle {
+.concertTitle,
+.tracksTitle {
   color: var(--gcWhite);
   background-color: var(--gcCharcoal);
   border-radius: 15px 15px 0 0 !important;
+}
+
+.concertTitle {
   height: 9rem;
   text-align: center;
   display: flex;
@@ -30,7 +35,8 @@
   align-items: center;
 }
 
-.concertBody {
+.concertBody,
+.tracksBody {
   color: var(--gcCharcoal);
   background-color: var(--lightSil);
   border-radius: 0 0 15px 15px;
