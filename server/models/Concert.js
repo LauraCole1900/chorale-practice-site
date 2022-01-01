@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const Song = require("./Song");
+const songSchema = require("./Song");
 
 const concertSchema = new Schema(
   {
@@ -20,7 +20,7 @@ const concertSchema = new Schema(
       type: [String],
       required: true
     },
-    songs: [Song]
+    songs: [songSchema]
   }
 );
 

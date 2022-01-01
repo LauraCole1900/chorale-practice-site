@@ -24,6 +24,7 @@ const Section = () => {
 
   useEffect(() => {
     if (concertArr.length) {
+      console.log({ concertArr })
       const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) < dayjs());
       console.log({ upcomingConcerts });
       const trueConcerts = upcomingConcerts.filter(concert => concert.songs?.length > 0);

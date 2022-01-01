@@ -47,7 +47,8 @@ query trueConcerts {
       videoUrl3
     }
   }
-}`
+}
+`;
 
 export const QUERY_ALL_ADMINS = gql`
 query admins {
@@ -58,4 +59,5 @@ query admins {
     position
     isAdmin
   }
-}`
+}
+`;
