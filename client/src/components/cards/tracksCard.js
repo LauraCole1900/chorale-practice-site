@@ -20,7 +20,7 @@ const TracksCard = ({ concert }) => {
         <p>{dates}</p>, {times}, at {venues}
       </Card.Header>
       <Card.Body className="cardBody">
-        <p>Practice track & video URLs go here</p>
+        <p>Cards for each selection, containing practice track & video URLs, go here</p>
       </Card.Body>
     </Card>
     </>
