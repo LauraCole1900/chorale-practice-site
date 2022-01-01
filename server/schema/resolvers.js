@@ -16,6 +16,7 @@ const resolvers = {
     },
     admins: async () => {
       const admins = await User.find({ isAdmin: true });
+      return admins;
     }
   },
 
