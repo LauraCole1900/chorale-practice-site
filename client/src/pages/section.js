@@ -37,7 +37,7 @@ const Section = () => {
             <Sidenav />
           </Col>
           <Col sm={10}>
-            <Card>
+            <Card className="announcements">
               <Card.Header className="cardTitle">
                 <h1>{capsSection} Section Leader Announcements</h1>
               </Card.Header>
