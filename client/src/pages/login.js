@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils";
+import Auth from "../utils/auth";
 import "./style.css";
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -18,8 +21,30 @@ const Login = () => {
   // Handles form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    try {
+      const { data } = await login({
+        variables: { ...userData },
+      });
+      console.log(data);
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.error(err);
+    }
+
+    // clear form values
+    setUserData({
+      email: "",
+      password: "",
+    });
     navigate("/members");
-  }
+  };
 
 
   return (
