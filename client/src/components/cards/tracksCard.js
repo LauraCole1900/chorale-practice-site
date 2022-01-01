@@ -12,17 +12,17 @@ const TracksCard = ({ concert }) => {
   const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
   const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
 
-  return(
+  return (
     <>
-    <Card className="tracksCard">
-      <Card.Header className="tracksTitle">
-        <h2>{concert.name}</h2>
-        <p>{dates}</p>, {times}, at {venues}
-      </Card.Header>
-      <Card.Body className="cardBody">
-        <p>Cards for each selection, containing practice track & video URLs, go here</p>
-      </Card.Body>
-    </Card>
+      <Card className="tracksCard">
+        <Card.Header className="tracksTitle">
+          <h2>{concert.name}</h2>
+          <p>{dates} | {times} | {venues}</p>
+        </Card.Header>
+        <Card.Body className="cardBody">
+          <p>Cards for each selection, containing practice track & video URLs, go here</p>
+        </Card.Body>
+      </Card>
     </>
   )
 }

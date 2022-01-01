@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
+import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_TRUE_CONCERTS } from "../utils/queries";
+import { QUERY_ALL_CONCERTS, QUERY_TRUE_CONCERTS } from "../utils/queries";
 import "./style.css"
 
 const Section = () => {
   const [songs, setSongs] = useState([]);
-  const { loading, data } = useQuery(QUERY_TRUE_CONCERTS);
+  const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
 
   const concertArr = data?.concerts || [];
   console.log(concertArr);
@@ -22,6 +23,10 @@ const Section = () => {
   // useEffect(() => {
   // useEffect will pull section leader announcements & practice tracks list
   // }, []);
+
+  if (loading) {
+    return <h1>Loading....</h1>
+  }
 
 
   return (
@@ -40,6 +45,10 @@ const Section = () => {
                 <p>Any {urlSection} section leader announcements will go here.</p>
               </Card.Body>
             </Card>
+            {concertArr.length &&
+              concertArr.map(concert => (
+                <TracksCard concert={concert} />
+              ))}
             <Card>
               <Card.Header className="cardTitle">
                 <h2>Title of First Song Goes Here</h2>
