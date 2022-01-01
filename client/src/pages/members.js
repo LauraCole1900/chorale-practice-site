@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_ADMINS } from "../utils";
+import { QUERY_ALL_ADMINS, QUERY_TRUE_CONCERTS } from "../utils";
 import "./style.css";
 
 const Members = () => {
   const [admins, setAdmins] = useState([]);
   const [pageReady, setPageReady] = useState(false);
-  const { loading, data } = useQuery(QUERY_ALL_ADMINS);
+  const { adminLoading, adminData } = useQuery(QUERY_ALL_ADMINS);
 
-  const adminArr = data?.admins || [];
+  const adminArr = adminData?.admins || [];
   console.log(adminArr);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Members = () => {
     }
   }, [adminArr])
 
-  if (loading) {
+  if (adminLoading) {
     return <h1>Loading....</h1>
   }
 

@@ -44,6 +44,7 @@ type Auth {
 type Query {
   me: User
   concerts: [Concert]
+  trueConcerts: [Concert]
   admins: [User]
 }
 

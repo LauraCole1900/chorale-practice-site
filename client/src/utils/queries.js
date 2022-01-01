@@ -25,6 +25,27 @@ export const QUERY_ALL_CONCERTS = gql`
   }
 `;
 
+export const QUERY_TRUE_CONCERTS = gql`
+query trueConcerts {
+  concerts {
+    _id
+    name
+    date
+    time
+    songs {
+      title
+      composer
+      practiceTrackUrlSop
+      practiceTrackUrlAlto
+      practiceTrackUrlTen
+      practiceTrackUrlBass
+      videoUrl1
+      videoUrl2
+      videoUrl3
+    }
+  }
+}`
+
 export const QUERY_ALL_ADMINS = gql`
 query admins {
   admins {

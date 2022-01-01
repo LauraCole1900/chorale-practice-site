@@ -14,6 +14,9 @@ const resolvers = {
     concerts: async () => {
       return Concert.find({});
     },
+    trueConcerts: async () => {
+      return Concert.find({ songs })
+    },
     admins: async () => {
       return await User.find({});
     }
