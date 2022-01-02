@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
-// import { TracksCard } from "../components/cards";
+import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_TRUE_CONCERTS } from "../utils/queries";
 import "./style.css"
 
 const Section = () => {
   // const [songs, setSongs] = useState([]);
-  // const [pageReady, setPageReady] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const { loading, data, error } = useQuery(QUERY_TRUE_CONCERTS);
 
-  const concertArr = data?.concerts || [];
+  const concertArr = data?.trueConcerts || [];
   console.log({ concertArr });
 
   // Determines which section-page user is on and pulls out the section name
@@ -26,14 +26,12 @@ const Section = () => {
   useEffect(() => {
     if (concertArr.length) {
       console.log({ concertArr })
-      const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) < dayjs());
+      const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) < dayjs());
       console.log({ upcomingConcerts });
-      const trueConcerts = upcomingConcerts.filter(concert => concert.songs?.length > 0);
-      console.log({ trueConcerts });
-      const sortedByTime = trueConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
+      const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);
-      // setPageReady(true);
+      setPageReady(true);
     }
   }, [concertArr])
 
@@ -48,7 +46,7 @@ const Section = () => {
 
   return (
     <>
-      {/* {pageReady && */}
+      {pageReady === true &&
         <Container>
           <Row>
             <Col sm={2}>
@@ -63,14 +61,14 @@ const Section = () => {
                   <p>Any {urlSection} section leader announcements will go here.</p>
                 </Card.Body>
               </Card>
-              {/* {sortedConcerts.length &&
+              {sortedConcerts.length &&
                 sortedConcerts.map(concert => (
-                  <TracksCard concert={concert} key={concert._id} />
-                ))} */}
+                  <TracksCard concert={concert} key={concert._id} section={urlSection} />
+                ))}
             </Col>
           </Row>
         </Container>
-      {/* } */}
+      }
     </>
   )
 }

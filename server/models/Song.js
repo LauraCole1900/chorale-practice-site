@@ -10,6 +10,9 @@ const songSchema = new Schema(
       type: [String],
       required: true
     },
+    concertOrder: {
+      type: Number
+    },
     publisher: {
       type: String
     },

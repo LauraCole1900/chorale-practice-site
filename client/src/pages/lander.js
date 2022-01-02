@@ -13,7 +13,7 @@ const Lander = () => {
   const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
-  const concerts = data?.concerts || [];
+  const concerts = data?.allConcerts || [];
   console.log({ concerts })
 
   const message = `=============================
@@ -28,7 +28,7 @@ const Lander = () => {
     console.log(`%c${message}`, style)
 
     if (concerts.length) {
-      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[0], "MM-DD-YYYY")) < dayjs());
+      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) < dayjs());
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);

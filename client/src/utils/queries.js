@@ -38,6 +38,7 @@ export const QUERY_TRUE_CONCERTS = gql`
       songs {
         title
         composer
+        concertOrder
         practiceTrackUrlSop
         practiceTrackUrlAlto
         practiceTrackUrlTen
@@ -55,6 +56,7 @@ query admins {
   admins {
     _id
     fullName
+    preferredName
     email
     phone
     section
