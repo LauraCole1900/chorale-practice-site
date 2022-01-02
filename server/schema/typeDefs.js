@@ -16,10 +16,10 @@ type Song {
   composer: [String!]
   publisher: String
   copyrightDate: String
-  practiceTrackUrlSop: String
-  practiceTrackUrlAlto: String
-  practiceTrackUrlTen: String
-  practiceTrackUrlBass: String
+  practiceTrackUrlSop: [String!]
+  practiceTrackUrlAlto: [String!]
+  practiceTrackUrlTen: [String!]
+  practiceTrackUrlBass: [String!]
   videoUrl1: String
   videoUrl2: String
   videoUrl3: String

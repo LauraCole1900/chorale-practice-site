@@ -20,16 +20,16 @@ const songSchema = new Schema(
       type: String
     },
     practiceTrackUrlSop: {
-      type: String
+      type: [String]
     },
     practiceTrackUrlAlto: {
-      type: String
+      type: [String]
     },
     practiceTrackUrlTen: {
-      type: String
+      type: [String]
     },
     practiceTrackUrlBass: {
-      type: String
+      type: [String]
     },
     videoUrl1: {
       type: String
