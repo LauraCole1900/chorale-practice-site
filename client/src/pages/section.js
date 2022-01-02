@@ -9,11 +9,12 @@ import "./style.css"
 
 const Section = () => {
   const [songs, setSongs] = useState([]);
+  const [pageReady, setPageReady] = useState(false);
   const [sortedConcerts, setSortedConcerts] = useState([]);
-  const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
+  const { loading, data, error } = useQuery(QUERY_TRUE_CONCERTS);
 
   const concertArr = data?.concerts || [];
-  console.log(concertArr);
+  console.log({ concertArr });
 
   // Determines which section-page user is on and pulls out the section name
   const urlArray = window.location.href.split("/")
@@ -32,7 +33,7 @@ const Section = () => {
       const sortedByTime = trueConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);
-      // setPageReady(true);
+      setPageReady(true);
     }
   }, [concertArr])
 
@@ -40,30 +41,36 @@ const Section = () => {
     return <h1>Loading....</h1>
   }
 
+  if (error) {
+    console.log(JSON.stringify(error))
+  }
+
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col sm={2}>
-            <Sidenav />
-          </Col>
-          <Col sm={10}>
-            <Card className="announcements">
-              <Card.Header className="cardTitle">
-                <h1>{capsSection} Section Leader Announcements</h1>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <p>Any {urlSection} section leader announcements will go here.</p>
-              </Card.Body>
-            </Card>
-            {concertArr.length &&
-              concertArr.map(concert => (
-                <TracksCard concert={concert} />
-              ))}
-          </Col>
-        </Row>
-      </Container>
+      {pageReady &&
+        <Container>
+          <Row>
+            <Col sm={2}>
+              <Sidenav />
+            </Col>
+            <Col sm={10}>
+              <Card className="announcements">
+                <Card.Header className="cardTitle">
+                  <h1>{capsSection} Section Leader Announcements</h1>
+                </Card.Header>
+                <Card.Body className="cardBody">
+                  <p>Any {urlSection} section leader announcements will go here.</p>
+                </Card.Body>
+              </Card>
+              {/* {sortedConcerts.length &&
+                sortedConcerts.map(concert => (
+                  <TracksCard concert={concert} key={concert._id} />
+                ))} */}
+            </Col>
+          </Row>
+        </Container>
+      }
     </>
   )
 }

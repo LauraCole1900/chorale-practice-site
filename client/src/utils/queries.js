@@ -13,7 +13,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_ALL_CONCERTS = gql`
-  query concerts{
+  query concerts {
     concerts {
       _id
       name
@@ -30,7 +30,7 @@ export const QUERY_ALL_CONCERTS = gql`
 
 export const QUERY_TRUE_CONCERTS = gql`
 query trueConcerts {
-  concerts {
+  trueConcerts {
     _id
     name
     date
@@ -55,6 +55,8 @@ query admins {
   admins {
     _id
     fullName
+    email
+    phone
     section
     position
     isAdmin

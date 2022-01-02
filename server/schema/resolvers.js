@@ -11,10 +11,10 @@ const resolvers = {
       throw new AuthenticationError("You must be logged in!");
     },
     concerts: async () => {
-      return Concert.find({});
+      return await Concert.find({});
     },
     trueConcerts: async () => {
-      return await Concert.find({ songs })
+      return await Concert.find({});
     },
     admins: async () => {
       return await User.find({});

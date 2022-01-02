@@ -8,7 +8,7 @@ type Concert {
   date: [String]!
   time: [String]!
   venue: [String]!
-  songs: [Song]
+  songs: [Song!]
 }
 
 type Song {
