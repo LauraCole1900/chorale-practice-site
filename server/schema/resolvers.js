@@ -6,8 +6,7 @@ const resolvers = {
   Query: {
     me: async (_, __, context) => {
       if (context.user) {
-        const loggedInUser = await User.findOne({ _id: context.user._id }).select("-__v -password");
-        return loggedInUser;
+        return await User.findOne({ _id: context.user._id }).select("-__v -password");
       }
       throw new AuthenticationError("You must be logged in!");
     },
@@ -15,7 +14,7 @@ const resolvers = {
       return Concert.find({});
     },
     trueConcerts: async () => {
-      return Concert.find({ songs })
+      return await Concert.find({ songs })
     },
     admins: async () => {
       return await User.find({});
