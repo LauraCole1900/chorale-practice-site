@@ -17,7 +17,7 @@ const resolvers = {
       return await Concert.find({});
     },
     admins: async () => {
-      return await User.find({});
+      return await User.find({ "isAdmin": true });
     }
   },
 

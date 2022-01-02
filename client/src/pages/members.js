@@ -65,39 +65,45 @@ const Members = () => {
             <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a>
             <br />
 
-            <h2 className="sideInfo">Staff</h2>
-            <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(administrator[0].fullName)}</a>
-            <p className="sideLinks">{administrator[0].phone}</p>
-            <br />
-            <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(director[0].fullName)}</a>
-            <p className="sideLinks">{director[0].phone}</p>
-            <br />
-            <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(social[0].fullName)}</a>
-            <p className="sideLinks">{social[0].phone}</p>
-            <br />
-            <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(marketing[0].fullName)}</a>
-            <p className="sideLinks">{marketing[0].phone}</p>
+            {adminArr.length
+              ? <>
+                <h2 className="sideInfo">Staff</h2>
+                <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(administrator[0].fullName)}</a>
+                <p className="sideLinks">{administrator[0].phone}</p>
+                <br />
+                <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(director[0].fullName)}</a>
+                <p className="sideLinks">{director[0].phone}</p>
+                <br />
+                <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(social[0].fullName)}</a>
+                <p className="sideLinks">{social[0].phone}</p>
+                <br />
+                <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(marketing[0].fullName)}</a>
+                <p className="sideLinks">{marketing[0].phone}</p>
 
-            <h2 className="sideInfo">Section Leaders</h2>
-            <p className="sideLinks">{soprano[0].fullName}, {capsCase(soprano[0].section)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(soprano[0].fullName)}</a>
-            <p className="sideLinks">{soprano[0].phone}</p>
-            <br />
-            <p className="sideLinks">{alto[0].fullName}, {capsCase(alto[0].section)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(alto[0].fullName)}</a>
-            <p className="sideLinks">{alto[0].phone}</p>
-            <br />
-            <p className="sideLinks">{tenor[0].fullName}, {capsCase(tenor[0].section)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(tenor[0].fullName)}</a>
-            <p className="sideLinks">{tenor[0].phone}</p>
-            <br />
-            <p className="sideLinks">{bass[0].fullName}, {capsCase(bass[0].section)}</p>
-            <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(bass[0].fullName)}</a>
-            <p className="sideLinks">{bass[0].phone}</p>
+                <h2 className="sideInfo">Section Leaders</h2>
+                <p className="sideLinks">{soprano[0].fullName}, {capsCase(soprano[0].section)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(soprano[0].fullName)}</a>
+                <p className="sideLinks">{soprano[0].phone}</p>
+                <br />
+                <p className="sideLinks">{alto[0].fullName}, {capsCase(alto[0].section)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(alto[0].fullName)}</a>
+                <p className="sideLinks">{alto[0].phone}</p>
+                <br />
+                <p className="sideLinks">{tenor[0].fullName}, {capsCase(tenor[0].section)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(tenor[0].fullName)}</a>
+                <p className="sideLinks">{tenor[0].phone}</p>
+                <br />
+                <p className="sideLinks">{bass[0].fullName}, {capsCase(bass[0].section)}</p>
+                <a href="mailto:placeholder@gmail.com" className="sideLinks">email {firstName(bass[0].fullName)}</a>
+                <p className="sideLinks">{bass[0].phone}</p>
+              </>
+              : <>
+              </>
+            }
           </Col>
           <Col sm={5}>
             <Card>
