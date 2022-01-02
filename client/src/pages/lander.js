@@ -14,6 +14,7 @@ const Lander = () => {
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
   const concerts = data?.concerts || [];
+  console.log({ concerts })
 
   const message = `=============================
 |     Looking for a job     |

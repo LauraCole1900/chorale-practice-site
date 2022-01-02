@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_ADMINS, QUERY_TRUE_CONCERTS } from "../utils";
+import { QUERY_ALL_ADMINS } from "../utils";
 import "./style.css";
 
 const Members = () => {
-  const [admins, setAdmins] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
+  // const [admins, setAdmins] = useState([]);
+  // const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_ADMINS);
 
   const capsCase = (str) => {
@@ -33,12 +33,12 @@ const Members = () => {
   const bass = adminArr.filter(admin => admin.position === "section leader" && admin.section === "bass");
 
 
-  useEffect(() => {
-    if (adminArr.length) {
-      setAdmins(adminArr);
-      setPageReady(true);
-    }
-  }, [adminArr])
+  // useEffect(() => {
+  //   if (adminArr.length) {
+  //     setAdmins(adminArr);
+  //     setPageReady(true);
+  //   }
+  // }, [adminArr])
 
   if (loading) {
     return <h1>Loading....</h1>
@@ -51,7 +51,6 @@ const Members = () => {
 
   return (
     <>
-      {/* {pageReady === true && */}
       <Container>
         <Row>
           <Col sm={2}>
@@ -129,7 +128,6 @@ const Members = () => {
           </Col>
         </Row>
       </Container>
-      {/* } */}
     </>
   )
 }

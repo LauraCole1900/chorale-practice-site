@@ -10,11 +10,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You must be logged in!");
     },
-    concerts: async () => {
+    allConcerts: async () => {
       return await Concert.find({});
     },
     trueConcerts: async () => {
-      return await Concert.find({});
+      return await Concert.find({ "songs": { $exists: true, $ne: [] } });
     },
     admins: async () => {
       return await User.find({ "isAdmin": true });

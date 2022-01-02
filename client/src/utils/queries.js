@@ -13,8 +13,8 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_ALL_CONCERTS = gql`
-  query concerts {
-    concerts {
+  query allConcerts {
+    allConcerts {
       _id
       name
       date
@@ -29,25 +29,25 @@ export const QUERY_ALL_CONCERTS = gql`
 `;
 
 export const QUERY_TRUE_CONCERTS = gql`
-query trueConcerts {
-  trueConcerts {
-    _id
-    name
-    date
-    time
-    songs {
-      title
-      composer
-      practiceTrackUrlSop
-      practiceTrackUrlAlto
-      practiceTrackUrlTen
-      practiceTrackUrlBass
-      videoUrl1
-      videoUrl2
-      videoUrl3
+  query trueConcerts {
+    trueConcerts {
+      _id
+      name
+      date
+      time
+      songs {
+        title
+        composer
+        practiceTrackUrlSop
+        practiceTrackUrlAlto
+        practiceTrackUrlTen
+        practiceTrackUrlBass
+        videoUrl1
+        videoUrl2
+        videoUrl3
+      }
     }
   }
-}
 `;
 
 export const QUERY_ALL_ADMINS = gql`

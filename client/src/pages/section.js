@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
-import { TracksCard } from "../components/cards";
+// import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_CONCERTS, QUERY_TRUE_CONCERTS } from "../utils/queries";
+import { QUERY_TRUE_CONCERTS } from "../utils/queries";
 import "./style.css"
 
 const Section = () => {
-  const [songs, setSongs] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
+  // const [songs, setSongs] = useState([]);
+  // const [pageReady, setPageReady] = useState(false);
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const { loading, data, error } = useQuery(QUERY_TRUE_CONCERTS);
 
@@ -33,7 +33,7 @@ const Section = () => {
       const sortedByTime = trueConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);
-      setPageReady(true);
+      // setPageReady(true);
     }
   }, [concertArr])
 
@@ -42,13 +42,13 @@ const Section = () => {
   }
 
   if (error) {
-    console.log(JSON.stringify(error))
+    console.log(JSON.stringify(error));
   }
 
 
   return (
     <>
-      {pageReady &&
+      {/* {pageReady && */}
         <Container>
           <Row>
             <Col sm={2}>
@@ -70,7 +70,7 @@ const Section = () => {
             </Col>
           </Row>
         </Container>
-      }
+      {/* } */}
     </>
   )
 }
