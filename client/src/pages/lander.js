@@ -11,7 +11,7 @@ import "./style.css";
 const Lander = () => {
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [pageReady, setPageReady] = useState(false);
-  const { loading, data } = useQuery(QUERY_ALL_CONCERTS);
+  const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
   const concerts = data?.concerts || [];
 
@@ -37,6 +37,10 @@ const Lander = () => {
 
   if (loading) {
     return <h1>Loading....</h1>
+  }
+
+  if (error) {
+    console.log(JSON.stringify(error));
   }
 
 

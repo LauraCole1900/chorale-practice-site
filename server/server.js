@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
@@ -17,6 +18,9 @@ async function startApolloServer(resolvers, typeDefs) {
     typeDefs,
     resolvers,
     context: authMiddleware,
+    apollo: {
+      key: process.env.APOLLO_KEY
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
   });
 

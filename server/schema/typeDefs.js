@@ -13,7 +13,7 @@ type Concert {
 
 type Song {
   title: String!
-  composer: String!
+  composer: [String!]
   publisher: String
   copyrightDate: String
   practiceTrackUrlSop: String

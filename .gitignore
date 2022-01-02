@@ -106,3 +106,5 @@ dist
 #misc
 .DS_Store
 notes.txt
+graphql.config.json
+graphql.config.js
