@@ -16,43 +16,43 @@ const SongCard = ({ section, song }) => {
         <Card.Body className="songBody">
           {section === "soprano" && (song.practiceTrackUrlsSop.length
             ? <>
-              {song.practiceTrackUrlsSop.map(track => (
-                <p>{track}</p>))}
+              {song.practiceTrackUrlsSop.map((track, i)=> (
+                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
             </>
             : <>
-              <p>No practice tracks available at this time</p>
+              <p>No practice tracks found</p>
             </>)}
           {section === "alto" && (song.practiceTrackUrlsAlto.length
             ? <>
-              {song.practiceTrackUrlsAlto.map(track => (
-                <p>{track}</p>))}
+              {song.practiceTrackUrlsAlto.map((track, i) => (
+                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
             </>
             : <>
-              <p>No practice tracks available at this time</p>
+              <p>No practice tracks found</p>
             </>)}
           {section === "tenor" && (song.practiceTrackUrlsTen.length
             ? <>
-              {song.practiceTrackUrlsTen.map(track => (
-                <p>{track}</p>))}
+              {song.practiceTrackUrlsTen.map((track, i) => (
+                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
             </>
             : <>
-              <p>No practice tracks available at this time</p>
+              <p>No practice tracks found</p>
             </>)}
           {section === "bass" && (song.practiceTrackUrlsBass.length
             ? <>
-              {song.practiceTrackUrlsSop.map(track => (
-                <p>{track}</p>))}
+              {song.practiceTrackUrlsSop.map((track, i) => (
+                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
             </>
             : <>
-              <p>No practice tracks available at this time</p>
+              <p>No practice tracks found</p>
             </>)}
           {song.videoUrls.length
             ? <>
-              {song.videoUrls.map(video => (
-                <p>{video}</p>))}
+              {song.videoUrls.map((video, i) => (
+                <p><a href={video} key={i}>Video {i + 1}</a></p>))}
             </>
             : <>
-              <p>No video links available at this time</p>
+              <p>No video links found</p>
             </>}
         </Card.Body>
       </Card>

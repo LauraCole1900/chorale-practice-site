@@ -10,6 +10,16 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+a {
+  color: var(--gcRed);
+}
+a:visited {
+  color: var(--gcGray);
+}
+a:hover {
+  color: var(--gcCharcoal);
+}
+
 .bold {
   color: var(--gcRed);
   font-weight: 700;
