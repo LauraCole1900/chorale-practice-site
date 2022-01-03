@@ -2,7 +2,6 @@ import { Card } from "react-bootstrap";
 import "./style.css"
 
 const SongCard = ({ section, song }) => {
-  console.log({ song })
   const composers = song.composer.length > 1 ? song.composer.join(" & ") : song.composer[0].toString();
 
 
@@ -17,7 +16,7 @@ const SongCard = ({ section, song }) => {
           {section === "soprano" && (song.practiceTrackUrlsSop.length
             ? <>
               {song.practiceTrackUrlsSop.map((track, i)=> (
-                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
+                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No practice tracks found</p>
@@ -25,7 +24,7 @@ const SongCard = ({ section, song }) => {
           {section === "alto" && (song.practiceTrackUrlsAlto.length
             ? <>
               {song.practiceTrackUrlsAlto.map((track, i) => (
-                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
+                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No practice tracks found</p>
@@ -33,7 +32,7 @@ const SongCard = ({ section, song }) => {
           {section === "tenor" && (song.practiceTrackUrlsTen.length
             ? <>
               {song.practiceTrackUrlsTen.map((track, i) => (
-                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
+                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No practice tracks found</p>
@@ -41,7 +40,7 @@ const SongCard = ({ section, song }) => {
           {section === "bass" && (song.practiceTrackUrlsBass.length
             ? <>
               {song.practiceTrackUrlsSop.map((track, i) => (
-                <p><a href={track} key={i}>Practice track {i + 1}</a></p>))}
+                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No practice tracks found</p>
@@ -49,7 +48,7 @@ const SongCard = ({ section, song }) => {
           {song.videoUrls.length
             ? <>
               {song.videoUrls.map((video, i) => (
-                <p><a href={video} key={i}>Video {i + 1}</a></p>))}
+                <p key={i}><a href={video} target="_blank" rel="noreferrer noopener">Video {i + 1}</a></p>))}
             </>
             : <>
               <p>No video links found</p>
