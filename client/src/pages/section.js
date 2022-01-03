@@ -14,7 +14,6 @@ const Section = () => {
   const { loading, data, error } = useQuery(QUERY_TRUE_CONCERTS);
 
   const concertArr = data?.trueConcerts || [];
-  console.log({ concertArr });
 
   // Determines which section-page user is on and pulls out the section name
   const urlArray = window.location.href.split("/")
@@ -25,9 +24,7 @@ const Section = () => {
 
   useEffect(() => {
     if (concertArr.length) {
-      console.log({ concertArr })
       const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
-      console.log({ upcomingConcerts });
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);

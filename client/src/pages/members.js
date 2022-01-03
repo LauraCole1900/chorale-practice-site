@@ -18,7 +18,7 @@ const Members = () => {
   }
 
   const adminArr = data?.admins || [];
-  console.log({ adminArr })
+
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
   const social = adminArr.filter(admin => admin.position === "social media");
@@ -101,7 +101,7 @@ const Members = () => {
             }
           </Col>
           <Col sm={5}>
-            <Card>
+            <Card className="membersCard">
               <Card.Header className="cardTitle">
                 <h2>Singer's Notes</h2>
                 <p>Date will go here</p>
@@ -112,7 +112,7 @@ const Members = () => {
             </Card>
           </Col>
           <Col sm={5}>
-            <Card>
+            <Card className="membersCard">
               <Card.Header className="cardTitle">
                 <h2>Director's Corner</h2>
                 <p>Date will go here</p>

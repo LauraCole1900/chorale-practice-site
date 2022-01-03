@@ -26,11 +26,13 @@
   padding-right: 1rem;
 }
 
-.navBtn {
+.navBtn,
+.navBtn:focus {
   color: var(--gcWhite);
   background-color: var(--gcRed);
   margin: 0.5rem;
   border: 1px solid var(--gcWhite);
+  box-shadow: none;
 }
 .navBtn:hover {
   color: var(--gcRed);
