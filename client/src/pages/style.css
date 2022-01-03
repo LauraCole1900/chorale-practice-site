@@ -20,6 +20,12 @@ a.sideLinks:hover {
   font-size: 18px;
 }
 
+.card {
+  margin: 1rem;
+  border-radius: 15px;
+  box-shadow: 10px 10px 10px 5px var(--gcCharcoal);
+}
+
 .cardTitle {
   color: var(--gcWhite);
   background-color: var(--gcRed);
@@ -65,10 +71,7 @@ a.sideLinks:hover {
 }
 
 .membersCard {
-  margin: 1rem;
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 10px 10px 10px 5px var(--gcCharcoal);
 }
 
 .red {
