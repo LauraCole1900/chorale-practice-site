@@ -14,7 +14,6 @@ const Lander = () => {
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
   const concerts = data?.allConcerts || [];
-  console.log({ concerts })
 
   const message = `=============================
 |     Looking for a job     |
@@ -28,12 +27,12 @@ const Lander = () => {
     console.log(`%c${message}`, style)
 
     if (concerts.length) {
-      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) < dayjs());
+      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);
-      setPageReady(true);
     }
+    setPageReady(true);
   }, [concerts, message])
 
   if (loading) {
@@ -54,12 +53,17 @@ const Lander = () => {
           </Card.Header>
           <Card.Body className="cardBody">
             <Row>
-              {sortedConcerts.length > 0 &&
-                sortedConcerts.map(concert => (
-                  <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
-                    <ConcertCard concert={concert} />
-                  </Col>
-                ))}
+              {sortedConcerts.length > 0
+                ? <>
+                  {sortedConcerts.map(concert => (
+                    <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
+                      <ConcertCard concert={concert} />
+                    </Col>
+                  ))}
+                </>
+                : <>
+                  <h3>No upcoming events found</h3>
+                </>}
             </Row>
           </Card.Body>
         </Card>

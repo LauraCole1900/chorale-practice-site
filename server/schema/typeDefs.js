@@ -28,6 +28,7 @@ type Song {
 type User {
   _id: ID!
   fullName: String!
+  preferredName: String!
   email: String!
   phone: String
   password: String!
