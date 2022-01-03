@@ -14,26 +14,23 @@ const SongCard = ({ section, song }) => {
         </Card.Header>
         <Card.Body className="songBody">
           {section === "soprano" && song.practiceTrackUrlSop &&
-            song.practiceTrackUrlSop.map(track => (
+            song.practiceTrackUrlsSop.map(track => (
               <p>{track}</p>))}
           {section === "alto" && song.practiceTrackUrlAlto &&
-            song.practiceTrackUrlAlto.map(track => (
+            song.practiceTrackUrlsAlto.map(track => (
               <p>{track}</p>))}
           {section === "tenor" && song.practiceTrackUrlTen &&
-            song.practiceTrackUrlTen.map(track => (
+            song.practiceTrackUrlsTen.map(track => (
               <p>{track}</p>))}
           {section === "bass" && song.practiceTrackUrlBass &&
-            song.practiceTrackUrlBass.map(track => (
+            song.practiceTrackUrlsBass.map(track => (
               <p>{track}</p>))}
           {!song.practiceTrackUrlSop && !song.practiceTrackUrlAlto && !song.practiceTrackUrlTen && !song.practiceTrackUrlBass &&
             <p>No practice tracks available at this time</p>}
-          {song.videoUrl1 &&
-            <p>{song.videoUrl1}</p>}
-          {song.videoUrl2 &&
-            <p>{song.videoUrl2}</p>}
-          {song.videoUrl3 &&
-            <p>{song.videoUrl3}</p>}
-          {!song.videoUrl1 && !song.videoUrl2 && !song.videoUrl3 &&
+          {song.videoUrls &&
+            song.videoUrls.map(video => (
+            <p>{video}</p>))}
+          {!song.videoUrls &&
             <p>No video links available at this time</p>}
         </Card.Body>
       </Card>

@@ -41,6 +41,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Seed directories
+seeds/
+
 # TypeScript v1 declaration files
 typings/
 
@@ -71,6 +74,10 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+
+# graphQL config files
+graphql.config.json
+graphql.config.js
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -106,5 +113,3 @@ dist
 #misc
 .DS_Store
 notes.txt
-graphql.config.json
-graphql.config.js

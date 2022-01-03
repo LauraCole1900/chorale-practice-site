@@ -20,6 +20,9 @@ const concertSchema = new Schema(
       type: [String],
       required: true
     },
+    addlMaterials: {
+      type: [String]
+    },
     songs: [songSchema]
   }
 );
