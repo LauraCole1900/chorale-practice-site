@@ -1,3 +1,5 @@
+// All events come under the Concert model, because calling them 'events' in JavaScript seemed like a bad idea
+
 const { Schema, model } = require("mongoose");
 
 const songSchema = require("./Song");
