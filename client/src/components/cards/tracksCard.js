@@ -4,7 +4,7 @@ import SongCard from "./songCard"
 import "./style.css";
 
 const TracksCard = ({ concert, section }) => {
-  let songs;
+  let sortedSongs = concert.songs;
   const formatDate = (dates) => {
     const formattedDate = dates.map(date => dayjs(date, "MM-DD-YYYY").format("dddd, MMM D, YYYY"));
     return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
@@ -13,7 +13,7 @@ const TracksCard = ({ concert, section }) => {
   const dates = formatDate(concert.date);
   const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
   if (concert.songs.concertOrder) {
-    songs = concert.songs.sort((a,b) => a.concertOrder > b.concertOrder);
+    sortedSongs = concert.songs.sort((a,b) => a.concertOrder > b.concertOrder);
   }
 
   return (
@@ -24,10 +24,9 @@ const TracksCard = ({ concert, section }) => {
           <p>{dates} | {times}</p>
         </Card.Header>
         <Card.Body className="cardBody">
-          {songs.map(song => (
-            <SongCard section={section} song={song} />
+          {sortedSongs.map((song, i) => (
+            <SongCard section={section} song={song} key={i} />
           ))}
-          <p>Cards for each selection, containing practice track & video URLs, go here</p>
         </Card.Body>
       </Card>
     </>

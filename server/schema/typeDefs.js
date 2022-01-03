@@ -14,15 +14,14 @@ type Concert {
 type Song {
   title: String!
   composer: [String!]
+  concertOrder: Int
   publisher: String
   copyrightDate: String
-  practiceTrackUrlSop: [String!]
-  practiceTrackUrlAlto: [String!]
-  practiceTrackUrlTen: [String!]
-  practiceTrackUrlBass: [String!]
-  videoUrl1: String
-  videoUrl2: String
-  videoUrl3: String
+  practiceTrackUrlsSop: [String!]
+  practiceTrackUrlsAlto: [String!]
+  practiceTrackUrlsTen: [String!]
+  practiceTrackUrlsBass: [String!]
+  videoUrls: [String]
 }
 
 type User {

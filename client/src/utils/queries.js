@@ -39,13 +39,11 @@ export const QUERY_TRUE_CONCERTS = gql`
         title
         composer
         concertOrder
-        practiceTrackUrlSop
-        practiceTrackUrlAlto
-        practiceTrackUrlTen
-        practiceTrackUrlBass
-        videoUrl1
-        videoUrl2
-        videoUrl3
+        practiceTrackUrlsSop
+        practiceTrackUrlsAlto
+        practiceTrackUrlsTen
+        practiceTrackUrlsBass
+        videoUrls
       }
     }
   }
