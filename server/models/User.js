@@ -27,6 +27,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    subsection: {
+      type: String,
+      required: true
+    },
     position: {
       type: String,
       default: "singer"
