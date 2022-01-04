@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "./react-bootstrap";
+import { Button, Col, Container, Form, Row } from "./react-bootstrap";
 import { concertValidate } from "../../utils/validation";
 import "./style.css";
 
@@ -20,6 +20,35 @@ const ConcertForm = () => {
     if (["date", "time", "venue", "addlMaterials"].includes(name)) {
       let data = value.split(",").trim();
       setConcertData({ ...concertData, [name]: data });
+    }
+  };
+
+  // Handles click on "Submit" button
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log({concertData})
+    // Validates required inputs
+    const validationErrors = concertValidate(concertData);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Concert submit", concertData)
+      // POST call to create concert document
+      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
+      //   .then(resp => {
+      //     // If no errors thrown, show Success modal
+      //     if (!resp.err) {
+      //       handleShowSuccess();
+      //     }
+      //   })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        // .catch(err => {
+        //   console.log(err)
+        //   setErrThrown(err.message);
+        //   handleShowErr();
+        // })
+    } else {
+      console.log({ validationErrors });
     }
   };
 
@@ -80,6 +109,21 @@ const ConcertForm = () => {
               <Form.Control type="input" name="addlMaterials" placeholder="http://linktolyricsheetetc.com" value={concertData.addlMaterials} className="formInput" onChange={handleInputChange} />
             </Col>
           </Form.Group>
+
+          {Object.keys(errors).length !== 0 &&
+            <Row>
+              <Col sm={12}>
+                <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+              </Col>
+            </Row>}
+
+          <Row>
+            <Col sm={4}>
+              <p>Add repertoire?</p>
+              <Button data-toggle="popover" title="SubmitAddSongs" className="button" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
+              <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">No, just submit</Button>
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>
