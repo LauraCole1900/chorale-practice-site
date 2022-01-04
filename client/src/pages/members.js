@@ -10,11 +10,16 @@ const Members = () => {
   // const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_ADMINS);
 
-  const capsCase = (str) => {
-    const wordsArr = str.split(" ");
-    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
-    const casedStr = capsArr.join(" ");
-    return casedStr;
+  // const capsCase = (str) => {
+  //   const wordsArr = str.split(" ");
+  //   const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
+  //   const casedStr = capsArr.join(" ");
+  //   return casedStr;
+  // }
+
+  const getSect = (str) => {
+    const posArr = str.split(" ");
+    return posArr[0];
   }
 
   const adminArr = data?.admins || [];
@@ -23,10 +28,10 @@ const Members = () => {
   const director = adminArr.filter(admin => admin.position === "music director");
   const social = adminArr.filter(admin => admin.position === "social media");
   const marketing = adminArr.filter(admin => admin.position === "marketing director");
-  const soprano = adminArr.filter(admin => admin.position === "section leader" && admin.section === "soprano");
-  const alto = adminArr.filter(admin => admin.position === "section leader" && admin.section === "alto");
-  const tenor = adminArr.filter(admin => admin.position === "section leader" && admin.section === "tenor");
-  const bass = adminArr.filter(admin => admin.position === "section leader" && admin.section === "bass");
+  const soprano = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Soprano");
+  const alto = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Alto");
+  const tenor = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Tenor");
+  const bass = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Bass");
 
 
   // useEffect(() => {
@@ -64,36 +69,36 @@ const Members = () => {
             {adminArr.length
               ? <>
                 <h2 className="sideInfo">Staff</h2>
-                <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                <p className="sideLinks">{administrator[0].fullName}, {administrator[0].position}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {administrator[0].preferredName}</a>
                 <p className="sideLinks">{administrator[0].phone}</p>
                 <br />
-                <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                <p className="sideLinks">{director[0].fullName}, {director[0].position}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {director[0].preferredName}</a>
                 <p className="sideLinks">{director[0].phone}</p>
                 <br />
-                <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                <p className="sideLinks">{social[0].fullName}, {social[0].position}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {social[0].preferredName}</a>
                 <p className="sideLinks">{social[0].phone}</p>
                 <br />
-                <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
+                <p className="sideLinks">{marketing[0].fullName}, {marketing[0].position}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {marketing[0].preferredName}</a>
                 <p className="sideLinks">{marketing[0].phone}</p>
 
                 <h2 className="sideInfo">Section Leaders</h2>
-                <p className="sideLinks">{soprano[0].fullName}, {capsCase(soprano[0].section)}</p>
+                <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {soprano[0].preferredName}</a>
                 <p className="sideLinks">{soprano[0].phone}</p>
                 <br />
-                <p className="sideLinks">{alto[0].fullName}, {capsCase(alto[0].section)}</p>
+                <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {alto[0].preferredName}</a>
                 <p className="sideLinks">{alto[0].phone}</p>
                 <br />
-                <p className="sideLinks">{tenor[0].fullName}, {capsCase(tenor[0].section)}</p>
+                <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {tenor[0].preferredName}</a>
                 <p className="sideLinks">{tenor[0].phone}</p>
                 <br />
-                <p className="sideLinks">{bass[0].fullName}, {capsCase(bass[0].section)}</p>
+                <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {bass[0].preferredName}</a>
                 <p className="sideLinks">{bass[0].phone}</p>
               </>
