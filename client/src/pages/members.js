@@ -71,36 +71,36 @@ const Members = () => {
                 <h2 className="sideInfo">Staff</h2>
                 <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {administrator[0].preferredName}</a>
-                <p className="sideLinks">{administrator[0].phone}</p>
+                <p className="sideLinks">{administrator[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {director[0].preferredName}</a>
-                <p className="sideLinks">{director[0].phone}</p>
+                <p className="sideLinks">{director[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {social[0].preferredName}</a>
-                <p className="sideLinks">{social[0].phone}</p>
+                <p className="sideLinks">{social[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {marketing[0].preferredName}</a>
-                <p className="sideLinks">{marketing[0].phone}</p>
+                <p className="sideLinks">{marketing[0].phone1}</p>
 
                 <h2 className="sideInfo">Section Leaders</h2>
                 <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {soprano[0].preferredName}</a>
-                <p className="sideLinks">{soprano[0].phone}</p>
+                <p className="sideLinks">{soprano[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {alto[0].preferredName}</a>
-                <p className="sideLinks">{alto[0].phone}</p>
+                <p className="sideLinks">{alto[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {tenor[0].preferredName}</a>
-                <p className="sideLinks">{tenor[0].phone}</p>
+                <p className="sideLinks">{tenor[0].phone1}</p>
                 <br />
                 <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {bass[0].preferredName}</a>
-                <p className="sideLinks">{bass[0].phone}</p>
+                <p className="sideLinks">{bass[0].phone1}</p>
               </>
               : <>
               </>
