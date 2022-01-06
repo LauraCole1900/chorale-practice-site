@@ -50,7 +50,9 @@ type Query {
 
 type Mutation {
   login(email: String! password: String!): Auth
-  addUser(fullName: String!, email: String!, phone: String, password: String!, section: String!, position: String!, isAdmin: Boolean!): Auth
+  addUser(fullName: String!, preferredName: String!, email: String!, phone: String, password: String!, section: String!, position: String!, isAdmin: Boolean!, isActive: Boolean!): User
+  editUserAdmin(fullName: String!, preferredName: String!, email: String!, password: String!, phone: String, section: String!, position: String! isAdmin: Boolean!, isActive: Boolean!): User
+  editUserSelf(fullName: String!, preferredName: String!, email: String!, password: String!, phone: String): Auth
 }
 `
 
