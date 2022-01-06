@@ -13,13 +13,23 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($fullName: String!, $preferredName: String!, $email: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $password: String!, $section: String!, $position: String!, $streetAddress: String, $city: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {
-    addUser(fullName: $fullName, preferredName: $preferredName, email: $email, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, password: $password, section: $section, position: $position, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
+  mutation addUser($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $email1: String!, $email2: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $section: String!, $position: String!, $streetAddress: String, $city: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {
+    addUser(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, email1: $email1, email2: $email2, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, password: $password, section: $section, position: $position, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
       _id
       fullName
+      firstName
+      lastName
       preferredName
-      email
-      phone
+      birthday
+      email1
+      email2
+      password
+      phone1
+      phone1Type
+      phone2
+      phone2Type
+      phone3
+      phone3Type
       section
       position
       streetAddress
@@ -33,14 +43,20 @@ export const ADD_USER = gql`
 `;
 
 export const EDIT_USER_SELF = gql`
-mutation editUserSelf($fullName: String!, $preferredName: String!, $email: String!, $phone: String, $password: String!) {
-  editUserSelf(fullName: $fullName, preferredName: $preferredName, email: $email, phone: $phone, password: $password) {
+mutation editUserSelf($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $streetAddress: String, $city: String, $state: String, $zipCode: String) {
+  editUserSelf(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode) {
     user {
       _id
       fullName
       preferredName
-      phone
       password
+      phone1
+      phone2
+      phone3
+      streetAddress
+      city
+      state
+      zipCode
     }
   }
 }`

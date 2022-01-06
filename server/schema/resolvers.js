@@ -35,18 +35,18 @@ const resolvers = {
   Mutation: {
     addUser: async (_, args) => {
       const user = await User.create(args);
-      return { user };
+      return user;
     },
 
     editUserAdmin: async (_, args) => {
       const user = await User.findOneAndUpdate(args);
-      return { user }
+      return user;
     },
 
     editUserSelf: async (_, args) => {
       const user = await User.findOneAndUpdate(args);
       const token = signToken(user);
-      return { token, user }
+      return { token, user };
     },
 
     login: async (_, { email, password }) => {

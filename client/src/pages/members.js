@@ -10,12 +10,12 @@ const Members = () => {
   // const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_ADMINS);
 
-  // const capsCase = (str) => {
-  //   const wordsArr = str.split(" ");
-  //   const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
-  //   const casedStr = capsArr.join(" ");
-  //   return casedStr;
-  // }
+  const capsCase = (str) => {
+    const wordsArr = str.split(" ");
+    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
+    const casedStr = capsArr.join(" ");
+    return casedStr;
+  }
 
   const getSect = (str) => {
     const posArr = str.split(" ");
@@ -24,14 +24,14 @@ const Members = () => {
 
   const adminArr = data?.admins || [];
 
-  const administrator = adminArr.filter(admin => admin.position === "Administrator");
-  const director = adminArr.filter(admin => admin.position === "Music Director");
-  const social = adminArr.filter(admin => admin.position === "Social Media");
-  const marketing = adminArr.filter(admin => admin.position === "Marketing Director");
-  const soprano = adminArr.filter(admin => admin.position === "Section Leader" && getSect(admin.section) === "Soprano");
-  const alto = adminArr.filter(admin => admin.position === "Section Leader" && getSect(admin.section) === "Alto");
-  const tenor = adminArr.filter(admin => admin.position === "Section Leader" && getSect(admin.section) === "Tenor");
-  const bass = adminArr.filter(admin => admin.position === "Section Leader" && getSect(admin.section) === "Bass");
+  const administrator = adminArr.filter(admin => admin.position === "administrator");
+  const director = adminArr.filter(admin => admin.position === "music director");
+  const social = adminArr.filter(admin => admin.position === "social media");
+  const marketing = adminArr.filter(admin => admin.position === "marketing director");
+  const soprano = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Soprano");
+  const alto = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Alto");
+  const tenor = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Tenor");
+  const bass = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Bass");
 
 
   // useEffect(() => {
@@ -69,19 +69,19 @@ const Members = () => {
             {adminArr.length
               ? <>
                 <h2 className="sideInfo">Staff</h2>
-                <p className="sideLinks">{administrator[0].fullName}, {administrator[0].position}</p>
+                <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {administrator[0].preferredName}</a>
                 <p className="sideLinks">{administrator[0].phone}</p>
                 <br />
-                <p className="sideLinks">{director[0].fullName}, {director[0].position}</p>
+                <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {director[0].preferredName}</a>
                 <p className="sideLinks">{director[0].phone}</p>
                 <br />
-                <p className="sideLinks">{social[0].fullName}, {social[0].position}</p>
+                <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {social[0].preferredName}</a>
                 <p className="sideLinks">{social[0].phone}</p>
                 <br />
-                <p className="sideLinks">{marketing[0].fullName}, {marketing[0].position}</p>
+                <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
                 <a href="mailto:placeholder@gmail.com" className="sideLinks">email {marketing[0].preferredName}</a>
                 <p className="sideLinks">{marketing[0].phone}</p>
 

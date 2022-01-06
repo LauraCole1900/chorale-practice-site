@@ -19,8 +19,8 @@ query admins {
     _id
     fullName
     preferredName
-    email
-    phone
+    email1
+    phone1
     section
     position
     isAdmin
@@ -48,11 +48,24 @@ export const QUERY_ALL_USERS = gql`
 query allUsers {
   allUsers {
     fullName
+    firstName
+    lastName
     preferredName
-    email
-    phone
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
     section
     position
+    streetAddress
+    city
+    state
+    zipCode
     isAdmin
     isActive
   }
@@ -64,8 +77,8 @@ query oneUser($email: String!) {
     _id
     fullName
     preferredName
-    email
-    phone
+    email1
+    phone1
     password
     section
     position
