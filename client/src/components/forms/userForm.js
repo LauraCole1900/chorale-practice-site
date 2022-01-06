@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "./react-bootstrap";
+import { useMutation, useQuery } from "@apollo/client";
 import { userValidate } from "../../utils/validation";
-import { EDIT_USER_SELF } from "../../utils"
+import { EDIT_USER_SELF, QUERY_ONE_USER } from "../../utils"
 import "./style.css";
 
 const UserForm = () => {

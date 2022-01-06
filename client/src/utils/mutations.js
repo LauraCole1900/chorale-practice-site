@@ -13,19 +13,21 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($fullName: String!, $preferredName: String!, $email: String!, $phone: String, $password: String!, $section: String!, $position: String!, $isAdmin: Boolean!, $isActive: Boolean!) {
-    addUser(fullName: $fullName, email: $email, phone: $phone, password: $password, section: $section, position: $position, isAdmin: $isAdmin, isActive: $isActive) {
-      token
-      user {
-        _id
-        fullName
-        preferredName
-        email
-        section
-        position
-        isAdmin
-        isActive
-      }
+  mutation addUser($fullName: String!, $preferredName: String!, $email: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $password: String!, $section: String!, $position: String!, $streetAddress: String, $city: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {
+    addUser(fullName: $fullName, preferredName: $preferredName, email: $email, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, password: $password, section: $section, position: $position, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
+      _id
+      fullName
+      preferredName
+      email
+      phone
+      section
+      position
+      streetAddress
+      city
+      state
+      zipCode
+      isAdmin
+      isActive
     }
   }
 `;

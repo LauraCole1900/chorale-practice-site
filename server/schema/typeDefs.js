@@ -29,10 +29,19 @@ type User {
   fullName: String!
   preferredName: String!
   email: String!
-  phone: String
   password: String!
+  phone1: String
+  phone1Type: String
+  phone2: String
+  phone2Type: String
+  phone3: String
+  phone3Type: String
   section: String!
   position: String!
+  streetAddress: String
+  city: String
+  state: String
+  zipCode: String
   isAdmin: Boolean!
   isActive: Boolean!
 }
@@ -53,9 +62,12 @@ type Query {
 
 type Mutation {
   login(email: String! password: String!): Auth
-  addUser(fullName: String!, preferredName: String!, email: String!, phone: String, password: String!, section: String!, position: String!, isAdmin: Boolean!, isActive: Boolean!): User
-  editUserAdmin(fullName: String!, preferredName: String!, email: String!, password: String!, phone: String, section: String!, position: String! isAdmin: Boolean!, isActive: Boolean!): User
-  editUserSelf(fullName: String!, preferredName: String!, email: String!, password: String!, phone: String): Auth
+
+  addUser(fullName: String!, preferredName: String!, email: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, password: String!, section: String!, position: String!, isAdmin: Boolean!, isActive: Boolean!): User
+
+  editUserAdmin(fullName: String!, preferredName: String!, email: String!, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String! isAdmin: Boolean!, isActive: Boolean!): User
+
+  editUserSelf(fullName: String!, preferredName: String!, email: String!, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, ): Auth
 }
 `
 

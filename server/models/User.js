@@ -7,21 +7,50 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
     preferredName: {
       type: String,
       required: true
     },
-    email: {
+    birthday: {
+      type: String
+    },
+    email1: {
       type: String,
       required: true,
       unique: true
     },
-    phone: {
+    email2: {
       type: String
     },
     password: {
       type: String,
       required: true
+    },
+    phone1: {
+      type: String
+    },
+    phone1Type: {
+      type: String
+    },
+    phone2: {
+      type: String
+    },
+    phone2Type: {
+      type: String
+    },
+    phone3: {
+      type: String
+    },
+    phone3Type: {
+      type: String
     },
     section: {
       type: String,
@@ -30,6 +59,18 @@ const userSchema = new Schema(
     position: {
       type: String,
       default: "singer"
+    },
+    streetAddress: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    zipCode: {
+      type: String
     },
     isAdmin: {
       type: Boolean,
