@@ -13,6 +13,21 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_ALL_ADMINS = gql`
+query admins {
+  admins {
+    _id
+    fullName
+    preferredName
+    email
+    phone
+    section
+    position
+    isAdmin
+  }
+}
+`;
+
 export const QUERY_ALL_CONCERTS = gql`
   query allConcerts {
     allConcerts {
@@ -28,6 +43,22 @@ export const QUERY_ALL_CONCERTS = gql`
     }
   }
 `;
+
+export const QUERY_ONE_USER = gql`
+query oneUser($email: String!) {
+  oneUser(email: $email) {
+    _id
+    fullName
+    preferredName
+    email
+    phone
+    password
+    section
+    position
+    isAdmin
+    isActive
+  }
+}`
 
 export const QUERY_TRUE_CONCERTS = gql`
   query trueConcerts {
@@ -48,19 +79,4 @@ export const QUERY_TRUE_CONCERTS = gql`
       }
     }
   }
-`;
-
-export const QUERY_ALL_ADMINS = gql`
-query admins {
-  admins {
-    _id
-    fullName
-    preferredName
-    email
-    phone
-    section
-    position
-    isAdmin
-  }
-}
 `;

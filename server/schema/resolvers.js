@@ -11,17 +11,21 @@ const resolvers = {
       throw new AuthenticationError("You must be logged in!");
     },
 
+    admins: async () => {
+      return await User.find({ "isAdmin": true });
+    },
+
     allConcerts: async () => {
       return await Concert.find({});
+    },
+
+    oneUser: async (_, args) => {
+      return await User.findOne(args);
     },
 
     trueConcerts: async () => {
       return await Concert.find({ "songs": { $exists: true, $ne: [] } });
     },
-
-    admins: async () => {
-      return await User.find({ "isAdmin": true });
-    }
   },
 
   Mutation: {
@@ -34,7 +38,7 @@ const resolvers = {
       const user = await User.findOneAndUpdate(args);
       return { user }
     },
-    
+
     editUserSelf: async (_, args) => {
       const user = await User.findOneAndUpdate(args);
       const token = signToken(user);

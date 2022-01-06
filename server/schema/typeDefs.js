@@ -34,6 +34,7 @@ type User {
   section: String!
   position: String!
   isAdmin: Boolean!
+  isActive: Boolean!
 }
 
 type Auth {
@@ -43,9 +44,10 @@ type Auth {
 
 type Query {
   me: User
-  allConcerts: [Concert]
-  trueConcerts: [Concert]
   admins: [User]
+  allConcerts: [Concert]
+  oneUser(email: String!): User
+  trueConcerts: [Concert]
 }
 
 type Mutation {
