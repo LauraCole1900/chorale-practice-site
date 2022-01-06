@@ -19,6 +19,10 @@ const resolvers = {
       return await Concert.find({});
     },
 
+    allUsers: async () => {
+      return await User.find({});
+    },
+
     oneUser: async (_, args) => {
       return await User.findOne(args);
     },

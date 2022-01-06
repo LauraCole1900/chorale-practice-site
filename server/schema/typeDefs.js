@@ -46,6 +46,7 @@ type Query {
   me: User
   admins: [User]
   allConcerts: [Concert]
+  allUsers: [User]
   oneUser(email: String!): User
   trueConcerts: [Concert]
 }

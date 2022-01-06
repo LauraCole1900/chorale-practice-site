@@ -44,6 +44,20 @@ export const QUERY_ALL_CONCERTS = gql`
   }
 `;
 
+export const QUERY_ALL_USERS = gql`
+query allUsers {
+  allUsers {
+    fullName
+    preferredName
+    email
+    phone
+    section
+    position
+    isAdmin
+    isActive
+  }
+}`
+
 export const QUERY_ONE_USER = gql`
 query oneUser($email: String!) {
   oneUser(email: $email) {
