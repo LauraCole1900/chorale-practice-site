@@ -4,7 +4,7 @@ import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_TRUE_CONCERTS } from "../utils/queries";
+import { QUERY_TRUE_CONCERTS } from "../utils";
 import "./style.css"
 
 const Section = () => {
