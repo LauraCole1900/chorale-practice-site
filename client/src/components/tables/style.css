@@ -1,4 +1,5 @@
 :root {
+  --darkSil: #cacaca;
   --gcWhite: #fdfdfd;
   --gcGray: #a19f95;
   --gcCharcoal: #282825;
@@ -6,25 +7,105 @@
   --gcRed: #971316;
   --disabled: #b14748;
   --highlightRed: #f9aaaa;
+  --highlightYellow: #f9e3aa;
   --highlightGreen: #7de67b;
   --highlightBlue: #aad0f9;
   --headerFont: "Sree Krushnadevaraya", serif;
   --bodyFont: "Lato", sans-serif;
 }
 
+table, td, th {
+  border: 1px solid var(--gcCharcoal);
+}
+
+table {
+  margin-bottom: 25px;
+  table-layout: fixed;
+}
+
+td,
+th {
+  padding: 5px;
+}
+
+th {
+  background-color: var(--gcRed);
+  color: var(--gcWhite);
+}
+
+tr:nth-child(even) {
+  background-color: var(--darkSil);
+}
+
+tr:hover,
+tr:focus {
+  background-color: var(--highlightYellow);
+}
+
 .active {
-  background: var(--highlightGreen);
+  background-color: var(--highlightGreen);
+  text-align: center;
+}
+
+.address {
+  width: 150px;
+}
+
+.bday {
+  width: 45px;
+}
+
+.city {
+  width: 75px;
+}
+
+.email {
+  width: 200px;
+}
+
+.fName {
+  width: 125px;
 }
 
 .inactive {
-  background: var(--highlightRed);
+  background-color: var(--highlightRed);
+  text-align: center;
+}
+
+.isActive {
+  width: 24px;
 }
 
 .leader {
   background: var(--highlightBlue);
+  text-align: center;
+}
+
+.phone {
+  width: 100px;
+}
+
+.phType {
+  width: 23px;
+}
+
+.pName {
+  width: 64px;
 }
 
 .rosterTable {
-  font-size: 14px;
+  font-size: 12px;
   font-family: var(--bodyFont);
+}
+
+.section {
+  width: 65px;
+}
+
+.sLeader {
+  width: 25px;
+}
+
+.zip {
+  width: 50px;
 }

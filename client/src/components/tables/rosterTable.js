@@ -1,30 +1,29 @@
-import { Table } from "react-bootstrap";
 import "./style.css";
 
 const RosterTable = ({ members }) => {
   console.log({ members })
 
   return (
-    <Table striped border="true" hover className="rosterTable">
+    <table striped border="true" hover className="rosterTable">
       <thead>
         <tr>
-          <th>Full Name</th>
-          <th>Preferred Name</th>
-          <th>Birthday</th>
-          <th>Active?</th>
-          <th>Section leader</th>
-          <th>Section</th>
-          <th>Email 1</th>
-          <th>Email 2</th>
-          <th>Phone 1</th>
-          <th></th>
-          <th>Phone 2</th>
-          <th></th>
-          <th>Phone 3</th>
-          <th></th>
-          <th>Street Address</th>
-          <th>City</th>
-          <th>Zip</th>
+          <th className="fName">Full Name</th>
+          <th className="pName">Preferred Name</th>
+          <th className="bday">Bday</th>
+          <th className="isActive">A?</th>
+          <th className="sLeader">SL</th>
+          <th className="section">Section</th>
+          <th className="email">Email 1</th>
+          <th className="email">Email 2</th>
+          <th className="phone">Phone 1</th>
+          <th className="phType"></th>
+          <th className="phone">Phone 2</th>
+          <th className="phType"></th>
+          <th className="phone">Phone 3</th>
+          <th className="phType"></th>
+          <th className="address">Street Address</th>
+          <th className="city">City</th>
+          <th className="zip">Zip</th>
         </tr>
       </thead>
       <tbody>
@@ -69,7 +68,7 @@ const RosterTable = ({ members }) => {
         ))
         }
       </tbody>
-    </Table>
+    </table>
   )
 }
 

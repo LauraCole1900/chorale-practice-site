@@ -15,7 +15,8 @@ const RosterPage = () => {
   const members = data?.allUsers || [];
 
   const sortSection = (singers) => {
-    const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName);
+    const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
+    console.log({ sortedSingers });
     return sortedSingers;
   }
 
@@ -50,7 +51,7 @@ const RosterPage = () => {
   return (
     <>
       {pageReady &&
-        <Container>
+        <Container fluid>
           <Row>
             <Col sm={12} className="pageHeader">
               <h1>Roster</h1>
