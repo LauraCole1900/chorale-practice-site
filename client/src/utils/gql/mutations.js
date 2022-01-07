@@ -6,11 +6,22 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
-        email
+        email1
       }
     }
   }
 `;
+
+export const ADD_CONCERT = gql`
+  mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!) {
+    addConcert(name: $name, date: $date, time: $time, venue: $venue) {
+      _id
+      name
+      date
+      time
+      venue
+    }
+  }`
 
 export const ADD_USER = gql`
   mutation addUser($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $email1: String!, $email2: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $section: String!, $position: String!, $streetAddress: String, $city: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {

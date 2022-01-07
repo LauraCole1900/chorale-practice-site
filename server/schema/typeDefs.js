@@ -5,9 +5,9 @@ const typeDefs = gql`
 type Concert {
   _id: ID!
   name: String!
-  date: [String]!
-  time: [String]!
-  venue: [String]!
+  date: [String!]!
+  time: [String!]!
+  venue: [String!]!
   songs: [Song!]
 }
 
@@ -66,6 +66,8 @@ type Query {
 
 type Mutation {
   login(email: String! password: String!): Auth
+
+  addConcert(name: String!, date: [String!]! time: [String!]!, venue: [String!]!): Concert
 
   addUser(fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String!, email2: String, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, city: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 

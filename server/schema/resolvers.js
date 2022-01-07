@@ -33,6 +33,11 @@ const resolvers = {
   },
 
   Mutation: {
+    addConcert: async (_, args) => {
+      const concert = await Concert.create(args);
+      return concert;
+    },
+
     addUser: async (_, args) => {
       const user = await User.create(args);
       return user;
