@@ -81,16 +81,18 @@ const ConcertForm = () => {
         </Row>
 
         <Form className="concertForm">
-          <Row>
-            <Form.Group controlId="formConcertName">
+          <Form.Group controlId="formConcertName">
+            <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Name of concert or event: <span className="red">*</span></Form.Label>
                 {errors.name &&
                   <div className="error"><p>{errors.name}</p></div>}
                 <Form.Control type="input" name="name" placeholder="Our Fantastic Concert" value={concertData.name} className="formInput" onChange={handleInputChange} />
               </Col>
-            </Form.Group>
-            <Form.Group controlId="formConcertDate">
+            </Row>
+          </Form.Group>
+          <Form.Group controlId="formConcertDate">
+            <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Date(s) of concert or event: <span className="red">*</span></Form.Label><br />
                 <Form.Text className="subtitle" muted>Please enter dates in the format MM-DD-YYYY. For events that occur on multiple dates (auditions, tours, etc.), separate dates with commas</Form.Text>
@@ -98,10 +100,10 @@ const ConcertForm = () => {
                   <div className="error"><p>{errors.date}</p></div>}
                 <Form.Control type="input" name="date" placeholder="04-05-2063" value={concertData.date} className="formInput" onChange={handleInputChange} />
               </Col>
-            </Form.Group>
-          </Row>
-          <Row>
-            <Form.Group controlId="formConcertTime">
+            </Row>
+          </Form.Group>
+          <Form.Group controlId="formConcertTime">
+            <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Time(s) of concert or event: <span className="red">*</span></Form.Label><br />
                 <Form.Text className="subtitle" muted>Please enter times in the format HH:MMam/pm. For events that occur at multiple times (Pops & Pasta, etc.), separate times with commas</Form.Text>
@@ -109,8 +111,10 @@ const ConcertForm = () => {
                   <div className="error"><p>{errors.time}</p></div>}
                 <Form.Control type="input" name="time" placeholder="7:30pm" value={concertData.time} className="formInput" onChange={handleInputChange} />
               </Col>
-            </Form.Group>
-            <Form.Group controlId="formConcertVenue">
+            </Row>
+          </Form.Group>
+          <Form.Group controlId="formConcertVenue">
+            <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Venue(s) of concert or event: <span className="red">*</span></Form.Label><br />
                 <Form.Text className="subtitle" muted>For events that occur at multiple venues (tours, etc.), please separate venues with commas</Form.Text>
@@ -118,14 +122,16 @@ const ConcertForm = () => {
                   <div className="error"><p>{errors.venue}</p></div>}
                 <Form.Control type="input" name="venue" placeholder="Frasier 63" value={concertData.venue} className="formInput" onChange={handleInputChange} />
               </Col>
-            </Form.Group>
-          </Row>
+            </Row>
+          </Form.Group>
           <Form.Group controlId="formConcertAddlMaterials">
-            <Col sm={{ span: 8, offset: 2 }}>
-              <Form.Label>If there are supplemental materials, please enter the link(s) to them here:</Form.Label><br />
-              <Form.Text className="subtitle" muted>For multiple links, please separate links with commas</Form.Text>
-              <Form.Control type="input" name="addlMaterials" placeholder="http://link_to_lyric_sheet_etc.com" value={concertData.addlMaterials} className="formInput" onChange={handleInputChange} />
-            </Col>
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>If there are supplemental materials, please enter the link(s) to them here:</Form.Label><br />
+                <Form.Text className="subtitle" muted>For multiple links, please separate links with commas</Form.Text>
+                <Form.Control type="input" name="addlMaterials" placeholder="http://link_to_lyric_sheet_etc.com" value={concertData.addlMaterials} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
           </Form.Group>
 
           {Object.keys(errors).length !== 0 &&
