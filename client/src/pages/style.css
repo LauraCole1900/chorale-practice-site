@@ -74,6 +74,14 @@ a.sideLinks:hover {
   width: 100%;
 }
 
+.dNotes {
+  order: 2;
+}
+
+.sNotes {
+  order: 1;
+}
+
 .red {
   color: var(--gcRed);
 }
@@ -84,6 +92,7 @@ a.sideLinks:hover {
   margin-top: 1.5rem;
   color: var(--gcBlack);
   text-decoration: underline;
+  order: 3;
 }
 
 .sideLinks {

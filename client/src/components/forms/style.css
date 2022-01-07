@@ -11,6 +11,11 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+.formBtn {
+  width: 100%;
+  height: 4rem;
+}
+
 .formHeader {
   text-align: center;
 }

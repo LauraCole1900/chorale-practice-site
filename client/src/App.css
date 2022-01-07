@@ -22,3 +22,18 @@ h3 {
 p {
   font-family: var(--bodyFont);
 }
+
+.button,
+.button:focus {
+  color: var(--gcWhite);
+  background-color: var(--gcRed);
+  margin: 0.5rem;
+  border: 1px solid var(--gcWhite);
+  box-shadow: none;
+}
+.button:hover {
+  color: var(--gcRed);
+  background-color: var(--gcGray);
+  border: 1px solid var(--gcRed);
+  cursor: pointer;
+}
