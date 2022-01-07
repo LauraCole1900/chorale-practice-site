@@ -39,7 +39,9 @@ th {
 tr:nth-child(even) {
   background-color: var(--darkSil);
 }
-tr:hover {
+tr:hover,
+tr:focus {
+  background-color: var(--highlightOrange);
   cursor: pointer;
 }
 

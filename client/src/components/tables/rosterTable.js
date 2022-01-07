@@ -2,26 +2,7 @@ import { useState } from "react";
 import "./style.css";
 
 const RosterTable = ({ members }) => {
-  const [focus, setFocus] = useState(false);
 
-  const getFocus = (e) => {
-    const thisClicked = e.currentTarget;
-    if (!focus) {
-      setFocus(true);
-      if (thisClicked.style.backgroundColor === "#cacaca") {
-        return thisClicked.style.backgroundColor = "#f9e3aa";
-      } else {
-        return thisClicked.style.backgroundColor = "#fff6b8";
-      }
-    } else {
-      setFocus(false);
-      if (thisClicked.style.backgroundColor === "#f9e3aa") {
-        return thisClicked.style.backgroundColor = "#cacaca";
-      } else {
-        return thisClicked.style.backgroundColor = "#e2e2e2";
-      }
-    }
-  }
 
   return (
     <table striped="true" border="true" hover="true" className="rosterTable">
@@ -48,7 +29,7 @@ const RosterTable = ({ members }) => {
       </thead>
       <tbody>
         {members.map((member, i) => (
-          <tr key={member._id} onClick={getFocus}>
+          <tr key={member._id} tabIndex={0}>
             <td>{member.fullName}</td>
             <td>{member.preferredName}</td>
             <td>{member.birthday}</td>
