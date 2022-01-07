@@ -18,7 +18,7 @@ const ConcertForm = () => {
     const { name, value } = e.target;
     setConcertData({ ...concertData, [name]: value });
     if (["date", "time", "venue", "addlMaterials"].includes(name)) {
-      let data = value.split(",").trim();
+      let data = value.split(",");
       setConcertData({ ...concertData, [name]: data });
     }
   };
@@ -89,7 +89,7 @@ const ConcertForm = () => {
                 <Form.Text className="subtitle" muted>Please enter times in the format HH:MMam/pm. For events that occur at multiple times (Pops & Pasta, etc.), separate times with commas</Form.Text>
                 {errors.time &&
                   <div className="error"><p>{errors.time}</p></div>}
-                <Form.Control type="input" name="time" placeholder="7:30pm" value={concertData.date} className="formInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="time" placeholder="7:30pm" value={concertData.time} className="formInput" onChange={handleInputChange} />
               </Col>
             </Form.Group>
             <Form.Group controlId="formConcertVenue">
@@ -124,10 +124,10 @@ const ConcertForm = () => {
           </Row>
           <Row>
             <Col sm={{ span: 3, offset: 2 }}>
-              <Button data-toggle="popover" title="SubmitAddSongs" className="button formBtn" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
+              <Button data-toggle="popover" title="SubmitAddSongs" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
             </Col>
             <Col sm={{ span: 3, offset: 1 }}>
-              <Button data-toggle="popover" title="Submit" className="button formBtn" onClick={handleFormSubmit} type="submit">No, just submit</Button>
+              <Button data-toggle="popover" title="Submit" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">No, just submit</Button>
             </Col>
           </Row>
         </Form>

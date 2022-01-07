@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
-import { useQuery } from '@apollo/client';
-import { QUERY_ALL_CONCERTS } from '../utils';
+import { useQuery } from "@apollo/client";
+import { QUERY_ALL_CONCERTS } from "../utils/gql";
 
 // import Auth from '../utils/auth';
 import "./style.css";
@@ -24,7 +24,7 @@ const Lander = () => {
   const style = "color: #00ff00";
 
   useEffect(() => {
-    console.log(`%c${message}`, style)
+    console.log(`%c${message}`, style);
 
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());

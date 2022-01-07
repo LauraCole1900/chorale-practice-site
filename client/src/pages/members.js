@@ -2,7 +2,7 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_ADMINS } from "../utils";
+import { QUERY_ALL_ADMINS } from "../utils/gql";
 import "./style.css";
 
 const Members = () => {

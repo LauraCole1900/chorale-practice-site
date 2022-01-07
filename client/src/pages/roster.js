@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_USERS } from "../utils";
+import { QUERY_ALL_USERS } from "../utils/gql";
 import { RosterTable } from "../components/tables";
 
 const RosterPage = () => {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils";
+import { LOGIN_USER } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css";
 

@@ -11,9 +11,19 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+.error {
+  color: var(--gcWhite);
+  background-color: var(--red);
+}
+
 .formBtn {
   width: 100%;
   height: 4rem;
+}
+.formBtn:disabled {
+  color: var(--gcWhite);
+  background-color: var(--disabled);
+  border: 1px solid var(--gcWhite);
 }
 
 .formHeader {
