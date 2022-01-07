@@ -82,8 +82,22 @@ a.sideLinks:hover {
   order: 1;
 }
 
+.pageHeader {
+  text-align: center;
+}
+
 .red {
   color: var(--gcRed);
+}
+
+.rosterNav ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+.rosterNav ul li {
+  list-style-type: none;
+  display: inline-block;
 }
 
 .sideInfo {

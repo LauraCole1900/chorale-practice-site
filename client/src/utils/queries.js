@@ -47,6 +47,7 @@ export const QUERY_ALL_CONCERTS = gql`
 export const QUERY_ALL_USERS = gql`
 query allUsers {
   allUsers {
+    _id
     fullName
     firstName
     lastName

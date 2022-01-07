@@ -1,0 +1,30 @@
+:root {
+  --gcWhite: #fdfdfd;
+  --gcGray: #a19f95;
+  --gcCharcoal: #282825;
+  --gcBlack: #020201;
+  --gcRed: #971316;
+  --disabled: #b14748;
+  --highlightRed: #f9aaaa;
+  --highlightGreen: #7de67b;
+  --highlightBlue: #aad0f9;
+  --headerFont: "Sree Krushnadevaraya", serif;
+  --bodyFont: "Lato", sans-serif;
+}
+
+.active {
+  background: var(--highlightGreen);
+}
+
+.inactive {
+  background: var(--highlightRed);
+}
+
+.leader {
+  background: var(--highlightBlue);
+}
+
+.rosterTable {
+  font-size: 14px;
+  font-family: var(--bodyFont);
+}
