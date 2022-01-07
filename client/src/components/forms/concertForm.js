@@ -14,6 +14,7 @@ const ConcertForm = () => {
     addlMaterials: [],
   });
   const [errors, setErrors] = useState({});
+  const [addConcert, { error, data }] = useMutation(ADD_CONCERT);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -26,7 +27,7 @@ const ConcertForm = () => {
   };
 
   // Handles click on "Submit" button
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log({ concertData })
     // Validates required inputs
@@ -35,6 +36,21 @@ const ConcertForm = () => {
     setErrors(validationErrors);
     if (noErrors) {
       console.log("Concert submit", concertData)
+      try {
+        const { data } = await addConcert({
+          variables: { ...concertData }
+        });
+        console.log({ data });
+      } catch (err) {
+        console.log(err);
+      }
+      setConcertData({
+        name: "",
+        date: [],
+        time: [],
+        venue: [],
+        addlMaterials: [],
+      })
       // POST call to create concert document
       // ExhibitorAPI.registerExhibitor({ ...exhibitor })
       //   .then(resp => {
