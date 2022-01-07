@@ -7,14 +7,17 @@
   --gcRed: #971316;
   --disabled: #b14748;
   --highlightRed: #f9aaaa;
-  --highlightYellow: #f9e3aa;
+  --highlightYellow: #fff6b8;
+  --highlightOrange: #f9e3aa;
   --highlightGreen: #7de67b;
   --highlightBlue: #aad0f9;
   --headerFont: "Sree Krushnadevaraya", serif;
   --bodyFont: "Lato", sans-serif;
 }
 
-table, td, th {
+table,
+td,
+th {
   border: 1px solid var(--gcCharcoal);
 }
 
@@ -36,10 +39,8 @@ th {
 tr:nth-child(even) {
   background-color: var(--darkSil);
 }
-
-tr:hover,
-tr:focus {
-  background-color: var(--highlightYellow);
+tr:hover {
+  cursor: pointer;
 }
 
 .active {

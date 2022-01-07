@@ -1,12 +1,19 @@
 :root {
   --lightSil: #e2e2e2;
+  --darkSil: #cacaca;
   --gcWhite: #fdfdfd;
   --gcGray: #a19f95;
   --gcCharcoal: #282825;
   --gcBlack: #020201;
   --gcRed: #971316;
-  --headerFont: 'Sree Krushnadevaraya', serif;
-  --bodyFont: 'Lato', sans-serif;
+  --disabled: #b14748;
+  --highlightRed: #f9aaaa;
+  --highlightYellow: #fff6b8;
+  --highlightOrange: #f9e3aa;
+  --highlightGreen: #7de67b;
+  --highlightBlue: #aad0f9;
+  --headerFont: "Sree Krushnadevaraya", serif;
+  --bodyFont: "Lato", sans-serif;
 }
 
 body {
