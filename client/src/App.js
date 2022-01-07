@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
 // import Footer from "./components/footer";
 import { Lander, Login, Members, Section } from "./pages";
+import { AdminUserForm, ConcertForm, SongForm, UserForm } from "./components/forms";
 import "./App.css";
 
 const client = new ApolloClient({
@@ -21,8 +22,14 @@ function App() {
           <Container fluid>
             <Routes>
               <Route path="/" element={<Lander />} />
-              <Route path="login" element={<Login />} />
+              <Route path="/edit_event/*" element={<ConcertForm />} />
+              <Route path="/edit_me/*" element={<UserForm />} />
+              <Route path="/edit_member/*" element={<AdminUserForm />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/members" element={<Members />} />
+              <Route path="/new_event" element={<ConcertForm />} />
+              <Route path="/new_member" element={<AdminUserForm />} />
+              <Route path="/repertoire/*" element={<SongForm />} />
               <Route path="/section/soprano" element={<Section />} />
               <Route path="/section/alto" element={<Section />} />
               <Route path="/section/tenor" element={<Section />} />

@@ -15,6 +15,10 @@
   text-align: center;
 }
 
+.formInput {
+  margin-bottom: 2rem;
+}
+
 .red {
   color: var(--red);
 }

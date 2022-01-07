@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "./react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { userValidate } from "../../utils/validation";
+// import { userValidate } from "../../utils/validation";
 import { EDIT_USER_SELF, QUERY_ONE_USER } from "../../utils"
 import "./style.css";
 
@@ -25,10 +25,10 @@ const UserForm = () => {
     e.preventDefault();
     console.log({ userData })
     // Validates required inputs
-    const validationErrors = userValidate(userData);
-    const noErrors = Object.keys(validationErrors).length === 0;
-    setErrors(validationErrors);
-    if (noErrors) {
+    // const validationErrors = userValidate(userData);
+    // const noErrors = Object.keys(validationErrors).length === 0;
+    // setErrors(validationErrors);
+    // if (noErrors) {
       console.log("User submit", userData)
       // POST call to create concert document
       // ExhibitorAPI.registerExhibitor({ ...exhibitor })
@@ -44,14 +44,24 @@ const UserForm = () => {
       //   setErrThrown(err.message);
       //   handleShowErr();
       // })
-    } else {
-      console.log({ validationErrors });
-    }
+    // } else {
+    //   console.log({ validationErrors });
+    // }
   };
 
   return (
     <>
+      <Container>
+        <Row>
+          <Col sm={12} className="formHeader">
+            <h1>Edit your information</h1>
+          </Col>
+        </Row>
 
+        <Form className="userForm">
+
+        </Form>
+      </Container>
     </>
   )
 }
