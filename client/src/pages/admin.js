@@ -67,8 +67,16 @@ const AdminPortal = () => {
           </Col>
         </Row>
 
+        <Row className="rosterNav">
+          <ul>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#members">Members</a></li>
+            <li><a href="#posts">Posts</a></li>
+          </ul>
+        </Row>
+
         <Row>
-          <Card className="adminCard">
+          <Card className="adminCard" id="events">
             <Card.Header className="cardTitle">
               <h2>Event Actions</h2>
             </Card.Header>
@@ -77,20 +85,20 @@ const AdminPortal = () => {
               <h5>Click name of existing event to edit or delete</h5>
               <ul>
                 {sortedConcerts.map(concert => (
-                  <>
+                  <div key={concert._id}>
                     <li>{concert.name}</li>
                     <ul>
                       <li><Link to={`/edit_event/${concert._id}`}>Edit event information</Link></li>
                       <li><Link to={`/repertoire/${concert._id}`}>Add repertoire, practice tracks, and/or video links</Link></li>
-                      <li onClick={() => deleteConcert(concert._id)}></li>
+                      <li className="adminLink" onClick={() => deleteConcert(concert._id)}>Delete this event</li>
                     </ul>
-                  </>
+                  </div>
                 ))}
               </ul>
             </Card.Body>
           </Card>
 
-          <Card className="adminCard">
+          <Card className="adminCard" id="members">
             <Card.Header className="cardTitle">
               <h2>Member Actions</h2>
             </Card.Header>
@@ -99,12 +107,12 @@ const AdminPortal = () => {
               <h5>Click name of existing member to edit or delete</h5>
               <ul>
                 {sortedUsers.map(user => (
-                  <li><Link to={`/edit_member/${user._id}`}>{user.fullName}</Link></li>
+                  <li key={user._id}><Link to={`/edit_member/${user._id}`}>{user.fullName}</Link></li>
                 ))}
               </ul>
             </Card.Body>
           </Card>
-          <Card className="adminCard">
+          <Card className="adminCard" id="posts">
             <Card.Header className="cardTitle">
               <h2>Post Actions</h2>
             </Card.Header>

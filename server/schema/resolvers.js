@@ -43,6 +43,11 @@ const resolvers = {
       return user;
     },
 
+    deleteConcert: async (_, args) => {
+      const concert = await Concert.findByIdAndDelete({ _id: args.id });
+      return concert;
+    },
+
     editUserAdmin: async (_, args) => {
       const user = await User.findOneAndUpdate(args);
       return user;
