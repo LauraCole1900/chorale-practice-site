@@ -11,6 +11,12 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+.bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .error {
   color: var(--gcWhite);
   background-color: var(--red);
@@ -37,6 +43,15 @@
   margin-bottom: 2rem;
 }
 
+.form-label {
+  margin-bottom: 0;
+}
+
 .red {
   color: var(--red);
+}
+
+.subtitle {
+  font-size: .75em;
+  margin-bottom: .85em;
 }

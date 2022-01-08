@@ -26,7 +26,7 @@ const Members = () => {
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
-  const social = adminArr.filter(admin => admin.position === "social media");
+  const social = adminArr.filter(admin => admin.position === "digital media specialist");
   const marketing = adminArr.filter(admin => admin.position === "marketing director");
   const soprano = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Soprano");
   const alto = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Alto");

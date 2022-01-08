@@ -14,6 +14,7 @@ const RosterTable = ({ members }) => {
           <th className="isActive">A?</th>
           <th className="sLeader">SL</th>
           <th className="section">Section</th>
+          <th className="position">Position</th>
           <th className="email">Email 1</th>
           <th className="email">Email 2</th>
           <th className="phone">Phone 1</th>
@@ -40,6 +41,7 @@ const RosterTable = ({ members }) => {
               ? <td className="leader">X</td>
               : <td></td>}
             <td>{member.section}</td>
+            <td>{member.position}</td>
             <td>{member.email1}</td>
             <td>{member.email2}</td>
             <td>{member.phone1}</td>

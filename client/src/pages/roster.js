@@ -9,6 +9,8 @@ const RosterPage = () => {
   const [currAlts, setCurrAlts] = useState([]);
   const [currTens, setCurrTens] = useState([]);
   const [currBass, setCurrBass] = useState([]);
+  const [currStaff, setCurrStaff] = useState([]);
+  const [currBoard, setCurrBoard] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_USERS);
 
@@ -16,17 +18,17 @@ const RosterPage = () => {
 
   const sortSection = (singers) => {
     const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
-    console.log({ sortedSingers });
     return sortedSingers;
   }
 
   useEffect(() => {
     if (members.length) {
-      console.log({ members });
       const sopranos = members.filter(member => member.section === "Soprano I" || member.section === "Soprano II");
       const altos = members.filter(member => member.section === "Alto I" || member.section === "Alto II");
       const tenors = members.filter(member => member.section === "Tenor I" || member.section === "Tenor II");
       const basses = members.filter(member => member.section === "Bass I" || member.section === "Bass II");
+      const staff = members.filter(member => !["section leader", "singer", "webdev"].includes(member.position));
+      const board = members.filter(member => member.section === "Board");
 
       const sortedSops = sortSection(sopranos);
       setCurrSops(sortedSops);
@@ -36,6 +38,10 @@ const RosterPage = () => {
       setCurrTens(sortedTenors);
       const sortedBasses = sortSection(basses);
       setCurrBass(sortedBasses);
+      const sortedStaff = sortSection(staff);
+      setCurrStaff(sortedStaff);
+      const sortedBoard = sortSection(board);
+      setCurrBoard(sortedBoard);
       setPageReady(true);
     }
   }, [members])
@@ -64,6 +70,8 @@ const RosterPage = () => {
               <li><a href="#altos">Altos</a></li>
               <li><a href="#tenors">Tenors</a></li>
               <li><a href="#basses">Basses</a></li>
+              <li><a href="#staff">Staff</a></li>
+              <li><a href="#board">Board</a></li>
             </ul>
           </Row>
 
@@ -93,6 +101,20 @@ const RosterPage = () => {
           </Row>
           <Row>
             <RosterTable members={currBass} />
+          </Row>
+
+          <Row>
+            <h3 id="staff">Staff</h3>
+          </Row>
+          <Row>
+            <RosterTable members={currStaff} />
+          </Row>
+
+          <Row>
+            <h3 id="board">Board</h3>
+          </Row>
+          <Row>
+            <RosterTable members={currBoard} />
           </Row>
         </Container>
       }

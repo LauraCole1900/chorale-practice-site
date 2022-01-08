@@ -21,7 +21,7 @@ const concertValidate = (concert) => {
     errors.time = "What time is your event? Please enter the event time(s)."
     for (let i = 0; i < concert.time; i++) {
       if (/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/.test(concert.time[i])) {
-        errors.date = "There seems to be a problem with the formatting of your date(s). Please double-check."
+        errors.date = "There seems to be a problem with the formatting of your time(s). Please double-check."
       }
     }
   }
