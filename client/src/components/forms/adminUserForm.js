@@ -37,12 +37,12 @@ const AdminUserForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
-    if (userData.fullName && !userData.firstName) {
-      setUserData({ ...userData, firstName: getFirstName(userData.fullName) })
-    }
-    if (userData.fullName && !userData.lastName) {
-      setUserData({ ...userData, lastName: getLastName(userData.fullName) })
-    }
+    // if (userData.fullName && !userData.firstName) {
+    //   setUserData({ ...userData, firstName: getFirstName(userData.fullName) })
+    // }
+    // if (userData.fullName && !userData.lastName) {
+    //   setUserData({ ...userData, lastName: getLastName(userData.fullName) })
+    // }
   };
 
   const handleCheckbox = (e) => {
@@ -50,25 +50,18 @@ const AdminUserForm = () => {
     JSON.parse(value) ? setUserData({ ...userData, [name]: false }) : setUserData({ ...userData, [name]: true });
   }
 
-  // Gets first name from full name
-  function getFirstName(memberName) {
+  // Gets first & last name from full name
+  const splitName = (memberName) => {
     const nameArr = memberName.split(" ");
     const fName = nameArr[0];
-    return fName;
-  };
-
-  // Gets last name from full name
-  function getLastName(memberName) {
     let lName;
-    const nameArr = memberName.split(" ");
-    console.log({ nameArr })
-    if (["Sr, Snr, Sr., Snr., Senior, Jr, Jnr, Jr., Jnr., Junior, II, III, IV, V, VI"].includes(nameArr[nameArr.length - 1])) {
+    if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr[nameArr.length - 1])) {
       lName = nameArr[nameArr.length - 2]
     } else {
       lName = nameArr[nameArr.length - 1]
     }
-    return lName;
-  }
+    setUserData({ ...userData, firstName: fName, lastName: lName, preferredName: fName });
+  };
 
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
@@ -148,7 +141,7 @@ const AdminUserForm = () => {
                 <Form.Label>Member's full name: <span className="red">*</span></Form.Label>
                 {errors.fullName &&
                   <div className="error"><p>{errors.fullName}</p></div>}
-                <Form.Control type="input" name="fullName" placeholder="Donna Noble" value={userData.fullName} className="formInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="fullName" placeholder="Donna Noble" value={userData.fullName} className="formInput" onChange={handleInputChange} onBlur={() => splitName(userData.fullName)} />
               </Col>
             </Row>
           </Form.Group>
