@@ -127,7 +127,6 @@ a.sideLinks:hover {
   font-size: 18px;
   margin-top: 1.5rem;
   color: var(--gcBlack);
-  text-decoration: underline;
   order: 3;
 }
 

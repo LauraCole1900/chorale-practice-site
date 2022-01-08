@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { ADD_CONCERT } from "../../utils/gql";
 import { concertValidate } from "../../utils/validation";
+import Auth from "../../utils/auth";
 import "./style.css";
 
 const ConcertForm = () => {
@@ -77,89 +79,92 @@ const ConcertForm = () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col sm={12} className="formHeader">
-            <h1>Add a new concert or event</h1>
-          </Col>
-        </Row>
-
-        <Form className="concertForm">
-          <Form.Group controlId="formConcertName">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Name of concert or event: <span className="red">*</span></Form.Label>
-                {errors.name &&
-                  <div className="error"><p>{errors.name}</p></div>}
-                <Form.Control type="input" name="name" placeholder="Our Fantastic Concert" value={concertData.name} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="formConcertDate">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Date(s) of concert or event: <span className="red">*</span></Form.Label><br />
-                <Form.Text className="subtitle" muted>Please enter dates in the format MM-DD-YYYY. For events that occur on multiple dates (auditions, tours, etc.), separate dates with commas</Form.Text>
-                {errors.date &&
-                  <div className="error"><p>{errors.date}</p></div>}
-                <Form.Control type="input" name="date" placeholder="04-05-2063" value={concertData.date} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="formConcertTime">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Time(s) of concert or event: <span className="red">*</span></Form.Label><br />
-                <Form.Text className="subtitle" muted>Please enter times in the format HH:MMam/pm. For events that occur at multiple times (Pops & Pasta, etc.), separate times with commas</Form.Text>
-                {errors.time &&
-                  <div className="error"><p>{errors.time}</p></div>}
-                <Form.Control type="input" name="time" placeholder="7:30pm" value={concertData.time} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="formConcertVenue">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Venue(s) of concert or event: <span className="red">*</span></Form.Label><br />
-                <Form.Text className="subtitle" muted>For events that occur at multiple venues (tours, etc.), please separate venues with commas</Form.Text>
-                {errors.venue &&
-                  <div className="error"><p>{errors.venue}</p></div>}
-                <Form.Control type="input" name="venue" placeholder="Frasier 63" value={concertData.venue} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="formConcertAddlMaterials">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>If there are supplemental materials, please enter the link(s) to them here:</Form.Label><br />
-                <Form.Text className="subtitle" muted>For multiple links, please separate links with commas</Form.Text>
-                <Form.Control type="input" name="addlMaterials" placeholder="http://link_to_lyric_sheet_etc.com" value={concertData.addlMaterials} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-
-          {Object.keys(errors).length !== 0 &&
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
-              </Col>
-            </Row>}
-
+      {!Auth.loggedIn()
+        ? <Navigate to="/login" />
+        : <Container>
           <Row>
-            <Col sm={{ span: 3, offset: 2 }}>
-              <p>Add repertoire?</p>
+            <Col sm={12} className="formHeader">
+              <h1>Add a new concert or event</h1>
             </Col>
           </Row>
-          <Row>
-            <Col sm={{ span: 3, offset: 2 }}>
-              <Button data-toggle="popover" title="SubmitAddSongs" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
-            </Col>
-            <Col sm={{ span: 3, offset: 1 }}>
-              <Button data-toggle="popover" title="Submit" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">No, just submit</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
+
+          <Form className="concertForm">
+            <Form.Group controlId="formConcertName">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Name of concert or event: <span className="red">*</span></Form.Label>
+                  {errors.name &&
+                    <div className="error"><p>{errors.name}</p></div>}
+                  <Form.Control type="input" name="name" placeholder="Our Fantastic Concert" value={concertData.name} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group controlId="formConcertDate">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Date(s) of concert or event: <span className="red">*</span></Form.Label><br />
+                  <Form.Text className="subtitle" muted>Please enter dates in the format MM-DD-YYYY. For events that occur on multiple dates (auditions, tours, etc.), separate dates with commas</Form.Text>
+                  {errors.date &&
+                    <div className="error"><p>{errors.date}</p></div>}
+                  <Form.Control type="input" name="date" placeholder="04-05-2063" value={concertData.date} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group controlId="formConcertTime">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Time(s) of concert or event: <span className="red">*</span></Form.Label><br />
+                  <Form.Text className="subtitle" muted>Please enter times in the format HH:MMam/pm. For events that occur at multiple times (Pops & Pasta, etc.), separate times with commas</Form.Text>
+                  {errors.time &&
+                    <div className="error"><p>{errors.time}</p></div>}
+                  <Form.Control type="input" name="time" placeholder="7:30pm" value={concertData.time} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group controlId="formConcertVenue">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Venue(s) of concert or event: <span className="red">*</span></Form.Label><br />
+                  <Form.Text className="subtitle" muted>For events that occur at multiple venues (tours, etc.), please separate venues with commas</Form.Text>
+                  {errors.venue &&
+                    <div className="error"><p>{errors.venue}</p></div>}
+                  <Form.Control type="input" name="venue" placeholder="Frasier 63" value={concertData.venue} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group controlId="formConcertAddlMaterials">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>If there are supplemental materials, please enter the link(s) to them here:</Form.Label><br />
+                  <Form.Text className="subtitle" muted>For multiple links, please separate links with commas</Form.Text>
+                  <Form.Control type="input" name="addlMaterials" placeholder="http://link_to_lyric_sheet_etc.com" value={concertData.addlMaterials} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+
+            {Object.keys(errors).length !== 0 &&
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                </Col>
+              </Row>}
+
+            <Row>
+              <Col sm={{ span: 3, offset: 2 }}>
+                <p>Add repertoire?</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 3, offset: 2 }}>
+                <Button data-toggle="popover" title="SubmitAddSongs" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
+              </Col>
+              <Col sm={{ span: 3, offset: 1 }}>
+                <Button data-toggle="popover" title="Submit" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">No, just submit</Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      }
     </>
   )
 }

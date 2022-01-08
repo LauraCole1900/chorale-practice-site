@@ -23,14 +23,14 @@ function App() {
             <Routes>
               <Route path="/" element={<Lander />} />
               <Route path="/admin_portal" element={<AdminPortal />} />
-              <Route path="/edit_event/*" element={<ConcertForm />} />
-              <Route path="/edit_me/*" element={<UserForm />} />
-              <Route path="/edit_member/*" element={<AdminUserForm />} />
+              <Route path="/edit_event/:concertId" element={<ConcertForm />} />
+              <Route path="/edit_me/:userId" element={<UserForm />} />
+              <Route path="/edit_member/:userId" element={<AdminUserForm />} />
               <Route path="/login" element={<Login />} />
               <Route path="/members" element={<Members />} />
               <Route path="/new_event" element={<ConcertForm />} />
               <Route path="/new_member" element={<AdminUserForm />} />
-              <Route path="/repertoire/*" element={<SongForm />} />
+              <Route path="/repertoire/:concertId" element={<SongForm />} />
               <Route path="/roster" element={<RosterPage />} />
               <Route path="/section/soprano" element={<Section />} />
               <Route path="/section/alto" element={<Section />} />
