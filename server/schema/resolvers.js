@@ -44,7 +44,7 @@ const resolvers = {
     },
 
     deleteConcert: async (_, args) => {
-      const concert = await Concert.findByIdAndDelete({ _id: args.id });
+      const concert = await Concert.findByIdAndDelete({ _id: args._id });
       return concert;
     },
 
