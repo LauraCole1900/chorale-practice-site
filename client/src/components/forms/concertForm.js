@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { ADD_CONCERT } from "../../utils/gql";
@@ -16,13 +16,17 @@ const ConcertForm = () => {
   const [errors, setErrors] = useState({});
   const [addConcert, { error, data }] = useMutation(ADD_CONCERT);
 
+  // Determines whether the user is on new_event or edit_event/* page
+  const urlArray = window.location.href.split("/")
+  const urlSection = urlArray[urlArray.length - 1]
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setConcertData({ ...concertData, [name]: value });
     if (["date", "time", "venue", "addlMaterials"].includes(name)) {
-      let data = value.split(",");
-      setConcertData({ ...concertData, [name]: data });
+      let dataArr = value.split(",");
+      setConcertData({ ...concertData, [name]: dataArr });
     }
   };
 
@@ -41,8 +45,8 @@ const ConcertForm = () => {
           variables: { ...concertData }
         });
         console.log({ data });
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
       setConcertData({
         name: "",

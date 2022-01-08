@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
 // import Footer from "./components/footer";
-import { Lander, Login, Members, RosterPage, Section } from "./pages";
+import { AdminPortal, Lander, Login, Members, RosterPage, Section } from "./pages";
 import { AdminUserForm, ConcertForm, SongForm, UserForm } from "./components/forms";
 import "./App.css";
 
@@ -22,6 +22,7 @@ function App() {
           <Container fluid>
             <Routes>
               <Route path="/" element={<Lander />} />
+              <Route path="/admin_portal" element={<AdminPortal />} />
               <Route path="/edit_event/*" element={<ConcertForm />} />
               <Route path="/edit_me/*" element={<UserForm />} />
               <Route path="/edit_member/*" element={<AdminUserForm />} />

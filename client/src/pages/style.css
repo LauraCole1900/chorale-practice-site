@@ -20,6 +20,21 @@ a.sideLinks:hover {
   font-size: 18px;
 }
 
+.adminCard {
+  width: 30%;
+  padding: 0;
+}
+
+.adminLink {
+  color: var(--gcRed);
+}
+.adminLink:visited {
+  color: var(--disabled);
+}
+.adminLink:hover {
+  color: var(--gcCharcoal);
+}
+
 .card {
   margin: 1rem;
   border-radius: 15px;
@@ -37,6 +52,10 @@ a.sideLinks:hover {
   color: var(--gcCharcoal);
   background-color: var(--gcGray);
   border-radius: 0 0 15px 15px;
+}
+
+.center {
+  text-align: center;
 }
 
 .eventCards {

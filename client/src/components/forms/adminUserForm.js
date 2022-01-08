@@ -33,6 +33,10 @@ const AdminUserForm = () => {
   const [errors, setErrors] = useState({});
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
+  // Determines whether the user is on new_member or edit_member/* page
+  const urlArray = window.location.href.split("/")
+  const urlSection = urlArray[urlArray.length - 1]
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
