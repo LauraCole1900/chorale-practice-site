@@ -32,10 +32,7 @@ function App() {
               <Route path="/new_member" element={<AdminUserForm />} />
               <Route path="/repertoire/:concertId" element={<SongForm />} />
               <Route path="/roster" element={<RosterPage />} />
-              <Route path="/section/soprano" element={<Section />} />
-              <Route path="/section/alto" element={<Section />} />
-              <Route path="/section/tenor" element={<Section />} />
-              <Route path="/section/bass" element={<Section />} />
+              <Route path="/section/:section" element={<Section />} />
               <Route path="*" element={<Lander />} />
             </Routes>
           </Container>
