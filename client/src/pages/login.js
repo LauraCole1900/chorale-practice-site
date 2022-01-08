@@ -73,7 +73,7 @@ const Login = () => {
                 </Col>
               </Row>
               <Row>
-                <Button disabled={!(userData.email && userData.password)} type="submit" className="formBtn">
+                <Button disabled={!(userData.email && userData.password)} type="submit" className="loginBtn">
                   Login
                 </Button>
               </Row>

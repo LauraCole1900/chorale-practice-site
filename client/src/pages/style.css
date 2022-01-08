@@ -69,19 +69,17 @@ a.sideLinks:hover {
   padding: 0;
 }
 
-.formBtn {
+.loginBtn {
   color: var(--gcWhite);
   background-color: var(--gcRed);
   border: 1px solid var(--gcWhite);
-  width: 5rem;
-  margin: 15px 0 0 15px;
 }
-.formBtn:disabled {
+.loginBtn:disabled {
   color: var(--gcWhite);
   background-color: var(--disabled);
   border: 1px solid var(--gcWhite);
 }
-.formBtn:hover {
+.loginBtn:hover {
   background-color: var(--gcCharcoal);
   border: 1px solid var(--gcWhite);
   cursor: pointer;
