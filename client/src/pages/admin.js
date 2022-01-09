@@ -3,13 +3,12 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css";
 
 const AdminPortal = () => {
   const currentUserId = Auth.getProfile().data?._id;
-  console.log(currentUserId);
 
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ALL_CONCERTS);
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
@@ -17,16 +16,24 @@ const AdminPortal = () => {
     {
       variables: { id: currentUserId }
     });
+  const [deleteConcert, { deleteError, deleteData }] = useMutation(DELETE_CONCERT);
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
 
   const concerts = concertData?.allConcerts || [];
   const users = userData?.allUsers || [];
   const me = meData?.me || [];
 
-  const deleteConcert = (id) => {
-
+  const handleDeleteConcert = async (id) => {
+    console.log(id)
+    try {
+      const { data } = await deleteConcert({
+        variables: { id: id },
+      });
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -42,15 +49,14 @@ const AdminPortal = () => {
       const sortedByLName = userCopy.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       setSortedUsers(sortedByLName);
     }
-    setPageReady(true);
   }, [concerts, users])
 
-  if (concertLoading || userLoading) {
+  if (concertLoading || meLoading || userLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (concertError || userError) {
-    console.log(JSON.stringify(concertError, userError));
+  if (concertError || meError || userError) {
+    console.log(JSON.stringify(concertError, meError, userError));
   }
 
   // edit concert
@@ -99,7 +105,7 @@ const AdminPortal = () => {
                         <ul>
                           <li><Link to={`/edit_event/${concert._id}`}>Edit event information</Link></li>
                           <li><Link to={`/repertoire/${concert._id}`}>Add repertoire, practice tracks, and/or video links</Link></li>
-                          <li className="adminLink" onClick={() => deleteConcert(concert._id)}>Delete this event</li>
+                          <li className="adminLink" onClick={() => handleDeleteConcert(concert._id)}>Delete this event</li>
                         </ul>
                       </div>
                     ))}
