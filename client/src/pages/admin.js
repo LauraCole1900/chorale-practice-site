@@ -22,7 +22,7 @@ const AdminPortal = () => {
 
   const concerts = concertData?.allConcerts || [];
   const users = userData?.allUsers || [];
-  const me = meData?.me || [];
+  const me = meData?.me || {};
 
   const handleDeleteConcert = async (id) => {
     console.log(id)
