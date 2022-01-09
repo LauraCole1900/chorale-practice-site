@@ -13,6 +13,32 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_ME_PROFILE = gql`
+  query meProfile($id: ID!) {
+    meProfile(_id: $id) {
+      _id
+      fullName
+      preferredName
+      birthday
+      email1
+      email2
+      phone1
+      phone1Type
+      phone2
+      phone2Type
+      phone3
+      phone3Type
+      section
+      position
+      streetAddress
+      city
+      state
+      zipCode
+      isAdmin
+    }
+  }
+`;
+
 export const QUERY_ALL_ADMINS = gql`
 query admins {
   admins {

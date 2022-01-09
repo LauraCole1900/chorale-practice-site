@@ -9,7 +9,6 @@ import "./style.css";
 
 const Members = () => {
   const currentUserId = Auth.getProfile().data?._id;
-  console.log(currentUserId);
 
   // const [admins, setAdmins] = useState([]);
   // const [pageReady, setPageReady] = useState(false);
@@ -33,7 +32,6 @@ const Members = () => {
 
   const adminArr = adminData?.admins || [];
   const me = meData?.me || {};
-  console.log(me);
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");

@@ -57,6 +57,7 @@ type Auth {
 
 type Query {
   me(_id: ID!): User
+  meProfile(_id: ID!): User
   admins: [User]
   allConcerts: [Concert]
   allUsers: [User]

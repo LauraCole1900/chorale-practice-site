@@ -7,6 +7,10 @@ const resolvers = {
     me: async (_, args, context) => {
       return await User.findOne({ _id: args._id }).select("-__v -password");
     },
+    
+    meProfile: async (_, args, context) => {
+      return await User.findOne({ _id: args._id }).select("-__v -password");
+    },
 
     admins: async () => {
       return await User.find({ "isAdmin": true });
