@@ -81,8 +81,33 @@ query oneUser($id: ID!) {
     lastName
     preferredName
     birthday
-    email1
     email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    city
+    state
+    zipCode
+    isAdmin
+    isActive
+  }
+}`
+
+export const QUERY_ONE_USER_ADMIN = gql`
+query oneUserAdmin($id: ID!) {
+  oneUserAdmin(_id: $id) {
+    _id
+    fullName
+    firstName
+    lastName
+    preferredName
+    birthday
     phone1
     phone1Type
     phone2

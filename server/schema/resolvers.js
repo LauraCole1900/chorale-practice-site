@@ -25,6 +25,11 @@ const resolvers = {
       return await User.findOne({ _id: args._id });
     },
 
+    oneUserAdmin: async (_, args) => {
+      console.log(args);
+      return await User.findOne({ _id: args._id });
+    },
+
     trueConcerts: async () => {
       return await Concert.find({ "songs": { $exists: true, $ne: [] } });
     },
@@ -47,7 +52,7 @@ const resolvers = {
     },
 
     editUserAdmin: async (_, args) => {
-      const user = await User.findOneAndUpdate(args);
+      const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } });
       return user;
     },
 

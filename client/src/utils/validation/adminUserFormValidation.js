@@ -1,4 +1,4 @@
-const userValidate = (user) => {
+const userValidate = (user, params) => {
   let errors = {};
 
   // name errors
@@ -23,18 +23,18 @@ const userValidate = (user) => {
   }
 
   // email errors
-  if (!user.email1) {
+  if (!user.email1 && params) {
     errors.email1 = "Please enter the member's primary email."
-  } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email1)) {
+  } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email1) && params) {
     errors.email1 = "There seems to be a problem with the formatting of your email. Please double-check."
   }
-  if (user.email2 && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email1)) {
+  if (user.email2 && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email2)) {
     errors.email2 = "There seems to be a problem with the formatting of your email. Please double-check."
   }
 
   // password errors
-  if (!user.password) {
-    errors.password = "Please enter a (temporary) password for the member."
+  if (!user.password && params) {
+    errors.password = "Please enter a temporary password for the member."
   }
 
   // phone errors
