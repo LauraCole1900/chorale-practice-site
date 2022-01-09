@@ -19,7 +19,6 @@ const Members = () => {
       variables: { id: currentUserId }
     });
 
-
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
     const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
