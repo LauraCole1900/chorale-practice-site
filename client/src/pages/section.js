@@ -5,19 +5,25 @@ import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_TRUE_CONCERTS } from "../utils/gql";
+import { QUERY_ME, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css"
 
 const Section = () => {
   const { section } = useParams();
+  const currentUserId = Auth.getProfile().data?._id;
 
   // const [songs, setSongs] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const [sortedConcerts, setSortedConcerts] = useState([]);
-  const { loading, data, error } = useQuery(QUERY_TRUE_CONCERTS);
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
+    {
+      variables: { id: currentUserId }
+    });
+  const { loading: concertsLoading, data: concertsData, error: concertsError } = useQuery(QUERY_TRUE_CONCERTS);
 
-  const concertArr = data?.trueConcerts || [];
+  const me = meData?.me || {};
+  const concertArr = concertsData?.trueConcerts || [];
 
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
@@ -32,12 +38,12 @@ const Section = () => {
     }
   }, [concertArr])
 
-  if (loading) {
+  if (concertsLoading || meLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (error) {
-    console.log(JSON.stringify(error));
+  if (concertsError || meError) {
+    console.log(JSON.stringify(concertsError));
   }
 
 
@@ -48,7 +54,7 @@ const Section = () => {
         <Container>
           <Row>
             <Col sm={2}>
-              <Sidenav />
+              <Sidenav user={me} />
             </Col>
             <Col sm={10}>
               <Card className="announcements">

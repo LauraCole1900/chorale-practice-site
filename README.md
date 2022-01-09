@@ -33,8 +33,8 @@ Login page:
 Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)
 
-"About" page:
-![About page](assets/gcpm-about-screenshot.png)
+Section page:
+![About page](assets/gcpm-section-page-screenshot.png)
 
 ## Installation Instructions
 
