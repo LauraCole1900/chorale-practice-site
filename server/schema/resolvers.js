@@ -21,12 +21,10 @@ const resolvers = {
     },
 
     oneUser: async (_, args) => {
-      console.log(args);
       return await User.findOne({ _id: args._id });
     },
 
     oneUserAdmin: async (_, args) => {
-      console.log(args);
       return await User.findOne({ _id: args._id });
     },
 
