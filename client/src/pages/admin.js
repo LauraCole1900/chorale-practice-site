@@ -104,8 +104,8 @@ const AdminPortal = () => {
                       <div key={concert._id}>
                         <li>{concert.name}</li>
                         <ul>
-                          <li><Link to={`/edit_event/${concert._id}`}>Edit event information</Link></li>
-                          <li><Link to={`/repertoire/${concert._id}`}>Add repertoire, practice tracks, and/or video links</Link></li>
+                          <li><Link to={`/edit_event/${concert._id}`} className="adminLink">Edit event information</Link></li>
+                          <li><Link to={`/repertoire/${concert._id}`} className="adminLink">Add repertoire, practice tracks, and/or video links</Link></li>
                           <li className="adminLink" onClick={() => handleDeleteConcert(concert._id)}>Delete this event</li>
                         </ul>
                       </div>

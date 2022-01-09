@@ -10,7 +10,6 @@ import "./style.css";
 const ConcertForm = () => {
   const params = useParams();
   const concertId = params.concertId;
-  console.log({ concertId });
   const navigate = useNavigate();
   const currentUserId = Auth.getProfile().data?._id;
 
@@ -26,9 +25,7 @@ const ConcertForm = () => {
   const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC);
 
   const me = meData?.me || {};
-  console.log({ me });
   const concertToEdit = editData?.oneConcert || {};
-  console.log({ concertToEdit });
 
   const [concertData, setConcertData] = useState({
     name: "",
@@ -108,7 +105,7 @@ const ConcertForm = () => {
       console.log("Concert submit", concertData)
       try {
         const { data } = await editConcert({
-          variables: { ...concertData }
+          variables: { id: concertId, ...concertData }
         });
         console.log({ data });
         navigate("./admin_portal");
