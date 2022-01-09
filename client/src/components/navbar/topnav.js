@@ -25,6 +25,9 @@ const Navibar = () => {
             </Link>
             {Auth.loggedIn() ? (
               <>
+                <Link to="/profile" className="navlink">
+                  Profile
+                </Link>
                 <Link to="/members" className="navlink">
                   Members
                 </Link>
