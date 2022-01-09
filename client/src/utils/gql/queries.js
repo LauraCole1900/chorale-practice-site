@@ -77,12 +77,24 @@ query oneUser($id: ID!) {
   oneUser(_id: $id) {
     _id
     fullName
+    firstName
+    lastName
     preferredName
+    birthday
     email1
+    email2
     phone1
-    password
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
     section
     position
+    streetAddress
+    city
+    state
+    zipCode
     isAdmin
     isActive
   }

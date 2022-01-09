@@ -123,7 +123,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing member to edit or delete</h5>
                   <ul>
                     {sortedUsers.map(user => (
-                      <li key={user._id}><Link to={`/edit_member/${user._id}`}>{user.fullName}</Link></li>
+                      <li key={user._id}><Link to={`/edit_member/${user._id}`} className="adminLink">{user.fullName}</Link></li>
                     ))}
                   </ul>
                 </Card.Body>

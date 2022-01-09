@@ -17,15 +17,15 @@ const AdminUserForm = () => {
     {
       variables: { id: currentUserId }
     });
-  // const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER,
-  //   {
-  //     variables: { id: userId }
-  //   });
+  const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER,
+    {
+      variables: { id: userId }
+    });
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
   const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
 
   const me = meData?.me || {};
-  // const userToEdit = editData?.oneUser || {};
+  const userToEdit = editData?.oneUser || {};
 
   const [userData, setUserData] = useState({
     fullName: "",
@@ -76,6 +76,14 @@ const AdminUserForm = () => {
     }
     setUserData({ ...userData, firstName: fName, lastName: lName, preferredName: fName });
   };
+
+  const removeEmptyFields = (data) => {
+    Object.keys(data).forEach(key => {
+      if (["", null, undefined].includes(data[key])) {
+        delete data[key]
+      }
+    })
+  }
 
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
@@ -142,70 +150,72 @@ const AdminUserForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    console.log({ userData })
+    console.log({ userData });
+    removeEmptyFields(userData);
+    console.log({ userData });
     // Validates required inputs
-    const validationErrors = adminUserValidate(userData);
-    const noErrors = Object.keys(validationErrors).length === 0;
-    setErrors(validationErrors);
-    if (noErrors) {
-      console.log("User update", userData)
-      try {
-        const { data } = await editUserAdmin({
-          variables: { id: userData._id, ...userData }
-        });
-        console.log({ data });
-        navigate("/admin_portal");
-      } catch (err) {
-        console.log(err);
-      }
-      setUserData({
-        fullName: "",
-        firstName: "",
-        lastName: "",
-        preferredName: "",
-        birthday: "",
-        email1: "",
-        email2: "",
-        password: "",
-        phone1: "",
-        phone1Type: "",
-        phone2: "",
-        phone2Type: "",
-        phone3: "",
-        phone3Type: "",
-        section: "",
-        position: "singer",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        isAdmin: false,
-        isActive: true
-      })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
-    } else {
-      console.log({ validationErrors });
-    }
+    // const validationErrors = adminUserValidate(userData);
+    // const noErrors = Object.keys(validationErrors).length === 0;
+    // setErrors(validationErrors);
+    // if (noErrors) {
+    //   console.log("User update", userData)
+    //   try {
+    //     const { data } = await editUserAdmin({
+    //       variables: { id: userData._id, ...userData }
+    //     });
+    //     console.log({ data });
+    //     navigate("/admin_portal");
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    //   setUserData({
+    //     fullName: "",
+    //     firstName: "",
+    //     lastName: "",
+    //     preferredName: "",
+    //     birthday: "",
+    //     email1: "",
+    //     email2: "",
+    //     password: "",
+    //     phone1: "",
+    //     phone1Type: "",
+    //     phone2: "",
+    //     phone2Type: "",
+    //     phone3: "",
+    //     phone3Type: "",
+    //     section: "",
+    //     position: "singer",
+    //     streetAddress: "",
+    //     city: "",
+    //     state: "",
+    //     zipCode: "",
+    //     isAdmin: false,
+    //     isActive: true
+    //   })
+    //   // POST call to create concert document
+    //   // ExhibitorAPI.registerExhibitor({ ...exhibitor })
+    //   //   .then(resp => {
+    //   //     // If no errors thrown, show Success modal
+    //   //     if (!resp.err) {
+    //   //       handleShowSuccess();
+    //   //     }
+    //   //   })
+    //   // If yes errors thrown, setState(err.message) and show Error modal
+    //   // .catch(err => {
+    //   //   console.log(err)
+    //   //   setErrThrown(err.message);
+    //   //   handleShowErr();
+    //   // })
+    // } else {
+    //   console.log({ validationErrors });
+    // }
   };
 
-  // useEffect(() => {
-  //   if (userToEdit) {
-  //     setUserData(userToEdit)
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (Object.keys(userToEdit).length > 0) {
+      setUserData(userToEdit)
+    }
+  }, [userToEdit]);
 
 
   return (
@@ -285,16 +295,32 @@ const AdminUserForm = () => {
                 </Row>
               </Form.Group>
 
-              <Form.Group controlId="formPassword">
-                <Row>
-                  <Col lg={{ span: 8, offset: 2 }} className="bottom">
-                    <Form.Label>Member's temporary password: <span className="red">*</span></Form.Label>
-                    {errors.password &&
-                      <div className="error"><p>{errors.password}</p></div>}
-                    <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                </Row>
-              </Form.Group>
+              {!Object.keys(params).length
+                ? <Form.Group controlId="formPassword">
+                  <Row>
+                    <Col lg={{ span: 8, offset: 2 }} className="bottom">
+                      <Form.Label>Member's temporary password: <span className="red">*</span></Form.Label>
+                      {errors.password &&
+                        <div className="error"><p>{errors.password}</p></div>}
+                      <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                </Form.Group>
+                : <Form.Group controlId="formPassword">
+                  <Row>
+                    <Col lg={{ span: 8, offset: 2 }} className="bottom">
+                      <Form.Label>Member's temporary password:</Form.Label>
+                      {errors.password &&
+                        <div className="error"><p>{errors.password}</p></div>}
+                      {userData.password?.length
+                        ? <><Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="subtitleInput" onChange={handleInputChange} />
+                          <Form.Text className="warningText">This will overwrite the user's recorded password. Continue?</Form.Text>
+                        </>
+                        : <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
+                      }
+                    </Col>
+                  </Row>
+                </Form.Group>}
 
               <Form.Group controlId="formAdminUserPhone">
                 <Row>
@@ -431,9 +457,10 @@ const AdminUserForm = () => {
 
               <Row>
                 <Col sm={{ span: 3, offset: 2 }}>
-                  {params
-                    ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
-                    : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>}
+                  {Object.keys(params).length
+                    ? <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
+                    : <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                  }
                 </Col>
               </Row>
             </Form>
