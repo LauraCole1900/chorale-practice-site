@@ -7,7 +7,7 @@ const resolvers = {
     me: async (_, args, context) => {
       return await User.findOne({ _id: args._id }).select("-__v -password");
     },
-    
+
     meProfile: async (_, args, context) => {
       return await User.findOne({ _id: args._id }).select("-__v -password");
     },
@@ -53,13 +53,28 @@ const resolvers = {
       return concert;
     },
 
+    deleteUser: async (_, args) => {
+      const user = await User.findByIdAndDelete({ _id: args._id });
+      return user;
+    },
+
+    editConcertBasic: async (_, args) => {
+      const concert = await Concert.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+      return concert;
+    },
+
+    editConcertRepertoire: async (_, args) => {
+      const concert = await Concert.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+      return concert;
+    },
+
     editUserAdmin: async (_, args) => {
-      const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } });
+      const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
       return user;
     },
 
     editUserSelf: async (_, args) => {
-      const user = await User.findOneAndUpdate(args);
+      const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
       const token = signToken(user);
       return { token, user };
     },

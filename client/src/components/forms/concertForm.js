@@ -55,6 +55,7 @@ const ConcertForm = () => {
         date: [],
         time: [],
         venue: [],
+        signUp: "",
         addlMaterials: [],
       })
       // POST call to create concert document

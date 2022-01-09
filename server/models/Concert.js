@@ -22,6 +22,9 @@ const concertSchema = new Schema(
       type: [String],
       required: true
     },
+    signUp: {
+      type: String
+    },
     addlMaterials: {
       type: [String]
     },

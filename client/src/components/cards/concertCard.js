@@ -29,6 +29,9 @@ const ConcertCard = ({ concert }) => {
           {venues.includes("&")
             ? <p><span className="bold">Locations:</span> {venues}</p>
             : <p><span className="bold">Location:</span> {venues}</p>}
+          {concert.signUp
+            ? <p><a href={concert.signUp}>Sign Up Here</a></p>
+            : <></>}
         </Card.Body>
       </Card>
     </>
