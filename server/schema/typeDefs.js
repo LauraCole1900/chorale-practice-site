@@ -79,9 +79,9 @@ type Mutation {
 
   deleteUser(_id: ID!): User
 
-  editConcertBasic(_id: ID!, name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String): Concert
+  editConcertBasic(_id: ID!, name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
 
-  editConcertRepertoire(_id: ID!, addlMaterials: [String!], songs: [Song!]): Concert
+  editConcertRepertoire(_id: ID!, songs: [Song!]): Concert
 
   editUserAdmin(_id: ID!, fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String, email2: String, password: String, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 

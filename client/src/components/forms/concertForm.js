@@ -133,6 +133,14 @@ const ConcertForm = () => {
                 </Col>
               </Row>
             </Form.Group>
+            <Form.Group controlId="formConcertSignUp">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Signup link, if applicable:</Form.Label>
+                  <Form.Control type="input" name="signUp" placeholder="Link to Signup Genius, etc." value={concertData.signUp} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
             <Form.Group controlId="formConcertAddlMaterials">
               <Row>
                 <Col sm={{ span: 8, offset: 2 }}>

@@ -13,7 +13,7 @@ mutation login($email: String!, $password: String!) {
 `;
 
 export const ADD_CONCERT = gql`
-mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!, $signUp: String) {
+mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!, $signUp: String, $addlMaterials: [String!]) {
   addConcert(name: $name, date: $date, time: $time, venue: $venue, signUp: $signUp) {
     _id
     name
@@ -21,6 +21,7 @@ mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue
     time
     venue
     signUp
+    addlMaterials
   }
 }
 `;
@@ -110,21 +111,22 @@ mutation deleteUser($id: ID!) {
 `;
 
 export const EDIT_CONCERT_BASIC = gql`
-mutation editConcertBasic($id: ID!, $name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!, $signUp: String) {
-  editConcertBasic(_id: $id, name: $name, date: $date, time: $time, venue: $venue, signUp: $signUp) {
+mutation editConcertBasic($id: ID!, $name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!, $signUp: String, $addlMaterials: [String!]) {
+  editConcertBasic(_id: $id, name: $name, date: $date, time: $time, venue: $venue, signUp: $signUp, addlMaterials: $addlMaterials) {
     _id
     name
     date
     time
     venue
     signUp
+    addlMaterials
   }
 }
 `;
 
 export const EDIT_CONCERT_REPERTOIRE = gql`
-mutation editConcertRepertoire($id: ID!, $addlMaterials: [String!], $songs: [Song]) {
-  editConcertRepertoire(_id: $id, addlMaterials: $addlMaterials, songs: $songs) {
+mutation editConcertRepertoire($id: ID!, $songs: [Song]) {
+  editConcertRepertoire(_id: $id, songs: $songs) {
     _id
     addlMaterials
     songs {
