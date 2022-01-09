@@ -2,17 +2,32 @@ import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_USER, QUERY_ME } from "../../utils/gql";
+import { ADD_USER, EDIT_USER_ADMIN, QUERY_ME, QUERY_ONE_USER } from "../../utils/gql";
 import { adminUserValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import "./style.css";
 
 const AdminUserForm = () => {
   const params = useParams();
+  const userId = params.userId;
   const navigate = useNavigate();
   const currentUserId = Auth.getProfile().data?._id;
 
-  const [userData, setUserData] = useState({
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
+    {
+      variables: { id: currentUserId }
+    });
+  const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER,
+    {
+      variables: { id: userId }
+    });
+  const [addUser, { addError, addData }] = useMutation(ADD_USER);
+  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
+
+  const me = meData?.me || {};
+  const userToEdit = editData?.oneUser || {};
+
+  const [userData, setUserData] = useState(userToEdit || {
     fullName: "",
     firstName: "",
     lastName: "",
@@ -37,13 +52,6 @@ const AdminUserForm = () => {
     isActive: true
   });
   const [errors, setErrors] = useState({});
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
-  const [addUser, { addError, addData }] = useMutation(ADD_USER);
-
-  const me = meData?.me || {};
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -81,6 +89,68 @@ const AdminUserForm = () => {
       console.log("User submit", userData)
       try {
         const { data } = await addUser({
+          variables: { ...userData }
+        });
+        console.log({ data });
+      } catch (err) {
+        console.log(err);
+      }
+      setUserData({
+        fullName: "",
+        firstName: "",
+        lastName: "",
+        preferredName: "",
+        birthday: "",
+        email1: "",
+        email2: "",
+        password: "",
+        phone1: "",
+        phone1Type: "",
+        phone2: "",
+        phone2Type: "",
+        phone3: "",
+        phone3Type: "",
+        section: "",
+        position: "singer",
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        isAdmin: false,
+        isActive: true
+      })
+      // POST call to create concert document
+      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
+      //   .then(resp => {
+      //     // If no errors thrown, show Success modal
+      //     if (!resp.err) {
+      //       handleShowSuccess();
+      //     }
+      //   })
+      // If yes errors thrown, setState(err.message) and show Error modal
+      // .catch(err => {
+      //   console.log(err)
+      //   setErrThrown(err.message);
+      //   handleShowErr();
+      // })
+      navigate("/admin_portal");
+    } else {
+      console.log({ validationErrors });
+    }
+  };
+
+  // Handles click on "Update" button
+  const handleFormUpdate = async (e) => {
+    e.preventDefault();
+    console.log({ userData })
+    // Validates required inputs
+    const validationErrors = adminUserValidate(userData);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("User update", userData)
+      try {
+        const { data } = await editUserAdmin({
           variables: { ...userData }
         });
         console.log({ data });
@@ -354,7 +424,9 @@ const AdminUserForm = () => {
 
               <Row>
                 <Col sm={{ span: 3, offset: 2 }}>
-                  <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                  {params
+                    ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                    : <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>}
                 </Col>
               </Row>
             </Form>

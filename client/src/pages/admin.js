@@ -9,6 +9,7 @@ import "./style.css";
 
 const AdminPortal = () => {
   const currentUserId = Auth.getProfile().data?._id;
+  const [toggle, setToggle] = useState(false);
 
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ALL_CONCERTS);
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
@@ -36,7 +37,12 @@ const AdminPortal = () => {
     }
   }
 
+  function changeToggle() {
+    toggle ? setToggle(false) : setToggle(true);
+  }
+
   useEffect(() => {
+    changeToggle();
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);

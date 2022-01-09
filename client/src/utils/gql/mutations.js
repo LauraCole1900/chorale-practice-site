@@ -74,6 +74,32 @@ mutation deleteConcert($id: ID!) {
 }
 `;
 
+export const EDIT_USER_ADMIN = gql`
+mutation editUserAdmin($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $email1: String!, $email2: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $section: String!, $position: String!, $streetAddress: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {
+  editUserAdmin(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday email1: $email1, email2: $email2, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, section: $section, position: $position, streetAddress: $streetAddress, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
+    _id
+    fullName
+    preferredName
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    state
+    zipCode
+    isAdmin
+    isActive
+  }
+}
+`;
+
 export const EDIT_USER_SELF = gql`
 mutation editUserSelf($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $streetAddress: String, $city: String, $state: String, $zipCode: String) {
   editUserSelf(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode) {
@@ -81,6 +107,7 @@ mutation editUserSelf($fullName: String!, $firstName: String!, $lastName: String
       _id
       fullName
       preferredName
+      birthday
       password
       phone1
       phone2
@@ -91,4 +118,5 @@ mutation editUserSelf($fullName: String!, $firstName: String!, $lastName: String
       zipCode
     }
   }
-}`
+}
+`;
