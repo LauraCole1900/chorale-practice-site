@@ -63,6 +63,7 @@ type Query {
   admins: [User]
   allConcerts: [Concert]
   allUsers: [User]
+  oneConcert: Concert
   oneUser(_id: ID!): User
   oneUserAdmin(_id: ID!): User
   trueConcerts: [Concert]

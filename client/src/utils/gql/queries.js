@@ -1,42 +1,42 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-  query me($id: ID!) {
-    me(_id: $id) {
-      _id
-      fullName
-      preferredName
-      section
-      position
-      isAdmin
-    }
+query me($id: ID!) {
+  me(_id: $id) {
+    _id
+    fullName
+    preferredName
+    section
+    position
+    isAdmin
   }
+}
 `;
 
 export const QUERY_ME_PROFILE = gql`
-  query meProfile($id: ID!) {
-    meProfile(_id: $id) {
-      _id
-      fullName
-      preferredName
-      birthday
-      email1
-      email2
-      phone1
-      phone1Type
-      phone2
-      phone2Type
-      phone3
-      phone3Type
-      section
-      position
-      streetAddress
-      city
-      state
-      zipCode
-      isAdmin
-    }
+query meProfile($id: ID!) {
+  meProfile(_id: $id) {
+    _id
+    fullName
+    preferredName
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    city
+    state
+    zipCode
+    isAdmin
   }
+}
 `;
 
 export const QUERY_ALL_ADMINS = gql`
@@ -55,19 +55,27 @@ query admins {
 `;
 
 export const QUERY_ALL_CONCERTS = gql`
-  query allConcerts {
-    allConcerts {
-      _id
-      name
-      date
-      time
-      venue
-      songs {
-        title
-        composer
-      }
+query allConcerts {
+  allConcerts {
+    _id
+    name
+    date
+    time
+    venue
+    signUp
+    addlMaterials
+    songs {
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSop
+      practiceTrackUrlsAlto
+      practiceTrackUrlsTen
+      practiceTrackUrlsBass
+      videoUrls
     }
   }
+}
 `;
 
 export const QUERY_ALL_USERS = gql`
@@ -96,7 +104,32 @@ query allUsers {
     isAdmin
     isActive
   }
-}`
+}
+`;
+
+export const QUERY_ONE_CONCERT = gql`
+query oneConcert ($id: ID!) {
+  oneConcert(_id: $id) {
+    _id
+    name
+    date
+    time
+    venue
+    signUp
+    addlMaterials
+    songs {
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSop
+      practiceTrackUrlsAlto
+      practiceTrackUrlsTen
+      practiceTrackUrlsBass
+      videoUrls
+    }
+  }
+}
+`;
 
 export const QUERY_ONE_USER = gql`
 query oneUser($id: ID!) {
@@ -123,7 +156,8 @@ query oneUser($id: ID!) {
     isAdmin
     isActive
   }
-}`
+}
+`;
 
 export const QUERY_ONE_USER_ADMIN = gql`
 query oneUserAdmin($id: ID!) {

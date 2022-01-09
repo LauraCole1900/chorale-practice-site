@@ -26,7 +26,6 @@ const AdminUserForm = () => {
 
   const me = meData?.me || {};
   const userToEdit = editData?.oneUserAdmin || {};
-  console.log({ userToEdit });
 
   const [userData, setUserData] = useState({
     fullName: "",
@@ -218,6 +217,10 @@ const AdminUserForm = () => {
       setUserData(userToEdit)
     }
   }, [userToEdit]);
+
+  if (editLoading || meLoading) {
+    return <h1>Loading....</h1>
+  }
 
 
   return (
