@@ -4,11 +4,8 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    me: async (_, __, context) => {
-      if (context.user) {
-        return await User.findOne({ _id: context.user._id }).select("-__v -password");
-      }
-      throw new AuthenticationError("You must be logged in!");
+    me: async (_, args, context) => {
+      return await User.findOne({ _id: args._id }).select("-__v -password");
     },
 
     admins: async () => {
@@ -24,7 +21,8 @@ const resolvers = {
     },
 
     oneUser: async (_, args) => {
-      return await User.findOne(args);
+      console.log(args);
+      return await User.findOne({ _id: args._id });
     },
 
     trueConcerts: async () => {
@@ -60,7 +58,7 @@ const resolvers = {
     },
 
     login: async (_, { email, password }) => {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email1: email });
       // If user email isn't found, throw auth error
       if (!user) {
         throw new AuthenticationError("Login failed. Try again");

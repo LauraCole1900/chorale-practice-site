@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button, Nav, Navbar } from "react-bootstrap";
 import "./style.css";
 
-const Sidenav = () => {
+const Sidenav = ({ user }) => {
 
 
   return (
@@ -20,6 +20,14 @@ const Sidenav = () => {
         <Nav>
           <Link to="/section/bass"><Button className="navBtn">Bass</Button></Link>
         </Nav>
+        {user.isAdmin === true
+          ? <>
+            <Nav>
+              <Link to="/admin_portal"><Button className="navBtn">Admin Portal</Button></Link>
+            </Nav>
+          </>
+          : <>
+          </>}
       </Navbar>
     </>
   )

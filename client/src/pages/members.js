@@ -3,14 +3,22 @@ import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Sidenav } from "../components/navbar";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_ADMINS } from "../utils/gql";
+import { QUERY_ALL_ADMINS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css";
 
 const Members = () => {
+  const currentUserId = Auth.getProfile().data?._id;
+  console.log(currentUserId);
+
   // const [admins, setAdmins] = useState([]);
   // const [pageReady, setPageReady] = useState(false);
-  const { loading, data, error } = useQuery(QUERY_ALL_ADMINS);
+  const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
+    {
+      variables: { id: currentUserId }
+    });
+
 
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
@@ -24,7 +32,9 @@ const Members = () => {
     return posArr[0];
   }
 
-  const adminArr = data?.admins || [];
+  const adminArr = adminData?.admins || [];
+  const me = meData?.me || {};
+  console.log(me);
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
@@ -43,12 +53,12 @@ const Members = () => {
   //   }
   // }, [adminArr])
 
-  if (loading) {
+  if (adminLoading || meLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (error) {
-    console.log(JSON.stringify(error))
+  if (adminError || meError) {
+    console.log(JSON.stringify(adminError, meError))
   }
 
 
@@ -59,7 +69,7 @@ const Members = () => {
         : <Container>
           <Row>
             <Col sm={2}>
-              <Sidenav />
+              <Sidenav user={me} />
               <aside className="sideInfo">
                 <h2 className="sideInfo">Quick Links</h2>
                 <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />

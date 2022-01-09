@@ -56,11 +56,11 @@ type Auth {
 }
 
 type Query {
-  me: User
+  me(_id: ID!): User
   admins: [User]
   allConcerts: [Concert]
   allUsers: [User]
-  oneUser(email: String!): User
+  oneUser(_id: ID!): User
   trueConcerts: [Concert]
 }
 
