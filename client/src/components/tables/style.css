@@ -47,7 +47,6 @@ tr:focus {
 
 .active {
   background-color: var(--highlightGreen);
-  text-align: center;
 }
 
 .address {

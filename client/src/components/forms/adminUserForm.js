@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
@@ -17,17 +17,17 @@ const AdminUserForm = () => {
     {
       variables: { id: currentUserId }
     });
-  const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER,
-    {
-      variables: { id: userId }
-    });
+  // const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER,
+  //   {
+  //     variables: { id: userId }
+  //   });
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
   const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
 
   const me = meData?.me || {};
-  const userToEdit = editData?.oneUser || {};
+  // const userToEdit = editData?.oneUser || {};
 
-  const [userData, setUserData] = useState(userToEdit || {
+  const [userData, setUserData] = useState({
     fullName: "",
     firstName: "",
     lastName: "",
@@ -92,6 +92,7 @@ const AdminUserForm = () => {
           variables: { ...userData }
         });
         console.log({ data });
+        navigate("/admin_portal");
       } catch (err) {
         console.log(err);
       }
@@ -133,7 +134,6 @@ const AdminUserForm = () => {
       //   setErrThrown(err.message);
       //   handleShowErr();
       // })
-      navigate("/admin_portal");
     } else {
       console.log({ validationErrors });
     }
@@ -151,9 +151,10 @@ const AdminUserForm = () => {
       console.log("User update", userData)
       try {
         const { data } = await editUserAdmin({
-          variables: { ...userData }
+          variables: { id: userData._id, ...userData }
         });
         console.log({ data });
+        navigate("/admin_portal");
       } catch (err) {
         console.log(err);
       }
@@ -195,11 +196,17 @@ const AdminUserForm = () => {
       //   setErrThrown(err.message);
       //   handleShowErr();
       // })
-      navigate("/admin_portal");
     } else {
       console.log({ validationErrors });
     }
   };
+
+  // useEffect(() => {
+  //   if (userToEdit) {
+  //     setUserData(userToEdit)
+  //   }
+  // }, []);
+
 
   return (
     <>
@@ -426,7 +433,7 @@ const AdminUserForm = () => {
                 <Col sm={{ span: 3, offset: 2 }}>
                   {params
                     ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
-                    : <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>}
+                    : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>}
                 </Col>
               </Row>
             </Form>

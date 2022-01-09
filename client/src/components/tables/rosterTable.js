@@ -8,11 +8,11 @@ const RosterTable = ({ members }) => {
     <table striped="true" border="true" hover="true" className="rosterTable">
       <thead>
         <tr>
+          <th className="isActive">A?</th>
           <th className="fName">Full Name</th>
           <th className="pName">Preferred Name</th>
-          <th className="bday">Bday</th>
-          <th className="isActive">A?</th>
           <th className="sLeader">SL</th>
+          <th className="bday">Bday</th>
           <th className="section">Section</th>
           <th className="position">Position</th>
           <th className="email">Email 1</th>
@@ -31,15 +31,20 @@ const RosterTable = ({ members }) => {
       <tbody>
         {members.map((member, i) => (
           <tr key={member._id} tabIndex={0}>
-            <td>{member.fullName}</td>
-            <td>{member.preferredName}</td>
-            <td>{member.birthday}</td>
             {member.isActive
-              ? <td className="active">Y</td>
-              : <td className="inactive">N</td>}
+              ? <>
+                <td className="active"></td>
+                <td className="active">{member.fullName}</td>
+                <td className="active">{member.preferredName}</td>
+              </>
+              : <><td className="inactive">L</td>
+                <td className="inactive">{member.fullName}</td>
+                <td className="inactive">{member.preferredName}</td>
+              </>}
             {member.position === "section leader"
               ? <td className="leader">X</td>
               : <td></td>}
+            <td>{member.birthday}</td>
             <td>{member.section}</td>
             <td>{member.position}</td>
             <td>{member.email1}</td>
