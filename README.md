@@ -34,7 +34,13 @@ Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)
 
 Section page:
-![About page](assets/gcpm-section-page-screenshot.png)
+![Section page](assets/gcpm-section-page-screenshot.png)
+
+New Event form:
+![New Event form](assets/gcpm-new-event-form-screenshot.png)
+
+New Member form:
+![New Member form](assets/gcpm-new-member-form-screenshot.png)
 
 ## Installation Instructions
 
