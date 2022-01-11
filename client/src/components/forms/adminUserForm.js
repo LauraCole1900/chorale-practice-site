@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USER, EDIT_USER_ADMIN, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
 import { adminUserValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
+import generatePassword from "../../utils/genPassword";
 import "./style.css";
 
 const AdminUserForm = () => {
@@ -35,7 +36,7 @@ const AdminUserForm = () => {
     birthday: "",
     email1: "",
     email2: "",
-    password: "",
+    password: generatePassword(),
     phone1: "",
     phone1Type: "",
     phone2: "",
