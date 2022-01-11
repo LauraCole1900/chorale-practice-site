@@ -14,7 +14,7 @@ mutation login($email: String!, $password: String!) {
 
 export const ADD_CONCERT = gql`
 mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue: [String!]!, $signUp: String, $addlMaterials: [String!]) {
-  addConcert(name: $name, date: $date, time: $time, venue: $venue, signUp: $signUp) {
+  addConcert(name: $name, date: $date, time: $time, venue: $venue, signUp: $signUp, addlMaterials: $addlMaterials) {
     _id
     name
     date
@@ -125,7 +125,7 @@ mutation editConcertBasic($id: ID!, $name: String!, $date: [String!]!, $time: [S
 `;
 
 export const EDIT_CONCERT_REPERTOIRE = gql`
-mutation editConcertRepertoire($id: ID!, $songs: [Song]) {
+mutation editConcertRepertoire($id: ID!, $songs: [SongInput!]) {
   editConcertRepertoire(_id: $id, songs: $songs) {
     _id
     addlMaterials
@@ -170,8 +170,8 @@ mutation editUserAdmin($id: ID!, $fullName: String!, $firstName: String!, $lastN
 `;
 
 export const EDIT_USER_SELF = gql`
-mutation editUserSelf($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $streetAddress: String, $city: String, $state: String, $zipCode: String) {
-  editUserSelf(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode) {
+mutation editUserSelf($id: ID!, $fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $streetAddress: String, $city: String, $state: String, $zipCode: String) {
+  editUserSelf(_id: $id, fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode) {
     user {
       _id
       fullName
