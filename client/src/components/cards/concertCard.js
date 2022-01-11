@@ -16,7 +16,7 @@ const ConcertCard = ({ concert }) => {
   const formatTime = (time) => {
     let formattedTime = "";
     const timeArr = time.split(" ");
-    const filteredArr = timeArr.filter(time => (time.includes(":") || time.includes("am") || time.includes("pm") || time.includes("AM") || time.includes("PM")));
+    const filteredArr = timeArr.filter(time => (time.includes(":") || time.includes("am") || time.includes("pm")));
     if (filteredArr.length) {
       const splitFiltered = filteredArr.map(time => time.split("-")).flat();
       const addMins = splitFiltered.map(time => time.indexOf(":") === -1 ? (time.indexOf("m") > -1 || time.indexOf("M") > -1 ? `${time.slice(0, -2)}:00${time.slice(-2)}` : `${time}:00`) : time);
@@ -32,11 +32,8 @@ const ConcertCard = ({ concert }) => {
 
   const howLong = (date, time) => {
     const formattedTime = formatTime(time);
-    console.log({ formattedTime });
     const dayjsDate = dayjs(`${date} ${formattedTime}`, "MM-DD-YYYY h:mma");
-    console.log({ dayjsDate });
     const counter = dayjs(dayjsDate, "MM-DD-YYYY h:mm a").fromNow();
-    console.log(counter);
     return counter;
   }
 
@@ -58,7 +55,7 @@ const ConcertCard = ({ concert }) => {
           {times.includes("&")
             ? <p><span className="bold">Times:</span> {times}</p>
             : <p><span className="bold">Time:</span> {times}</p>}
-          {times.includes(":")
+          {(times.includes("am") || times.includes("pm"))
             ? <p><span className="bold">Countdown to curtain:</span> {howLong(concert.date[0], concert.time[0])}</p>
             : <></>}
           {venues.includes("&")
