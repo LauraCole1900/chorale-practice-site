@@ -62,7 +62,7 @@ const ConcertCard = ({ concert }) => {
             ? <p><span className="bold">Locations:</span> {venues}</p>
             : <p><span className="bold">Location:</span> {venues}</p>}
           {concert.signUp
-            ? <p><a href={concert.signUp}>Sign Up Here</a></p>
+            ? <p><a href={concert.signUp} target="_blank" rel="noreferrer noopener">Sign Up Here</a></p>
             : <></>}
         </Card.Body>
       </Card>
