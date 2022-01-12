@@ -4,13 +4,11 @@ import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_CONCERTS } from "../utils/gql";
-
-// import Auth from '../utils/auth';
+import { timeToNow } from "../utils/dateUtils";
 import "./style.css";
 
 const Lander = () => {
   const [sortedConcerts, setSortedConcerts] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
   const concerts = data?.allConcerts || [];
@@ -27,17 +25,15 @@ const Lander = () => {
     console.log(`%c${message}`, style);
 
     if (concerts.length) {
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      console.log(tomorrow);
-      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "M-D-YYYY")) > dayjs(tomorrow));
+      const upcomingConcerts = concerts.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
+        ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
+        : (timeToNow(concert.date[concert.date.length - 1], concert.time[0])) > dayjs()
+      );
       console.log({ upcomingConcerts });
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);
     }
-    setPageReady(true);
   }, [concerts, message])
 
   if (loading) {
@@ -51,28 +47,26 @@ const Lander = () => {
 
   return (
     <>
-      {pageReady === true &&
-        <Card className="card">
-          <Card.Header className="cardTitle">
-            <h1>Upcoming Events</h1>
-          </Card.Header>
-          <Card.Body className="cardBody">
-            <Row>
-              {sortedConcerts.length > 0
-                ? <>
-                  {sortedConcerts.map(concert => (
-                    <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
-                      <ConcertCard concert={concert} />
-                    </Col>
-                  ))}
-                </>
-                : <>
-                  <h3>No upcoming events found</h3>
-                </>}
-            </Row>
-          </Card.Body>
-        </Card>
-      }
+      <Card className="card">
+        <Card.Header className="cardTitle">
+          <h1>Upcoming Events</h1>
+        </Card.Header>
+        <Card.Body className="cardBody">
+          <Row>
+            {sortedConcerts.length > 0
+              ? <>
+                {sortedConcerts.map(concert => (
+                  <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
+                    <ConcertCard concert={concert} />
+                  </Col>
+                ))}
+              </>
+              : <>
+                <h3>No upcoming events found</h3>
+              </>}
+          </Row>
+        </Card.Body>
+      </Card>
     </>
   )
 }

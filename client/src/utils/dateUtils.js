@@ -22,9 +22,14 @@ const formatTime = (time) => {
   return formattedTime;
 };
 
-export const timeToCurtain = (date, time) => {
+export const timeToNow = (date, time) => {
   const formattedTime = formatTime(time);
   const dayjsDate = dayjs(`${date} ${formattedTime}`, "M-D-YYYY h:mma");
+  return dayjsDate;
+}
+
+export const timeToCurtain = (date, time) => {
+  const dayjsDate = timeToNow(date, time);
   const counter = dayjs(dayjsDate, "M-D-YYYY h:mm a").fromNow();
   return counter;
 };
