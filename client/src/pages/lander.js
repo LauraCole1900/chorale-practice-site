@@ -27,11 +27,11 @@ const Lander = () => {
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
         ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
-        : (timeToNow(concert.date[concert.date.length - 1], concert.time[0])) > dayjs()
+        : (timeToNow(concert.date[concert.date.length - 1], concert.time[concert.time.length - 1])) > dayjs()
       );
       console.log({ upcomingConcerts });
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
-      const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+      const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);
       setSortedConcerts(sortedByDate);
     }
   }, [concerts, message])
