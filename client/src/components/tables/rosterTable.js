@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./style.css";
 
 const RosterTable = ({ members }) => {

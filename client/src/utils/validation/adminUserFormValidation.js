@@ -40,7 +40,7 @@ const userValidate = (user, params) => {
   // phone errors
   if (!user.phone1) {
     errors.phone1 = "Please enter the member's primary phone number."
-  } else if (!/^(\([0-9]{3}\)\s*|[0-9]{3}\-)[0-9]{3}-[0-9]{4}$/.test(user.phone1)) {
+  } else if (!/^(\([0-9]{3}\)\s*|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/.test(user.phone1)) {
     errors.phone1 = "There seems to be a problem with the formatting of your phone number. Please double-check."
   }
   if (!user.phone1Type) {

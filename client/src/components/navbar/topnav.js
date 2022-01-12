@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Image, Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 // import gclogo from "../../pix/chorale-logo.webp";
 import Auth from "../../utils/auth";
 import "./style.css";
