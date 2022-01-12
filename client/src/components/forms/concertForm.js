@@ -41,8 +41,12 @@ const ConcertForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setConcertData({ ...concertData, [name]: value });
-    if (["date", "time", "venue", "addlMaterials"].includes(name)) {
+    if (["date", "venue", "addlMaterials"].includes(name)) {
       let dataArr = value.split(",");
+      setConcertData({ ...concertData, [name]: dataArr });
+    }
+    if (name === "time") {
+      let dataArr = value.toLowerCase().split(",");
       setConcertData({ ...concertData, [name]: dataArr });
     }
   };

@@ -41,6 +41,13 @@ const ConcertCard = ({ concert }) => {
   const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
   const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
 
+  const capsCase = (str) => {
+    const wordsArr = str.split(" ");
+    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
+    const casedStr = capsArr.join(" ");
+    return casedStr;
+  }
+
 
   return (
     <>
@@ -53,8 +60,8 @@ const ConcertCard = ({ concert }) => {
             ? <p><span className="bold">Dates:</span> {dates}</p>
             : <p><span className="bold">Date:</span> {dates}</p>}
           {times.includes("&")
-            ? <p><span className="bold">Times:</span> {times}</p>
-            : <p><span className="bold">Time:</span> {times}</p>}
+            ? <p><span className="bold">Times:</span> {capsCase(times)}</p>
+            : <p><span className="bold">Time:</span> {capsCase(times)}</p>}
           {(times.includes("am") || times.includes("pm"))
             ? <p><span className="bold">Countdown to curtain:</span> {howLong(concert.date[0], concert.time[0])}</p>
             : <></>}

@@ -25,6 +25,12 @@ a:hover {
   font-weight: 700;
 }
 
+.boldOutline {
+  color: var(--gcRed);
+  font-weight: 700;
+  text-shadow: -1px 1px 0 var(--lightSil), 1px 1px 0 var(--lightSil), 1px -1px 0 var(--lightSil), -1px -1px 0 var(--lightSil);
+}
+
 .announcements,
 .concertCard,
 .tracksCard {
