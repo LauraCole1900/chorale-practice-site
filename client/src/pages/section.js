@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
@@ -11,6 +11,7 @@ import "./style.css"
 
 const Section = () => {
   const { section } = useParams();
+  const navigate = useNavigate();
   const currentUserId = Auth.getProfile().data?._id;
 
   // const [songs, setSongs] = useState([]);
@@ -29,6 +30,10 @@ const Section = () => {
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
 
   useEffect(() => {
+    if (!["soprano", "alto", "tenor", "bass"].includes(section)) {
+      navigate("/");
+    };
+
     if (concertArr.length) {
       const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
@@ -36,7 +41,8 @@ const Section = () => {
       setSortedConcerts(sortedByDate);
       setPageReady(true);
     }
-  }, [concertArr])
+  }, [concertArr, navigate, section]);
+
 
   if (concertsLoading || meLoading) {
     return <h1>Loading....</h1>
