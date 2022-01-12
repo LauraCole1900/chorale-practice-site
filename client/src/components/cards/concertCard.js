@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 
 const ConcertCard = ({ concert }) => {
   const formatDate = (dates) => {
-    const formattedDate = dates.map(date => dayjs(date, "MM-DD-YYYY").format("dddd, MMM D, YYYY"));
+    const formattedDate = dates.map(date => dayjs(date, "M-D-YYYY").format("dddd, MMM D, YYYY"));
     return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
   }
 
@@ -21,7 +21,7 @@ const ConcertCard = ({ concert }) => {
       const splitFiltered = filteredArr.map(time => time.split("-")).flat();
       const addMins = splitFiltered.map(time => time.indexOf(":") === -1 ? (time.indexOf("m") > -1 || time.indexOf("M") > -1 ? `${time.slice(0, -2)}:00${time.slice(-2)}` : `${time}:00`) : time);
       const findMeridiem = addMins.map(time => time.slice(-2));
-      if (!["am", "pm", "AM", "PM"].includes(findMeridiem[0])) {
+      if (!["am", "pm"].includes(findMeridiem[0])) {
         formattedTime = `${addMins[0]}${findMeridiem[1]}`
       } else {
         formattedTime = addMins[0];
@@ -32,8 +32,8 @@ const ConcertCard = ({ concert }) => {
 
   const howLong = (date, time) => {
     const formattedTime = formatTime(time);
-    const dayjsDate = dayjs(`${date} ${formattedTime}`, "MM-DD-YYYY h:mma");
-    const counter = dayjs(dayjsDate, "MM-DD-YYYY h:mm a").fromNow();
+    const dayjsDate = dayjs(`${date} ${formattedTime}`, "M-D-YYYY h:mma");
+    const counter = dayjs(dayjsDate, "M-D-YYYY h:mm a").fromNow();
     return counter;
   }
 

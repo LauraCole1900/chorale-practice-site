@@ -27,7 +27,12 @@ const Lander = () => {
     console.log(`%c${message}`, style);
 
     if (concerts.length) {
-      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      console.log(tomorrow);
+      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "M-D-YYYY")) > dayjs(tomorrow));
+      console.log({ upcomingConcerts });
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
       setSortedConcerts(sortedByDate);

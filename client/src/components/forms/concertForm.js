@@ -54,7 +54,7 @@ const ConcertForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ concertData })
+    console.log({ concertData });
     // Validates required inputs
     const validationErrors = concertValidate(concertData);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -66,7 +66,11 @@ const ConcertForm = () => {
           variables: { ...concertData }
         });
         console.log({ data });
-        navigate("./admin_portal");
+        if (e.target.title === "Submit") {
+          navigate("/admin_portal");
+        } else {
+          navigate(`/repertoire/${data.addConcert._id}`)
+        }
       } catch (error) {
         console.log(error);
       }
@@ -106,13 +110,17 @@ const ConcertForm = () => {
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Concert submit", concertData)
+      console.log("Concert update", concertData)
       try {
         const { data } = await editConcert({
           variables: { id: concertId, ...concertData }
         });
         console.log({ data });
-        navigate("./admin_portal");
+        if (e.target.title === "Update") {
+          navigate("/admin_portal");
+        } else {
+          navigate(`/repertoire/${data.addConcert._id}`)
+        }
       } catch (error) {
         console.log(error);
       }

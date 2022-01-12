@@ -13,7 +13,7 @@ const TracksCard = ({ concert, section }) => {
   const [allSongs, setAllSongs] = useState(concert.songs);
 
   const formatDate = (dates) => {
-    const formattedDate = dates.map(date => dayjs(date, "MM-DD-YYYY").format("dddd, MMM D, YYYY"));
+    const formattedDate = dates.map(date => dayjs(date, "M-D-YYYY").format("dddd, MMM D, YYYY"));
     return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
   }
 
@@ -39,8 +39,8 @@ const TracksCard = ({ concert, section }) => {
 
   const howLong = (date, time) => {
     const formattedTime = formatTime(time);
-    const dayjsDate = dayjs(`${date} ${formattedTime}`, "MM-DD-YYYY h:mma");
-    const counter = dayjs(dayjsDate, "MM-DD-YYYY h:mm a").fromNow();
+    const dayjsDate = dayjs(`${date} ${formattedTime}`, "M-D-YYYY h:mma");
+    const counter = dayjs(dayjsDate, "M-D-YYYY h:mm a").fromNow();
     return counter;
   }
 
