@@ -6,6 +6,7 @@ import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_TRUE_CONCERTS } from "../utils/gql";
+import { timeToNow } from "../utils/dateUtils";
 import Auth from "../utils/auth";
 import "./style.css"
 
@@ -35,9 +36,12 @@ const Section = () => {
     };
 
     if (concertArr.length) {
-      const upcomingConcerts = concertArr.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
+      const upcomingConcerts = concertArr.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
+        ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
+        : (timeToNow(concert.date[concert.date.length - 1], concert.time[concert.time.length - 1])) > dayjs()
+      );
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
-      const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+      const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);
       setSortedConcerts(sortedByDate);
       setPageReady(true);
     }

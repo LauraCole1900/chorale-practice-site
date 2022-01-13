@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_USERS } from "../utils/gql";
@@ -76,6 +76,7 @@ const RosterPage = () => {
                 <li><a href="#basses">Basses</a></li>
                 <li><a href="#staff">Staff</a></li>
                 <li><a href="#board">Board</a></li>
+                <li><Link to="/admin_portal">Admin Portal</Link></li>
               </ul>
             </Row>
 

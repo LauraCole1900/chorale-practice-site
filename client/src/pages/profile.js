@@ -20,7 +20,15 @@ const ProfilePage = () => {
 
   const formatDate = (date) => {
     return dayjs(date, "MM-DD").format("MMMM D")
-  }
+  };
+
+  if (meLoading) {
+    return <h1>Loading....</h1>
+  };
+
+  if (meError) {
+    console.log(JSON.stringify(meError));
+  };
 
 
   return (

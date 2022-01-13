@@ -125,7 +125,7 @@ mutation editConcertBasic($id: ID!, $name: String!, $date: [String!]!, $time: [S
 `;
 
 export const EDIT_CONCERT_REPERTOIRE = gql`
-mutation editConcertRepertoire($id: ID!, $songs: [SongInput!]) {
+mutation editConcertRepertoire($id: ID!, $songs: SongInput!) {
   editConcertRepertoire(_id: $id, songs: $songs) {
     _id
     addlMaterials

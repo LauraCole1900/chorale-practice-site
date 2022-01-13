@@ -50,7 +50,7 @@ tr:focus {
 }
 
 .address {
-  width: 150px;
+  width: 160px;
 }
 
 .bday {
@@ -71,7 +71,6 @@ tr:focus {
 
 .inactive {
   background-color: var(--highlightRed);
-  text-align: center;
 }
 
 .isActive {

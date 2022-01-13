@@ -10,6 +10,7 @@ const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
+  // eslint-disable-next-line no-unused-vars
   const [login, { error }] = useMutation(LOGIN_USER);
 
   // Handles input changes to form fields
