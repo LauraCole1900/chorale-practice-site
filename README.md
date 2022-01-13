@@ -39,6 +39,9 @@ Section page:
 New Event form:
 ![New Event form](assets/gcpm-new-event-form-screenshot.png)
 
+Add Song form:
+![Add Song form](assets/gcpm-add-song-form-screenshot.png)
+
 New Member form:
 ![New Member form](assets/gcpm-new-member-form-screenshot.png)
 
