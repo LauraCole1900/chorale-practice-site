@@ -14,6 +14,7 @@ type Concert {
 }
 
 type Song {
+  songId: ID!
   title: String!
   composer: [String!]
   concertOrder: Int
@@ -58,6 +59,7 @@ type Auth {
 }
 
 input SongInput {
+  songId: ID!
   title: String!
   composer: [String!]
   concertOrder: Int

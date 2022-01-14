@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
+import { v1 as uuidv1 } from "uuid";
 import { EDIT_CONCERT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
@@ -66,7 +67,7 @@ const SongForm = () => {
       console.log("Song submit", songData)
       try {
         const { data } = await editConcertRepertoire({
-          variables: { ...concertData }
+          variables: { songId: uuidv1(), ...concertData }
         });
         console.log({ data });
         navigate("/admin_portal");
