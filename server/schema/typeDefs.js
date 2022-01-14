@@ -20,10 +20,14 @@ type Song {
   concertOrder: Int
   publisher: String
   copyrightDate: String
-  practiceTrackUrlsSop: [String!]
-  practiceTrackUrlsAlto: [String!]
-  practiceTrackUrlsTen: [String!]
-  practiceTrackUrlsBass: [String!]
+  practiceTrackUrlsSopSlow: [String!]
+  practiceTrackUrlsAltoSlow: [String!]
+  practiceTrackUrlsTenSlow: [String!]
+  practiceTrackUrlsBassSlow: [String!]
+  practiceTrackUrlsSopATempo: [String!]
+  practiceTrackUrlsAltoATempo: [String!]
+  practiceTrackUrlsTenATempo: [String!]
+  practiceTrackUrlsBassATempo: [String!]
   videoUrls: [String]
 }
 
@@ -93,11 +97,15 @@ type Mutation {
 
   deleteConcert(_id: ID!): Concert
 
+  deleteSong(songId: ID!): Concert
+
   deleteUser(_id: ID!): User
 
   editConcertBasic(_id: ID!, name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
 
-  editConcertRepertoire(_id: ID!, songs: SongInput!): Concert
+  addRepertoire(_id: ID!, songs: SongInput!): Concert
+
+  editRepertoire(_id: ID!, songId: ID!, songs: SongInput!): Concert
 
   editUserAdmin(_id: ID!, fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String, email2: String, password: String, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 

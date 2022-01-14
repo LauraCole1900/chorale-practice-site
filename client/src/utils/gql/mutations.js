@@ -124,19 +124,46 @@ mutation editConcertBasic($id: ID!, $name: String!, $date: [String!]!, $time: [S
 }
 `;
 
-export const EDIT_CONCERT_REPERTOIRE = gql`
-mutation editConcertRepertoire($id: ID!, $songs: SongInput!) {
-  editConcertRepertoire(_id: $id, songs: $songs) {
+export const ADD_REPERTOIRE = gql`
+mutation addRepertoire($id: ID!, $songs: SongInput!) {
+  addRepertoire(_id: $id, songs: $songs) {
     _id
-    addlMaterials
     songs {
+      songId
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
+      videoUrls
+    }
+  }
+}
+`;
+
+export const EDIT_REPERTOIRE = gql`
+mutation editRepertoire($id: ID!, $songId: ID!, $songs: SongInput!) {
+  editRepertoire(_id: $id, songId: $songId, songs: $songs) {
+    _id
+    songs {
+      songId
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }

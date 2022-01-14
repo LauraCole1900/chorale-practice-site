@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { v1 as uuidv1 } from "uuid";
-import { EDIT_CONCERT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
+import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import "./style.css";
@@ -21,7 +21,8 @@ const SongForm = () => {
     {
       variables: { id: params.concertId }
     });
-  const [editConcertRepertoire, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_REPERTOIRE);
+  const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE);
+  const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE);
 
   const me = meData?.me || {};
   const concert = concertData?.oneConcert || {};
@@ -66,7 +67,7 @@ const SongForm = () => {
     if (noErrors) {
       console.log("Song submit", songData)
       try {
-        const { data } = await editConcertRepertoire({
+        const { data } = await addRepertoire({
           variables: { songId: uuidv1(), ...concertData }
         });
         console.log({ data });
@@ -112,7 +113,7 @@ const SongForm = () => {
     if (noErrors) {
       console.log("Song update", concertData)
       try {
-        const { data } = await editConcertRepertoire({
+        const { data } = await editRepertoire({
           variables: { id: params.concertId, songId: params.songId, ...songData }
         });
         console.log({ data });
@@ -188,7 +189,7 @@ const SongForm = () => {
                     <Form.Label>Concert order:</Form.Label>
                     {errors.concertOrder &&
                       <div className="error"><p>{errors.concertOrder}</p></div>}
-                    <Form.Control type="text" pattern="[0-9]*" inputmode="numeric" placeholder="42" value={songData.concertOrder} className="formInput" onChange={handleInputChange} />
+                    <Form.Control type="text" pattern="[0-9]*" inputmode="numeric" placeholder="42" max={25} value={songData.concertOrder} className="formInput" onChange={handleInputChange} />
                   </Col>
                 </Row>
               </Form.Group>

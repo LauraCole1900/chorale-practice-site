@@ -67,8 +67,13 @@ const resolvers = {
       return concert;
     },
 
-    editConcertRepertoire: async (_, args) => {
-      const concert = await Concert.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+    addRepertoire: async (_, { songData }) => {
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: songData } }, { new: true })
+      return concert;
+    },
+
+    editRepertoire: async (_, args) => {
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id, songId: args.songId }, { $set: { ...args } }, { new: true })
       return concert;
     },
 
