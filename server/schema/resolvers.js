@@ -94,6 +94,21 @@ const resolvers = {
       return concert;
     },
 
+    deletePost: async (_, args) => {
+      const post = await Post.findByIdAndDelete({ _id: args._id });
+      return post;
+    },
+
+    deleteSong: async (_, { _id, songId }) => {
+      const updatedConcert = await Concert.findOneAndUpdate({ _id: _id }, { $pull: { songs: { songId } } }, { new: true });
+      return updatedConcert;
+    },
+
+    deleteManySongs: async (_, args) => {
+      const updatedConcert = args.songsToDelete.map(song => await Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { song } } }, { new: true }));
+      return updatedConcert;
+    },
+
     deleteUser: async (_, args) => {
       const user = await User.findByIdAndDelete({ _id: args._id });
       return user;

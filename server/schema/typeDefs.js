@@ -116,7 +116,9 @@ type Mutation {
 
   deletePost(_id: ID!): Post
 
-  deleteSong(songId: ID!): Concert
+  deleteSong(_id: ID!, songId: ID!): Concert
+
+  deleteManySongs(_id: ID!, songsToDelete: [ID!]!): Concert
 
   deleteUser(_id: ID!): User
 

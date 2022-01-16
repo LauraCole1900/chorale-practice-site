@@ -100,6 +100,54 @@ mutation deletePost($id: ID!) {
 }
 `;
 
+export const DELETE_SONG = gql`
+mutation deleteSong($id: ID!, $songId: ID!) {
+  deleteSong(_id: $id, songId: $songId) {
+    _id
+    name
+    date
+    time
+    venue
+    signUp
+    addlMaterials
+    songs {
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSop
+      practiceTrackUrlsAlto
+      practiceTrackUrlsTen
+      practiceTrackUrlsBass
+      videoUrls
+    }
+  }
+}
+`;
+
+export const DELETE_MANY_SONGS = gql`
+mutation deleteManySongs($_id: ID!, $songsToDelete: [ID!]!) {
+  deleteSong(_id: $id, songsToDelete: $songsToDelete) {
+    _id
+    name
+    date
+    time
+    venue
+    signUp
+    addlMaterials
+    songs {
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSop
+      practiceTrackUrlsAlto
+      practiceTrackUrlsTen
+      practiceTrackUrlsBass
+      videoUrls
+    }
+  }
+}
+`;
+
 export const DELETE_USER = gql`
 mutation deleteUser($id: ID!) {
   deleteUser(_id: $id) {
