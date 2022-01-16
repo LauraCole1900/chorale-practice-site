@@ -19,6 +19,7 @@ const AdminPortal = () => {
   const [memberId, setMemberId] = useState();
   const [memberName, setMemberName] = useState();
   const [postId, setPostId] = useState();
+  const [songs, setSongs] = useState([]);
   const [songsToDelete, setSongsToDelete] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
@@ -37,7 +38,6 @@ const AdminPortal = () => {
   // Sets boolean to show or hide relevant modal
   const handleHideConfirm = () => setShowConfirm(false);
   const handleHideSelect = () => setShowSelect(false);
-  const handleShowSelectSongs = () => setShowSelectSongs(true);
   const handleHideSelectSongs = () => setShowSelectSongs(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
@@ -62,7 +62,7 @@ const AdminPortal = () => {
   const me = meData?.me || {};
 
   // Shows Select modal
-  const handleShowSelect = (e, id, name) => {
+  const handleShowSelect = (e, id, name, songs) => {
     const { dataset } = e.target;
     console.log(dataset.type);
     console.log(id);
@@ -72,6 +72,7 @@ const AdminPortal = () => {
       case "event":
         setConcertId(id);
         setConcertName(name);
+        setSongs(songs);
         break;
       case "member":
         setMemberId(id);
@@ -82,12 +83,20 @@ const AdminPortal = () => {
     }
   };
 
+  // Shows Select Songs modal
+  const handleShowSelectSongs = (e, songs) => {
+    const { dataset } = e.target;
+    setBtnName(dataset.btnname);
+    handleHideSelect();
+    setShowSelectSongs(true);
+  }
+
   // Shows Confirm modal
   const handleShowConfirm = (e) => {
     const { dataset } = e.target;
     console.log({ concertId });
     setBtnName(dataset.btnname);
-    setShowSelect(false);
+    handleHideSelect();
     setShowConfirm(true);
   };
 
@@ -226,7 +235,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing event to edit or delete</h5>
                   <ul>
                     {sortedConcerts.map(concert => (
-                      <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name)} data-type="event" data-name={concert.name}>{concert.name}</li>
+                      <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name, concert.songs)} data-type="event" data-name={concert.name}>{concert.name}</li>
                     ))}
                   </ul>
                 </Card.Body>
@@ -264,11 +273,13 @@ const AdminPortal = () => {
               show={showSelect === true}
               hide={() => handleHideSelect()}
               confirm={(e) => handleShowConfirm(e)}
-              showSelectSongs={() => handleShowSelectSongs()}
+              showSelectSongs={(e) => handleShowSelectSongs(e)}
             />
 
             <SelectSongModal
+              btnname={btnName}
               concertId={concertId}
+              songs={songs}
               show={showSelectSongs === true}
               hide={() => handleHideSelectSongs()}
               confirm={(e) => handleShowConfirm(e)}

@@ -36,7 +36,7 @@ const SelectModal = (props) => {
               <Button data-toggle="popover" title="Select Repertoire" className="button" type="button" data-btnname="songsEdit" onClick={props.showSelectSongs}>Select Repertoire to Edit</Button>}
 
             {/* Delete Repertoire */}
-            {props.type === "repertoire" &&
+            {props.type === "event" &&
               <Button data-toggle="popover" title="Delete Repertoire" className="button" type="button" data-btnname="songsDelete" onClick={props.showSelectSongs}>Select Repertoire to Delete</Button>}
 
             {/* Delete Event */}

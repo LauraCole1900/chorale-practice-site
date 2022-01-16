@@ -65,6 +65,7 @@ query allConcerts {
     signUp
     addlMaterials
     songs {
+      songId
       title
       composer
       concertOrder

@@ -1,18 +1,27 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const SelectSongModal = (props) => {
+  console.log(props.songs);
+  const [songsToDelete, setSongsToDelete] = useState([]);
 
 
   const handleInputChange = (e) => {
-
-  }
+    // if checked, push song.songId to songsToDelete array
+    // if unchecked, filter song.songId from songsToDelete array
+    const { checked, value } = e.currentTarget;
+    setSongsToDelete(songs => checked
+      ? [...songs, value]
+      : songs.filter(song => song !== song.songId)
+    )
+  };
 
   // const handleInputChange = async (e) => {
   //   const { dataset, name, value } = e.target;
   //   console.log("Attendee table", value, dataset.id);
-  //   let adminConf: string;
+  //   let adminConf;
   //   // Define data to be changed based on existing checkbox value
   //   switch (value) {
   //     case "yes":
@@ -24,7 +33,7 @@ const SelectSongModal = (props) => {
 
   const handleFormSubmit = () => {
 
-  }
+  };
 
 
   return (
@@ -38,9 +47,9 @@ const SelectSongModal = (props) => {
 
             <Modal.Body className="modalBody">
               {props.songs.map(song => (
-                <Row>
+                <Row key={song.songId}>
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <Link to={`/edit_repertoire/${props.concertId}/${song._id}`}>{song.title}</Link>
+                    <Link to={`/edit_repertoire/${props.concertId}/${song.songId}`}>{song.title}</Link>
                   </Col>
                 </Row>))}
             </Modal.Body>
@@ -56,7 +65,7 @@ const SelectSongModal = (props) => {
               <Form className="checkboxForm">
                 <Form.Group controlId="formDeleteSongs">
                   {props.songs.map(song => (
-                    <Form.Check type="checkbox" name="deleteThis" value="" label={song.title} id={song.songId} checked={song.deleteThis === true} onChange={handleInputChange} />
+                    <Form.Check key={song.songId} type="checkbox" name="deleteThis" value={song.songId} label={song.title} checked={songsToDelete.some(song => song === song.songId)} onChange={handleInputChange} />
                   ))}
                 </Form.Group>
 
