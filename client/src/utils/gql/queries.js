@@ -68,10 +68,14 @@ query allConcerts {
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }
@@ -132,10 +136,14 @@ query oneConcert ($id: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }
@@ -155,7 +163,7 @@ query onePost($id: ID!) {
 
 export const QUERY_ONE_DIRECTOR_POST = gql`
 query oneDirectorPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneDirectorPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -166,7 +174,7 @@ query oneDirectorPost($id: ID!, $postType: String!) {
 
 export const QUERY_ONE_ADMIN_POST = gql`
 query oneAdminPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneAdminPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -177,7 +185,7 @@ query oneAdminPost($id: ID!, $postType: String!) {
 
 export const QUERY_ONE_SOP_SECT_POST = gql`
 query oneSopSectPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneSopSectPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -188,7 +196,7 @@ query oneSopSectPost($id: ID!, $postType: String!) {
 
 export const QUERY_ONE_ALTO_SECT_POST = gql`
 query oneAltoSectPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneAltoSectPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -199,7 +207,7 @@ query oneAltoSectPost($id: ID!, $postType: String!) {
 
 export const QUERY_ONE_TEN_SECT_POST = gql`
 query oneTenSectPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneTenSectPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -210,7 +218,7 @@ query oneTenSectPost($id: ID!, $postType: String!) {
 
 export const QUERY_ONE_BASS_SECT_POST = gql`
 query oneBassSectPost($id: ID!, $postType: String!) {
-  onePost(_id: $id, postType: $postType) {
+  oneBassSectPost(_id: $id, postType: $postType) {
     _id
     postType
     postDate
@@ -274,21 +282,25 @@ query oneUserAdmin($id: ID!) {
 }`
 
 export const QUERY_TRUE_CONCERTS = gql`
-  query trueConcerts {
-    trueConcerts {
-      _id
-      name
-      date
-      time
-      songs {
-        title
-        composer
-        concertOrder
-        practiceTrackUrlsSop
-        practiceTrackUrlsAlto
-        practiceTrackUrlsTen
-        practiceTrackUrlsBass
-        videoUrls
+query trueConcerts {
+  trueConcerts {
+    _id
+    name
+    date
+    time
+    songs {
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
+      videoUrls
       }
     }
   }

@@ -15,26 +15,26 @@ const ConfirmModal = (props) => {
 
           {/* Delete Event button */}
           {props.btnname === "concertDelete" &&
-            <h4>Are you sure you want to delete {props.concert.name}? This action can't be undone.</h4>}
+            <p>Are you sure you want to delete {props.concertName}? This action can't be undone.</p>}
 
           {/* Delete Member button */}
           {props.btnname === "memberDelete" &&
-            <h4>Are you sure you want to delete {props.member.fullName}? This action can't be undone.</h4>}
+            <p>Are you sure you want to delete {props.member.fullName}? This action can't be undone.</p>}
 
           {/* Delete Post button */}
           {props.btnname === "postDelete" &&
-            <h4>Are you sure you want to delete {props.post.title} from {props.post.date}? This action can't be undone.</h4>}
+            <p>Are you sure you want to delete {props.post.title} from {props.post.date}? This action can't be undone.</p>}
 
           {/* Delete Repertoire button */}
           {props.btnname === "songsDelete" &&
-            <h4>Are you sure you want to delete the selected repertoire? This action can't be undone.</h4>}
+            <p>Are you sure you want to delete the selected repertoire? This action can't be undone.</p>}
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
 
             {/* Confirm Delete Concert button */}
             {props.btnname === "concertDelete" &&
-              <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.eventDelete}>Yes, Cancel {props.concert.name}</Button>}
+              <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.eventDelete}>Yes, Delete {props.concertName}</Button>}
 
             {/* Confirm Delete Member button */}
             {props.btnname === "memberDelete" &&

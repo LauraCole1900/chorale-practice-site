@@ -21,13 +21,13 @@ const SelectModal = (props) => {
 
             {/* Edit Event */}
             {props.type === "event" &&
-              <Link to={`/edit_event/${props.concert._id}`}>
+              <Link to={`/edit_event/${props.concertId}`}>
                 <Button data-toggle="popover" title="Edit Event" className="button" type="button">Edit Event Information</Button>
               </Link>}
 
             {/* Add Repertoire */}
             {props.type === "event" &&
-              <Link to={`/repertoire/${props.concert._id}`}>
+              <Link to={`/repertoire/${props.concertId}`}>
                 <Button data-toggle="popover" title="Add Repertoire" className="button" type="button">Add Repertoire</Button>
               </Link>}
 
@@ -64,7 +64,7 @@ const SelectModal = (props) => {
               <Button data-toggle="popover" title="Delete Post" className="button" type="button" data-btnname="postDelete" onClick={props.confirm}>Delete This Post</Button>}
 
             {/* Take no action button */}
-            <Button data-toggle="popover" title="No" className="button" type="button" onClick={props.hide}>Take me back</Button>
+            <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
 
           </Modal.Footer>
 

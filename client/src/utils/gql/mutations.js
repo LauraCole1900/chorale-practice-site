@@ -27,8 +27,8 @@ mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue
 `;
 
 export const ADD_POST = gql`
-mutation addPost($postType: String!, $postDate: String!, $postBody: String!) {
-  addPost(postType: $postType, postDate: $postDate, postBody: $postBody) {
+mutation addPost($postType: String!, $postBody: String!) {
+  addPost(postType: $postType, postBody: $postBody) {
     _id
     postType
     postBody
@@ -80,10 +80,14 @@ mutation deleteConcert($id: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }
@@ -114,10 +118,14 @@ mutation deleteSong($id: ID!, $songId: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }
@@ -126,7 +134,7 @@ mutation deleteSong($id: ID!, $songId: ID!) {
 
 export const DELETE_MANY_SONGS = gql`
 mutation deleteManySongs($_id: ID!, $songsToDelete: [ID!]!) {
-  deleteSong(_id: $id, songsToDelete: $songsToDelete) {
+  deleteManySongs(_id: $_id, songsToDelete: $songsToDelete) {
     _id
     name
     date
@@ -138,10 +146,14 @@ mutation deleteManySongs($_id: ID!, $songsToDelete: [ID!]!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSop
-      practiceTrackUrlsAlto
-      practiceTrackUrlsTen
-      practiceTrackUrlsBass
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
       videoUrls
     }
   }

@@ -76,14 +76,14 @@ const SuccessModal = (props) => {
 
             {/* Close modal and return to Admin Portal */}
             {props.urlid === "admin_portal" &&
-              <Button data-toggle="popover" title="Admin Portal" type="button" className="button" onClick={props.click}>Return to Admin Portal</Button>}
+              <Button data-toggle="popover" title="Admin Portal" type="button" className="button" onClick={props.hide}>Return to Admin Portal</Button>}
 
             {/* Close modal and return to Profile */}
             {props.urlid === "profile" &&
-              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.click}>Return to Profile</Button>}
+              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Return to Profile</Button>}
 
             {/* Link to Admin Portal */}
-            {props.urlid !== "/admin_portal" &&
+            {props.urlid !== "admin_portal" &&
               props.user.isAdmin === true &&
               <Link to={"/admin_portal"}>
                 <Button data-toggle="popover" title="Admin Portal" type="button" className="button">Return to Admin Portal</Button>
@@ -96,7 +96,7 @@ const SuccessModal = (props) => {
               </Link>}
 
             {/* Link to Profile */}
-            {props.urlid !== "/profile" &&
+            {props.urlid !== "profile" &&
               <Link to={"/profile"}>
                 <Button data-toggle="popover" title="Profile" type="button" className="button">Return to Profile</Button>
               </Link>}
