@@ -13,11 +13,11 @@ const ConfirmModal = (props) => {
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>
 
-          {/* Delete Event button*/}
+          {/* Delete Event button */}
           {props.btnname === "concertDelete" &&
             <h4>Are you sure you want to delete {props.concert.name}? This action can't be undone.</h4>}
 
-          {/* Delete Member button*/}
+          {/* Delete Member button */}
           {props.btnname === "memberDelete" &&
             <h4>Are you sure you want to delete {props.user.fullName}? This action can't be undone.</h4>}
 
@@ -25,7 +25,7 @@ const ConfirmModal = (props) => {
           {props.btnname === "postDelete" &&
             <h4>Are you sure you want to delete {props.post.title} from {props.post.date}? This action can't be undone.</h4>}
 
-          {/* Delete Repertoire button*/}
+          {/* Delete Repertoire button */}
           {props.btnname === "songsDelete" &&
             <h4>Are you sure you want to delete the selected repertoire? This action can't be undone.</h4>}
 
