@@ -1,4 +1,4 @@
-const userValidate = (user, params) => {
+const adminUserValidate = (user, params) => {
   let errors = {};
 
   // name errors
@@ -46,8 +46,14 @@ const userValidate = (user, params) => {
   if (!user.phone1Type) {
     errors.phone1Type = "Please indicate the type of phone number for the member's primary phone."
   }
+  if (user.phone2 && !/^(\([0-9]{3}\)\s*|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/.test(user.phone2)) {
+    errors.phone2 = "There seems to be a problem with the formatting of your phone number. Please double-check."
+  }
   if (user.phone2 && !user.phone2Type) {
     errors.phone2Type = "Please indicate the type of phone number for the member's secondary phone."
+  }
+  if (user.phone3 && !/^(\([0-9]{3}\)\s*|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/.test(user.phone3)) {
+    errors.phone3 = "There seems to be a problem with the formatting of your phone number. Please double-check."
   }
   if (user.phone3 && !user.phone3Type) {
     errors.phone3Type = "Please indicate the type of phone number for the member's third phone."
@@ -75,4 +81,4 @@ const userValidate = (user, params) => {
     return errors;
 }
 
-export default userValidate;
+export default adminUserValidate;
