@@ -11,7 +11,6 @@ const ConfirmModal = (props) => {
           <Modal.Title className="modalTitle"><h2>Please confirm</h2></Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
-          <h3>Are you sure?</h3>
 
           {/* Delete Event button */}
           {props.btnname === "concertDelete" &&
