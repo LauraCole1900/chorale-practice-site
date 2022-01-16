@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
 import "./style.css";
@@ -50,6 +50,7 @@ const AdminPortal = () => {
     });
   const [deleteConcert, { deleteError, deleteData }] = useMutation(DELETE_CONCERT);
   const [deletePost, { postError, postData }] = useMutation(DELETE_POST);
+  const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
@@ -58,6 +59,7 @@ const AdminPortal = () => {
   const users = userData?.allUsers || [];
   const me = meData?.me || {};
 
+  // Shows Select modal
   const handleShowSelect = (e) => {
     const dataset = e.target;
     setType(dataset.type);
@@ -72,8 +74,9 @@ const AdminPortal = () => {
       default:
         setPost(dataset.post);
     }
-  }
-  // Lifts state to show Confirm modal
+  };
+
+  // Shows Confirm modal
   const handleShowConfirm = (e) => {
     const { dataset } = e.target;
     console.log({ dataset });
@@ -81,8 +84,9 @@ const AdminPortal = () => {
     // handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
     setBtnName(dataset.btnname);
     setShowConfirm(true);
-  }
+  };
 
+  // Handles click on "Delete Concert" button on Confirm modal
   const handleDeleteConcert = async (id) => {
     console.log(id)
     try {
@@ -97,8 +101,9 @@ const AdminPortal = () => {
       setErrThrown(err.message);
       handleShowErr();
     }
-  }
+  };
 
+  // Handles click on "Delete Member" button on Confirm modal
   const handleDeleteMember = async (id) => {
     console.log(id)
     try {
@@ -113,8 +118,9 @@ const AdminPortal = () => {
       setErrThrown(err.message);
       handleShowErr();
     }
-  }
+  };
 
+  // Handles click on "Delete Post" button on Confirm modal
   const handleDeletePost = async (id) => {
     console.log(id)
     try {
@@ -129,8 +135,24 @@ const AdminPortal = () => {
       setErrThrown(err.message);
       handleShowErr();
     }
-  }
+  };
 
+  // Handles click on "Delete Repertoire" button on Confirm modal
+  const handleDeleteSongs = async (id, songs) => {
+    console.log(id)
+    try {
+      const { data } = await deleteManySongs({
+        variables: { id: id, songsToDelete: songs },
+      });
+      console.log(data);
+      handleHideConfirm();
+      handleShowSuccess();
+    } catch (err) {
+      console.log(err.message);
+      setErrThrown(err.message);
+      handleShowErr();
+    }
+  };
 
   useEffect(() => {
     if (concerts.length) {
@@ -273,6 +295,7 @@ const AdminPortal = () => {
                 handleShowErr
               )}
               songsDelete={() => handleDeleteSongs(
+                concert._id,
                 songsToDelete,
                 handleHideConfirm,
                 handleShowSuccess,

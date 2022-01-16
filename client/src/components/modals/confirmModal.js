@@ -32,19 +32,19 @@ const ConfirmModal = (props) => {
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
 
-            {/* Confirm Cancel Conference button */}
+            {/* Confirm Delete Concert button */}
             {props.btnname === "concertDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.eventDelete}>Yes, Cancel {props.concert.name}</Button>}
 
-            {/* Confirm Delete Session button */}
+            {/* Confirm Delete Member button */}
             {props.btnname === "memberDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.memberDelete}>Yes, Delete {props.member.fullName}</Button>}
 
-            {/* Confirm Deactivate Presenter button */}
+            {/* Confirm Delete Post button */}
             {props.btnname === "postDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.postDelete}>Yes, Delete {props.post.title} from {props.post.date}</Button>}
 
-            {/* Confirm Unregister button */}
+            {/* Confirm Delete Repertoire button */}
             {props.btnname === "songsDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.songsDelete}>Yes, Delete Repertoire</Button>}
 
