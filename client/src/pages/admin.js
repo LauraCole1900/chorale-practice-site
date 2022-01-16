@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
+import { timeToNow } from "../utils/dateUtils";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
 import "./style.css";
 
@@ -158,9 +159,12 @@ const AdminPortal = () => {
 
   useEffect(() => {
     if (concerts.length) {
-      const upcomingConcerts = concerts.filter(concert => (dayjs(concert.date[concert.date.length - 1], "MM-DD-YYYY")) > dayjs());
+      const upcomingConcerts = concerts.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
+        ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
+        : (timeToNow(concert.date[concert.date.length - 1], concert.time[concert.time.length - 1])) > dayjs()
+      );
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
-      const sortedByDate = sortedByTime.sort((a, b) => (a.date[0] > b.date[0]) ? 1 : -1);
+      const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);
       setSortedConcerts(sortedByDate);
     }
 
