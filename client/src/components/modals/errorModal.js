@@ -16,7 +16,7 @@ const ErrorModal = (props) => {
 
           {/* New Concert form */}
           {props.urlid === "new_event" &&
-            <h4>{props.errmsg}. Your event was not added.</h4>}
+            <h4>{props.errmsg}. Your event was not created.</h4>}
 
           {/* Edit Concert form */}
           {props.urltype === "edit_concert" &&
@@ -25,11 +25,11 @@ const ErrorModal = (props) => {
           {/* Delete Concert confirm (modal) */}
           {props.urlid === "admin_portal" &&
             props.btnName === "concertDelete" &&
-            <h4> {props.errmsg}. Your event was not deleted.</h4>}
+            <h4>{props.errmsg}. Your event was not deleted.</h4>}
 
           {/* Add User form */}
           {props.urlid === "new_member" &&
-            <h4>{props.errmsg}. The new member was not added.</h4>}
+            <h4>{props.errmsg}. The new member was not created.</h4>}
 
           {/* Admin Edit User form */}
           {props.urltype === "edit_user" &&
@@ -38,7 +38,7 @@ const ErrorModal = (props) => {
           {/* Delete Member confirm (modal) */}
           {props.urlid === "admin_portal" &&
             props.btnName === "memberDelete" &&
-            <h4> {props.errmsg}. This member was not deleted.</h4>}
+            <h4>{props.errmsg}. This member was not deleted.</h4>}
 
           {/* Edit Me form */}
           {props.urltype === "edit_me" &&
@@ -55,7 +55,7 @@ const ErrorModal = (props) => {
           {/* Delete Post confirm (modal) */}
           {props.urlid === "admin_portal" &&
             props.btnName === "postDelete" &&
-            <h4> {props.errmsg}. Your post was not deleted.</h4>}
+            <h4>{props.errmsg}. Your post was not deleted.</h4>}
 
           {/* Add Repertoire form */}
           {props.urltype === "repertoire" &&
@@ -70,7 +70,7 @@ const ErrorModal = (props) => {
           {/* Delete Repertoire form (modal) */}
           {props.urltype === "admin_portal" &&
             props.btnName === "songsDelete" &&
-            <h4> {props.errmsg}. Repertoire was not deleted.</h4>}
+            <h4>{props.errmsg}. Repertoire was not deleted.</h4>}
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
@@ -83,17 +83,23 @@ const ErrorModal = (props) => {
             {props.urlid === "profile" &&
               <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.click}>Return to Profile</Button>}
 
+            {/* Link to Admin Portal */}
+            {props.urlid !== "/admin_portal" &&
+              props.user.isAdmin === false &&
+              <Link to={"/admin_portal"}>
+                <Button data-toggle="popover" title="Admin Portal" type="button" className="button">Return to Admin Portal</Button>
+              </Link>}
+
             {/* Link to Members page */}
             {props.urlid !== "members" &&
               <Link to={"/members"}>
                 <Button data-toggle="popover" title="Members" type="button" className="button">Return to Members page</Button>
               </Link>}
 
-            {/* Link to Admin Portal */}
-            {props.urlid !== "/admin_portal" &&
-              props.user.isAdmin === false &&
-              <Link to={"/admin_portal"}>
-                <Button data-toggle="popover" title="Admin Portal" type="button" className="button">Return to Admin Portal</Button>
+            {/* Link to Profile */}
+            {props.urlid !== "/profile" &&
+              <Link to={"/profile"}>
+                <Button data-toggle="popover" title="Profile" type="button" className="button">Return to Profile</Button>
               </Link>}
 
           </Modal.Footer>
