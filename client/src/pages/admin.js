@@ -16,7 +16,6 @@ const AdminPortal = () => {
   const [concert, setConcert] = useState();
   const [member, setMember] = useState();
   const [post, setPost] = useState();
-  const [song, setSong] = useState();
   const [songsToDelete, setSongsToDelete] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
@@ -81,7 +80,6 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     console.log({ dataset });
     console.log(dataset.btnname, dataset.concert, dataset.member, dataset.post, dataset.song);
-    // handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
     setBtnName(dataset.btnname);
     setShowConfirm(true);
   };
@@ -218,14 +216,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing event to edit or delete</h5>
                   <ul>
                     {sortedConcerts.map(concert => (
-                      <div key={concert._id}>
-                        <li>{concert.name}</li>
-                        <ul>
-                          <li><Link to={`/edit_event/${concert._id}`} className="adminLink">Edit event information</Link></li>
-                          <li><Link to={`/repertoire/${concert._id}`} className="adminLink">Add repertoire, practice tracks, and/or video links</Link></li>
-                          <li className="adminLink" onClick={() => handleDeleteConcert(concert._id)}>Delete this event</li>
-                        </ul>
-                      </div>
+                      <li key={concert._id} className="adminLink" onClick={handleShowSelect} data-type="event" data-concert={concert}>{concert.name}</li>
                     ))}
                   </ul>
                 </Card.Body>
@@ -264,6 +255,14 @@ const AdminPortal = () => {
               hide={() => handleHideSelect()}
               confirm={() => handleShowConfirm()}
               showSelectSongs={() => handleShowSelectSongs()}
+            />
+
+            <SelectSongModal
+              concert={concert}
+              show={showSelectSongs === true}
+              hide={() => handleHideSelectSongs()}
+              confirm={() => handleShowConfirm()}
+              setSongsToDelete={setSongsToDelete}
             />
 
             <ConfirmModal
