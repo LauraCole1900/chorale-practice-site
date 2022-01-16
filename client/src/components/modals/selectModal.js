@@ -45,7 +45,7 @@ const SelectModal = (props) => {
 
             {/* Edit Member */}
             {props.type === "member" &&
-              <Link to={`/edit_member/${props.member._id}`}>
+              <Link to={`/edit_member/${props.memberId}`}>
                 <Button data-toggle="popover" title="Edit Member" className="button" type="button">Edit Member Information</Button>
               </Link>}
 

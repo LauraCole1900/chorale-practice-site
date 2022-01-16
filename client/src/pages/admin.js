@@ -16,8 +16,9 @@ const AdminPortal = () => {
   const [type, setType] = useState();
   const [concertId, setConcertId] = useState();
   const [concertName, setConcertName] = useState();
-  const [member, setMember] = useState();
-  const [post, setPost] = useState();
+  const [memberId, setMemberId] = useState();
+  const [memberName, setMemberName] = useState();
+  const [postId, setPostId] = useState();
   const [songsToDelete, setSongsToDelete] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
@@ -61,21 +62,23 @@ const AdminPortal = () => {
   const me = meData?.me || {};
 
   // Shows Select modal
-  const handleShowSelect = (e) => {
+  const handleShowSelect = (e, id, name) => {
     const { dataset } = e.target;
     console.log(dataset.type);
-    console.log(dataset.id);
+    console.log(id);
     setType(dataset.type);
     setShowSelect(true);
     switch (dataset.type) {
       case "event":
-        setConcertId(dataset.id);
+        setConcertId(id);
+        setConcertName(name);
         break;
       case "member":
-        setMember(dataset.member);
+        setMemberId(id);
+        setMemberName(name);
         break;
       default:
-        setPost(dataset.post);
+        setPostId(id);
     }
   };
 
@@ -84,7 +87,6 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     console.log({ concertId });
     setBtnName(dataset.btnname);
-    setConcertName(dataset.name);
     setShowSelect(false);
     setShowConfirm(true);
   };
@@ -224,7 +226,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing event to edit or delete</h5>
                   <ul>
                     {sortedConcerts.map(concert => (
-                      <li key={concert._id} className="adminLink" onClick={handleShowSelect} data-type="event" data-id={concert._id} data-name={concert.name}>{concert.name}</li>
+                      <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name)} data-type="event" data-name={concert.name}>{concert.name}</li>
                     ))}
                   </ul>
                 </Card.Body>
@@ -239,7 +241,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing member to edit or delete</h5>
                   <ul>
                     {sortedUsers.map(user => (
-                      <li key={user._id} className="adminLink" onClick={handleShowSelect} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
                     ))}
                   </ul>
                 </Card.Body>
@@ -256,8 +258,8 @@ const AdminPortal = () => {
 
             <SelectModal
               concertId={concertId}
-              member={member}
-              post={post}
+              memberId={memberId}
+              postId={postId}
               type={type}
               show={showSelect === true}
               hide={() => handleHideSelect()}
@@ -279,31 +281,13 @@ const AdminPortal = () => {
               urltype={urlType}
               concertId={concertId}
               concertName={concertName}
-              member={member}
-              post={post}
+              memberId={memberId}
+              memberName={memberName}
+              postId={postId}
               eventDelete={() => handleDeleteConcert(concertId)}
-              memberDelete={() => handleDeleteMember(
-                member._id,
-                handleHideConfirm,
-                handleShowSuccess,
-                setErrThrown,
-                handleShowErr
-              )}
-              postDelete={() => handleDeletePost(
-                post._id,
-                handleHideConfirm,
-                handleShowSuccess,
-                setErrThrown,
-                handleShowErr
-              )}
-              songsDelete={() => handleDeleteSongs(
-                concertId,
-                songsToDelete,
-                handleHideConfirm,
-                handleShowSuccess,
-                setErrThrown,
-                handleShowErr
-              )}
+              memberDelete={() => handleDeleteMember(memberId)}
+              postDelete={() => handleDeletePost(postId)}
+              songsDelete={() => handleDeleteSongs(concertId, songsToDelete)}
               show={showConfirm === true}
               hide={() => handleHideConfirm()}
             />
