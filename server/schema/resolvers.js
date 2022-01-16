@@ -1,4 +1,4 @@
-const { Concert, User } = require("../models");
+const { Concert, Post, User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -20,12 +20,44 @@ const resolvers = {
       return await Concert.find({});
     },
 
+    allPosts: async () => {
+      return await Post.find({});
+    },
+
     allUsers: async () => {
       return await User.find({});
     },
 
     oneConcert: async (_, args) => {
       return await Concert.findOne({ _id: args._id });
+    },
+
+    onePost: async (_, args) => {
+      return await Post.findOne({ _id: args._id });
+    },
+
+    oneDirectorPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "director" })
+    },
+
+    oneAdminPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "admin" })
+    },
+
+    oneSopSectPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "sopSectAnnouncements" })
+    },
+
+    oneAltoSectPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "altoSectAnnouncements" })
+    },
+
+    oneTenSectPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "tenSectAnnouncements" })
+    },
+
+    oneBassSectPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "bassSectAnnouncements" })
     },
 
     oneUser: async (_, args) => {
@@ -45,6 +77,11 @@ const resolvers = {
     addConcert: async (_, args) => {
       const concert = await Concert.create(args);
       return concert;
+    },
+
+    addPost: async (_, args) => {
+      const post = await Post.create(args);
+      return post;
     },
 
     addUser: async (_, args) => {
@@ -75,6 +112,10 @@ const resolvers = {
     editRepertoire: async (_, args) => {
       const concert = await Concert.findByIdAndUpdate({ _id: args._id, songId: args.songId }, { $set: { ...args } }, { new: true })
       return concert;
+    },
+
+    editPost: async (_, args) => {
+      const post = await Post.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
     },
 
     editUserAdmin: async (_, args) => {

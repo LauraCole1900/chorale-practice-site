@@ -78,6 +78,17 @@ query allConcerts {
 }
 `;
 
+export const QUERY_ALL_POSTS = gql`
+query allPosts {
+  allPosts {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
 export const QUERY_ALL_USERS = gql`
 query allUsers {
   allUsers {
@@ -127,6 +138,83 @@ query oneConcert ($id: ID!) {
       practiceTrackUrlsBass
       videoUrls
     }
+  }
+}
+`;
+
+export const QUERY_ONE_POST = gql`
+query onePost($id: ID!) {
+  onePost(_id: $id) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_DIRECTOR_POST = gql`
+query oneDirectorPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_ADMIN_POST = gql`
+query oneAdminPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_SOP_SECT_POST = gql`
+query oneSopSectPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_ALTO_SECT_POST = gql`
+query oneAltoSectPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_TEN_SECT_POST = gql`
+query oneTenSectPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
+  }
+}
+`;
+
+export const QUERY_ONE_BASS_SECT_POST = gql`
+query oneBassSectPost($id: ID!, $postType: String!) {
+  onePost(_id: $id, postType: $postType) {
+    _id
+    postType
+    postDate
+    postBody
   }
 }
 `;

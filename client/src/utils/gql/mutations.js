@@ -26,6 +26,16 @@ mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue
 }
 `;
 
+export const ADD_POST = gql`
+mutation addPost($postType: String!, $postDate: String!, $postBody: String!) {
+  addPost(postType: $postType, postDate: $postDate, postBody: $postBody) {
+    _id
+    postType
+    postBody
+  }
+}
+`;
+
 export const ADD_USER = gql`
 mutation addUser($fullName: String!, $firstName: String!, $lastName: String!, $preferredName: String!, $birthday: String, $email1: String!, $email2: String, $password: String!, $phone1: String, $phone1Type: String, $phone2: String, $phone2Type: String, $phone3: String, $phone3Type: String, $section: String!, $position: String!, $streetAddress: String, $city: String, $state: String, $zipCode: String, $isAdmin: Boolean!, $isActive: Boolean!) {
   addUser(fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday, email1: $email1, email2: $email2, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, password: $password, section: $section, position: $position, streetAddress: $streetAddress, city: $city, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
@@ -76,6 +86,16 @@ mutation deleteConcert($id: ID!) {
       practiceTrackUrlsBass
       videoUrls
     }
+  }
+}
+`;
+
+export const DELETE_POST = gql`
+mutation deletePost($id: ID!) {
+  deletePost(_id: $id) {
+    _id
+    postType
+    postBody
   }
 }
 `;
@@ -166,6 +186,16 @@ mutation editRepertoire($id: ID!, $songId: ID!, $songs: SongInput!) {
       practiceTrackUrlsBassATempo
       videoUrls
     }
+  }
+}
+`;
+
+export const EDIT_POST = gql`
+mutation editPost($id: ID!, $postType: String!, $postBody: String!) {
+  editPost(_id: $id, postType: $postType, postBody: $postBody) {
+    _id
+    postType
+    postBody
   }
 }
 `;
