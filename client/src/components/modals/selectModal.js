@@ -9,7 +9,7 @@ const SelectModal = (props) => {
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
 
-        <Modal.Header className="modalHeadConf">
+        <Modal.Header className="modalHead">
           <Modal.Title className="modalTitle"><h2>Select action</h2></Modal.Title>
         </Modal.Header>
 
