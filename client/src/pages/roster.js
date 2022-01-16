@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_USERS } from "../utils/gql";
+import { QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { RosterTable } from "../components/tables";
 
 const RosterPage = () => {
+  const currentUserId = Auth.getProfile().data?._id;
+
   const [currSops, setCurrSops] = useState([]);
   const [currAlts, setCurrAlts] = useState([]);
   const [currTens, setCurrTens] = useState([]);
@@ -14,9 +16,15 @@ const RosterPage = () => {
   const [currStaff, setCurrStaff] = useState([]);
   const [currBoard, setCurrBoard] = useState([]);
   const [pageReady, setPageReady] = useState(false);
-  const { loading, data, error } = useQuery(QUERY_ALL_USERS);
 
-  const members = data?.allUsers || [];
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
+    {
+      variables: { id: currentUserId }
+    });
+  const { loading: usersLoading, data: usersData, error: usersError } = useQuery(QUERY_ALL_USERS);
+
+  const me = meData?.me || {};
+  const members = usersData?.allUsers || [];
 
   const sortSection = (singers) => {
     const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
@@ -48,12 +56,12 @@ const RosterPage = () => {
     }
   }, [members])
 
-  if (loading) {
+  if (meLoading || usersLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (error) {
-    console.log(JSON.stringify(error));
+  if (meError || usersError) {
+    console.log(JSON.stringify(meError, usersError));
   }
 
   return (
@@ -76,7 +84,8 @@ const RosterPage = () => {
                 <li><a href="#basses">Basses</a></li>
                 <li><a href="#staff">Staff</a></li>
                 <li><a href="#board">Board</a></li>
-                <li><Link to="/admin_portal">Admin Portal</Link></li>
+                {me.isAdmin === true &&
+                  <li><Link to="/admin_portal">Admin Portal</Link></li>}
               </ul>
             </Row>
 
