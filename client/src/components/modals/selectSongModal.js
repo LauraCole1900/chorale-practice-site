@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import "./style.css";
 
-const DeleteSongForm = ({ concertId, songs }) => {
+const SelectSongModal = ({ concertId, songs }) => {
   const [songsToDelete, setSongsToDelete] = useState([]);
 
   const handleInputChange = (e) => {
@@ -49,7 +49,7 @@ const DeleteSongForm = ({ concertId, songs }) => {
   )
 }
 
-export default DeleteSongForm;
+export default SelectSongModal;
 
 {/* <Form.Check
   type="checkbox"

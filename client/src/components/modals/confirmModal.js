@@ -19,7 +19,7 @@ const ConfirmModal = (props) => {
 
           {/* Delete Member button */}
           {props.btnname === "memberDelete" &&
-            <h4>Are you sure you want to delete {props.user.fullName}? This action can't be undone.</h4>}
+            <h4>Are you sure you want to delete {props.member.fullName}? This action can't be undone.</h4>}
 
           {/* Delete Post button */}
           {props.btnname === "postDelete" &&
@@ -38,7 +38,7 @@ const ConfirmModal = (props) => {
 
             {/* Confirm Delete Session button */}
             {props.btnname === "memberDelete" &&
-              <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.memberDelete}>Yes, Delete {props.user.fullName}</Button>}
+              <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.memberDelete}>Yes, Delete {props.member.fullName}</Button>}
 
             {/* Confirm Deactivate Presenter button */}
             {props.btnname === "postDelete" &&

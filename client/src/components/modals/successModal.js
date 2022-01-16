@@ -23,7 +23,7 @@ const SuccessModal = (props) => {
 
           {/* Delete Concert confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "concertDelete" &&
+            props.btnname === "concertDelete" &&
             <h4>Your event was deleted.</h4>}
 
           {/* Add User form */}
@@ -36,7 +36,7 @@ const SuccessModal = (props) => {
 
           {/* Delete Member confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "memberDelete" &&
+            props.btnname === "memberDelete" &&
             <h4>This member was deleted.</h4>}
 
           {/* Edit Me form */}
@@ -53,7 +53,7 @@ const SuccessModal = (props) => {
 
           {/* Delete Post confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "postDelete" &&
+            props.btnname === "postDelete" &&
             <h4>Your post was deleted.</h4>}
 
           {/* Add Repertoire form */}
@@ -68,7 +68,7 @@ const SuccessModal = (props) => {
 
           {/* Delete Repertoire form (modal) */}
           {props.urltype === "admin_portal" &&
-            props.btnName === "songsDelete" &&
+            props.btnname === "songsDelete" &&
             <h4>Repertoire was deleted.</h4>}
 
           {/* Navigation buttons */}
@@ -84,7 +84,7 @@ const SuccessModal = (props) => {
 
             {/* Link to Admin Portal */}
             {props.urlid !== "/admin_portal" &&
-              props.user.isAdmin === false &&
+              props.user.isAdmin === true &&
               <Link to={"/admin_portal"}>
                 <Button data-toggle="popover" title="Admin Portal" type="button" className="button">Return to Admin Portal</Button>
               </Link>}

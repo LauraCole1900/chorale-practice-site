@@ -3,12 +3,44 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
+import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
 import "./style.css";
 
 const AdminPortal = () => {
   const currentUserId = Auth.getProfile().data?._id;
+
+  const [btnName, setBtnName] = useState();
+  const [type, setType] = useState();
+  const [concert, setConcert] = useState();
+  const [member, setMember] = useState();
+  const [post, setPost] = useState();
+  const [song, setSong] = useState();
+  const [songsToDelete, setSongsToDelete] = useState([]);
+  const [errThrown, setErrThrown] = useState();
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
+  const [showSelectSongs, setShowSelectSongs] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleHideSelect = () => setShowSelect(false);
+  const handleShowSelectSongs = () => setShowSelectSongs(true);
+  const handleHideSelectSongs = () => setShowSelectSongs(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ALL_CONCERTS);
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
@@ -17,6 +49,8 @@ const AdminPortal = () => {
       variables: { id: currentUserId }
     });
   const [deleteConcert, { deleteError, deleteData }] = useMutation(DELETE_CONCERT);
+  const [deletePost, { postError, postData }] = useMutation(DELETE_POST);
+  const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
 
@@ -24,15 +58,76 @@ const AdminPortal = () => {
   const users = userData?.allUsers || [];
   const me = meData?.me || {};
 
+  const handleShowSelect = (e) => {
+    const dataset = e.target;
+    setType(dataset.type);
+    setShowSelect(true);
+    switch (dataset.type) {
+      case "event":
+        setConcert(dataset.concert);
+        break;
+      case "member":
+        setMember(dataset.member);
+        break;
+      default:
+        setPost(dataset.post);
+    }
+  }
+  // Lifts state to show Confirm modal
+  const handleShowConfirm = (e) => {
+    const { dataset } = e.target;
+    console.log({ dataset });
+    console.log(dataset.btnname, dataset.concert, dataset.member, dataset.post, dataset.song);
+    // handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
+    setBtnName(dataset.btnname);
+    setShowConfirm(true);
+  }
+
   const handleDeleteConcert = async (id) => {
     console.log(id)
     try {
       const { data } = await deleteConcert({
         variables: { id: id },
       });
-      console.log(data)
+      console.log(data);
+      handleHideConfirm();
+      handleShowSuccess();
     } catch (err) {
-      console.log(err)
+      console.log(err.message);
+      setErrThrown(err.message);
+      handleShowErr();
+    }
+  }
+
+  const handleDeleteMember = async (id) => {
+    console.log(id)
+    try {
+      const { data } = await deleteMember({
+        variables: { id: id },
+      });
+      console.log(data);
+      handleHideConfirm();
+      handleShowSuccess();
+    } catch (err) {
+      console.log(err.message);
+      setErrThrown(err.message);
+      handleShowErr();
+    }
+  }
+
+  const handleDeletePost = async (id) => {
+    console.log(id)
+    try {
+      const { data } = await deletePost({
+        variables: { id: id },
+      });
+      console.log(data);
+      handleHideConfirm();
+      handleShowSuccess();
+    } catch (err) {
+      console.log(err.message);
+      setErrThrown(err.message);
+      handleShowErr();
     }
   }
 
@@ -123,7 +218,7 @@ const AdminPortal = () => {
                   <h5>Click name of existing member to edit or delete</h5>
                   <ul>
                     {sortedUsers.map(user => (
-                      <li key={user._id}><Link to={`/edit_member/${user._id}`} className="adminLink">{user.fullName}</Link></li>
+                      <li key={user._id} className="adminLink" onClick={handleShowSelect} data-type="member" data-member={user}>{user.fullName}</li>
                     ))}
                   </ul>
                 </Card.Body>
@@ -137,6 +232,76 @@ const AdminPortal = () => {
                 </Card.Body>
               </Card>
             </Row>
+
+            <SelectModal
+              concert={concert}
+              member={member}
+              post={post}
+              type={type}
+              show={showSelect === true}
+              hide={() => handleHideSelect()}
+              confirm={() => handleShowConfirm()}
+              showSelectSongs={() => handleShowSelectSongs()}
+            />
+
+            <ConfirmModal
+              btnname={btnName}
+              urlid={urlId}
+              urltype={urlType}
+              concert={concert}
+              member={member}
+              post={post}
+              eventDelete={() => handleDeleteConcert(
+                concert._id,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              memberDelete={() => handleDeleteMember(
+                member._id,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              postDelete={() => handleDeletePost(
+                post._id,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              songsDelete={() => handleDeleteSongs(
+                songsToDelete,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              show={showConfirm === true}
+              hide={() => handleHideConfirm()}
+            />
+
+            <SuccessModal
+              urlid={urlId}
+              urltype={urlType}
+              btnname={btnName}
+              params={[]}
+              show={showSuccess === true}
+              hide={() => handleHideSuccess()}
+            />
+
+            <ErrorModal
+              user={me}
+              urlid={urlId}
+              urltype={urlType}
+              errmsg={errThrown}
+              btnname={btnName}
+              show={showErr === true}
+              hide={() => handleHideErr()}
+            />
+
           </Container>
           : <Navigate to="/members" />
         )

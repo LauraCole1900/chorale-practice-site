@@ -24,7 +24,7 @@ const ErrorModal = (props) => {
 
           {/* Delete Concert confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "concertDelete" &&
+            props.btnname === "concertDelete" &&
             <h4>{props.errmsg}. Your event was not deleted.</h4>}
 
           {/* Add User form */}
@@ -37,7 +37,7 @@ const ErrorModal = (props) => {
 
           {/* Delete Member confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "memberDelete" &&
+            props.btnname === "memberDelete" &&
             <h4>{props.errmsg}. This member was not deleted.</h4>}
 
           {/* Edit Me form */}
@@ -54,7 +54,7 @@ const ErrorModal = (props) => {
 
           {/* Delete Post confirm (modal) */}
           {props.urlid === "admin_portal" &&
-            props.btnName === "postDelete" &&
+            props.btnname === "postDelete" &&
             <h4>{props.errmsg}. Your post was not deleted.</h4>}
 
           {/* Add Repertoire form */}
@@ -69,7 +69,7 @@ const ErrorModal = (props) => {
 
           {/* Delete Repertoire form (modal) */}
           {props.urltype === "admin_portal" &&
-            props.btnName === "songsDelete" &&
+            props.btnname === "songsDelete" &&
             <h4>{props.errmsg}. Repertoire was not deleted.</h4>}
 
           {/* Navigation buttons */}
@@ -77,15 +77,15 @@ const ErrorModal = (props) => {
 
             {/* Close modal and return to Admin Portal */}
             {props.urlid === "admin_portal" &&
-              <Button data-toggle="popover" title="Admin Portal" type="button" className="button" onClick={props.click}>Return to Admin Portal</Button>}
+              <Button data-toggle="popover" title="Admin Portal" type="button" className="button" onClick={props.hide}>Return to Admin Portal</Button>}
 
             {/* Close modal and return to Profile */}
             {props.urlid === "profile" &&
-              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.click}>Return to Profile</Button>}
+              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Return to Profile</Button>}
 
             {/* Link to Admin Portal */}
             {props.urlid !== "/admin_portal" &&
-              props.user.isAdmin === false &&
+              props.user.isAdmin === true &&
               <Link to={"/admin_portal"}>
                 <Button data-toggle="popover" title="Admin Portal" type="button" className="button">Return to Admin Portal</Button>
               </Link>}
