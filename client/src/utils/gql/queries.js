@@ -134,6 +134,7 @@ query oneConcert ($id: ID!) {
     signUp
     addlMaterials
     songs {
+      songId
       title
       composer
       concertOrder

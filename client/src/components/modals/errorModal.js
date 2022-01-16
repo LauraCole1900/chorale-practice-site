@@ -58,13 +58,11 @@ const ErrorModal = (props) => {
             <h4>{props.errmsg}. Your post was not deleted.</h4>}
 
           {/* Add Repertoire form */}
-          {props.urltype === "repertoire" &&
-            props.params.length === 1 &&
+          {props.urlid === "repertoire" &&
             <h4>{props.errmsg}. Repertoire was not added.</h4>}
 
           {/* Edit Repertoire form */}
-          {props.urltype === "repertoire" &&
-            props.params.length === 2 &&
+          {props.urltype === "edit_repertoire" &&
             <h4>{props.errmsg}. This repertoire was not updated.</h4>}
 
           {/* Delete Repertoire form (modal) */}

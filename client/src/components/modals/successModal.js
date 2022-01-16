@@ -57,13 +57,11 @@ const SuccessModal = (props) => {
             <h4>Your post was deleted.</h4>}
 
           {/* Add Repertoire form */}
-          {props.urltype === "repertoire" &&
-            props.params.length === 1 &&
+          {props.urlid === "repertoire" &&
             <h4>Repertoire was added.</h4>}
 
           {/* Edit Repertoire form */}
-          {props.urltype === "repertoire" &&
-            props.params.length === 2 &&
+          {props.urltype === "edit_repertoire" &&
             <h4>This repertoire was updated.</h4>}
 
           {/* Delete Repertoire form (modal) */}

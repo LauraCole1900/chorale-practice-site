@@ -6,12 +6,30 @@ import { v1 as uuidv1 } from "uuid";
 import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const SongForm = () => {
   const currentUserId = Auth.getProfile().data?._id;
-  const params = useParams();
+  const { concertId, songId } = useParams();
   const navigate = useNavigate();
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 2]
+  const urlType = urlArray[urlArray.length - 3]
+
+  // Modal variables
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
     {
@@ -19,14 +37,13 @@ const SongForm = () => {
     });
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ONE_CONCERT,
     {
-      variables: { id: params.concertId }
+      variables: { id: concertId }
     });
   const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE);
   const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE);
 
   const me = meData?.me || {};
   const concert = concertData?.oneConcert || {};
-  console.log({ me }, { concert });
 
   const [songData, setSongData] = useState({
     title: "",
@@ -71,9 +88,12 @@ const SongForm = () => {
           variables: { songId: uuidv1(), ...concertData }
         });
         console.log({ data });
-        navigate("/admin_portal");
+        handleShowSuccess();
+        // navigate("/admin_portal");
       } catch (error) {
         console.log(error);
+        setErrThrown(error);
+        handleShowErr();
       }
       setSongData({
         name: "",
@@ -114,16 +134,19 @@ const SongForm = () => {
       console.log("Song update", concertData)
       try {
         const { data } = await editRepertoire({
-          variables: { id: params.concertId, songId: params.songId, ...songData }
+          variables: { id: concertId, songId: songId, ...songData }
         });
         console.log({ data });
         if (e.target.title === "Update") {
-          navigate("/admin_portal");
+          handleShowSuccess();
+          // navigate("/admin_portal");
         } else {
-          navigate(`/repertoire/${params.concertId}`)
+          navigate(`/repertoire/${concertId}`)
         }
       } catch (error) {
         console.log(error);
+        setErrThrown(error.message);
+        handleShowErr();
       }
       setSongData({
         name: "",
@@ -153,10 +176,11 @@ const SongForm = () => {
   };
 
   useEffect(() => {
-    if (Object.keys(concert.songs).length > 0) {
-      setSongData(concert.songs)
+    if (Object.keys(concert).length > 0) {
+      const songToEdit = concert.songs.filter(song => song.songId === songId);
+      setSongData(songToEdit[0]);
     }
-  }, [concert.songs]);
+  }, [concert]);
 
 
   if (concertLoading || meLoading) {
@@ -172,7 +196,9 @@ const SongForm = () => {
           ? <Container>
             <Row>
               <Col sm={12} className="formHeader">
-                <h1>Add repertoire, practice tracks, and/or videos for "{concert.name}"</h1>
+                {!songData.title
+                  ? <h1>Add repertoire, practice tracks, and/or videos for "{concert.name}"</h1>
+                  : <h1>Edit information, practice tracks, and/or videos for "{songData.title}"</h1>}
               </Col>
             </Row>
 
@@ -189,7 +215,7 @@ const SongForm = () => {
                     <Form.Label>Concert order:</Form.Label>
                     {errors.concertOrder &&
                       <div className="error"><p>{errors.concertOrder}</p></div>}
-                    <Form.Control type="text" pattern="[0-9]*" inputmode="numeric" placeholder="42" max={25} value={songData.concertOrder} className="formInput" onChange={handleInputChange} />
+                    <Form.Control type="text" pattern="[0-9]*" inputMode="numeric" placeholder="42" max={25} name="concertOrder" value={songData.concertOrder} className="formInput" onChange={handleInputChange} />
                   </Col>
                 </Row>
               </Form.Group>
@@ -331,18 +357,17 @@ const SongForm = () => {
                 </Row>
               </Form.Group>
 
-              {Object.keys(params).length === 1 &&
-                <Row>
+              {!songId
+                ? <Row>
                   <Col sm={{ span: 3, offset: 2 }}>
                     <Button data-toggle="popover" title="Submit" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit Selection</Button>
                   </Col>
                   <Col sm={{ span: 3, offset: 1 }}>
                     <Button data-toggle="popover" title="AddMore" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Add More Repertoire</Button>
                   </Col>
-                </Row>}
+                </Row>
 
-              {Object.keys(params).length === 2 &&
-                <Row>
+                : <Row>
                   <Col sm={{ span: 3, offset: 2 }}>
                     <Button data-toggle="popover" title="Update" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update Selection</Button>
                   </Col>
@@ -352,6 +377,27 @@ const SongForm = () => {
                 </Row>}
 
             </Form>
+
+            <SuccessModal
+              user={me}
+              urlid={urlId}
+              urltype={urlType}
+              btnname={btnName}
+              params={[]}
+              show={showSuccess === true}
+              hide={() => handleHideSuccess()}
+            />
+
+            <ErrorModal
+              user={me}
+              urlid={urlId}
+              urltype={urlType}
+              errmsg={errThrown}
+              btnname={btnName}
+              show={showErr === true}
+              hide={() => handleHideErr()}
+            />
+
           </Container>
 
           : <Navigate to="/members" />
