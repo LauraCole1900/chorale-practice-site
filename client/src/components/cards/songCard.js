@@ -16,7 +16,7 @@ const SongCard = ({ section, song }) => {
           {section === "soprano" && (song.practiceTrackUrlsSopSlow.length
             ? <>
               {song.practiceTrackUrlsSopSlow.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, tempo di learno</a></p>))}
+                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
@@ -24,7 +24,7 @@ const SongCard = ({ section, song }) => {
           {section === "soprano" && (song.practiceTrackUrlsSopATempo.length
             ? <>
               {song.practiceTrackUrlsSopATempo.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, performance tempo</a></p>))}
+                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No a tempo practice tracks found</p>
@@ -32,7 +32,7 @@ const SongCard = ({ section, song }) => {
           {section === "alto" && (song.practiceTrackUrlsAltoSlow.length
             ? <>
               {song.practiceTrackUrlsAltoSlow.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, tempo di learno</a></p>))}
+                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
@@ -40,7 +40,7 @@ const SongCard = ({ section, song }) => {
           {section === "alto" && (song.practiceTrackUrlsAltoATempo.length
             ? <>
               {song.practiceTrackUrlsAltoATempo.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, performance tempo</a></p>))}
+                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No a tempo practice tracks found</p>
@@ -48,7 +48,7 @@ const SongCard = ({ section, song }) => {
           {section === "tenor" && (song.practiceTrackUrlsTenSlow.length
             ? <>
               {song.practiceTrackUrlsTenSlow.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, tempo di learno</a></p>))}
+                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
@@ -56,7 +56,7 @@ const SongCard = ({ section, song }) => {
           {section === "tenor" && (song.practiceTrackUrlsTenATempo.length
             ? <>
               {song.practiceTrackUrlsTenATempo.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, performance tempo</a></p>))}
+                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No a tempo practice tracks found</p>
@@ -64,7 +64,7 @@ const SongCard = ({ section, song }) => {
           {section === "bass" && (song.practiceTrackUrlsBassSlow.length
             ? <>
               {song.practiceTrackUrlsBassSlow.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, tempo di learno</a></p>))}
+                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
@@ -72,7 +72,7 @@ const SongCard = ({ section, song }) => {
           {section === "bass" && (song.practiceTrackUrlsBassATempo.length
             ? <>
               {song.practiceTrackUrlsBassATempo.map((track, i) => (
-                <p key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}, performance tempo</a></p>))}
+                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
             </>
             : <>
               <p>No a tempo practice tracks found</p>
