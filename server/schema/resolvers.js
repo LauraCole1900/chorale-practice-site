@@ -120,7 +120,7 @@ const resolvers = {
     },
 
     addRepertoire: async (_, args) => {
-      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: args.songs } }, { new: true })
       return concert;
     },
 
