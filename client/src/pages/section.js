@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_TRUE_CONCERTS } from "../utils/gql";
+import { QUERY_ME, QUERY_ONE_SOP_SECT_POST, QUERY_ONE_ALTO_SECT_POST, QUERY_ONE_TEN_SECT_POST, QUERY_ONE_BASS_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
 import Auth from "../utils/auth";
 import "./style.css"
@@ -23,9 +23,17 @@ const Section = () => {
       variables: { id: currentUserId }
     });
   const { loading: concertsLoading, data: concertsData, error: concertsError } = useQuery(QUERY_TRUE_CONCERTS);
+  const { loading: sopLoading, data: sopData, error: sopError } = useQuery(QUERY_ONE_SOP_SECT_POST);
+  const { loading: altoLoading, data: altoData, error: altoError } = useQuery(QUERY_ONE_ALTO_SECT_POST);
+  const { loading: tenLoading, data: tenData, error: tenError } = useQuery(QUERY_ONE_TEN_SECT_POST);
+  const { loading: bassLoading, data: bassData, error: bassError } = useQuery(QUERY_ONE_BASS_SECT_POST);
 
   const me = meData?.me || {};
   const concertArr = concertsData?.trueConcerts || [];
+  const sopPost = sopData?.oneSopSectPost || {};
+  const altoPost = altoData?.oneSopSectPost || {};
+  const tenPost = tenData?.oneSopSectPost || {};
+  const bassPost = bassData?.oneSopSectPost || {};
 
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
@@ -48,11 +56,11 @@ const Section = () => {
   }, [concertArr, navigate, section]);
 
 
-  if (concertsLoading || meLoading) {
+  if (concertsLoading || meLoading || sopLoading || altoLoading || tenLoading || bassLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (concertsError || meError) {
+  if (concertsError || meError || sopError || altoError || tenError || bassError) {
     console.log(JSON.stringify(concertsError));
   }
 
@@ -72,7 +80,22 @@ const Section = () => {
                   <h1>{capsSection} Section Leader Announcements</h1>
                 </Card.Header>
                 <Card.Body className="cardBody">
-                  <p>Any {section} section leader announcements will go here.</p>
+                  {section === "soprano" &&
+                    (sopData
+                      ? { sopData }
+                      : <p>No {section} announcements at this time.</p>)}
+                  {section === "alto" &&
+                    (altoData
+                      ? { altoData }
+                      : <p>No {section} announcements at this time.</p>)}
+                  {section === "tenor" &&
+                    (tenData
+                      ? { tenData }
+                      : <p>No {section} announcements at this time.</p>)}
+                  {section === "bass" &&
+                    (bassData
+                      ? { bassData }
+                      : <p>No {section} announcements at this time.</p>)}
                 </Card.Body>
               </Card>
               {sortedConcerts.length &&
