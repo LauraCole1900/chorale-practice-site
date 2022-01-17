@@ -100,12 +100,12 @@ const resolvers = {
     },
 
     deleteSong: async (_, { _id, songId }) => {
-      const updatedConcert = await Concert.findOneAndUpdate({ _id: _id }, { $pull: { songs: { songId } } }, { new: true });
+      const updatedConcert = await Concert.findOneAndUpdate({ _id: _id }, { $pull: { songs: { _id: songId } } }, { new: true });
       return updatedConcert;
     },
 
     deleteManySongs: async (_, args) => {
-      const updatedConcert = await args.songsToDelete.map(song => Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { song } } }, { new: true }));
+      const updatedConcert = await args.songsToDelete.map(song => Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { _id: song } } }, { new: true }));
       return updatedConcert;
     },
 
@@ -119,13 +119,13 @@ const resolvers = {
       return concert;
     },
 
-    addRepertoire: async (_, { songData }) => {
-      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: songData } }, { new: true })
+    addRepertoire: async (_, args) => {
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
       return concert;
     },
 
     editRepertoire: async (_, args) => {
-      const concert = await Concert.findByIdAndUpdate({ _id: args._id, songId: args.songId }, { $set: { ...args } }, { new: true })
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id, }, { $where: { songs: { _id: args.songId }, ...args } }, { new: true })
       return concert;
     },
 

@@ -77,6 +77,7 @@ mutation deleteConcert($id: ID!) {
     signUp
     addlMaterials
     songs {
+      songId
       title
       composer
       concertOrder
@@ -143,6 +144,7 @@ mutation deleteManySongs($_id: ID!, $songsToDelete: [ID!]!) {
     signUp
     addlMaterials
     songs {
+      _id
       title
       composer
       concertOrder
@@ -209,7 +211,7 @@ mutation addRepertoire($id: ID!, $songs: SongInput!) {
   addRepertoire(_id: $id, songs: $songs) {
     _id
     songs {
-      songId
+      _id
       title
       composer
       concertOrder
@@ -232,7 +234,7 @@ mutation editRepertoire($id: ID!, $songId: ID!, $songs: SongInput!) {
   editRepertoire(_id: $id, songId: $songId, songs: $songs) {
     _id
     songs {
-      songId
+      _id
       title
       composer
       concertOrder

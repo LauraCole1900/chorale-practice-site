@@ -21,7 +21,7 @@ type Post {
 }
 
 type Song {
-  songId: ID!
+  _id: ID!
   title: String!
   composer: [String!]
   concertOrder: Int
@@ -70,7 +70,6 @@ type Auth {
 }
 
 input SongInput {
-  songId: ID!
   title: String!
   composer: [String!]
   concertOrder: Int

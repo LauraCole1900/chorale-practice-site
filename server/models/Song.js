@@ -2,10 +2,6 @@ const { Schema } = require("mongoose");
 
 const songSchema = new Schema(
   {
-    songId: {
-      type: String,
-      required: true
-    },
     title: {
       type: String,
       required: true

@@ -65,7 +65,7 @@ query allConcerts {
     signUp
     addlMaterials
     songs {
-      songId
+      _id
       title
       composer
       concertOrder
@@ -134,7 +134,7 @@ query oneConcert ($id: ID!) {
     signUp
     addlMaterials
     songs {
-      songId
+      _id
       title
       composer
       concertOrder
@@ -291,6 +291,7 @@ query trueConcerts {
     date
     time
     songs {
+      _id
       title
       composer
       concertOrder

@@ -85,23 +85,31 @@ const SongForm = () => {
       console.log("Song submit", songData)
       try {
         const { data } = await addRepertoire({
-          variables: { songId: uuidv1(), ...concertData }
+          variables: { _id: concertId, ...songData }
         });
         console.log({ data });
         handleShowSuccess();
         // navigate("/admin_portal");
       } catch (error) {
-        console.log(error);
-        setErrThrown(error);
+        console.log(JSON.stringify(error));
+        setErrThrown(error.message);
         handleShowErr();
       }
       setSongData({
-        name: "",
-        date: [],
-        time: [],
-        venue: [],
-        signUp: "",
-        addlMaterials: [],
+        title: "",
+        composer: [],
+        concertOrder: 0,
+        publisher: "",
+        copyrightDate: "",
+        practiceTrackUrlsSopSlow: [],
+        practiceTrackUrlsAltoSlow: [],
+        practiceTrackUrlsTenSlow: [],
+        practiceTrackUrlsBassSlow: [],
+        practiceTrackUrlsSopATempo: [],
+        practiceTrackUrlsAltoATempo: [],
+        practiceTrackUrlsTenATempo: [],
+        practiceTrackUrlsBassATempo: [],
+        videoUrls: []
       })
       // POST call to create concert document
       // ExhibitorAPI.registerExhibitor({ ...exhibitor })
@@ -144,17 +152,25 @@ const SongForm = () => {
           navigate(`/repertoire/${concertId}`)
         }
       } catch (error) {
-        console.log(error);
+        console.log(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
       setSongData({
-        name: "",
-        date: [],
-        time: [],
-        venue: [],
-        signUp: "",
-        addlMaterials: [],
+        title: "",
+        composer: [],
+        concertOrder: 0,
+        publisher: "",
+        copyrightDate: "",
+        practiceTrackUrlsSopSlow: [],
+        practiceTrackUrlsAltoSlow: [],
+        practiceTrackUrlsTenSlow: [],
+        practiceTrackUrlsBassSlow: [],
+        practiceTrackUrlsSopATempo: [],
+        practiceTrackUrlsAltoATempo: [],
+        practiceTrackUrlsTenATempo: [],
+        practiceTrackUrlsBassATempo: [],
+        videoUrls: []
       })
       // POST call to create concert document
       // ExhibitorAPI.registerExhibitor({ ...exhibitor })
@@ -176,8 +192,8 @@ const SongForm = () => {
   };
 
   useEffect(() => {
-    if (Object.keys(concert).length > 0) {
-      const songToEdit = concert.songs.filter(song => song.songId === songId);
+    if (urlType === "edit_repertoire") {
+      const songToEdit = concert.songs.filter(song => song._id === songId);
       setSongData(songToEdit[0]);
     }
   }, [concert]);
@@ -196,7 +212,7 @@ const SongForm = () => {
           ? <Container>
             <Row>
               <Col sm={12} className="formHeader">
-                {!songData.title
+                {urlId === "repertoire"
                   ? <h1>Add repertoire, practice tracks, and/or videos for "{concert.name}"</h1>
                   : <h1>Edit information, practice tracks, and/or videos for "{songData.title}"</h1>}
               </Col>

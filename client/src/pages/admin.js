@@ -55,7 +55,11 @@ const AdminPortal = () => {
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
   const [sortedConcerts, setSortedConcerts] = useState([]);
-  const [sortedUsers, setSortedUsers] = useState([]);
+  const [sortedSops, setSortedSops] = useState([]);
+  const [sortedAlts, setSortedAlts] = useState([]);
+  const [sortedTens, setSortedTens] = useState([]);
+  const [sortedBass, setSortedBass] = useState([]);
+  const [sortedOthers, setSortedOthers] = useState([]);
 
   const concerts = concertData?.allConcerts || [];
   const users = userData?.allUsers || [];
@@ -181,8 +185,21 @@ const AdminPortal = () => {
 
     if (users.length) {
       const userCopy = [...users];
-      const sortedByLName = userCopy.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      setSortedUsers(sortedByLName);
+      const sops = userCopy.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
+      const alts = userCopy.filter(user => ["Alto I", "Alto II"].includes(user.section));
+      const tens = userCopy.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
+      const bass = userCopy.filter(user => ["Bass I", "Bass II"].includes(user.section));
+      const other = userCopy.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II"].includes(user.section));
+      const sopsSortedByLName = sops.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const altsSortedByLName = alts.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const tensSortedByLName = tens.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const bassSortedByLName = bass.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const othersSortedByLName = other.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      setSortedSops(sopsSortedByLName);
+      setSortedAlts(altsSortedByLName);
+      setSortedTens(tensSortedByLName);
+      setSortedBass(bassSortedByLName);
+      setSortedOthers(othersSortedByLName);
     }
   }, [concerts, users])
 
@@ -248,8 +265,33 @@ const AdminPortal = () => {
                 <Card.Body className="cardBody">
                   <h5><Link to="/new_member" className="adminLink">Add new member</Link></h5>
                   <h5>Click name of existing member to edit or delete</h5>
+                  <h5>Sopranos</h5>
                   <ul>
-                    {sortedUsers.map(user => (
+                    {sortedSops.map(user => (
+                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    ))}
+                  </ul>
+                  <h5>Altos</h5>
+                  <ul>
+                    {sortedAlts.map(user => (
+                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    ))}
+                  </ul>
+                  <h5>Tenors</h5>
+                  <ul>
+                    {sortedTens.map(user => (
+                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    ))}
+                  </ul>
+                  <h5>Basses</h5>
+                  <ul>
+                    {sortedBass.map(user => (
+                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    ))}
+                  </ul>
+                  <h5>Non-Singer Staff & Board</h5>
+                  <ul>
+                    {sortedOthers.map(user => (
                       <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
                     ))}
                   </ul>
