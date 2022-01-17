@@ -378,17 +378,11 @@ const SongForm = () => {
                   <Col sm={{ span: 3, offset: 2 }}>
                     <Button data-toggle="popover" title="Submit" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit Selection</Button>
                   </Col>
-                  <Col sm={{ span: 3, offset: 1 }}>
-                    <Button data-toggle="popover" title="AddMore" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Add More Repertoire</Button>
-                  </Col>
                 </Row>
 
                 : <Row>
                   <Col sm={{ span: 3, offset: 2 }}>
                     <Button data-toggle="popover" title="Update" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update Selection</Button>
-                  </Col>
-                  <Col sm={{ span: 3, offset: 1 }}>
-                    <Button data-toggle="popover" title="AddMoreUpdate" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormUpdate} type="submit">Add More Repertoire</Button>
                   </Col>
                 </Row>}
 
@@ -399,6 +393,7 @@ const SongForm = () => {
               urlid={urlId}
               urltype={urlType}
               btnname={btnName}
+              concertid={concertId}
               params={[]}
               show={showSuccess === true}
               hide={() => handleHideSuccess()}

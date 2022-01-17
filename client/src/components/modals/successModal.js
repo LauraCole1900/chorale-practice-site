@@ -99,6 +99,10 @@ const SuccessModal = (props) => {
                 <Button data-toggle="popover" title="Profile" type="button" className="button">Return to Profile</Button>
               </Link>}
 
+            {/* Close and return to Add Repertoire form to add more repertoire */}
+            {props.urlid === "repertoire" &&
+              <Button data-toggle="popover" title="Add Repertoire" type="button" className="button" onClick={props.hide}>Add More Repertoire</Button>}
+
           </Modal.Footer>
         </Modal.Body>
       </Modal>
