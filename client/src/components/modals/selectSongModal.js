@@ -9,12 +9,12 @@ const SelectSongModal = (props) => {
 
 
   const handleInputChange = (e) => {
-    // if checked, push song.songId to songsToDelete array
-    // if unchecked, filter song.songId from songsToDelete array
+    // if checked, push song._id to songsToDelete array
+    // if unchecked, filter song._id from songsToDelete array
     const { checked, value } = e.currentTarget;
     setSongsToDelete(songs => checked
       ? [...songs, value]
-      : songs.filter(song => song !== song.songId)
+      : songs.filter(song => song !== song._id)
     )
   };
 
@@ -47,9 +47,9 @@ const SelectSongModal = (props) => {
 
             <Modal.Body className="modalBody">
               {props.songs.map(song => (
-                <Row key={song.songId}>
+                <Row key={song._id}>
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <Link to={`/edit_repertoire/${props.concertId}/${song.songId}`}>{song.title}</Link>
+                    <Link to={`/edit_repertoire/${props.concertId}/${song._id}`}>{song.title}</Link>
                   </Col>
                 </Row>))}
             </Modal.Body>
@@ -65,7 +65,7 @@ const SelectSongModal = (props) => {
               <Form className="checkboxForm">
                 <Form.Group controlId="formDeleteSongs">
                   {props.songs.map(song => (
-                    <Form.Check key={song.songId} type="checkbox" name="deleteThis" value={song.songId} label={song.title} checked={songsToDelete.some(song => song === song.songId)} onChange={handleInputChange} />
+                    <Form.Check key={song._id} type="checkbox" name="deleteThis" value={song._id} label={song.title} checked={songsToDelete.some(song => song === song._id)} onChange={handleInputChange} />
                   ))}
                 </Form.Group>
 

@@ -77,7 +77,7 @@ mutation deleteConcert($id: ID!) {
     signUp
     addlMaterials
     songs {
-      songId
+      _id
       title
       composer
       concertOrder

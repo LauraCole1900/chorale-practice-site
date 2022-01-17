@@ -75,10 +75,14 @@ input SongInput {
   concertOrder: Int
   publisher: String
   copyrightDate: String
-  practiceTrackUrlsSop: [String!]
-  practiceTrackUrlsAlto: [String!]
-  practiceTrackUrlsTen: [String!]
-  practiceTrackUrlsBass: [String!]
+  practiceTrackUrlsSopSlow: [String!]
+  practiceTrackUrlsAltoSlow: [String!]
+  practiceTrackUrlsTenSlow: [String!]
+  practiceTrackUrlsBassSlow: [String!]
+  practiceTrackUrlsSopATempo: [String!]
+  practiceTrackUrlsAltoATempo: [String!]
+  practiceTrackUrlsTenATempo: [String!]
+  practiceTrackUrlsBassATempo: [String!]
   videoUrls: [String]
 }
 

@@ -82,10 +82,10 @@ const SongForm = () => {
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Song submit", songData)
+      console.log("Song submit", songData, concertId);
       try {
         const { data } = await addRepertoire({
-          variables: { _id: concertId, ...songData }
+          variables: { id: concertId, songs: { ...songData } }
         });
         console.log({ data });
         handleShowSuccess();
