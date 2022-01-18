@@ -14,7 +14,6 @@ const SongForm = () => {
   const navigate = useNavigate();
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
-  const [otherSongs, setOtherSongs] = useState();
   const [songData, setSongData] = useState({
     title: "",
     composer: [],
@@ -132,16 +131,12 @@ const SongForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    console.log({ songData })
     // Validates required inputs
     const validationErrors = songValidate(songData);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Song update", concertData)
       try {
-        console.log({ songData });
-        console.log({ otherSongs });
         const { data } = await editRepertoire({
           variables: { id: concertId, songId: songId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
@@ -195,9 +190,7 @@ const SongForm = () => {
   useEffect(() => {
     if (urlType === "edit_repertoire" && Object.keys(concert).length) {
       const songToEdit = concert.songs.filter(song => song._id === songId);
-      const otherSongs = concert.songs.filter(song => song._id !== songId);
       setSongData(songToEdit[0]);
-      setOtherSongs(otherSongs);
     }
   }, [concert]);
 

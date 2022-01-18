@@ -52,6 +52,9 @@ const SelectSongModal = (props) => {
                     <Link to={`/edit_repertoire/${props.concertId}/${song._id}`}>{song.title}</Link>
                   </Col>
                 </Row>))}
+              <Modal.Footer className="modalFooter">
+                <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
+              </Modal.Footer>
             </Modal.Body>
           </>}
 
@@ -71,6 +74,8 @@ const SelectSongModal = (props) => {
 
                 <Modal.Footer className="modalFooter">
                   <Button data-toggle="popover" title="Delete repertoire" disabled={!props.songsToDelete} className="button formBtn" onClick={handleFormSubmit} type="submit">Delete Repertoire</Button>
+
+                  <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
                 </Modal.Footer>
               </Form>
             </Modal.Body>
