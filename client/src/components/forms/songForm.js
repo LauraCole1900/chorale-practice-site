@@ -141,6 +141,7 @@ const SongForm = () => {
     if (noErrors) {
       console.log("Song update", concertData)
       try {
+        console.log({ songData });
         const { data } = await editRepertoire({
           variables: { id: concertId, songId: songId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });

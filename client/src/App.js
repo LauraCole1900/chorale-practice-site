@@ -10,7 +10,7 @@ import "./App.css";
 
 const client = new ApolloClient({
   uri: "/graphql",
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({ addTypename: false })
 })
 
 function App() {
