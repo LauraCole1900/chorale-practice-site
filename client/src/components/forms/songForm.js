@@ -85,7 +85,7 @@ const SongForm = () => {
       console.log("Song submit", songData, concertId);
       try {
         const { data } = await addRepertoire({
-          variables: { id: concertId, songs: { ...songData } }
+          variables: { id: concertId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
         console.log({ data });
         handleShowSuccess();
@@ -142,7 +142,7 @@ const SongForm = () => {
       console.log("Song update", concertData)
       try {
         const { data } = await editRepertoire({
-          variables: { id: concertId, songId: songId, ...songData }
+          variables: { id: concertId, songId: songId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
         console.log({ data });
         if (e.target.title === "Update") {
@@ -192,7 +192,7 @@ const SongForm = () => {
   };
 
   useEffect(() => {
-    if (urlType === "edit_repertoire") {
+    if (urlType === "edit_repertoire" && Object.keys(concert).length) {
       const songToEdit = concert.songs.filter(song => song._id === songId);
       setSongData(songToEdit[0]);
     }

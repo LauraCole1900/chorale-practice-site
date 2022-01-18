@@ -7,6 +7,7 @@ import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
+import { Sidenav } from "../components/navbar";
 import "./style.css";
 
 const AdminPortal = () => {
@@ -189,7 +190,7 @@ const AdminPortal = () => {
       const alts = userCopy.filter(user => ["Alto I", "Alto II"].includes(user.section));
       const tens = userCopy.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
       const bass = userCopy.filter(user => ["Bass I", "Bass II"].includes(user.section));
-      const other = userCopy.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II"].includes(user.section));
+      const other = userCopy.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"].includes(user.section));
       const sopsSortedByLName = sops.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       const altsSortedByLName = alts.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       const tensSortedByLName = tens.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
@@ -243,68 +244,73 @@ const AdminPortal = () => {
             </Row>
 
             <Row>
-              <Card className="adminCard" id="events">
-                <Card.Header className="cardTitle">
-                  <h2>Event Actions</h2>
-                </Card.Header>
-                <Card.Body className="cardBody">
-                  <h5><Link to="/new_event" className="adminLink">Create new event</Link></h5>
-                  <h5>Click name of existing event to edit or delete</h5>
-                  <ul>
-                    {sortedConcerts.map(concert => (
-                      <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name, concert.songs)} data-type="event" data-name={concert.name}>{concert.name}</li>
-                    ))}
-                  </ul>
-                </Card.Body>
-              </Card>
+              <Col sm={2}>
+                <Sidenav user={me} />
+              </Col>
+              <Col sm={10}>
+                <Card className="adminCard" id="events">
+                  <Card.Header className="cardTitle">
+                    <h2>Event Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_event" className="adminLink">Create new event</Link></h5>
+                    <h5>Click name of existing event to edit or delete</h5>
+                    <ul>
+                      {sortedConcerts.map(concert => (
+                        <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name, concert.songs)} data-type="event" data-name={concert.name}>{concert.name}</li>
+                      ))}
+                    </ul>
+                  </Card.Body>
+                </Card>
 
-              <Card className="adminCard" id="members">
-                <Card.Header className="cardTitle">
-                  <h2>Member Actions</h2>
-                </Card.Header>
-                <Card.Body className="cardBody">
-                  <h5><Link to="/new_member" className="adminLink">Add new member</Link></h5>
-                  <h5>Click name of existing member to edit or delete</h5>
-                  <h5>Sopranos</h5>
-                  <ul>
-                    {sortedSops.map(user => (
-                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
-                    ))}
-                  </ul>
-                  <h5>Altos</h5>
-                  <ul>
-                    {sortedAlts.map(user => (
-                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
-                    ))}
-                  </ul>
-                  <h5>Tenors</h5>
-                  <ul>
-                    {sortedTens.map(user => (
-                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
-                    ))}
-                  </ul>
-                  <h5>Basses</h5>
-                  <ul>
-                    {sortedBass.map(user => (
-                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
-                    ))}
-                  </ul>
-                  <h5>Non-Singer Staff & Board</h5>
-                  <ul>
-                    {sortedOthers.map(user => (
-                      <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
-                    ))}
-                  </ul>
-                </Card.Body>
-              </Card>
-              <Card className="adminCard" id="posts">
-                <Card.Header className="cardTitle">
-                  <h2>Post Actions</h2>
-                </Card.Header>
-                <Card.Body className="cardBody">
-                  <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
-                </Card.Body>
-              </Card>
+                <Card className="adminCard" id="members">
+                  <Card.Header className="cardTitle">
+                    <h2>Member Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_member" className="adminLink">Add new member</Link></h5>
+                    <h5>Click name of existing member to edit or delete</h5>
+                    <h5>Sopranos</h5>
+                    <ul>
+                      {sortedSops.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Altos</h5>
+                    <ul>
+                      {sortedAlts.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Tenors</h5>
+                    <ul>
+                      {sortedTens.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Basses</h5>
+                    <ul>
+                      {sortedBass.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Non-Singer Staff & Board</h5>
+                    <ul>
+                      {sortedOthers.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                      ))}
+                    </ul>
+                  </Card.Body>
+                </Card>
+                <Card className="adminCard" id="posts">
+                  <Card.Header className="cardTitle">
+                    <h2>Post Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
+                  </Card.Body>
+                </Card>
+              </Col>
             </Row>
 
             <SelectModal
