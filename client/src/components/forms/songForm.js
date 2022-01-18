@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { v1 as uuidv1 } from "uuid";
 import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
@@ -15,6 +14,24 @@ const SongForm = () => {
   const navigate = useNavigate();
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
+  const [otherSongs, setOtherSongs] = useState();
+  const [songData, setSongData] = useState({
+    title: "",
+    composer: [],
+    concertOrder: 0,
+    publisher: "",
+    copyrightDate: "",
+    practiceTrackUrlsSopSlow: [],
+    practiceTrackUrlsAltoSlow: [],
+    practiceTrackUrlsTenSlow: [],
+    practiceTrackUrlsBassSlow: [],
+    practiceTrackUrlsSopATempo: [],
+    practiceTrackUrlsAltoATempo: [],
+    practiceTrackUrlsTenATempo: [],
+    practiceTrackUrlsBassATempo: [],
+    videoUrls: []
+  });
+  const [errors, setErrors] = useState({});
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
@@ -44,24 +61,6 @@ const SongForm = () => {
 
   const me = meData?.me || {};
   const concert = concertData?.oneConcert || {};
-
-  const [songData, setSongData] = useState({
-    title: "",
-    composer: [],
-    concertOrder: 0,
-    publisher: "",
-    copyrightDate: "",
-    practiceTrackUrlsSopSlow: [],
-    practiceTrackUrlsAltoSlow: [],
-    practiceTrackUrlsTenSlow: [],
-    practiceTrackUrlsBassSlow: [],
-    practiceTrackUrlsSopATempo: [],
-    practiceTrackUrlsAltoATempo: [],
-    practiceTrackUrlsTenATempo: [],
-    practiceTrackUrlsBassATempo: [],
-    videoUrls: []
-  });
-  const [errors, setErrors] = useState({});
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -142,6 +141,7 @@ const SongForm = () => {
       console.log("Song update", concertData)
       try {
         console.log({ songData });
+        console.log({ otherSongs });
         const { data } = await editRepertoire({
           variables: { id: concertId, songId: songId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
@@ -195,7 +195,9 @@ const SongForm = () => {
   useEffect(() => {
     if (urlType === "edit_repertoire" && Object.keys(concert).length) {
       const songToEdit = concert.songs.filter(song => song._id === songId);
+      const otherSongs = concert.songs.filter(song => song._id !== songId);
       setSongData(songToEdit[0]);
+      setOtherSongs(otherSongs);
     }
   }, [concert]);
 

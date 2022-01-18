@@ -125,7 +125,8 @@ const resolvers = {
     },
 
     editRepertoire: async (_, args) => {
-      const concert = await Concert.findByIdAndUpdate({ _id: args._id, }, { $set: { $where: { songs: { _id: args.songId, songs: args.songs } } } }, { new: true })
+      console.log("resolver", args.songs);
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id, }, { $set: { $where: { _id: args.songs._id }, songs: args.songs } }, { new: true })
       return concert;
     },
 

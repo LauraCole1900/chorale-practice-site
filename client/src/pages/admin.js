@@ -318,6 +318,7 @@ const AdminPortal = () => {
               memberId={memberId}
               postId={postId}
               type={type}
+              songs={songs}
               show={showSelect === true}
               hide={() => handleHideSelect()}
               confirm={(e) => handleShowConfirm(e)}
