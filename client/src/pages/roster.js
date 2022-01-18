@@ -37,7 +37,7 @@ const RosterPage = () => {
       const altos = members.filter(member => member.section === "Alto I" || member.section === "Alto II");
       const tenors = members.filter(member => member.section === "Tenor I" || member.section === "Tenor II");
       const basses = members.filter(member => member.section === "Bass I" || member.section === "Bass II");
-      const staff = members.filter(member => !["section leader", "singer", "webdev"].includes(member.position));
+      const staff = members.filter(member => !["section leader", "singer", "webdev", "guest"].includes(member.position));
       const board = members.filter(member => member.section === "Board");
 
       const sortedSops = sortSection(sopranos);
@@ -68,69 +68,74 @@ const RosterPage = () => {
     <>
       {!Auth.loggedIn()
         ? <Navigate to="/login" />
-        : (pageReady &&
-          <Container fluid>
-            <Row>
-              <Col sm={12} className="pageHeader">
-                <h1>Roster</h1>
-              </Col>
-            </Row>
+        : (me.position === "guest"
+          ? <Navigate to="/members" />
+          : <>
+            {pageReady &&
+              <Container fluid>
+                <Row>
+                  <Col sm={12} className="pageHeader">
+                    <h1>Roster</h1>
+                  </Col>
+                </Row>
 
-            <Row className="rosterNav">
-              <ul>
-                <li><a href="#sopranos">Sopranos</a></li>
-                <li><a href="#altos">Altos</a></li>
-                <li><a href="#tenors">Tenors</a></li>
-                <li><a href="#basses">Basses</a></li>
-                <li><a href="#staff">Staff</a></li>
-                <li><a href="#board">Board</a></li>
-                {me.isAdmin === true &&
-                  <li><Link to="/admin_portal">Admin Portal</Link></li>}
-              </ul>
-            </Row>
+                <Row className="rosterNav">
+                  <ul>
+                    <li><a href="#sopranos">Sopranos</a></li>
+                    <li><a href="#altos">Altos</a></li>
+                    <li><a href="#tenors">Tenors</a></li>
+                    <li><a href="#basses">Basses</a></li>
+                    <li><a href="#staff">Staff</a></li>
+                    <li><a href="#board">Board</a></li>
+                    {me.isAdmin === true &&
+                      <li><Link to="/admin_portal">Admin Portal</Link></li>}
+                  </ul>
+                </Row>
 
-            <Row>
-              <h3 id="sopranos">Sopranos</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currSops} />
-            </Row>
+                <Row>
+                  <h3 id="sopranos">Sopranos</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currSops} />
+                </Row>
 
-            <Row>
-              <h3 id="altos">Altos</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currAlts} />
-            </Row>
+                <Row>
+                  <h3 id="altos">Altos</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currAlts} />
+                </Row>
 
-            <Row>
-              <h3 id="tenors">Tenors</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currTens} />
-            </Row>
+                <Row>
+                  <h3 id="tenors">Tenors</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currTens} />
+                </Row>
 
-            <Row>
-              <h3 id="basses">Basses</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currBass} />
-            </Row>
+                <Row>
+                  <h3 id="basses">Basses</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currBass} />
+                </Row>
 
-            <Row>
-              <h3 id="staff">Staff</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currStaff} />
-            </Row>
+                <Row>
+                  <h3 id="staff">Staff</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currStaff} />
+                </Row>
 
-            <Row>
-              <h3 id="board">Board</h3>
-            </Row>
-            <Row>
-              <RosterTable members={currBoard} />
-            </Row>
-          </Container>
+                <Row>
+                  <h3 id="board">Board</h3>
+                </Row>
+                <Row>
+                  <RosterTable members={currBoard} />
+                </Row>
+              </Container>
+            }
+          </>
         )
       }
     </>

@@ -82,19 +82,19 @@ const Section = () => {
                 <Card.Body className="cardBody">
                   {section === "soprano" &&
                     (sopData
-                      ? { sopData }
+                      ? { sopPost }
                       : <p>No {section} announcements at this time.</p>)}
                   {section === "alto" &&
                     (altoData
-                      ? { altoData }
+                      ? { altoPost }
                       : <p>No {section} announcements at this time.</p>)}
                   {section === "tenor" &&
                     (tenData
-                      ? { tenData }
+                      ? { tenPost }
                       : <p>No {section} announcements at this time.</p>)}
                   {section === "bass" &&
                     (bassData
-                      ? { bassData }
+                      ? { bassPost }
                       : <p>No {section} announcements at this time.</p>)}
                 </Card.Body>
               </Card>
