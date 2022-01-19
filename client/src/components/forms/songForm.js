@@ -198,19 +198,19 @@ const SongForm = () => {
 
   if (concertLoading || meLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
   if (concertError || meError) {
-    console.log(concertError, meError)
-  }
+    console.log(JSON.stringify(concertError, meError));
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
+  };
 
   if (!["administrator", "assistant music director", "music director", "webdev"].includes(me.position)) {
     return <Navigate to="/members" />
-  }
+  };
 
 
   return (

@@ -222,19 +222,19 @@ const AdminUserForm = () => {
 
   if (editLoading || meLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
-  if (meError || editError) {
-    console.log(meError, editError)
-  }
+  if (editError || meError) {
+    console.log(JSON.stringify(editError, meError));
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
+  };
 
   if (!["administrator", "assistant music director", "music director", "webdev"].includes(me.position)) {
     return <Navigate to="/members" />
-  }
+  };
 
 
   return (
