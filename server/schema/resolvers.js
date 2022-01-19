@@ -5,11 +5,26 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     me: async (_, args, context) => {
-      return await User.findOne({ _id: args._id }).select("-__v -password");
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
     },
 
     meProfile: async (_, args, context) => {
-      return await User.findOne({ _id: args._id }).select("-__v -password");
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
+    },
+
+    currentId: async (_, args) => {
+      console.log({ args });
+      const user = await User.findOne({ _id: args._id });
+      console.log({ user });
+      return user;
     },
 
     admins: async () => {
@@ -29,7 +44,9 @@ const resolvers = {
     },
 
     oneConcert: async (_, args) => {
-      return await Concert.findOne({ _id: args._id });
+      const concert = await Concert.findOne({ _id: args._id });
+      console.log({concert});
+      return concert;
     },
 
     onePost: async (_, args) => {
@@ -58,6 +75,10 @@ const resolvers = {
 
     oneBassSectPost: async (_, args) => {
       return await Post.findOne({ _id: args._id, postType: args.postType === "bassSectAnnouncements" })
+    },
+
+    oneProfile: async (_, args) => {
+      return await User.findOne({ _id: args._id });
     },
 
     oneUser: async (_, args) => {
@@ -138,10 +159,14 @@ const resolvers = {
       return user;
     },
 
-    editUserSelf: async (_, args) => {
-      const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
-      const token = signToken(user);
-      return { token, user };
+    editUserSelf: async (_, args, context) => {
+      if (context.user) {
+        const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
+        const token = signToken(user);
+        return { token, user };
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
     },
 
     login: async (_, { email, password }) => {

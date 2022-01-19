@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-query me($id: ID!) {
-  me(_id: $id) {
+query me {
+  me {
     _id
     fullName
     preferredName
@@ -14,8 +14,8 @@ query me($id: ID!) {
 `;
 
 export const QUERY_ME_PROFILE = gql`
-query meProfile($id: ID!) {
-  meProfile(_id: $id) {
+query meProfile {
+  meProfile {
     _id
     fullName
     preferredName
@@ -34,6 +34,19 @@ query meProfile($id: ID!) {
     city
     state
     zipCode
+    isAdmin
+  }
+}
+`;
+
+export const QUERY_CURRENT_ID = gql`
+query currentId ($id: ID!) {
+  currentId(_id: $id) {
+    _id
+    fullName
+    preferredName
+    section
+    position
     isAdmin
   }
 }
@@ -153,7 +166,7 @@ query oneConcert ($id: ID!) {
 `;
 
 export const QUERY_ONE_POST = gql`
-query onePost($id: ID!) {
+query onePost ($id: ID!) {
   onePost(_id: $id) {
     _id
     postType
@@ -225,6 +238,32 @@ query oneBassSectPost($id: ID!, $postType: String!) {
     postType
     postDate
     postBody
+  }
+}
+`;
+
+export const QUERY_ONE_PROFILE = gql`
+query oneProfile($id: ID!) {
+  oneProfile(_id: $id) {
+    _id
+    fullName
+    preferredName
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    city
+    state
+    zipCode
+    isAdmin
   }
 }
 `;

@@ -88,8 +88,9 @@ input SongInput {
 }
 
 type Query {
-  me(_id: ID!): User
-  meProfile(_id: ID!): User
+  me: User
+  meProfile: User
+  currentId(_id: ID!): User
   admins: [User]
   allConcerts: [Concert]
   allPosts: [Post]
@@ -102,6 +103,7 @@ type Query {
   oneAltoSectPost(_id: ID!, postType: String!): Post
   oneTenSectPost(_id: ID!, postType: String!): Post
   oneBassSectPost(_id: ID!, postType: String!): Post
+  oneProfile(_id: ID!): User
   oneUser(_id: ID!): User
   oneUserAdmin(_id: ID!): User
   trueConcerts: [Concert]

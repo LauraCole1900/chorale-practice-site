@@ -1,15 +1,29 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from "@apollo/client/link/context";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
-// import Footer from "./components/footer";
 import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section } from "./pages";
 import { AdminUserForm, ConcertForm, SongForm, UserForm } from "./components/forms";
 import "./App.css";
 
+const httpLink = createHttpLink({
+  uri: "/graphql"
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("id_token");
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ""
+    }
+  }
+});
+
 const client = new ApolloClient({
-  uri: "/graphql",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache({ addTypename: false })
 })
 
