@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/gql";
@@ -46,6 +46,10 @@ const Login = () => {
     });
     navigate("/members");
   };
+
+  if (Auth.loggedIn()) {
+    return <Navigate to="/members" />
+  }
 
 
   return (
