@@ -21,10 +21,7 @@ const resolvers = {
     },
 
     currentId: async (_, args) => {
-      console.log({ args });
-      const user = await User.findOne({ _id: args._id });
-      console.log({ user });
-      return user;
+      return await User.findOne({ _id: args._id });
     },
 
     admins: async () => {
@@ -44,9 +41,7 @@ const resolvers = {
     },
 
     oneConcert: async (_, args) => {
-      const concert = await Concert.findOne({ _id: args._id });
-      console.log({concert});
-      return concert;
+      return await Concert.findOne({ _id: args._id });
     },
 
     onePost: async (_, args) => {
