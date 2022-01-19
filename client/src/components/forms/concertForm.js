@@ -162,6 +162,10 @@ const ConcertForm = () => {
     return <h1>Loading....</h1>
   }
 
+  if (editError || meError) {
+    console.log(editError, meError)
+  }
+
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
   }
