@@ -13,11 +13,7 @@ const Members = () => {
   // const [admins, setAdmins] = useState([]);
   // const [pageReady, setPageReady] = useState(false);
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
