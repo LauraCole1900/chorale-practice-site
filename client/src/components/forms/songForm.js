@@ -200,6 +200,10 @@ const SongForm = () => {
     return <h1>Loading....</h1>
   }
 
+  if (concertError || meError) {
+    console.log(concertError, meError)
+  }
+
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
   }
