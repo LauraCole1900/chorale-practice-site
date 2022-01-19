@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { QUERY_ALL_USERS, QUERY_CURRENT_ID, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { RosterTable } from "../components/tables";
 
@@ -15,15 +15,15 @@ const RosterPage = () => {
   const [currBass, setCurrBass] = useState([]);
   const [currStaff, setCurrStaff] = useState([]);
   const [currBoard, setCurrBoard] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME,
+  const { loading: meLoading, data: meData, error: meError } = useQuery(
+    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
     {
       variables: { id: currentUserId }
     });
   const { loading: usersLoading, data: usersData, error: usersError } = useQuery(QUERY_ALL_USERS);
 
-  const me = meData?.me || {};
+  const me = meData?.me || meData?.currentId || {};
   const members = usersData?.allUsers || [];
 
   const sortSection = (singers) => {
@@ -52,7 +52,6 @@ const RosterPage = () => {
       setCurrStaff(sortedStaff);
       const sortedBoard = sortSection(board);
       setCurrBoard(sortedBoard);
-      setPageReady(true);
     }
   }, [members])
 
@@ -64,80 +63,78 @@ const RosterPage = () => {
     console.log(JSON.stringify(meError, usersError));
   }
 
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/login" />
+  }
+
+  if (me.position === "guest") {
+    return <Navigate to="/members" />
+  }
+
   return (
     <>
-      {!Auth.loggedIn()
-        ? <Navigate to="/login" />
-        : (me.position === "guest"
-          ? <Navigate to="/members" />
-          : <>
-            {pageReady &&
-              <Container fluid>
-                <Row>
-                  <Col sm={12} className="pageHeader">
-                    <h1>Roster</h1>
-                  </Col>
-                </Row>
+      <Container fluid>
+        <Row>
+          <Col sm={12} className="pageHeader">
+            <h1>Roster</h1>
+          </Col>
+        </Row>
 
-                <Row className="rosterNav">
-                  <ul>
-                    <li><a href="#sopranos">Sopranos</a></li>
-                    <li><a href="#altos">Altos</a></li>
-                    <li><a href="#tenors">Tenors</a></li>
-                    <li><a href="#basses">Basses</a></li>
-                    <li><a href="#staff">Staff</a></li>
-                    <li><a href="#board">Board</a></li>
-                    {me.isAdmin === true &&
-                      <li><Link to="/admin_portal">Admin Portal</Link></li>}
-                  </ul>
-                </Row>
+        <Row className="rosterNav">
+          <ul>
+            <li><a href="#sopranos">Sopranos</a></li>
+            <li><a href="#altos">Altos</a></li>
+            <li><a href="#tenors">Tenors</a></li>
+            <li><a href="#basses">Basses</a></li>
+            <li><a href="#staff">Staff</a></li>
+            <li><a href="#board">Board</a></li>
+            {me.isAdmin === true &&
+              <li><Link to="/admin_portal">Admin Portal</Link></li>}
+          </ul>
+        </Row>
 
-                <Row>
-                  <h3 id="sopranos">Sopranos</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currSops} />
-                </Row>
+        <Row>
+          <h3 id="sopranos">Sopranos</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currSops} />
+        </Row>
 
-                <Row>
-                  <h3 id="altos">Altos</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currAlts} />
-                </Row>
+        <Row>
+          <h3 id="altos">Altos</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currAlts} />
+        </Row>
 
-                <Row>
-                  <h3 id="tenors">Tenors</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currTens} />
-                </Row>
+        <Row>
+          <h3 id="tenors">Tenors</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currTens} />
+        </Row>
 
-                <Row>
-                  <h3 id="basses">Basses</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currBass} />
-                </Row>
+        <Row>
+          <h3 id="basses">Basses</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currBass} />
+        </Row>
 
-                <Row>
-                  <h3 id="staff">Staff</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currStaff} />
-                </Row>
+        <Row>
+          <h3 id="staff">Staff</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currStaff} />
+        </Row>
 
-                <Row>
-                  <h3 id="board">Board</h3>
-                </Row>
-                <Row>
-                  <RosterTable members={currBoard} />
-                </Row>
-              </Container>
-            }
-          </>
-        )
-      }
+        <Row>
+          <h3 id="board">Board</h3>
+        </Row>
+        <Row>
+          <RosterTable members={currBoard} />
+        </Row>
+      </Container>
     </>
   )
 }

@@ -205,16 +205,16 @@ const AdminPortal = () => {
     return <h1>Loading....</h1>
   }
 
+  if (concertError || meError || userError) {
+    console.log(JSON.stringify(concertError, meError, userError));
+  }
+
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
   }
 
   if (!me.isAdmin) {
     return <Navigate to="/members" />
-  }
-
-  if (concertError || meError || userError) {
-    console.log(JSON.stringify(concertError, meError, userError));
   }
 
 
