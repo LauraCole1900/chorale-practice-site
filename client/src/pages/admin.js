@@ -70,8 +70,6 @@ const AdminPortal = () => {
   // Shows Select modal
   const handleShowSelect = (e, id, name, songs) => {
     const { dataset } = e.target;
-    console.log(dataset.type);
-    console.log(id);
     setType(dataset.type);
     setShowSelect(true);
     switch (dataset.type) {
@@ -100,7 +98,6 @@ const AdminPortal = () => {
   // Shows Confirm modal
   const handleShowConfirm = (e) => {
     const { dataset } = e.target;
-    console.log({ concertId });
     setBtnName(dataset.btnname);
     handleHideSelect();
     setShowConfirm(true);
@@ -109,7 +106,6 @@ const AdminPortal = () => {
   // Handles click on "Delete Concert" button on Confirm modal
   const handleDeleteConcert = async (id) => {
     handleHideConfirm();
-    console.log(id);
     try {
       const { data } = await deleteConcert({
         variables: { id: id },
