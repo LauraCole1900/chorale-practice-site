@@ -224,6 +224,10 @@ const AdminUserForm = () => {
     return <h1>Loading....</h1>
   }
 
+  if (meError || editError) {
+    console.log(meError, editError)
+  }
+
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
   }
