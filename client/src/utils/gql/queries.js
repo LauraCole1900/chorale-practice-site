@@ -101,7 +101,9 @@ query allPosts {
   allPosts {
     _id
     postType
+    postExpire
     postDate
+    postTitle
     postBody
   }
 }
@@ -170,7 +172,9 @@ query onePost ($id: ID!) {
   onePost(_id: $id) {
     _id
     postType
+    postExpire
     postDate
+    postTitle
     postBody
   }
 }
@@ -181,7 +185,9 @@ query oneDirectorPost($id: ID!, $postType: String!) {
   oneDirectorPost(_id: $id, postType: $postType) {
     _id
     postType
+    postExpire
     postDate
+    postTitle
     postBody
   }
 }
@@ -192,7 +198,9 @@ query oneAdminPost($id: ID!, $postType: String!) {
   oneAdminPost(_id: $id, postType: $postType) {
     _id
     postType
+    postExpire
     postDate
+    postTitle
     postBody
   }
 }
@@ -204,6 +212,7 @@ query oneSopSectPost($id: ID!, $postType: String!) {
     _id
     postType
     postDate
+    postTitle
     postBody
   }
 }
@@ -215,6 +224,7 @@ query oneAltoSectPost($id: ID!, $postType: String!) {
     _id
     postType
     postDate
+    postTitle
     postBody
   }
 }
@@ -226,6 +236,7 @@ query oneTenSectPost($id: ID!, $postType: String!) {
     _id
     postType
     postDate
+    postTitle
     postBody
   }
 }
@@ -237,6 +248,7 @@ query oneBassSectPost($id: ID!, $postType: String!) {
     _id
     postType
     postDate
+    postTitle
     postBody
   }
 }

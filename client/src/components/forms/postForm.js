@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 // import { userValidate } from "../../utils/validation";
-import { EDIT_USER_SELF, QUERY_ONE_USER } from "../../utils/gql";
+import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
 import "./style.css";
 
 const PostForm = () => {
   const [postData, setPostData] = useState({
-    fullName: "",
-    preferredName: "",
-    phone: "",
-    password: ""
+    postType: "",
+    postExpire: "",
+    postTitle: "",
+    postBody: ""
   });
   const [errors, setErrors] = useState({});
 
@@ -60,6 +60,45 @@ const PostForm = () => {
 
         <Form className="postForm">
 
+          <Form.Group controlId="formPostType">
+            <Row>
+              <Col sm={{ span: 4, offset: 2 }}>
+                <Form.Label>Select type of post: <span className="red">*</span></Form.Label>
+                <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" onChange={handleInputChange}>
+                  <option>Select</option>
+                  <option value="emergency">Emergency Announcement</option>
+                  <option value="singers note">Singer's Notes</option>
+                  <option value="director">Director's Corner</option>
+                  <option value="section leader">Section Leader Announcement</option>
+                  <option value="general">General Announcement</option>
+                </Form.Select>
+              </Col>
+
+              {postData.postType === "emergency" &&
+                <Col sm={4}>
+                  <Form.Label>Post expires: <span className="red">*</span></Form.Label>
+                  <Form.Control type="date" name="postExpire" placeholder="04-05-2063" value={postData.postExpire} className="formDate" onChange={handleInputChange} />
+                </Col>}
+            </Row>
+          </Form.Group>
+
+          <Form.Group controlId="formPostTitle">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Post title:</Form.Label>
+                <Form.Control type="input" name="postTitle" placeHolder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Form.Group controlId="formPostBody">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Post body: <span className="red">*</span></Form.Label>
+                <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
         </Form>
       </Container>
     </>

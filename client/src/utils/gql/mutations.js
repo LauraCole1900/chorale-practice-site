@@ -27,10 +27,12 @@ mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue
 `;
 
 export const ADD_POST = gql`
-mutation addPost($postType: String!, $postBody: String!) {
-  addPost(postType: $postType, postBody: $postBody) {
+mutation addPost($postType: String!, $postExpire: String, $postTitle: String, $postBody: String!) {
+  addPost(postType: $postType, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
     _id
     postType
+    postExpire
+    postTitle
     postBody
   }
 }
@@ -100,6 +102,9 @@ mutation deletePost($id: ID!) {
   deletePost(_id: $id) {
     _id
     postType
+    postExpire
+    postDate
+    postTitle
     postBody
   }
 }
@@ -253,10 +258,12 @@ mutation editRepertoire($id: ID!, $songId: ID!, $songs: SongInput!) {
 `;
 
 export const EDIT_POST = gql`
-mutation editPost($id: ID!, $postType: String!, $postBody: String!) {
-  editPost(_id: $id, postType: $postType, postBody: $postBody) {
+mutation editPost($id: ID!, $postType: String!, $postExpire: String, $postTitle: String, $postBody: String!) {
+  editPost(_id: $id, postType: $postType, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
     _id
     postType
+    postExpire
+    postTitle
     postBody
   }
 }

@@ -16,7 +16,9 @@ type Concert {
 type Post {
   _id: ID!
   postType: String!
+  postExpire: String
   postDate: String!
+  postTitle: String
   postBody: String!
 }
 
@@ -114,7 +116,7 @@ type Mutation {
 
   addConcert(name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
 
-  addPost(postType: String!, postBody: String!): Post
+  addPost(postType: String!, postExpire: String, postTitle: String, postBody: String!): Post
 
   addUser(fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String!, email2: String, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, city: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 

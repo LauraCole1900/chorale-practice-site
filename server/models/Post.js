@@ -6,9 +6,15 @@ const postSchema = new Schema(
       type: String,
       required: true
     },
+    postExpire: {
+      type: Date
+    },
     postDate: {
       type: Date,
       default: Date.now
+    },
+    postTitle: {
+      type: String
     },
     postBody: {
       type: String,
