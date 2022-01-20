@@ -50,12 +50,10 @@ const Members = () => {
   const directorNote = postArr.filter(post => post.postType === "director");
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
 
-  const emergencyToDelete = emergency.filter(post => dayjs(post.postExpire) < dayjs());
-
+  const emergencyToDelete = emergency.filter(post => dayjs(post.postExpire) > dayjs());
 
   // Handles deletion of expired emergency posts
   const handleDeleteExpired = async (id) => {
-    console.log(id)
     try {
       const { data } = await deleteExpired({
         variables: { id: id },
@@ -172,59 +170,59 @@ const Members = () => {
               }
             </aside>
           </Col>
-          {emergency.length > 0 &&
+          <Col sm={10}>
             <Row>
-              <Col sm={10} className="emergency">
-                <Card className="membersCard">
+              {emergency.length > 0 &&
+                <Card className="membersCard emergencyCard">
                   <Card.Header className="cardTitle">
                     <h1>{emergency[0].postTitle}</h1>
-                    <p>{emergency[0].postDate}</p>
+                    <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {emergency[0].postBody}
                   </Card.Body>
                 </Card>
+              }
+              <Col sm={6} className="sNotes">
+                <Card className="membersCard">
+                  <Card.Header className="cardTitle">
+                    {sortedSingersNote.length > 0
+                      ? <>
+                        <h2>{sortedSingersNote[0].title}</h2>
+                        <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
+                      </>
+                      : <>
+                        <h2>No Singer's Notes Found</h2>
+                      </>}
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {sortedSingersNote.length > 0 &&
+                      <p>{sortedSingersNote[0].body}</p>}
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col sm={6} className="dNotes">
+                <Card className="membersCard">
+                  <Card.Header className="cardTitle">
+                    {sortedDirectorNote.length > 0
+                      ? <>
+                        <h2>{sortedDirectorNote[0].title}</h2>
+                        <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
+                      </>
+                      : <>
+                        <h2>No Director's Notes Found</h2>
+                      </>}
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {sortedDirectorNote.length > 0 &&
+                      <p>{sortedDirectorNote[0].body}</p>}
+                  </Card.Body>
+                </Card>
               </Col>
             </Row>
-          }
-          <Col sm={5} className="sNotes">
-            <Card className="membersCard">
-              <Card.Header className="cardTitle">
-                {sortedSingersNote.length > 0
-                  ? <>
-                    <h2>{sortedSingersNote[0].title}</h2>
-                    <p>{sortedSingersNote[0].date}</p>
-                  </>
-                  : <>
-                    <h2>No Singer's Notes Found</h2>
-                  </>}
-              </Card.Header>
-              <Card.Body className="cardBody">
-                {sortedSingersNote.length > 0 &&
-                  <p>{sortedSingersNote[0].body}</p>}
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col sm={5} className="dNotes">
-            <Card className="membersCard">
-              <Card.Header className="cardTitle">
-                {sortedDirectorNote.length > 0
-                  ? <>
-                    <h2>{sortedDirectorNote[0].title}</h2>
-                    <p>{sortedDirectorNote[0].date}</p>
-                  </>
-                  : <>
-                    <h2>No Director's Notes Found</h2>
-                  </>}
-              </Card.Header>
-              <Card.Body className="cardBody">
-                {sortedDirectorNote.length > 0 &&
-                  <p>{sortedDirectorNote[0].body}</p>}
-              </Card.Body>
-            </Card>
           </Col>
         </Row>
-      </Container>
+      </Container >
     </>
   )
 }

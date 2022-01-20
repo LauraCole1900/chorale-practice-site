@@ -63,6 +63,11 @@ a.sideLinks:hover {
   text-align: center;
 }
 
+.emergencyCard {
+  padding-right: calc(var(--bs-gutter-x) * -.5);
+  padding-left: calc(var(--bs-gutter-x) * -.5);
+}
+
 .eventCards {
   display: flex;
   flex-wrap: wrap;
