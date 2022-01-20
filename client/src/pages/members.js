@@ -1,9 +1,10 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
-import { useQuery } from "@apollo/client";
-import { QUERY_ALL_ADMINS, QUERY_CURRENT_ID, QUERY_ME } from "../utils/gql";
+import { useMutation, useQuery } from "@apollo/client";
+import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css";
 
@@ -14,6 +15,9 @@ const Members = () => {
   // const [pageReady, setPageReady] = useState(false);
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+  const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
+
+  const [deleteExpired, { deleteError, deleteData }] = useMutation(DELETE_POST);
 
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
@@ -29,6 +33,7 @@ const Members = () => {
 
   const adminArr = adminData?.admins || [];
   const me = meData?.me || meData?.currentId || {};
+  const postArr = postData?.allPosts || [];
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
@@ -39,15 +44,37 @@ const Members = () => {
   const tenor = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Tenor");
   const bass = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Bass");
 
+  const emergency = postArr.filter(post => post.postType === "emergency");
+  const singersNote = postArr.filter(post => post.postType === "singers note");
+  const sortedSingersNote = singersNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
+  const directorNote = postArr.filter(post => post.postType === "director");
+  const sortedDirectorNote = directorNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
 
-  // useEffect(() => {
-  //   if (adminArr.length) {
-  //     setAdmins(adminArr);
-  //     setPageReady(true);
-  //   }
-  // }, [adminArr])
+  const emergencyToDelete = emergency.filter(post => dayjs(post.postExpire) < dayjs());
 
-  if (adminLoading || meLoading) {
+
+  // Handles deletion of expired emergency posts
+  const handleDeleteExpired = async (id) => {
+    console.log(id)
+    try {
+      const { data } = await deleteExpired({
+        variables: { id: id },
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (emergencyToDelete.length > 0) {
+      emergencyToDelete.forEach(post => {
+        handleDeleteExpired(post._id);
+      });
+    }
+  }, [])
+
+  if (adminLoading || meLoading || postLoading) {
     return <h1>Loading....</h1>
   }
 
@@ -55,8 +82,8 @@ const Members = () => {
     return <Navigate to="/login" />
   }
 
-  if (adminError || meError) {
-    console.log(JSON.stringify(adminError, meError))
+  if (adminError || meError || postError) {
+    console.log(JSON.stringify(adminError, meError, postError));
   }
 
 
@@ -145,25 +172,54 @@ const Members = () => {
               }
             </aside>
           </Col>
+          {emergency.length > 0 &&
+            <Row>
+              <Col sm={10} className="emergency">
+                <Card className="membersCard">
+                  <Card.Header className="cardTitle">
+                    <h1>{emergency[0].postTitle}</h1>
+                    <p>{emergency[0].postDate}</p>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {emergency[0].postBody}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          }
           <Col sm={5} className="sNotes">
             <Card className="membersCard">
               <Card.Header className="cardTitle">
-                <h2>Singer's Notes</h2>
-                <p>Date will go here</p>
+                {sortedSingersNote.length > 0
+                  ? <>
+                    <h2>{sortedSingersNote[0].title}</h2>
+                    <p>{sortedSingersNote[0].date}</p>
+                  </>
+                  : <>
+                    <h2>No Singer's Notes Found</h2>
+                  </>}
               </Card.Header>
               <Card.Body className="cardBody">
-                Info will go here
+                {sortedSingersNote.length > 0 &&
+                  <p>{sortedSingersNote[0].body}</p>}
               </Card.Body>
             </Card>
           </Col>
           <Col sm={5} className="dNotes">
             <Card className="membersCard">
               <Card.Header className="cardTitle">
-                <h2>Director's Corner</h2>
-                <p>Date will go here</p>
+                {sortedDirectorNote.length > 0
+                  ? <>
+                    <h2>{sortedDirectorNote[0].title}</h2>
+                    <p>{sortedDirectorNote[0].date}</p>
+                  </>
+                  : <>
+                    <h2>No Director's Notes Found</h2>
+                  </>}
               </Card.Header>
               <Card.Body className="cardBody">
-                Info will go here
+                {sortedDirectorNote.length > 0 &&
+                  <p>{sortedDirectorNote[0].body}</p>}
               </Card.Body>
             </Card>
           </Col>

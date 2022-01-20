@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 // import { userValidate } from "../../utils/validation";
@@ -6,6 +7,7 @@ import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
 import "./style.css";
 
 const PostForm = () => {
+  const params = useParams();
   const [postData, setPostData] = useState({
     postType: "",
     postExpire: "",
@@ -86,7 +88,7 @@ const PostForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Post title:</Form.Label>
-                <Form.Control type="input" name="postTitle" placeHolder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="postTitle" placeholder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
@@ -99,6 +101,16 @@ const PostForm = () => {
               </Col>
             </Row>
           </Form.Group>
+
+          <Row>
+            <Col sm={{ span: 3, offset: 2 }}>
+              {!Object.keys(params).length
+                ? <Button data-toggle="popover" title="Submit" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                : <Button data-toggle="popover" title="Update" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Update</Button>
+              }
+            </Col>
+          </Row>
+
         </Form>
       </Container>
     </>
