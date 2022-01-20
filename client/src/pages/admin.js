@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_USERS, QUERY_ME, QUERY_CURRENT_ID } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
@@ -11,8 +11,6 @@ import { Sidenav } from "../components/navbar";
 import "./style.css";
 
 const AdminPortal = () => {
-  const currentUserId = Auth.getProfile().data?._id;
-
   const [btnName, setBtnName] = useState();
   const [type, setType] = useState();
   const [concertId, setConcertId] = useState();
@@ -47,13 +45,10 @@ const AdminPortal = () => {
 
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ALL_CONCERTS);
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
-  const [deleteConcert, { deleteError, deleteData }] = useMutation(DELETE_CONCERT);
-  const [deletePost, { postError, postData }] = useMutation(DELETE_POST);
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+  const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
+  const [deleteConcert, { deleteConcertError, deleteConcertData }] = useMutation(DELETE_CONCERT);
+  const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST);
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
   const [sortedConcerts, setSortedConcerts] = useState([]);
@@ -62,9 +57,11 @@ const AdminPortal = () => {
   const [sortedTens, setSortedTens] = useState([]);
   const [sortedBass, setSortedBass] = useState([]);
   const [sortedOthers, setSortedOthers] = useState([]);
+  const [sortedPosts, setSortedPosts] = useState([]);
 
   const concerts = concertData?.allConcerts || [];
   const users = userData?.allUsers || [];
+  const posts = postData?.allPosts || [];
   const me = meData?.me || meData?.currentId || {};
 
   // Shows Select modal
@@ -199,6 +196,11 @@ const AdminPortal = () => {
       setSortedBass(bassSortedByLName);
       setSortedOthers(othersSortedByLName);
     }
+
+    if (posts.length) {
+      const postsByDate = posts.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
+      setSortedPosts(postsByDate);
+    }
   }, [concerts, users])
 
   if (concertLoading || meLoading || userLoading) {
@@ -265,31 +267,31 @@ const AdminPortal = () => {
                 <h5>Sopranos</h5>
                 <ul>
                   {sortedSops.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
                   ))}
                 </ul>
                 <h5>Altos</h5>
                 <ul>
                   {sortedAlts.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
                   ))}
                 </ul>
                 <h5>Tenors</h5>
                 <ul>
                   {sortedTens.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
                   ))}
                 </ul>
                 <h5>Basses</h5>
                 <ul>
                   {sortedBass.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
                   ))}
                 </ul>
                 <h5>Non-Singer Staff & Board</h5>
                 <ul>
                   {sortedOthers.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member" data-id={user._id}>{user.fullName}</li>
+                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
                   ))}
                 </ul>
               </Card.Body>
@@ -300,6 +302,10 @@ const AdminPortal = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
+                <h5>Click existing post to edit or delete</h5>
+                {sortedPosts.map(post => (
+                  <li key={post._id} className="adminLink" onClick={(e) => handleShowSelect(e, post._id, post.title)} data-type="post">{dayjs(JSON.parse(post.postDate)).format("MMM D, YYYY")} - {post.postTitle}</li>
+                ))}
               </Card.Body>
             </Card>
           </Col>

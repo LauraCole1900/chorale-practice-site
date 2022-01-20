@@ -50,7 +50,7 @@ const Members = () => {
   const directorNote = postArr.filter(post => post.postType === "director");
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
 
-  const emergencyToDelete = emergency.filter(post => dayjs(post.postExpire) > dayjs());
+  const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
   // Handles deletion of expired emergency posts
   const handleDeleteExpired = async (id) => {

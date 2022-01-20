@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 // import { userValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
+import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -139,6 +140,22 @@ const PostForm = () => {
     // } else {
     //   console.log({ validationErrors });
     // }
+  };
+
+  if (meLoading || noteLoading) {
+    return <h1>Loading....</h1>
+  };
+
+  if (meError || noteError) {
+    console.log(JSON.stringify(meError, noteError))
+  };
+
+  if (!Auth.loggedIn()) {
+    return <Navigate to="/login" />
+  };
+
+  if (!["administrator", "assistant music director", "music director", "webdev", "section leader"].includes(me.position)) {
+    return <Navigate to="/members" />
   };
 
   return (
