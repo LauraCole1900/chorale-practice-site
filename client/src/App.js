@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
 import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section } from "./pages";
-import { AdminUserForm, ConcertForm, SongForm, UserForm } from "./components/forms";
+import { AdminUserForm, ConcertForm, PostForm, SongForm, UserForm } from "./components/forms";
 import "./App.css";
 
 const httpLink = createHttpLink({
@@ -39,6 +39,7 @@ function App() {
               <Route path="/" element={<Lander />} />
               <Route path="/admin_portal" element={<AdminPortal />} />
               <Route path="/edit_event/:concertId" element={<ConcertForm />} />
+              <Route path="/edit_post/:postId" element={<PostForm />} />
               <Route path="/edit_repertoire/:concertId/:songId" element={<SongForm />} />
               <Route path="/edit_me/:userId" element={<UserForm />} />
               <Route path="/edit_member/:userId" element={<AdminUserForm />} />
@@ -46,6 +47,7 @@ function App() {
               <Route path="/members" element={<Members />} />
               <Route path="/new_event" element={<ConcertForm />} />
               <Route path="/new_member" element={<AdminUserForm />} />
+              <Route path="/new_post" element={<PostForm />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/repertoire/:concertId" element={<SongForm />} />
               <Route path="/roster" element={<RosterPage />} />
