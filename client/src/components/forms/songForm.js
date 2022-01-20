@@ -47,11 +47,7 @@ const SongForm = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ONE_CONCERT,
     {
       variables: { id: concertId }
@@ -88,7 +84,6 @@ const SongForm = () => {
         });
         console.log({ data });
         handleShowSuccess();
-        // navigate("/admin_portal");
       } catch (error) {
         console.log(JSON.stringify(error));
         setErrThrown(error.message);
@@ -110,20 +105,6 @@ const SongForm = () => {
         practiceTrackUrlsBassATempo: [],
         videoUrls: []
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }
@@ -144,7 +125,6 @@ const SongForm = () => {
         console.log({ data });
         if (e.target.title === "Update") {
           handleShowSuccess();
-          // navigate("/admin_portal");
         } else {
           navigate(`/repertoire/${concertId}`)
         }
@@ -169,20 +149,6 @@ const SongForm = () => {
         practiceTrackUrlsBassATempo: [],
         videoUrls: []
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }

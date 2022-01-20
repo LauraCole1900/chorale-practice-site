@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 // import { userValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const PostForm = () => {
@@ -15,6 +16,34 @@ const PostForm = () => {
     postBody: ""
   });
   const [errors, setErrors] = useState({});
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 2]
+  const urlType = urlArray[urlArray.length - 3]
+
+  // Modal variables
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+  const { loading: noteLoading, data: noteData, error: noteError } = useQuery(QUERY_ONE_POST,
+    {
+      variables: { id: params.postId }
+    });
+  const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST);
+  const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_POST);
+
+  const me = meData?.me || meData?.currentId || {};
+  const post = noteData?.onePost || {};
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -23,15 +52,76 @@ const PostForm = () => {
   };
 
   // Handles click on "Submit" button
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ postData })
+    console.log({ postData });
     // Validates required inputs
     // const validationErrors = postValidate(postData);
     // const noErrors = Object.keys(validationErrors).length === 0;
     // setErrors(validationErrors);
     // if (noErrors) {
-    console.log("Post submit", postData)
+    console.log("Post submit", postData);
+    try {
+      const { data } = await addPost({
+        variables: { ...postData }
+      });
+      console.log({ data });
+      handleShowSuccess();
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      setErrThrown(error.message);
+      handleShowErr();
+    }
+    setPostData({
+      postType: "",
+      postExpire: "",
+      postTitle: "",
+      postBody: ""
+    })
+    // POST call to create concert document
+    // ExhibitorAPI.registerExhibitor({ ...exhibitor })
+    //   .then(resp => {
+    //     // If no errors thrown, show Success modal
+    //     if (!resp.err) {
+    //       handleShowSuccess();
+    //     }
+    //   })
+    // If yes errors thrown, setState(err.message) and show Error modal
+    // .catch(err => {
+    //   console.log(err)
+    //   setErrThrown(err.message);
+    //   handleShowErr();
+    // })
+    // } else {
+    //   console.log({ validationErrors });
+    // }
+  };
+
+  // Handles click on "Update" button
+  const handleFormUpdate = async (e) => {
+    e.preventDefault();
+    // Validates required inputs
+    // const validationErrors = postValidate(postData);
+    // const noErrors = Object.keys(validationErrors).length === 0;
+    // setErrors(validationErrors);
+    // if (noErrors) {
+    try {
+      const { data } = await editRepertoire({
+        variables: { postId: params.postId, ...postData }
+      });
+      console.log({ data });
+      handleShowSuccess();
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      setErrThrown(error.message);
+      handleShowErr();
+    }
+    setPostData({
+      postType: "",
+      postExpire: "",
+      postTitle: "",
+      postBody: ""
+    })
     // POST call to create concert document
     // ExhibitorAPI.registerExhibitor({ ...exhibitor })
     //   .then(resp => {
@@ -106,12 +196,33 @@ const PostForm = () => {
             <Col sm={{ span: 3, offset: 2 }}>
               {!Object.keys(params).length
                 ? <Button data-toggle="popover" title="Submit" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
-                : <Button data-toggle="popover" title="Update" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Update</Button>
+                : <Button data-toggle="popover" title="Update" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
               }
             </Col>
           </Row>
 
         </Form>
+
+        <SuccessModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          btnname={btnName}
+          params={[]}
+          show={showSuccess === true}
+          hide={() => handleHideSuccess()}
+        />
+
+        <ErrorModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          errmsg={errThrown}
+          btnname={btnName}
+          show={showErr === true}
+          hide={() => handleHideErr()}
+        />
+
       </Container>
     </>
   )
