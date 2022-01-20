@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_USERS, QUERY_CURRENT_ID, QUERY_ME } from "../utils/gql";
+import { QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { RosterTable } from "../components/tables";
 
 const RosterPage = () => {
-  const currentUserId = Auth.getProfile().data?._id;
-
   const [currSops, setCurrSops] = useState([]);
   const [currAlts, setCurrAlts] = useState([]);
   const [currTens, setCurrTens] = useState([]);
@@ -16,11 +14,7 @@ const RosterPage = () => {
   const [currStaff, setCurrStaff] = useState([]);
   const [currBoard, setCurrBoard] = useState([]);
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: usersLoading, data: usersData, error: usersError } = useQuery(QUERY_ALL_USERS);
 
   const me = meData?.me || meData?.currentId || {};

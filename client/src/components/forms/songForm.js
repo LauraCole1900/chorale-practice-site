@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_CURRENT_ID, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
+import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const SongForm = () => {
-  const currentUserId = Auth.getProfile().data?._id;
   const { concertId, songId } = useParams();
   const navigate = useNavigate();
   const [errThrown, setErrThrown] = useState();

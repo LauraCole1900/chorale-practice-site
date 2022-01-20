@@ -15,6 +15,10 @@ const Navibar = () => {
     return <p>Loading....</p>
   }
 
+  if (meError) {
+    console.log(JSON.stringify(meError));
+  }
+
 
   return (
     <>

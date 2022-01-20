@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_USER, EDIT_USER_ADMIN, QUERY_CURRENT_ID, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
+import { ADD_USER, EDIT_USER_ADMIN, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
 import { adminUserValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import generatePassword from "../../utils/genPassword";
@@ -12,17 +12,12 @@ const AdminUserForm = () => {
   const params = useParams();
   const userId = params.userId;
   const navigate = useNavigate();
-  const currentUserId = Auth.getProfile().data?._id;
 
   const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER_ADMIN,
     {
       variables: { id: userId }
     });
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
   const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
 

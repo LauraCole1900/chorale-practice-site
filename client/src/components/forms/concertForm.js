@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_CURRENT_ID, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
+import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { concertValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import "./style.css";
@@ -11,17 +11,12 @@ const ConcertForm = () => {
   const params = useParams();
   const concertId = params.concertId;
   const navigate = useNavigate();
-  const currentUserId = Auth.getProfile().data?._id;
 
   const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_CONCERT,
     {
       variables: { id: concertId }
     });
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const [addConcert, { addError, addData }] = useMutation(ADD_CONCERT);
   const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC);
 

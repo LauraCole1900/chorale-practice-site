@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_CURRENT_ID, QUERY_ME, QUERY_ONE_SOP_SECT_POST, QUERY_ONE_ALTO_SECT_POST, QUERY_ONE_TEN_SECT_POST, QUERY_ONE_BASS_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
+import { QUERY_ME, QUERY_ONE_SOP_SECT_POST, QUERY_ONE_ALTO_SECT_POST, QUERY_ONE_TEN_SECT_POST, QUERY_ONE_BASS_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
 import Auth from "../utils/auth";
 import "./style.css"
@@ -13,14 +13,9 @@ import "./style.css"
 const Section = () => {
   const { section } = useParams();
   const navigate = useNavigate();
-  const currentUserId = Auth.getProfile().data?._id;
 
   const [sortedConcerts, setSortedConcerts] = useState([]);
-  const { loading: meLoading, data: meData, error: meError } = useQuery(
-    currentUserId ? QUERY_CURRENT_ID : QUERY_ME,
-    {
-      variables: { id: currentUserId }
-    });
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: concertsLoading, data: concertsData, error: concertsError } = useQuery(QUERY_TRUE_CONCERTS);
   const { loading: sopLoading, data: sopData, error: sopError } = useQuery(QUERY_ONE_SOP_SECT_POST);
   const { loading: altoLoading, data: altoData, error: altoError } = useQuery(QUERY_ONE_ALTO_SECT_POST);
