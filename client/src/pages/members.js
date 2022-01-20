@@ -4,16 +4,14 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
+import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_BIRTHDAYS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import "./style.css";
 
 const Members = () => {
-  const currentUserId = Auth.getProfile().data?._id;
-
   // const [admins, setAdmins] = useState([]);
-  // const [pageReady, setPageReady] = useState(false);
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
+  const { loading: bdayLoading, data: bdayData, error: bdayError } = useQuery(QUERY_ALL_BIRTHDAYS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
 
@@ -32,6 +30,7 @@ const Members = () => {
   }
 
   const adminArr = adminData?.admins || [];
+  const bDays = bdayData?.allBirthdays || [];
   const me = meData?.me || meData?.currentId || {};
   const postArr = postData?.allPosts || [];
 
@@ -43,6 +42,11 @@ const Members = () => {
   const alto = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Alto");
   const tenor = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Tenor");
   const bass = adminArr.filter(admin => admin.position === "section leader" && getSect(admin.section) === "Bass");
+
+  const bdayCopy = [...bDays];
+  const filteredBdays = bdayCopy.filter(user => user.birthday);
+  const sortedBdays = filteredBdays.sort((a, b) => a.birthday > b.birthday ? 1 : -1);
+  const nextMonthBdays = sortedBdays.filter(bday => dayjs(bday.birthday, "MM-DD") > dayjs() && dayjs(bday.birthday, "MM-DD") < dayjs().add(1, "month"));
 
   const emergency = postArr.filter(post => post.postType === "emergency");
   const singersNote = postArr.filter(post => post.postType === "singers note");
@@ -101,125 +105,140 @@ const Members = () => {
                   <a href="https://docs.google.com/spreadsheets/d/1V-8VwBaETctcQRyHIbVTXFvsAVutFlCktdyv-TRrOas/edit#gid=1766265975" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Roster</a><br />
                   <a href="https://mcusercontent.com/a8e2ad8a001699980605e15e4/files/c246cf1f-0f53-e9f3-a3f2-0bc7210c6972/2020_FINAL_ROSTER_CHORALE_BOARD_2020_2021.pdf" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Board</a><br />
                   <a href="https://drive.google.com/drive/folders/1rC_Sts79-gVboreuuiyYr5TjjV6Dr2WS" target="_blank" rel="noreferrer noopener" className="sideLinks">Travel Committee Folder</a><br />
-                  <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a>
+                  <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a><br />
+                  <br />
+                  <h2 className="sideInfo">Upcoming Birthdays</h2>
+                  {nextMonthBdays.map(bday => (
+                    <p className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
+                  ))}
                 </>}
               <br />
-
-              {adminArr.length
-                ? <>
-                  <h2 className="sideInfo">Staff</h2>
-                  {me.position !== "guest"
-                    ? <>
-                      <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
-                      <a href={`mailto:${administrator[0].email1}`} className="sideLinks">email {administrator[0].preferredName}</a>
-                      <p className="sideLinks">{administrator[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
-                      <a href={`mailto:${director[0].email1}`} className="sideLinks">email {director[0].preferredName}</a>
-                      <p className="sideLinks">{director[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
-                      <a href={`mailto:${social[0].email1}`} className="sideLinks">email {social[0].preferredName}</a>
-                      <p className="sideLinks">{social[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
-                      <a href={`mailto:${marketing[0].email1}`} className="sideLinks">email {marketing[0].preferredName}</a>
-                      <p className="sideLinks">{marketing[0].phone1}</p>
-                    </>
-                    : <>
-                      <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
-                      <br />
-                      <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
-                      <br />
-                      <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
-                      <br />
-                      <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
-                    </>}
-
-                  <h2 className="sideInfo">Section Leaders</h2>
-                  {me.position !== "guest"
-                    ? <>
-                      <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
-                      <a href={`mailto:${soprano[0].email1}`} className="sideLinks">email {soprano[0].preferredName}</a>
-                      <p className="sideLinks">{soprano[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
-                      <a href={`mailto:${alto[0].email1}`} className="sideLinks">email {alto[0].preferredName}</a>
-                      <p className="sideLinks">{alto[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
-                      <a href={`mailto:${tenor[0].email1}`} className="sideLinks">email {tenor[0].preferredName}</a>
-                      <p className="sideLinks">{tenor[0].phone1}</p>
-                      <br />
-                      <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
-                      <a href={`mailto:${bass[0].email1}`} className="sideLinks">email {bass[0].preferredName}</a>
-                      <p className="sideLinks">{bass[0].phone1}</p>
-                    </>
-                    : <>
-                      <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
-                      <br />
-                      <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
-                      <br />
-                      <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
-                      <br />
-                      <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
-                    </>}
-                </>
-                : <>
-                </>
-              }
             </aside>
           </Col>
-          <Col sm={10}>
+
+          <Col sm={8}>
+            {emergency.length > 0 &&
+              <Row>
+                <Col sm={11} className="centerCol">
+                  <Card className="membersCard emergencyCard">
+                    <Card.Header className="cardTitle">
+                      <h1>{emergency[0].postTitle}</h1>
+                      <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
+                    </Card.Header>
+                    <Card.Body className="cardBody">
+                      {emergency[0].postBody}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            }
+
             <Row>
-              {emergency.length > 0 &&
-                <Card className="membersCard emergencyCard">
-                  <Card.Header className="cardTitle">
-                    <h1>{emergency[0].postTitle}</h1>
-                    <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
-                  </Card.Header>
-                  <Card.Body className="cardBody">
-                    {emergency[0].postBody}
-                  </Card.Body>
-                </Card>
-              }
-              <Col sm={6} className="sNotes">
+              <Col sm={11} className="centerCol">
                 <Card className="membersCard">
                   <Card.Header className="cardTitle">
-                    {sortedSingersNote.length > 0
-                      ? <>
-                        <h2>{sortedSingersNote[0].title}</h2>
-                        <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
-                      </>
-                      : <>
-                        <h2>No Singer's Notes Found</h2>
-                      </>}
-                  </Card.Header>
-                  <Card.Body className="cardBody">
-                    {sortedSingersNote.length > 0 &&
-                      <p>{sortedSingersNote[0].body}</p>}
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col sm={6} className="dNotes">
-                <Card className="membersCard">
-                  <Card.Header className="cardTitle">
-                    {sortedDirectorNote.length > 0
-                      ? <>
-                        <h2>{sortedDirectorNote[0].title}</h2>
-                        <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
-                      </>
-                      : <>
-                        <h2>No Director's Notes Found</h2>
-                      </>}
-                  </Card.Header>
-                  <Card.Body className="cardBody">
+                    <h2>Director's Corner</h2>
                     {sortedDirectorNote.length > 0 &&
-                      <p>{sortedDirectorNote[0].body}</p>}
+                      <>
+                        <h3>{sortedDirectorNote[0].title}</h3>
+                        <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
+                      </>}
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {sortedDirectorNote.length > 0
+                      ? <p>{sortedDirectorNote[0].body}</p>
+                      : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
               </Col>
             </Row>
+
+            <Row>
+              <Col sm={11} className="centerCol">
+                <Card className="membersCard">
+                  <Card.Header className="cardTitle">
+                    <h2>Singer's Notes</h2>
+                    {sortedSingersNote.length > 0 &&
+                      <>
+                        <h2>{sortedSingersNote[0].title}</h2>
+                        <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
+                      </>}
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {sortedSingersNote.length > 0
+                      ? <p>{sortedSingersNote[0].body}</p>
+                      : <p>No Singer's Notes found</p>}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+
+          </Col>
+
+          <Col sm={2}>
+            {adminArr.length
+              ? <>
+                <h2 className="sideInfo">Staff</h2>
+                {me.position !== "guest"
+                  ? <>
+                    <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                    <a href={`mailto:${administrator[0].email1}`} className="sideLinks">email {administrator[0].preferredName}</a>
+                    <p className="sideLinks">{administrator[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                    <a href={`mailto:${director[0].email1}`} className="sideLinks">email {director[0].preferredName}</a>
+                    <p className="sideLinks">{director[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                    <a href={`mailto:${social[0].email1}`} className="sideLinks">email {social[0].preferredName}</a>
+                    <p className="sideLinks">{social[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
+                    <a href={`mailto:${marketing[0].email1}`} className="sideLinks">email {marketing[0].preferredName}</a>
+                    <p className="sideLinks">{marketing[0].phone1}</p>
+                  </>
+                  : <>
+                    <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                    <br />
+                    <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                    <br />
+                    <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                    <br />
+                    <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
+                  </>}
+
+                <h2 className="sideInfo">Section Leaders</h2>
+                {me.position !== "guest"
+                  ? <>
+                    <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
+                    <a href={`mailto:${soprano[0].email1}`} className="sideLinks">email {soprano[0].preferredName}</a>
+                    <p className="sideLinks">{soprano[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
+                    <a href={`mailto:${alto[0].email1}`} className="sideLinks">email {alto[0].preferredName}</a>
+                    <p className="sideLinks">{alto[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
+                    <a href={`mailto:${tenor[0].email1}`} className="sideLinks">email {tenor[0].preferredName}</a>
+                    <p className="sideLinks">{tenor[0].phone1}</p>
+                    <br />
+                    <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
+                    <a href={`mailto:${bass[0].email1}`} className="sideLinks">email {bass[0].preferredName}</a>
+                    <p className="sideLinks">{bass[0].phone1}</p>
+                  </>
+                  : <>
+                    <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
+                    <br />
+                    <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
+                    <br />
+                    <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
+                    <br />
+                    <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
+                  </>}
+              </>
+              : <>
+              </>
+            }
           </Col>
         </Row>
       </Container >

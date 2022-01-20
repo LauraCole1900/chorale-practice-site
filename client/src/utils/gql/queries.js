@@ -67,6 +67,16 @@ query admins {
 }
 `;
 
+export const QUERY_ALL_BIRTHDAYS = gql`
+query allBirthdays {
+  allBirthdays {
+    _id
+    fullName
+    birthday
+  }
+}
+`
+
 export const QUERY_ALL_CONCERTS = gql`
 query allConcerts {
   allConcerts {

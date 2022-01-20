@@ -28,6 +28,10 @@ const resolvers = {
       return await User.find({ "isAdmin": true });
     },
 
+    allBirthdays: async () => {
+      return await User.find({});
+    },
+
     allConcerts: async () => {
       return await Concert.find({});
     },

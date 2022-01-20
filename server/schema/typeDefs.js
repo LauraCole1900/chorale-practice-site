@@ -94,6 +94,7 @@ type Query {
   meProfile: User
   currentId(_id: ID!): User
   admins: [User]
+  allBirthdays: [User]
   allConcerts: [Concert]
   allPosts: [Post]
   allUsers: [User]

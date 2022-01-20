@@ -141,3 +141,8 @@ a.sideLinks:hover {
   margin: 0;
   padding: 0;
 }
+
+.upcomingBdays {
+  font-size: 14px;
+  margin-bottom: .25rem;
+}
