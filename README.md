@@ -22,7 +22,7 @@ password: GuestPassword
 
 ## Links
 
-[Deployed application on Heroku](https://gcpm.herokuapp.com/)
+[Greeley Chorale Practice Materials Site on Heroku](https://gcpm.herokuapp.com/)
 
 ## Screenshots
 
@@ -31,6 +31,9 @@ Landing page:
 
 Login page:
 ![Login page](assets/gcpm-login-screenshot.png)
+
+Members page as viewed by the Guest account:
+![Members page](assets/gcpm-members-page-screenshot.png)
 
 Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)

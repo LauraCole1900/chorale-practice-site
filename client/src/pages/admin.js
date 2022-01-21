@@ -193,13 +193,18 @@ const AdminPortal = () => {
       setSortedConcerts(sortedByDate);
     }
 
+    if (posts.length) {
+      const postsByDate = posts.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
+      setSortedPosts(postsByDate);
+    }
+
     if (users.length) {
-      const userCopy = [...users];
-      const sops = userCopy.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
-      const alts = userCopy.filter(user => ["Alto I", "Alto II"].includes(user.section));
-      const tens = userCopy.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
-      const bass = userCopy.filter(user => ["Bass I", "Bass II"].includes(user.section));
-      const other = userCopy.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"].includes(user.section));
+      // const userCopy = [...users];
+      const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
+      const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
+      const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
+      const bass = users.filter(user => ["Bass I", "Bass II"].includes(user.section));
+      const other = users.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"].includes(user.section));
       const sopsSortedByLName = sops.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       const altsSortedByLName = alts.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       const tensSortedByLName = tens.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
@@ -211,12 +216,7 @@ const AdminPortal = () => {
       setSortedBass(bassSortedByLName);
       setSortedOthers(othersSortedByLName);
     }
-
-    if (posts.length) {
-      const postsByDate = posts.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
-      setSortedPosts(postsByDate);
-    }
-  }, [concerts, users])
+  }, [concerts, posts, users])
 
   if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
