@@ -18,9 +18,6 @@ async function startApolloServer(resolvers, typeDefs) {
     typeDefs,
     resolvers,
     context: authMiddleware,
-    apollo: {
-      key: process.env.APOLLO_KEY
-    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
   });
 

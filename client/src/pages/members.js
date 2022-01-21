@@ -15,7 +15,22 @@ const Members = () => {
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
 
-  const [deleteExpired, { deleteError, deleteData }] = useMutation(DELETE_POST);
+  const [deleteExpired, { deleteError, deleteData }] = useMutation(DELETE_POST, {
+    update(cache, { data: { deleteExpired } }) {
+      try {
+        // Retrieve existing post data that is stored in the cache
+        const { posts } = cache.readQuery({ query: QUERY_ALL_POSTS });
+        // Update the cache by combining existing post data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_POSTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { profiles: [...posts, deleteExpired] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
 
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
@@ -76,7 +91,7 @@ const Members = () => {
     }
   }, [])
 
-  if (adminLoading || meLoading || postLoading) {
+  if (adminLoading || bdayLoading || meLoading || postLoading) {
     return <h1>Loading....</h1>
   }
 
@@ -84,7 +99,7 @@ const Members = () => {
     return <Navigate to="/login" />
   }
 
-  if (adminError || meError || postError) {
+  if (adminError || bdayError || meError || postError) {
     console.log(JSON.stringify(adminError, meError, postError));
   }
 
@@ -109,7 +124,7 @@ const Members = () => {
                   <br />
                   <h2 className="sideInfo">Upcoming Birthdays</h2>
                   {nextMonthBdays.map(bday => (
-                    <p className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
+                    <p key={bday._id} className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
                   ))}
                 </>}
               <br />

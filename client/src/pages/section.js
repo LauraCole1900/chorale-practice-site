@@ -93,7 +93,7 @@ const Section = () => {
                     : <p>No {section} announcements at this time.</p>)}
               </Card.Body>
             </Card>
-            {sortedConcerts.length &&
+            {sortedConcerts.length > 0 &&
               sortedConcerts.map(concert => (
                 <TracksCard concert={concert} key={concert._id} section={section} />
               ))}

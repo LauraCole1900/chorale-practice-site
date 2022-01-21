@@ -1,11 +1,6 @@
 require("dotenv").config();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gcpm_db', {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-  // useCreateIndex: true,
-  // useFindAndModify: false,
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gcpm_db', {});
 
 module.exports = mongoose.connection;

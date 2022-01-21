@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
+import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_ALL_CONCERTS, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { concertValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import "./style.css";
@@ -17,8 +17,38 @@ const ConcertForm = () => {
       variables: { id: concertId }
     });
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
-  const [addConcert, { addError, addData }] = useMutation(ADD_CONCERT);
-  const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC);
+  const [addConcert, { addError }] = useMutation(ADD_CONCERT, {
+    update(cache, { data: { addConcert } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const { concerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_CONCERTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { profiles: [...concerts, addConcert] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+  const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC, {
+    update(cache, { data: { editConcert } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const { concerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_CONCERTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { profiles: [...concerts, editConcert] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
 
   const me = meData?.me || meData?.currentId || {};
   const concertToEdit = editData?.oneConcert || {};

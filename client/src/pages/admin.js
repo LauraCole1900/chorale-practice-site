@@ -47,7 +47,22 @@ const AdminPortal = () => {
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
-  const [deleteConcert, { deleteConcertError, deleteConcertData }] = useMutation(DELETE_CONCERT);
+  const [deleteConcert, { deleteConcertError, deleteConcertData }] = useMutation(DELETE_CONCERT, {
+    update(cache, { data: { addConcert } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const { concerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_CONCERTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { profiles: [...concerts, addConcert] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
   const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST);
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
@@ -203,11 +218,11 @@ const AdminPortal = () => {
     }
   }, [concerts, users])
 
-  if (concertLoading || meLoading || userLoading) {
+  if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (concertError || meError || userError) {
+  if (concertError || meError || postError || userError) {
     console.log(JSON.stringify(concertError, meError, userError));
   }
 
