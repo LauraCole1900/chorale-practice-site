@@ -75,8 +75,7 @@ const AdminPortal = () => {
   const [sortedPosts, setSortedPosts] = useState([]);
 
   const concerts = concertData?.allConcerts || [];
-  const users = userData || [];
-  console.log({ users });
+  const users = userData?.allUsers || [];
   const posts = postData?.allPosts || [];
   const me = meData?.me || meData?.currentId || {};
 
@@ -200,6 +199,7 @@ const AdminPortal = () => {
     }
 
     if (users.length) {
+      console.log({ users });
       const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
       const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
       const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
