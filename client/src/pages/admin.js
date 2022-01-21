@@ -75,7 +75,7 @@ const AdminPortal = () => {
   const [sortedPosts, setSortedPosts] = useState([]);
 
   const concerts = concertData?.allConcerts || [];
-  const users = userData?.allUsers || [];
+  const users = userData || [];
   console.log({ users });
   const posts = postData?.allPosts || [];
   const me = meData?.me || meData?.currentId || {};
@@ -216,7 +216,7 @@ const AdminPortal = () => {
       setSortedBass(bassSortedByLName);
       setSortedOthers(othersSortedByLName);
     }
-  }, [concerts, posts, users])
+  }, [])
 
   if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
