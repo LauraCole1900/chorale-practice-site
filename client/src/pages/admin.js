@@ -133,7 +133,6 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Member" button on Confirm modal
   const handleDeleteMember = async (id) => {
-    console.log(id)
     try {
       const { data } = await deleteMember({
         variables: { id: id },
@@ -150,7 +149,6 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Post" button on Confirm modal
   const handleDeletePost = async (id) => {
-    console.log(id)
     try {
       const { data } = await deletePost({
         variables: { id: id },
@@ -167,7 +165,6 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Repertoire" button on Confirm modal
   const handleDeleteSongs = async (id, songs) => {
-    console.log(id)
     try {
       const { data } = await deleteManySongs({
         variables: { id: id, songsToDelete: songs },
@@ -199,7 +196,6 @@ const AdminPortal = () => {
     }
 
     if (users.length) {
-      console.log({ users });
       const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
       const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
       const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
