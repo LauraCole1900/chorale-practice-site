@@ -216,7 +216,7 @@ const AdminPortal = () => {
       setSortedBass(bassSortedByLName);
       setSortedOthers(othersSortedByLName);
     }
-  }, [])
+  }, [concerts, posts, users])
 
   if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
