@@ -16,11 +16,13 @@
 
 ## Description
 
-This application uses React to create a site to house practice materials and notes for the Greeley Chorale.
+This application uses React to create a site to house practice materials and notes for the Greeley Chorale. To explore this site as a guest, use the following credentials:
+email: guest@guest.com
+password: GuestPassword
 
 ## Links
 
-[Deployed application on Heroku](https://#) NOT DEPLOYED YET
+[Deployed application on Heroku](https://gcpm.herokuapp.com/)
 
 ## Screenshots
 
