@@ -76,6 +76,7 @@ const AdminPortal = () => {
 
   const concerts = concertData?.allConcerts || [];
   const users = userData?.allUsers || [];
+  console.log({ users });
   const posts = postData?.allPosts || [];
   const me = meData?.me || meData?.currentId || {};
 
@@ -199,7 +200,6 @@ const AdminPortal = () => {
     }
 
     if (users.length) {
-      // const userCopy = [...users];
       const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
       const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
       const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
