@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME_PROFILE } from "../utils/gql";
@@ -21,6 +21,10 @@ const ProfilePage = () => {
   const formatDate = (date) => {
     return dayjs(date, "MM-DD").format("MMMM D")
   };
+
+  const handleClick = (e) => {
+    console.log("Click!");
+  }
 
   if (meLoading) {
     return <h1>Loading....</h1>
@@ -65,6 +69,9 @@ const ProfilePage = () => {
                 <p>City: {me.city}</p>
                 <p>State: {me.state}</p>
                 <p>ZIP Code: {me.zipCode}</p>
+                <Card.Footer className="cardFooter">
+                  <Button data-toggle="popover" title="Edit my info" className="button formBtn" onClick={handleClick} type="button">Edit my info</Button>
+                </Card.Footer>
               </Card.Body>
             </Card>
           </Col>
