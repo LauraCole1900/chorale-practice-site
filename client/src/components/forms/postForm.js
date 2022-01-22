@@ -78,24 +78,7 @@ const PostForm = () => {
       postExpire: "",
       postTitle: "",
       postBody: ""
-    })
-    // POST call to create concert document
-    // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-    //   .then(resp => {
-    //     // If no errors thrown, show Success modal
-    //     if (!resp.err) {
-    //       handleShowSuccess();
-    //     }
-    //   })
-    // If yes errors thrown, setState(err.message) and show Error modal
-    // .catch(err => {
-    //   console.log(err)
-    //   setErrThrown(err.message);
-    //   handleShowErr();
-    // })
-    // } else {
-    //   console.log({ validationErrors });
-    // }
+    });
   };
 
   // Handles click on "Update" button
@@ -122,24 +105,7 @@ const PostForm = () => {
       postExpire: "",
       postTitle: "",
       postBody: ""
-    })
-    // POST call to create concert document
-    // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-    //   .then(resp => {
-    //     // If no errors thrown, show Success modal
-    //     if (!resp.err) {
-    //       handleShowSuccess();
-    //     }
-    //   })
-    // If yes errors thrown, setState(err.message) and show Error modal
-    // .catch(err => {
-    //   console.log(err)
-    //   setErrThrown(err.message);
-    //   handleShowErr();
-    // })
-    // } else {
-    //   console.log({ validationErrors });
-    // }
+    });
   };
 
   if (meLoading || noteLoading) {

@@ -51,8 +51,45 @@ const SongForm = () => {
     {
       variables: { id: concertId }
     });
-  const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE);
-  const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE);
+  const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE, {
+    update(cache, { data: { addRepertoire } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
+        const currentConcert = data.oneConcert;
+        console.log({ currentConcert });
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ONE_CONCERT,
+          variables: { id: concertId },
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { oneConcert: [{ ...currentConcert }, addRepertoire] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+  const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE, {
+    update(cache, { data: { editRepertoire } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
+        const currentConcert = data.oneConcert;
+        const currConcertSongs = currentConcert.songs;
+        console.log({ currentConcert }, { currConcertSongs });
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ONE_CONCERT,
+          variables: { id: concertId },
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { oneConcert: [{ ...currentConcert }, { songs: [...currConcertSongs, editRepertoire] }] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
 
   const me = meData?.me || meData?.currentId || {};
   const concert = concertData?.oneConcert || {};
