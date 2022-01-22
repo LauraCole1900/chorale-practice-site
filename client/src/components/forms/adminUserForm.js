@@ -5,37 +5,61 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USER, EDIT_USER_ADMIN, QUERY_ALL_USERS, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
 import { adminUserValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
+import { ErrorModal, SuccessModal } from "../modals";
 import generatePassword from "../../utils/genPassword";
 import "./style.css";
 
 const AdminUserForm = () => {
   const params = useParams();
   const userId = params.userId;
-  const navigate = useNavigate();
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
 
   const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER_ADMIN,
     {
       variables: { id: userId }
     });
+
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+
   const [addUser, { addError, addData }] = useMutation(ADD_USER, {
     update(cache, { data: { addUser } }) {
       try {
-        // Retrieve existing concert data that is stored in the cache
+        // Retrieve existing user data that is stored in the cache
         const data = cache.readQuery({ query: QUERY_ALL_USERS });
         const currentUsers = data.allUsers;
-        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        // Update the cache by combining existing user data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_USERS,
           // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { allUsers: [...currentUsers, addUser] },
+          data: { allUsers: [...currentUsers, addUser] }
         });
       } catch (err) {
         console.error(err);
       }
     }
   });
-  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
+
+  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN, {
+    update(cache, { data: { editUserAdmin } }) {
+      console.log({ editUserAdmin });
+      try {
+        // Retrieve existing user data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ALL_USERS, variables: { id: userId } });
+        const currentUsers = data.allUsers;
+        console.log({ currentUsers });
+        // Update the cache by combining existing user data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_USERS,
+          // variables: { id: userId },
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allUsers: [...currentUsers, editUserAdmin] }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
 
   const me = meData?.me || meData?.currentId || {};
   const userToEdit = editData?.oneUserAdmin || {};
@@ -65,6 +89,21 @@ const AdminUserForm = () => {
     isActive: true
   });
   const [errors, setErrors] = useState({});
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -101,21 +140,20 @@ const AdminUserForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ userData })
     // Validates required inputs
     const validationErrors = adminUserValidate(userData, params);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("User submit", userData)
       try {
         const { data } = await addUser({
           variables: { ...userData }
         });
-        console.log({ data });
-        navigate("/admin_portal");
-      } catch (err) {
-        console.log(err);
+        handleShowSuccess();
+      } catch (error) {
+        console.log(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
       }
       setUserData({
         fullName: "",
@@ -141,20 +179,6 @@ const AdminUserForm = () => {
         isAdmin: false,
         isActive: true
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }
@@ -163,24 +187,22 @@ const AdminUserForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    console.log({ userData });
     removeEmptyFields(userData);
-    console.log({ userData });
     // Validates required inputs
     const validationErrors = adminUserValidate(userData);
     console.log({ validationErrors });
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("User update", userData)
       try {
         const { data } = await editUserAdmin({
           variables: { id: userId, ...userData }
         });
-        console.log({ data });
-        navigate("/admin_portal");
-      } catch (err) {
-        console.log(err);
+        handleShowSuccess();
+      } catch (error) {
+        console.log(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
       }
       setUserData({
         fullName: "",
@@ -206,20 +228,6 @@ const AdminUserForm = () => {
         isAdmin: false,
         isActive: true
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }
@@ -492,7 +500,29 @@ const AdminUserForm = () => {
               }
             </Col>
           </Row>
+
         </Form>
+
+        <SuccessModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          btnname={btnName}
+          params={[]}
+          show={showSuccess === true}
+          hide={() => handleHideSuccess()}
+        />
+
+        <ErrorModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          errmsg={errThrown}
+          btnname={btnName}
+          show={showErr === true}
+          hide={() => handleHideErr()}
+        />
+
       </Container>
     </>
   )

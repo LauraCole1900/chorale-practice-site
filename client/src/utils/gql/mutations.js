@@ -274,6 +274,8 @@ mutation editUserAdmin($id: ID!, $fullName: String!, $firstName: String!, $lastN
   editUserAdmin(_id: $id, fullName: $fullName, firstName: $firstName, lastName: $lastName, preferredName: $preferredName, birthday: $birthday email1: $email1, email2: $email2, password: $password, phone1: $phone1, phone1Type: $phone1Type, phone2: $phone2, phone2Type: $phone2Type, phone3: $phone3, phone3Type: $phone3Type, section: $section, position: $position, streetAddress: $streetAddress, state: $state, zipCode: $zipCode, isAdmin: $isAdmin, isActive: $isActive) {
     _id
     fullName
+    firstName
+    lastName
     preferredName
     birthday
     email1
@@ -287,6 +289,7 @@ mutation editUserAdmin($id: ID!, $fullName: String!, $firstName: String!, $lastN
     section
     position
     streetAddress
+    city
     state
     zipCode
     isAdmin

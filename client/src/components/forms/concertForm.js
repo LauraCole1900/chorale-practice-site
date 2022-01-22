@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_ALL_CONCERTS, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
@@ -10,8 +10,7 @@ import "./style.css";
 
 const ConcertForm = () => {
   const params = useParams();
-  const [concertId, setConcertId] = useState(params.concertId)
-  const navigate = useNavigate();
+  const [concertId, setConcertId] = useState(params.concertId);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
 
@@ -19,7 +18,9 @@ const ConcertForm = () => {
     {
       variables: { id: concertId }
     });
+
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+
   const [addConcert, { addError }] = useMutation(ADD_CONCERT, {
     update(cache, { data: { addConcert } }) {
       try {
@@ -37,18 +38,20 @@ const ConcertForm = () => {
       }
     }
   });
+
   const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC, {
-    update(cache, { data: { editConcert } }) {
+    update(cache, { data: { editConcertBasic } }) {
       try {
         // Retrieve existing concert data that is stored in the cache
         const data = cache.readQuery({ query: QUERY_ALL_CONCERTS });
-        const currentConcerts = data.editConcertBasic;
-        console.log({ currentConcerts });
+        console.log("edit cache", { data });
+        const currentConcerts = data.allConcerts;
         // Update the cache by combining existing concert data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_CONCERTS,
+          // variables: { id: concertId },
           // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { editConcertBasic: [...currentConcerts, editConcert] },
+          data: { allConcerts: [...currentConcerts, editConcertBasic] },
         });
       } catch (err) {
         console.error(err);
@@ -65,7 +68,7 @@ const ConcertForm = () => {
     time: [],
     venue: [],
     signUp: "",
-    addlMaterials: [],
+    addlMaterials: []
   });
   const [errors, setErrors] = useState({});
 
@@ -107,7 +110,6 @@ const ConcertForm = () => {
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Concert submit", concertData)
       try {
         const { data } = await addConcert({
           variables: { ...concertData }
@@ -126,7 +128,7 @@ const ConcertForm = () => {
         time: [],
         venue: [],
         signUp: "",
-        addlMaterials: [],
+        addlMaterials: []
       })
     } else {
       console.log({ validationErrors });
@@ -136,13 +138,11 @@ const ConcertForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    console.log({ concertData })
     // Validates required inputs
     const validationErrors = concertValidate(concertData);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Concert update", concertData)
       try {
         const { data } = await editConcert({
           variables: { id: concertId, ...concertData }
@@ -160,7 +160,7 @@ const ConcertForm = () => {
         time: [],
         venue: [],
         signUp: "",
-        addlMaterials: [],
+        addlMaterials: []
       })
     } else {
       console.log({ validationErrors });
