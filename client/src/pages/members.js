@@ -16,15 +16,16 @@ const Members = () => {
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
 
   const [deleteExpired, { deleteError, deleteData }] = useMutation(DELETE_POST, {
-    update(cache, { data: { deleteExpired } }) {
+    update(cache, { data: { deletePost } }) {
       try {
         // Retrieve existing post data that is stored in the cache
-        const { posts } = cache.readQuery({ query: QUERY_ALL_POSTS });
+        const data = cache.readQuery({ query: QUERY_ALL_POSTS });
+        const posts = data.allPosts;
         // Update the cache by combining existing post data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_POSTS,
           // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { profiles: [...posts, deleteExpired] },
+          data: { allPosts: [...posts, deletePost] },
         });
       } catch (err) {
         console.error(err);
