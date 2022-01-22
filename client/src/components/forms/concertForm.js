@@ -5,12 +5,15 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CONCERT, EDIT_CONCERT_BASIC, QUERY_ALL_CONCERTS, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { concertValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const ConcertForm = () => {
   const params = useParams();
-  const concertId = params.concertId;
+  const [concertId, setConcertId] = useState(params.concertId)
   const navigate = useNavigate();
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
 
   const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_CONCERT,
     {
@@ -66,6 +69,21 @@ const ConcertForm = () => {
   });
   const [errors, setErrors] = useState({});
 
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -95,13 +113,12 @@ const ConcertForm = () => {
           variables: { ...concertData }
         });
         console.log({ data });
-        if (e.target.title === "Submit") {
-          navigate("/admin_portal");
-        } else {
-          navigate(`/repertoire/${data.addConcert._id}`)
-        }
+        setConcertId(data.addConcert._id);
+        handleShowSuccess();
       } catch (error) {
-        console.log(error);
+        console.log(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
       }
       setConcertData({
         name: "",
@@ -111,20 +128,6 @@ const ConcertForm = () => {
         signUp: "",
         addlMaterials: [],
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }
@@ -145,13 +148,11 @@ const ConcertForm = () => {
           variables: { id: concertId, ...concertData }
         });
         console.log({ data });
-        if (e.target.title === "Update") {
-          navigate("/admin_portal");
-        } else {
-          navigate(`/repertoire/${data.addConcert._id}`)
-        }
+        handleShowSuccess();
       } catch (error) {
-        console.log(error);
+        console.log(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
       }
       setConcertData({
         name: "",
@@ -161,20 +162,6 @@ const ConcertForm = () => {
         signUp: "",
         addlMaterials: [],
       })
-      // POST call to create concert document
-      // ExhibitorAPI.registerExhibitor({ ...exhibitor })
-      //   .then(resp => {
-      //     // If no errors thrown, show Success modal
-      //     if (!resp.err) {
-      //       handleShowSuccess();
-      //     }
-      //   })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      // .catch(err => {
-      //   console.log(err)
-      //   setErrThrown(err.message);
-      //   handleShowErr();
-      // })
     } else {
       console.log({ validationErrors });
     }
@@ -281,31 +268,41 @@ const ConcertForm = () => {
               </Col>
             </Row>}
 
-          <Row>
-            <Col sm={{ span: 3, offset: 2 }}>
-              <p>Add repertoire?</p>
-            </Col>
-          </Row>
-
           {!Object.keys(params).length
             ? <Row>
               <Col sm={{ span: 3, offset: 2 }}>
-                <Button data-toggle="popover" title="SubmitAddSongs" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">Yes, add repertoire</Button>
-              </Col>
-              <Col sm={{ span: 3, offset: 1 }}>
-                <Button data-toggle="popover" title="Submit" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">No, just submit</Button>
+                <Button data-toggle="popover" title="Submit" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
               </Col>
             </Row>
             : <Row>
               <Col sm={{ span: 3, offset: 2 }}>
-                <Button data-toggle="popover" title="UpdateAddSongs" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormUpdate} type="submit">Yes, add repertoire</Button>
-              </Col>
-              <Col sm={{ span: 3, offset: 1 }}>
-                <Button data-toggle="popover" title="Update" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormUpdate} type="submit">No, just update</Button>
+                <Button data-toggle="popover" title="Update" disabled={!(concertData.name && concertData.date.length && concertData.time.length && concertData.venue.length)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
               </Col>
             </Row>}
 
         </Form>
+
+        <SuccessModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          btnname={btnName}
+          concertid={concertId}
+          params={[]}
+          show={showSuccess === true}
+          hide={() => handleHideSuccess()}
+        />
+
+        <ErrorModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          errmsg={errThrown}
+          btnname={btnName}
+          show={showErr === true}
+          hide={() => handleHideErr()}
+        />
+
       </Container>
     </>
   )
