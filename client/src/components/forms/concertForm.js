@@ -21,12 +21,14 @@ const ConcertForm = () => {
     update(cache, { data: { addConcert } }) {
       try {
         // Retrieve existing concert data that is stored in the cache
-        const { concerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        const data = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        const currentConcerts = data.allConcerts;
+        console.log({ currentConcerts });
         // Update the cache by combining existing concert data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_CONCERTS,
           // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { profiles: [...concerts, addConcert] },
+          data: { allConcerts: [...currentConcerts, addConcert] },
         });
       } catch (err) {
         console.error(err);
@@ -37,12 +39,12 @@ const ConcertForm = () => {
     update(cache, { data: { editConcert } }) {
       try {
         // Retrieve existing concert data that is stored in the cache
-        const { concerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
+        const { allConcerts } = cache.readQuery({ query: QUERY_ALL_CONCERTS });
         // Update the cache by combining existing concert data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_CONCERTS,
           // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { profiles: [...concerts, editConcert] },
+          data: { profiles: [...allConcerts, editConcert] },
         });
       } catch (err) {
         console.error(err);

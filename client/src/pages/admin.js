@@ -65,9 +65,45 @@ const AdminPortal = () => {
       }
     }
   });
-  const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST);
+  const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST, {
+    update(cache, { data: { deletePost } }) {
+      try {
+        // Retrieve existing post data that is stored in the cache
+        const existingPosts = cache.readQuery({ query: QUERY_ALL_POSTS });
+        // Filter out data returned from the mutation
+        const updatedPosts = existingPosts.allPosts.filter(post => post._id !== deletePost._id);
+        // Update the cache by setting post data to the above-filtered data
+        cache.writeQuery({
+          query: QUERY_ALL_POSTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allPosts: updatedPosts },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
-  const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER);
+  const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
+    update(cache, { data: { deleteMember } }) {
+      try {
+        console.log({ deleteMember });
+        // Retrieve existing member data that is stored in the cache
+        const existingMembers = cache.readQuery({ query: QUERY_ALL_USERS });
+        console.log({ existingMembers });
+        // Filter out data returned from the mutation
+        const updatedMembers = existingMembers.allUsers.filter(member => member._id !== deleteMember._id);
+        // Update the cache by setting member data to the above-filtered data
+        cache.writeQuery({
+          query: QUERY_ALL_USERS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allUsers: updatedMembers },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const [sortedSops, setSortedSops] = useState([]);
   const [sortedAlts, setSortedAlts] = useState([]);
@@ -135,12 +171,12 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Member" button on Confirm modal
   const handleDeleteMember = async (id) => {
+    handleHideConfirm();
     try {
       const { data } = await deleteMember({
         variables: { id: id },
       });
       console.log(data);
-      handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
       console.log(err.message);
