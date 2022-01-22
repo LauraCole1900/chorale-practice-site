@@ -85,14 +85,12 @@ const AdminPortal = () => {
   });
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
-    update(cache, { data: { deleteMember } }) {
+    update(cache, { data: { deleteUser } }) {
       try {
-        console.log({ deleteMember });
         // Retrieve existing member data that is stored in the cache
         const existingMembers = cache.readQuery({ query: QUERY_ALL_USERS });
-        console.log({ existingMembers });
         // Filter out data returned from the mutation
-        const updatedMembers = existingMembers.allUsers.filter(member => member._id !== deleteMember._id);
+        const updatedMembers = existingMembers.allUsers.filter(member => member._id !== deleteUser._id);
         // Update the cache by setting member data to the above-filtered data
         cache.writeQuery({
           query: QUERY_ALL_USERS,
@@ -160,7 +158,6 @@ const AdminPortal = () => {
       const { data } = await deleteConcert({
         variables: { id: id },
       });
-      console.log(data);
       handleShowSuccess();
     } catch (err) {
       console.log(err.message);
@@ -176,7 +173,6 @@ const AdminPortal = () => {
       const { data } = await deleteMember({
         variables: { id: id },
       });
-      console.log(data);
       handleShowSuccess();
     } catch (err) {
       console.log(err.message);
@@ -191,7 +187,6 @@ const AdminPortal = () => {
       const { data } = await deletePost({
         variables: { id: id },
       });
-      console.log(data);
       handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
@@ -207,7 +202,6 @@ const AdminPortal = () => {
       const { data } = await deleteManySongs({
         variables: { id: id, songsToDelete: songs },
       });
-      console.log(data);
       handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
