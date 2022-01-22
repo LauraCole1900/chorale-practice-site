@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_USER, EDIT_USER_ADMIN, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
+import { ADD_USER, EDIT_USER_ADMIN, QUERY_ALL_USERS, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
 import { adminUserValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
 import generatePassword from "../../utils/genPassword";
@@ -18,7 +18,23 @@ const AdminUserForm = () => {
       variables: { id: userId }
     });
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
-  const [addUser, { addError, addData }] = useMutation(ADD_USER);
+  const [addUser, { addError, addData }] = useMutation(ADD_USER, {
+    update(cache, { data: { addUser } }) {
+      try {
+        // Retrieve existing concert data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ALL_USERS });
+        const currentUsers = data.allUsers;
+        // Update the cache by combining existing concert data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_USERS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allUsers: [...currentUsers, addUser] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
   const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
 
   const me = meData?.me || meData?.currentId || {};
