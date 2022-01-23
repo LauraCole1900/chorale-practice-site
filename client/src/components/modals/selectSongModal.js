@@ -6,8 +6,6 @@ import { DELETE_MANY_SONGS, QUERY_ONE_CONCERT } from "../../utils/gql";
 import "./style.css";
 
 const SelectSongModal = (props) => {
-  const [songsToDelete, setSongsToDelete] = useState([]);
-  console.log({ songsToDelete });
 
   const [deleteSongs, { deleteError, deleteData }] = useMutation(DELETE_MANY_SONGS, {
     update(cache, { data: { deleteSongs } }) {
@@ -29,19 +27,22 @@ const SelectSongModal = (props) => {
 
   const handleInputChange = (e) => {
     const { value } = e.currentTarget;
-    const songs = songsToDelete;
+    const songs = props.songsToDelete;
     let songArr;
-    if (songs.includes(value)) {
-      songArr = songs.filter(song => song !== value)
-    } else {
-      songArr = [...songs, value]
-    }
-    setSongsToDelete(songArr);
+    songs.includes(value) ? songArr = songs.filter(song => song !== value) : songArr = [...songs, value];
+    props.setSongsToDelete(songArr);
   };
 
   const handleGoBack = () => {
-    setSongsToDelete([]);
+    props.setSongsToDelete([]);
     props.hide();
+  };
+
+  const handleGoOn = (e) => {
+    e.preventDefault();
+    const { dataset } = e.target
+    props.setbtnname(dataset.btnname);
+    props.confirm(e);
   }
 
   const handleFormSubmit = async (e) => {
@@ -49,7 +50,7 @@ const SelectSongModal = (props) => {
 
       try {
         const { data } = await deleteSongs({
-          variables: { _id: props.concertId, songsToDelete }
+          variables: { _id: props.concertId, songs: props.songsToDelete }
         });
         // handleShowSuccess();
       } catch (error) {
@@ -92,12 +93,12 @@ const SelectSongModal = (props) => {
               <Form className="checkboxForm">
                 <Form.Group controlId="formDeleteSongs">
                   {props.songs.map(song => (
-                    <Form.Check key={song._id} type="checkbox" name="deleteThis" value={song._id} label={song.title} checked={songsToDelete.includes(song._id)} onChange={handleInputChange} />
+                    <Form.Check key={song._id} type="checkbox" name="deleteThis" value={song._id} label={song.title} checked={props.songsToDelete.includes(song._id)} onChange={handleInputChange} />
                   ))}
                 </Form.Group>
 
                 <Modal.Footer className="modalFooter">
-                  <Button data-toggle="popover" title="Delete repertoire" disabled={!songsToDelete} className="button formBtn" onClick={handleFormSubmit} type="submit">Delete Repertoire</Button>
+                  <Button data-toggle="popover" title="Delete repertoire" disabled={!props.songsToDelete} className="button formBtn" data-btnname="songsDelete" onClick={(e) => handleGoOn(e)} type="submit">Delete Repertoire</Button>
 
                   <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={handleGoBack}>Take me back</Button>
                 </Modal.Footer>

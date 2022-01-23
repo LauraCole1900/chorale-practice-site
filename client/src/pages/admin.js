@@ -148,6 +148,7 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     setBtnName(dataset.btnname);
     handleHideSelect();
+    handleHideSelectSongs();
     setShowConfirm(true);
   };
 
@@ -183,11 +184,11 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Post" button on Confirm modal
   const handleDeletePost = async (id) => {
+    handleHideConfirm();
     try {
       const { data } = await deletePost({
         variables: { id: id },
       });
-      handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
       console.error(err.message);
@@ -198,11 +199,11 @@ const AdminPortal = () => {
 
   // Handles click on "Delete Repertoire" button on Confirm modal
   const handleDeleteSongs = async (id, songs) => {
+    handleHideConfirm();
     try {
       const { data } = await deleteManySongs({
         variables: { id: id, songsToDelete: songs },
       });
-      handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
       console.error(err.message);
@@ -368,12 +369,14 @@ const AdminPortal = () => {
 
         <SelectSongModal
           btnname={btnName}
+          setbtnname={setBtnName}
           concertId={concertId}
           songs={songs}
           show={showSelectSongs === true}
           hide={() => handleHideSelectSongs()}
           confirm={(e) => handleShowConfirm(e)}
           setSongsToDelete={setSongsToDelete}
+          songsToDelete={songsToDelete}
         />
 
         <ConfirmModal
