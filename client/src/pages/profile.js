@@ -42,27 +42,26 @@ const ProfilePage = () => {
 
   const me = meData?.meProfile || {};
 
-  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
-  // , {
-  //   update(cache, { data: { editUserSelf } }) {
-  //     console.log({ editUserSelf });
-  //     try {
-  //       // Retrieve existing user data that is stored in the cache
-  //       const data = cache.readQuery({ query: QUERY_ALL_USERS, variables: { id: userId } });
-  //       const currentUsers = data.allUsers;
-  //       console.log({ currentUsers });
-  //       // Update the cache by combining existing user data with the newly created data returned from the mutation
-  //       cache.writeQuery({
-  //         query: QUERY_ALL_USERS,
-  //         // variables: { id: userId },
-  //         // If we want new data to show up before or after existing data, adjust the order of this array
-  //         data: { allUsers: [...currentUsers, editUserSelf] }
-  //       });
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
-  // });
+  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF, {
+    update(cache, { data: { editUserSelf } }) {
+      console.log({ editUserSelf });
+      try {
+        // Retrieve existing user data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ME_PROFILE, variables: { id: userData._id } });
+        const currentUser = data.meProfile;
+        console.log({ currentUser });
+        // Update the cache by combining existing user data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ME_PROFILE,
+          variables: { id: userData._id },
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { meProfile: editUserSelf }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
