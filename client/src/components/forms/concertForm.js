@@ -39,25 +39,7 @@ const ConcertForm = () => {
     }
   });
 
-  const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC, {
-    update(cache, { data: { editConcertBasic } }) {
-      try {
-        // Retrieve existing concert data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ALL_CONCERTS });
-        console.log("edit cache", { data });
-        const currentConcerts = data.allConcerts;
-        // Update the cache by combining existing concert data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ALL_CONCERTS,
-          // variables: { id: concertId },
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { allConcerts: [...currentConcerts, editConcertBasic] },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
+  const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC);
 
   const me = meData?.me || meData?.currentId || {};
   const concertToEdit = editData?.oneConcert || {};
