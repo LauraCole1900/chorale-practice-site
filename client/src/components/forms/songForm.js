@@ -47,29 +47,14 @@ const SongForm = () => {
   const handleHideErr = () => setShowErr(false);
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ONE_CONCERT,
     {
       variables: { id: concertId }
     });
-  const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE, {
-    update(cache, { data: { addRepertoire } }) {
-      try {
-        // Retrieve existing concert data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
-        const currentConcert = data.oneConcert;
-        console.log({ currentConcert });
-        // Update the cache by combining existing concert data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ONE_CONCERT,
-          variables: { id: concertId },
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { oneConcert: [{ ...currentConcert }, addRepertoire] },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
+
+  const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE);
+
   const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE, {
     update(cache, { data: { editRepertoire } }) {
       try {

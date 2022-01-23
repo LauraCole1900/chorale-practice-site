@@ -41,25 +41,9 @@ const ProfilePage = () => {
     });
 
   const me = meData?.meProfile || {};
+  console.log({ me });
 
-  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF, {
-    update(cache, { data: { editUserSelf } }) {
-      try {
-        // Retrieve existing user data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ME_PROFILE, variables: { id: userData._id } });
-        const currentUser = data.meProfile;
-        // Update the cache by combining existing user data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ME_PROFILE,
-          variables: { id: userData._id },
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { meProfile: editUserSelf }
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
+  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
@@ -106,6 +90,7 @@ const ProfilePage = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
+    console.log({ userData });
     // Validates required inputs
     const validationErrors = userValidate(userData);
     console.log({ validationErrors });
@@ -130,7 +115,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     setUserData(me)
-  }, []);
+  }, [me]);
 
   if (meLoading) {
     return <h1>Loading....</h1>
@@ -249,7 +234,7 @@ const ProfilePage = () => {
 
                           <Col sm={2}>
                             <Form.Label>Type:</Form.Label>
-                            <Form.Select name="phone1Type" value={userData.phone2Type} className="formSelect" aria-label="Secondary phone type" onChange={handleInputChange}>
+                            <Form.Select name="phone2Type" value={userData.phone2Type} className="formSelect" aria-label="Secondary phone type" onChange={handleInputChange}>
                               <option>Select</option>
                               <option value="H">Home</option>
                               <option value="M">Mobile</option>
