@@ -40,26 +40,7 @@ const AdminUserForm = () => {
     }
   });
 
-  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN, {
-    update(cache, { data: { editUserAdmin } }) {
-      console.log({ editUserAdmin });
-      try {
-        // Retrieve existing user data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ALL_USERS, variables: { id: userId } });
-        const currentUsers = data.allUsers;
-        console.log({ currentUsers });
-        // Update the cache by combining existing user data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ALL_USERS,
-          // variables: { id: userId },
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { allUsers: [...currentUsers, editUserAdmin] }
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
+  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
 
   const me = meData?.me || meData?.currentId || {};
   const userToEdit = editData?.oneUserAdmin || {};
