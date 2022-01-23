@@ -41,7 +41,6 @@ const ProfilePage = () => {
     });
 
   const me = meData?.meProfile || {};
-  console.log({ me });
 
   const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
 
@@ -90,10 +89,9 @@ const ProfilePage = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    console.log({ userData });
     // Validates required inputs
     const validationErrors = userValidate(userData);
-    console.log({ validationErrors });
+    console.error({ validationErrors });
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -103,13 +101,13 @@ const ProfilePage = () => {
         });
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
       setEditMode(false);
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -122,7 +120,7 @@ const ProfilePage = () => {
   };
 
   if (meError) {
-    console.log(JSON.stringify(meError));
+    console.error(JSON.stringify(meError));
   };
 
   if (!Auth.loggedIn()) {

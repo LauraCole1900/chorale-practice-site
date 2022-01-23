@@ -57,12 +57,10 @@ const SongForm = () => {
 
   const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE, {
     update(cache, { data: { editRepertoire } }) {
-      console.log({ editRepertoire })
       try {
         // Retrieve existing concert data that is stored in the cache
         const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
         const currentConcert = data.oneConcert;
-        console.log({ currentConcert });
         // Update the cache by combining existing concert data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ONE_CONCERT,
@@ -92,21 +90,18 @@ const SongForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ songData });
     // Validates required inputs
     const validationErrors = songValidate(songData);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Song submit", songData, concertId);
       try {
         const { data } = await addRepertoire({
           variables: { id: concertId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
-        console.log({ data });
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -127,7 +122,7 @@ const SongForm = () => {
         videoUrls: []
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -149,7 +144,7 @@ const SongForm = () => {
           navigate(`/repertoire/${concertId}`)
         }
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -170,7 +165,7 @@ const SongForm = () => {
         videoUrls: []
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -187,7 +182,7 @@ const SongForm = () => {
   };
 
   if (concertError || meError) {
-    console.log(JSON.stringify(concertError, meError));
+    console.error(JSON.stringify(concertError, meError));
   };
 
   if (!Auth.loggedIn()) {

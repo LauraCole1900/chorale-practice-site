@@ -132,7 +132,7 @@ const AdminUserForm = () => {
         });
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -161,7 +161,7 @@ const AdminUserForm = () => {
         isActive: true
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -171,7 +171,7 @@ const AdminUserForm = () => {
     removeEmptyFields(userData);
     // Validates required inputs
     const validationErrors = adminUserValidate(userData);
-    console.log({ validationErrors });
+    console.error({ validationErrors });
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -181,7 +181,7 @@ const AdminUserForm = () => {
         });
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -210,7 +210,7 @@ const AdminUserForm = () => {
         isActive: true
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -225,7 +225,7 @@ const AdminUserForm = () => {
   };
 
   if (editError || meError) {
-    console.log(JSON.stringify(editError, meError));
+    console.error(JSON.stringify(editError, meError));
   };
 
   if (!Auth.loggedIn()) {

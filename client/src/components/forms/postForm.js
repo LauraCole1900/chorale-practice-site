@@ -69,7 +69,7 @@ const PostForm = () => {
       console.log({ data });
       handleShowSuccess();
     } catch (error) {
-      console.log(JSON.stringify(error));
+      console.error(JSON.stringify(error));
       setErrThrown(error.message);
       handleShowErr();
     }
@@ -96,7 +96,7 @@ const PostForm = () => {
       console.log({ data });
       handleShowSuccess();
     } catch (error) {
-      console.log(JSON.stringify(error));
+      console.error(JSON.stringify(error));
       setErrThrown(error.message);
       handleShowErr();
     }
@@ -113,7 +113,7 @@ const PostForm = () => {
   };
 
   if (meError || noteError) {
-    console.log(JSON.stringify(meError, noteError))
+    console.error(JSON.stringify(meError, noteError))
   };
 
   if (!Auth.loggedIn()) {

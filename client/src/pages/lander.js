@@ -40,7 +40,7 @@ const Lander = () => {
   }
 
   if (error) {
-    console.log(JSON.stringify(error));
+    console.error(JSON.stringify(error));
   }
 
 

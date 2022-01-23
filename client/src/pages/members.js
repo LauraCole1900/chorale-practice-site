@@ -78,9 +78,8 @@ const Members = () => {
       const { data } = await deleteExpired({
         variables: { id: id },
       });
-      console.log(data);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   };
 
@@ -101,7 +100,7 @@ const Members = () => {
   }
 
   if (adminError || bdayError || meError || postError) {
-    console.log(JSON.stringify(adminError, meError, postError));
+    console.error(JSON.stringify(adminError, meError, postError));
   }
 
 

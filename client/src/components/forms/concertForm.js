@@ -86,7 +86,6 @@ const ConcertForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ concertData });
     // Validates required inputs
     const validationErrors = concertValidate(concertData);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -96,11 +95,10 @@ const ConcertForm = () => {
         const { data } = await addConcert({
           variables: { ...concertData }
         });
-        console.log({ data });
         setConcertId(data.addConcert._id);
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -113,7 +111,7 @@ const ConcertForm = () => {
         addlMaterials: []
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -129,10 +127,9 @@ const ConcertForm = () => {
         const { data } = await editConcert({
           variables: { id: concertId, ...concertData }
         });
-        console.log({ data });
         handleShowSuccess();
       } catch (error) {
-        console.log(JSON.stringify(error));
+        console.error(JSON.stringify(error));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -145,7 +142,7 @@ const ConcertForm = () => {
         addlMaterials: []
       })
     } else {
-      console.log({ validationErrors });
+      console.error({ validationErrors });
     }
   };
 
@@ -160,7 +157,7 @@ const ConcertForm = () => {
   };
 
   if (editError || meError) {
-    console.log(JSON.stringify(editError, meError));
+    console.error(JSON.stringify(editError, meError));
   };
 
   if (!Auth.loggedIn()) {

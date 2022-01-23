@@ -16,7 +16,7 @@ const Navibar = () => {
   }
 
   if (meError) {
-    console.log(JSON.stringify(meError));
+    console.error(JSON.stringify(meError));
   }
 
 

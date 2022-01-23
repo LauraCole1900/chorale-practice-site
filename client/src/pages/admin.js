@@ -160,7 +160,7 @@ const AdminPortal = () => {
       });
       handleShowSuccess();
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       setErrThrown(err.message);
       handleShowErr();
     }
@@ -175,7 +175,7 @@ const AdminPortal = () => {
       });
       handleShowSuccess();
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       setErrThrown(err.message);
       handleShowErr();
     }
@@ -190,7 +190,7 @@ const AdminPortal = () => {
       handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       setErrThrown(err.message);
       handleShowErr();
     }
@@ -205,7 +205,7 @@ const AdminPortal = () => {
       handleHideConfirm();
       handleShowSuccess();
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       setErrThrown(err.message);
       handleShowErr();
     }
@@ -251,7 +251,7 @@ const AdminPortal = () => {
   }
 
   if (concertError || meError || postError || userError) {
-    console.log(JSON.stringify(concertError, meError, userError));
+    console.error(JSON.stringify(concertError, meError, userError));
   }
 
   if (!Auth.loggedIn()) {
