@@ -5,12 +5,6 @@ const userValidate = (user, params) => {
   if (!user.fullName) {
     errors.name = "Please enter your name."
   }
-  if (!user.firstName) {
-    errors.name = "Please enter your first name."
-  }
-  if (!user.lastName) {
-    errors.name = "Please enter your last name."
-  }
   if (!user.preferredName) {
     errors.name = "Please enter the name you prefer to be called."
   }
@@ -23,18 +17,13 @@ const userValidate = (user, params) => {
   }
 
   // email errors
-  if (!user.email1 && params) {
+  if (!user.email1) {
     errors.email1 = "Please enter your primary email."
-  } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email1) && params) {
+  } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email1)) {
     errors.email1 = "There seems to be a problem with the formatting of your email. Please double-check."
   }
   if (user.email2 && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(user.email2)) {
     errors.email2 = "There seems to be a problem with the formatting of your email. Please double-check."
-  }
-
-  // password errors
-  if (!user.password && params) {
-    errors.password = "Please enter a password."
   }
 
   // phone errors

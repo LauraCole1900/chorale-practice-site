@@ -63,6 +63,13 @@ a.sideLinks:hover {
   text-align: center;
 }
 
+.editMode {
+  color: var(--gcRed);
+  font-size: 14pt;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .emergencyCard {
   padding-right: calc(var(--bs-gutter-x) * -.5);
   padding-left: calc(var(--bs-gutter-x) * -.5);

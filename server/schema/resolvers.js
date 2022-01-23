@@ -160,9 +160,8 @@ const resolvers = {
 
     editUserSelf: async (_, args, context) => {
       if (context.user) {
-        const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
-        const token = signToken(user);
-        return { token, user };
+        const user = await User.findOneAndUpdate({ _id: context.user._id }, { $set: { ...args } }, { new: true });
+        return user;
       } else {
         throw new AuthenticationError("Must be logged in");
       }
