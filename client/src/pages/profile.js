@@ -44,12 +44,10 @@ const ProfilePage = () => {
 
   const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF, {
     update(cache, { data: { editUserSelf } }) {
-      console.log({ editUserSelf });
       try {
         // Retrieve existing user data that is stored in the cache
         const data = cache.readQuery({ query: QUERY_ME_PROFILE, variables: { id: userData._id } });
         const currentUser = data.meProfile;
-        console.log({ currentUser });
         // Update the cache by combining existing user data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ME_PROFILE,
@@ -172,10 +170,13 @@ const ProfilePage = () => {
                     <p>Section: {me.section}</p>
                     <p>Birthday: {formatDate(me.birthday)}</p>
                     <p>Primary email: {me.email1}</p>
-                    <p>Secondary email: {me.email2}</p>
+                    {me.email2 &&
+                      <p>Secondary email: {me.email2}</p>}
                     <p>Primary phone: {me.phone1} ({me.phone1Type})</p>
-                    <p>Secondary phone: {me.phone2} ({me.phone2Type})</p>
-                    <p>Tertiary phone: {me.phone3} ({me.phone3Type})</p>
+                    {me.phone2 &&
+                      <p>Secondary phone: {me.phone2} ({me.phone2Type})</p>}
+                    {me.phone3 &&
+                      <p>Tertiary phone: {me.phone3} ({me.phone3Type})</p>}
                     <p>Street address: {me.streetAddress}</p>
                     <p>City: {me.city}</p>
                     <p>State: {me.state}</p>
