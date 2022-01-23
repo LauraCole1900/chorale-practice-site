@@ -235,25 +235,22 @@ mutation addRepertoire($id: ID!, $songs: SongInput!) {
 `;
 
 export const EDIT_REPERTOIRE = gql`
-mutation editRepertoire($id: ID!, $songId: ID!, $songs: SongInput!) {
-  editRepertoire(_id: $id, songId: $songId, songs: $songs) {
+mutation editRepertoire($id: ID!, $songId: ID, $title: String, $composer: [String!], $concertOrder: Int, $practiceTrackUrlsSopSlow: [String!], $practiceTrackUrlsAltoSlow: [String!], $practiceTrackUrlsTenSlow: [String!], $practiceTrackUrlsBassSlow: [String!], $practiceTrackUrlsSopATempo: [String!], $practiceTrackUrlsAltoATempo: [String!], $practiceTrackUrlsTenATempo: [String!], $practiceTrackUrlsBassATempo: [String!], $videoUrls: [String!]) {
+  editRepertoire(_id: $id, songId: $songId, title: $title, composer: $composer, concertOrder: $concertOrder, practiceTrackUrlsSopSlow: $practiceTrackUrlsSopSlow, practiceTrackUrlsAltoSlow: $practiceTrackUrlsAltoSlow, practiceTrackUrlsTenSlow: $practiceTrackUrlsTenSlow, practiceTrackUrlsBassSlow: $practiceTrackUrlsBassSlow, practiceTrackUrlsSopATempo: $practiceTrackUrlsSopATempo, practiceTrackUrlsAltoATempo: $practiceTrackUrlsAltoATempo, practiceTrackUrlsTenATempo: $practiceTrackUrlsTenATempo, practiceTrackUrlsBassATempo: $practiceTrackUrlsBassATempo, videoUrls: $videoUrls) {
     _id
-    songs {
-      _id
-      title
-      composer
-      concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackUrlsBassATempo
-      videoUrls
+    title
+    composer
+    concertOrder
+    practiceTrackUrlsSopSlow
+    practiceTrackUrlsAltoSlow
+    practiceTrackUrlsTenSlow
+    practiceTrackUrlsBassSlow
+    practiceTrackUrlsSopATempo
+    practiceTrackUrlsAltoATempo
+    practiceTrackUrlsTenATempo
+    practiceTrackUrlsBassATempo
+    videoUrls
     }
-  }
 }
 `;
 

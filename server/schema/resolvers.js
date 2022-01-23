@@ -145,8 +145,10 @@ const resolvers = {
     },
 
     editRepertoire: async (_, args) => {
-      const concert = await Concert.findOneAndUpdate({ _id: args._id, "songs._id": args.songId }, { $set: { "songs.$": args.songs } }, { new: true })
-      return concert;
+      console.log({ args });
+      const concert = await Concert.findOneAndUpdate({ _id: args._id, "songs._id": args.songId }, { $set: { "songs.$": args } }, { new: true });
+      console.log({concert});
+      return concert.songs;
     },
 
     editPost: async (_, args) => {

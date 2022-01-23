@@ -56,24 +56,25 @@ const SongForm = () => {
   const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE);
 
   const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_REPERTOIRE, {
-    update(cache, { data: { editRepertoire } }) {
-      try {
-        // Retrieve existing concert data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
-        const currentConcert = data.oneConcert;
-        const currConcertSongs = currentConcert.songs;
-        console.log({ currentConcert }, { currConcertSongs });
-        // Update the cache by combining existing concert data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ONE_CONCERT,
-          variables: { id: concertId },
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { oneConcert: [{ ...currentConcert }, { songs: [...currConcertSongs, editRepertoire] }] },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
+    // update(cache, { data: { editRepertoire } }) {
+    //   console.log({ editRepertoire })
+    //   try {
+    //     // Retrieve existing concert data that is stored in the cache
+    //     const data = cache.readQuery({ query: QUERY_ONE_CONCERT, variables: { id: concertId } });
+    //     const currentConcert = data.oneConcert;
+    //     const currConcertSongs = currentConcert.songs;
+    //     console.log({ currentConcert }, { currConcertSongs });
+    //     // Update the cache by combining existing concert data with the newly created data returned from the mutation
+    //     cache.writeQuery({
+    //       query: QUERY_ONE_CONCERT,
+    //       variables: { id: concertId },
+    //       // If we want new data to show up before or after existing data, adjust the order of this array
+    //       data: { oneConcert: [{ ...currentConcert }, { songs: [...currConcertSongs, editRepertoire] }] },
+    //     });
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // }
   });
 
   const me = meData?.me || meData?.currentId || {};
@@ -141,9 +142,9 @@ const SongForm = () => {
     if (noErrors) {
       try {
         const { data } = await editRepertoire({
-          variables: { id: concertId, songId: songId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
+          variables: { id: concertId, songId: songId, ...songData, concertOrder: parseInt(songData.concertOrder) }
         });
-        console.log({ data });
+        console.log({data});
         if (e.target.title === "Update") {
           handleShowSuccess();
         } else {
