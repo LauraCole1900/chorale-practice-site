@@ -125,7 +125,9 @@ const resolvers = {
     },
 
     deleteManySongs: async (_, args) => {
+      console.log({ args });
       const updatedConcert = await args.songsToDelete.map(song => Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { _id: song } } }, { new: true }));
+      console.log({ updatedConcert });
       return updatedConcert;
     },
 
