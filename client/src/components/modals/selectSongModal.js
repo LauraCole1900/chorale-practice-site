@@ -39,6 +39,11 @@ const SelectSongModal = (props) => {
     setSongsToDelete(songArr);
   };
 
+  const handleGoBack = () => {
+    setSongsToDelete([]);
+    props.hide();
+  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -94,7 +99,7 @@ const SelectSongModal = (props) => {
                 <Modal.Footer className="modalFooter">
                   <Button data-toggle="popover" title="Delete repertoire" disabled={!songsToDelete} className="button formBtn" onClick={handleFormSubmit} type="submit">Delete Repertoire</Button>
 
-                  <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
+                  <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={handleGoBack}>Take me back</Button>
                 </Modal.Footer>
               </Form>
             </Modal.Body>
