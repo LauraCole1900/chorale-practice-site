@@ -242,7 +242,10 @@ const AdminUserForm = () => {
       <Container>
         <Row>
           <Col lg={12} className="formHeader">
-            <h1>Add a new member</h1>
+            {!Object.keys(params).length
+              ? <h1>Add a new member</h1>
+              : <h1>Edit member information</h1>
+            }
           </Col>
         </Row>
 
@@ -267,6 +270,7 @@ const AdminUserForm = () => {
                   <div className="error"><p>{errors.firstName}</p></div>}
                 <Form.Control type="input" name="firstName" placeholder={"Donna"} value={userData.firstName} className="formInput" onChange={handleInputChange} />
               </Col>
+
               <Col lg={4} className="bottom">
                 <Form.Label>Member's last name: <span className="red">*</span></Form.Label>
                 {errors.lastName &&
@@ -284,6 +288,7 @@ const AdminUserForm = () => {
                   <div className="error"><p>{errors.preferredName}</p></div>}
                 <Form.Control type="input" name="preferredName" placeholder={"Donna"} value={userData.preferredName} className="formInput" onChange={handleInputChange} />
               </Col>
+
               <Col lg={4} className="bottom">
                 <Form.Label>Member's birthday: <span className="red">*</span></Form.Label>
                 {errors.birthday &&
@@ -294,8 +299,8 @@ const AdminUserForm = () => {
             </Row>
           </Form.Group>
 
-          {!Object.keys(params).length
-            ? <Form.Group controlId="formAdminUserEmail">
+          {!Object.keys(params).length > 0 &&
+            <Form.Group controlId="formAdminUserEmail">
               <Row>
                 <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's primary email: <span className="red">*</span></Form.Label>
@@ -303,6 +308,7 @@ const AdminUserForm = () => {
                     <div className="error"><p>{errors.email1}</p></div>}
                   <Form.Control type="email" name="email1" placeholder={"donna.noble@email.com"} value={userData.email1} className="formEmail" onChange={handleInputChange} />
                 </Col>
+
                 <Col lg={4} className="bottom">
                   <Form.Label>Member's alternate email:</Form.Label>
                   {errors.email2 &&
@@ -311,12 +317,13 @@ const AdminUserForm = () => {
                 </Col>
               </Row>
             </Form.Group>
-            : <></>}
+          }
 
           {!Object.keys(params).length
+
             ? <Form.Group controlId="formPassword">
               <Row>
-                <Col lg={{ span: 8, offset: 2 }} className="bottom">
+                <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's temporary password: <span className="red">*</span></Form.Label>
                   {errors.password &&
                     <div className="error"><p>{errors.password}</p></div>}
@@ -324,9 +331,10 @@ const AdminUserForm = () => {
                 </Col>
               </Row>
             </Form.Group>
+
             : <Form.Group controlId="formPassword">
               <Row>
-                <Col lg={{ span: 8, offset: 2 }} className="bottom">
+                <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's temporary password:</Form.Label>
                   {userData.password?.length
                     ? <>{errors.password &&
@@ -338,7 +346,8 @@ const AdminUserForm = () => {
                   }
                 </Col>
               </Row>
-            </Form.Group>}
+            </Form.Group>
+          }
 
           <Form.Group controlId="formAdminUserPhone">
             <Row>
@@ -348,7 +357,8 @@ const AdminUserForm = () => {
                   <div className="error"><p>{errors.phone1}</p></div>}
                 <Form.Control type="email" name="phone1" placeholder={"555-555-5555"} value={userData.phone1} className="formInput" onChange={handleInputChange} />
               </Col>
-              <Col lg={1} className="bottom">
+
+              <Col lg={2} className="bottom">
                 <Form.Label>Type: <span className="red">*</span></Form.Label>
                 {errors.phone1Type &&
                   <div className="error"><p>{errors.phone1Type}</p></div>}
@@ -359,11 +369,13 @@ const AdminUserForm = () => {
                   <option value="W">Work</option>
                 </Form.Select>
               </Col>
-              <Col lg={{ span: 2, offset: 1 }} className="bottom">
+
+              <Col lg={2} className="bottom">
                 <Form.Label>Secondary phone:</Form.Label>
                 <Form.Control type="email" name="phone2" placeholder={"555-555-5555"} value={userData.phone2} className="formInput" onChange={handleInputChange} />
               </Col>
-              <Col lg={1} className="bottom">
+
+              <Col lg={2} className="bottom">
                 <Form.Label>Type:</Form.Label>
                 {errors.phone2Type &&
                   <div className="error"><p>{errors.phone2Type}</p></div>}
@@ -375,12 +387,14 @@ const AdminUserForm = () => {
                 </Form.Select>
               </Col>
             </Row>
+
             <Row>
               <Col lg={{ span: 2, offset: 2 }} className="bottom">
                 <Form.Label>Third phone:</Form.Label>
                 <Form.Control type="email" name="phone3" placeholder={"555-555-5555"} value={userData.phone3} className="formInput" onChange={handleInputChange} />
               </Col>
-              <Col lg={1} className="bottom">
+
+              <Col lg={2} className="bottom">
                 <Form.Label>Type:</Form.Label>
                 {errors.phone3Type &&
                   <div className="error"><p>{errors.phone3Type}</p></div>}
@@ -412,6 +426,7 @@ const AdminUserForm = () => {
                   <option value="Board">Board</option>
                 </Form.Select>
               </Col>
+
               <Col lg={4} className="bottom">
                 <Form.Label>Position: <span className="red">*</span></Form.Label>
                 <Form.Select name="position" value={userData.position} className="formSelect" aria-label="Section" onChange={handleInputChange}>
@@ -442,14 +457,17 @@ const AdminUserForm = () => {
                 <Form.Label>Street address: <span className="red">*</span></Form.Label>
                 <Form.Control type="input" name="streetAddress" placeholder={"123 Main St."} value={userData.streetAddress} className="formInput" onChange={handleInputChange} />
               </Col>
+
               <Col lg={2} className="bottom">
                 <Form.Label>City: <span className="red">*</span></Form.Label>
                 <Form.Control type="input" name="city" placeholder={"Greeley"} value={userData.city} className="formInput" onChange={handleInputChange} />
               </Col>
+
               <Col lg={1} className="bottom">
                 <Form.Label>State: <span className="red">*</span></Form.Label>
                 <Form.Control type="input" name="state" placeholder={"CO"} value={userData.state} className="formInput" onChange={handleInputChange} />
               </Col>
+
               <Col lg={2} className="bottom">
                 <Form.Label>Zip: <span className="red">*</span></Form.Label>
                 <Form.Control type="input" name="zipCode" placeholder={"80631"} value={userData.zipCode} maxLength="5" className="formInput" onChange={handleInputChange} />
@@ -476,8 +494,10 @@ const AdminUserForm = () => {
           <Row>
             <Col sm={{ span: 3, offset: 2 }}>
               {!Object.keys(params).length
-                ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
-                : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
+
+                ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password.length > 8 && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+
+                : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode && (!userData.password || userData.password?.length > 8))} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
               }
             </Col>
           </Row>
