@@ -1,29 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_MANY_SONGS, QUERY_ONE_CONCERT } from "../../utils/gql";
 import "./style.css";
 
 const SelectSongModal = (props) => {
-
-  const [deleteSongs, { deleteError, deleteData }] = useMutation(DELETE_MANY_SONGS, {
-    update(cache, { data: { deleteSongs } }) {
-      try {
-        // Retrieve existing post data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ONE_CONCERT });
-        const concert = data.oneConcert;
-        // Update the cache by combining existing post data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ONE_CONCERT,
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { oneConcert: [...concert, deleteSongs] },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
 
   const handleInputChange = (e) => {
     const { value } = e.currentTarget;
@@ -44,21 +24,6 @@ const SelectSongModal = (props) => {
     props.setbtnname(dataset.btnname);
     props.confirm(e);
   }
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-      try {
-        const { data } = await deleteSongs({
-          variables: { _id: props.concertId, songs: props.songsToDelete }
-        });
-        // handleShowSuccess();
-      } catch (error) {
-        console.error(JSON.stringify(error));
-      //   setErrThrown(error.message);
-      //   handleShowErr();
-      }
-  };
 
 
   return (

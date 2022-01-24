@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME, QUERY_ONE_CONCERT } from "../utils/gql";
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
@@ -47,6 +47,7 @@ const AdminPortal = () => {
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
+
   const [deleteConcert, { deleteConcertError, deleteConcertData }] = useMutation(DELETE_CONCERT, {
     update(cache, { data: { deleteConcert } }) {
       try {
@@ -65,6 +66,7 @@ const AdminPortal = () => {
       }
     }
   });
+
   const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
       try {
@@ -83,7 +85,25 @@ const AdminPortal = () => {
       }
     }
   });
-  const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
+
+  const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS, {
+    update(cache, { data: { deleteSongs } }) {
+      try {
+        // Retrieve existing post data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ONE_CONCERT });
+        const concert = data.oneConcert;
+        // Update the cache by combining existing post data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ONE_CONCERT,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { oneConcert: [...concert, deleteSongs] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+  
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
     update(cache, { data: { deleteUser } }) {
       try {
