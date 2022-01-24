@@ -47,6 +47,24 @@
   margin-bottom: 0;
 }
 
+.help {
+  font-size: 14pt;
+  cursor: pointer;
+}
+
+.helpHidden {
+  font-size: 12pt;
+  display: none;
+  text-decoration: none;
+}
+
+.help:hover,
+.help:hover > .helpHidden,
+.help:active,
+.help:active > .helpHidden {
+  display: block;
+}
+
 .red {
   color: var(--red);
 }
@@ -54,6 +72,10 @@
 .subtitle {
   font-size: 0.75em;
   margin-bottom: 0.85em;
+}
+
+.underlined {
+  text-decoration: underline;
 }
 
 .warningText {

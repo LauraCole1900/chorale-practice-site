@@ -520,6 +520,30 @@ const AdminUserForm = () => {
 
         </Form>
 
+        <Row>
+          <Col lg={{ span: 8, offset: 2 }} className="help">
+            <p className="underlined">Why can't I submit?</p>
+            <div className="helpHidden">
+              <p>Check all of the following:</p>
+              <ul>
+                <li>Full name</li>
+                <li>Birthday</li>
+                <li>Primary email</li>
+                <li>If adding new member, password (if editing existing member, leaving password blank is OK)</li>
+                <li>If adding new member, is the password least 9 characters long?</li>
+                <li>Primary phone</li>
+                <li>Primary phone type</li>
+                <li>Section</li>
+                <li>Street address</li>
+                <li>City</li>
+                <li>State</li>
+                <li>ZIP code</li>
+                <li>If adding a new member, is the password at least 9 characters long?</li>
+              </ul>
+            </div>
+          </Col>
+        </Row>
+
         <SuccessModal
           user={me}
           urlid={urlId}
