@@ -118,6 +118,11 @@ const AdminUserForm = () => {
     })
   }
 
+  const handleNewPassword = () => {
+    const newPassword = generatePassword();
+    setUserData({ ...userData, password: newPassword });
+  }
+
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -168,7 +173,7 @@ const AdminUserForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    removeEmptyFields(userData);
+    // removeEmptyFields(userData);
     // Validates required inputs
     const validationErrors = adminUserValidate(userData);
     console.error({ validationErrors });
@@ -327,7 +332,11 @@ const AdminUserForm = () => {
                   <Form.Label>Member's temporary password: <span className="red">*</span></Form.Label>
                   {errors.password &&
                     <div className="error"><p>{errors.password}</p></div>}
-                  <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
+                  <Form.Control type="input" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
+                </Col>
+
+                <Col lg={4}>
+                  <Button data-toggle="popover" title="New Password" className="button formBtn" onClick={handleNewPassword} type="button">Generate New Random Password</Button>
                 </Col>
               </Row>
             </Form.Group>
@@ -337,13 +346,18 @@ const AdminUserForm = () => {
                 <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's temporary password:</Form.Label>
                   {userData.password?.length
-                    ? <>{errors.password &&
-                      <div className="error"><p>{errors.password}</p></div>}
-                      <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="subtitleInput" onChange={handleInputChange} />
+                    ? <>
+                      {errors.password &&
+                        <div className="error"><p>{errors.password}</p></div>}
+                      <Form.Control type="input" name="password" placeholder={"password"} value={userData.password} className="subtitleInput" onChange={handleInputChange} />
                       <Form.Text className="warningText">This will overwrite the user's recorded password. Continue?</Form.Text>
                     </>
                     : <Form.Control type="password" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
                   }
+                </Col>
+
+                <Col lg={4}>
+                  <Button data-toggle="popover" title="New Password" className="button formBtn" onClick={handleNewPassword} type="button">Generate New Random Password</Button>
                 </Col>
               </Row>
             </Form.Group>

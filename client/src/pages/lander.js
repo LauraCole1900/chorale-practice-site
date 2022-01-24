@@ -39,9 +39,9 @@ const Lander = () => {
     return <h1>Loading....</h1>
   }
 
-  if (error) {
-    console.error(JSON.stringify(error));
-  }
+  // if (error) {
+  //   console.error(JSON.stringify(error));
+  // }
 
 
   return (
