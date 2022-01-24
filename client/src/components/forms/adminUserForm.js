@@ -330,6 +330,7 @@ const AdminUserForm = () => {
               <Row>
                 <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's temporary password: <span className="red">*</span></Form.Label>
+                  <Form.Text className="subtitle" muted>Password must be at least 9 characters long</Form.Text>
                   {errors.password &&
                     <div className="error"><p>{errors.password}</p></div>}
                   <Form.Control type="input" name="password" placeholder={"password"} value={userData.password} className="formInput" onChange={handleInputChange} />
@@ -345,6 +346,7 @@ const AdminUserForm = () => {
               <Row>
                 <Col lg={{ span: 4, offset: 2 }} className="bottom">
                   <Form.Label>Member's temporary password:</Form.Label>
+                  <Form.Text className="subtitle" muted>Password must be at least 9 characters long</Form.Text>
                   {userData.password?.length
                     ? <>
                       {errors.password &&
