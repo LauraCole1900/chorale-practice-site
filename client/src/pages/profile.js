@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { EDIT_USER_SELF, QUERY_ME_PROFILE } from "../utils/gql";
 import { userValidate } from "../utils/validation";
 import Auth from "../utils/auth";
-import { ErrorModal, SuccessModal } from "../components/modals";
+import { ChangePasswordModal, ErrorModal, SuccessModal } from "../components/modals";
 import { Sidenav } from "../components/navbar";
 import "./style.css";
 
