@@ -56,14 +56,14 @@ const ChangePasswordModal = (props) => {
                   <Form.Label>Confirm new password: <span className="red">*</span></Form.Label>
                   <Form.Control type="password" name="password" placeholder="Confirm new password" value={props.userData.password} className="formInput" onChange={e => handleInputChange(e)} onBlur={() => checkMatch(props.userData.newPassword, props.userData.password)} required />
                   {pwordMatch === false &&
-                    <Form.Text className="red">New password & Confirm new password must match!</Form.Text>}
+                    <Form.Text className="red">New password & Confirm new password must match & be 9 characters or longer!</Form.Text>}
                 </Form.Group>
               </Col>
             </Row>
 
             <Row>
               <Col sm={6}>
-                <Button data-toggle="popover" title="Update Password" disabled={!(props.userData.oldPassword && props.userData.newPassword && props.userData.password && (props.userData.newPassword === props.userData.password))} className="button formBtn" onClick={handleFormSubmit} type="submit">Update Password</Button>
+                <Button data-toggle="popover" title="Update Password" disabled={!(props.userData.oldPassword && props.userData.newPassword && props.userData.password && (props.userData.newPassword === props.userData.password) && props.userData.newPassword.length > 8)} className="button formBtn" onClick={handleFormSubmit} type="submit">Update Password</Button>
               </Col>
               <Col sm={6}>
                 <Button data-toggle="popover" title="Cancel" className="button formBtn" onClick={props.hide} type="button">Cancel</Button>
