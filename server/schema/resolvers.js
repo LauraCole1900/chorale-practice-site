@@ -1,5 +1,6 @@
 const { Concert, Post, User } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
+const bcrypt = require("bcrypt");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -157,6 +158,10 @@ const resolvers = {
     },
 
     editUserAdmin: async (_, args) => {
+      if (args.password) {
+        const saltRounds = 10;
+        args.password = await bcrypt.hash(args.password, saltRounds);
+      }
       const user = await User.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
       return user;
     },

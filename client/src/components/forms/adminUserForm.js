@@ -524,7 +524,7 @@ const AdminUserForm = () => {
           <Col lg={{ span: 8, offset: 2 }} className="help">
             <p className="underlined">Why can't I submit?</p>
             <div className="helpHidden">
-              <p>Check all of the following:</p>
+              <p>Check that all of the following have been added:</p>
               <ul>
                 <li>Full name</li>
                 <li>Birthday</li>
