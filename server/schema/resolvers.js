@@ -154,15 +154,14 @@ const resolvers = {
     },
 
     editPassword: async (_, args) => {
-      console.log({ args })
       const currentUser = await User.findOne({ _id: args._id });
-      const correctPassword = bcrypt.compare(args.oldPassword, currentUser.password);
+      const correctPassword = await bcrypt.compare(args.oldPassword, currentUser.password);
       if (correctPassword) {
         const saltRounds = 10;
         args.password = await bcrypt.hash(args.password, saltRounds);
         const user = await User.findByIdAndUpdate({ _id: args._id }, { $set: { password: args.password } });
         return user;
-      };
+      }
     },
 
     editPost: async (_, args) => {
