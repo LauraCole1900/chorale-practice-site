@@ -18,7 +18,6 @@ const ChangePasswordModal = (props) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    delete props.userData.newPassword;
     props.update(e);
   }
 

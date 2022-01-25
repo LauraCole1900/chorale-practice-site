@@ -43,7 +43,7 @@ const ProfilePage = () => {
   const me = meData?.meProfile || {};
 
   const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
-  const [editPassword, { editPasswordError, editPasswordData }] = useMutation(EDIT_USER_SELF);
+  const [editPassword, { editPasswordError, editPasswordData }] = useMutation(EDIT_PASSWORD);
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
@@ -92,16 +92,24 @@ const ProfilePage = () => {
 
   // Handles password update from password modal
   const handlePasswordUpdate = async (e) => {
+    handleHidePword();
     e.preventDefault();
     try {
       const { data } = await editPassword({
-        variables: {id: userData._id, }
+        variables: { id: userData._id, ...userData }
       });
-      handleShowSuccess();
+      if (data.editPassword) {
+        handleShowSuccess();
+      } else {
+        setErrThrown("Incorrect data sent");
+        handleShowErr();
+      }
+      setUserData({ ...userData, password: "", newPassword: "", oldPassword: "" });
     } catch (error) {
       console.error(JSON.stringify(error));
       setErrThrown(error.message);
       handleShowErr();
+      setUserData({ ...userData, password: "", newPassword: "", oldPassword: "" });
     }
   }
 
