@@ -254,6 +254,28 @@ mutation editRepertoire($id: ID!, $songId: ID!, $title: String!, $composer: [Str
 }
 `;
 
+export const EDIT_PASSWORD = gql`
+mutation editPassword($id: ID!, $oldPassword: String!, $newPassword: String!) {
+  editPassword(_id: $id, oldPassword: $oldPassword, password: $newPassword) {
+    _id
+    fullName
+    firstName
+    lastName
+    preferredName
+    email1
+    email2
+    birthday
+    phone1
+    phone2
+    phone3
+    streetAddress
+    city
+    state
+    zipCode
+  }
+}
+`;
+
 export const EDIT_POST = gql`
 mutation editPost($id: ID!, $postType: String!, $postExpire: String, $postTitle: String, $postBody: String!) {
   editPost(_id: $id, postType: $postType, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {

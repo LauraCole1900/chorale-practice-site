@@ -50,6 +50,7 @@ type User {
   email1: String!
   email2: String
   password: String!
+  oldPassword: String
   phone1: String
   phone1Type: String
   phone2: String
@@ -135,6 +136,8 @@ type Mutation {
   addRepertoire(_id: ID!, songs: SongInput!): Concert
 
   editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSopSlow: [String!], practiceTrackUrlsAltoSlow: [String!], practiceTrackUrlsTenSlow: [String!], practiceTrackUrlsBassSlow: [String!], practiceTrackUrlsSopATempo: [String!], practiceTrackUrlsAltoATempo: [String!], practiceTrackUrlsTenATempo: [String!], practiceTrackUrlsBassATempo: [String!], videoUrls: [String]): Song
+
+  editPassword(_id: ID!, oldPassword: String, password: String!): User
   
   editPost(_id: ID!, postType: String!, postBody: String!): Post
 

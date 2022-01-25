@@ -3,23 +3,23 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const ChangePasswordModal = (props) => {
-  const [userData, setUserData] = useState(props.user);
+  const [pwordMatch, setPwordMatch] = useState(false);
 
   const checkMatch = (pword1, pword2) => {
-    return pword1 === pword2
+    const match = pword1 === pword2;
+    setPwordMatch(match);
   }
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value })
+    props.setUserData({ ...props.userData, [name]: value })
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    delete userData.oldPassword;
-    delete userData.newPassword;
-    console.log({ userData });
+    delete props.userData.newPassword;
+    props.update(e);
   }
 
 
@@ -37,7 +37,7 @@ const ChangePasswordModal = (props) => {
               <Col lg={12}>
                 <Form.Group controlId="formOldPword">
                   <Form.Label>Confirm current password: <span className="red">*</span></Form.Label>
-                  <Form.Control type="password" name="oldPassword" placeholder="Current password" value={userData.oldPassword} className="formInput" onChange={e => handleInputChange(e)} required />
+                  <Form.Control type="password" name="oldPassword" placeholder="Current password" value={props.userData.oldPassword} className="formInput" onChange={e => handleInputChange(e)} required />
                 </Form.Group>
               </Col>
             </Row>
@@ -46,7 +46,7 @@ const ChangePasswordModal = (props) => {
               <Col lg={12}>
                 <Form.Group controlId="formNewPword">
                   <Form.Label>New password: <span className="red">*</span></Form.Label>
-                  <Form.Control type="password" name="newPassword" placeholder="New password" value={userData.newPassword} className="formInput" onChange={e => handleInputChange(e)} required />
+                  <Form.Control type="password" name="newPassword" placeholder="New password" value={props.userData.newPassword} className="formInput" onChange={e => handleInputChange(e)} required />
                 </Form.Group>
               </Col>
             </Row>
@@ -55,14 +55,19 @@ const ChangePasswordModal = (props) => {
               <Col lg={12}>
                 <Form.Group controlId="formNewPwordConfirm">
                   <Form.Label>Confirm new password: <span className="red">*</span></Form.Label>
-                  <Form.Control type="password" name="password" placeholder="Confirm new password" value={userData.password} className="formInput" onChange={e => handleInputChange(e)} onBlur={checkMatch(userData.newPassword, userData.password)} required />
+                  <Form.Control type="password" name="password" placeholder="Confirm new password" value={props.userData.password} className="formInput" onChange={e => handleInputChange(e)} onBlur={() => checkMatch(props.userData.newPassword, props.userData.password)} required />
+                  {pwordMatch === false &&
+                    <Form.Text className="red">New password & Confirm new password must match!</Form.Text>}
                 </Form.Group>
               </Col>
             </Row>
 
             <Row>
               <Col sm={6}>
-                <Button data-toggle="popover" title="Update Password" disabled={!(userData.oldPassword && userData.newPassword && userData.password)} className="button formBtn" onClick={handleFormSubmit} type="submit">Update Password</Button>
+                <Button data-toggle="popover" title="Update Password" disabled={!(props.userData.oldPassword && props.userData.newPassword && props.userData.password && (props.userData.newPassword === props.userData.password))} className="button formBtn" onClick={handleFormSubmit} type="submit">Update Password</Button>
+              </Col>
+              <Col sm={6}>
+                <Button data-toggle="popover" title="Cancel" className="button formBtn" onClick={props.hide} type="button">Cancel</Button>
               </Col>
             </Row>
 

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { EDIT_USER_SELF, QUERY_ME_PROFILE } from "../utils/gql";
+import { EDIT_PASSWORD, EDIT_USER_SELF, QUERY_ME_PROFILE } from "../utils/gql";
 import { userValidate } from "../utils/validation";
 import Auth from "../utils/auth";
 import { ChangePasswordModal, ErrorModal, SuccessModal } from "../components/modals";
@@ -41,9 +41,9 @@ const ProfilePage = () => {
     });
 
   const me = meData?.meProfile || {};
-  console.log({ me });
 
   const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
+  const [editPassword, { editPasswordError, editPasswordData }] = useMutation(EDIT_USER_SELF);
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
@@ -90,6 +90,21 @@ const ProfilePage = () => {
     setUserData({ ...userData, [name]: value });
   };
 
+  // Handles password update from password modal
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await editPassword({
+        variables: {id: userData._id, }
+      });
+      handleShowSuccess();
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      setErrThrown(error.message);
+      handleShowErr();
+    }
+  }
+
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
@@ -128,11 +143,11 @@ const ProfilePage = () => {
   };
 
   if (!Auth.loggedIn()) {
-    <Navigate to="/login" />
+    return <Navigate to="/login" />
   };
 
   if (me.position === "guest") {
-    <Navigate to="/members" />
+    return <Navigate to="/members" />
   }
 
 
@@ -307,11 +322,14 @@ const ProfilePage = () => {
 
         <ChangePasswordModal
           user={me}
+          userData={userData}
+          setUserData={setUserData}
           urlid={urlId}
           urltype={urlType}
           params={[]}
           show={showPword === true}
           hide={() => handleHidePword()}
+          update={(e) => handlePasswordUpdate(e)}
         />
 
         <SuccessModal
