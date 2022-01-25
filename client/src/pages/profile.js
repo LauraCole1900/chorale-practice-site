@@ -41,6 +41,7 @@ const ProfilePage = () => {
     });
 
   const me = meData?.meProfile || {};
+  console.log({ me });
 
   const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
 
@@ -52,12 +53,15 @@ const ProfilePage = () => {
   // Modal variables
   const [showErr, setShowErr] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showPword, setShowPword] = useState(false);
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
+  const handleShowPword = () => setShowPword(true);
+  const handleHidePword = () => setShowPword(false);
 
   const formatDate = (date) => {
     return dayjs(date, "MM-DD").format("MMMM D")
@@ -147,7 +151,9 @@ const ProfilePage = () => {
               <Card.Body className="cardBody">
                 {editMode === false
                   ? <>
-                    <p className="editMode" onClick={handleClick}>Edit my info</p>
+                    <div className="between">
+                      <p className="editMode" onClick={handleClick}>Edit my info</p><p className="editMode" onClick={handleShowPword}>Change my password</p>
+                    </div>
                     <p>Full name: {me.fullName}</p>
                     <p>Prefer to be called: {me.preferredName}</p>
                     <p>Section: {me.section}</p>
@@ -298,6 +304,15 @@ const ProfilePage = () => {
             </Card>
           </Col>
         </Row>
+
+        <ChangePasswordModal
+          user={me}
+          urlid={urlId}
+          urltype={urlType}
+          params={[]}
+          show={showPword === true}
+          hide={() => handleHidePword()}
+        />
 
         <SuccessModal
           user={me}

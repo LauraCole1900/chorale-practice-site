@@ -36,6 +36,11 @@ a.sideLinks:hover {
   cursor: pointer;
 }
 
+.between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card {
   margin: 1rem;
   border-radius: 15px;
