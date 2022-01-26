@@ -127,9 +127,15 @@ const resolvers = {
 
     deleteManySongs: async (_, args) => {
       console.log({ args });
-      const updatedConcert = await args.songsToDelete.map(song => Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { _id: song } } }, { new: true }));
-      console.log({ updatedConcert });
-      return updatedConcert;
+      const concert = await Concert.findOne({ _id: args._id });
+      console.log({ concert });
+      const concertSongs = concert.songs.filter(concertSong => {
+        const keepSongs = args.songsToDelete.forEach(song => concertSong._id != song);
+        return keepSongs;
+      }
+      );
+      console.log({ concertSongs });
+      // const updatedConcert = await args.songsToDelete.map(song => Concert.findOneAndUpdate({ _id: args._id }, { $pull: { songs: { _id: song } } }, { new: true }));
     },
 
     deleteUser: async (_, args) => {
