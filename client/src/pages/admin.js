@@ -86,23 +86,7 @@ const AdminPortal = () => {
     }
   });
 
-  const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS, {
-    update(cache, { data: { deleteSongs } }) {
-      try {
-        // Retrieve existing post data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ONE_CONCERT });
-        const concert = data.oneConcert;
-        // Update the cache by combining existing post data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ONE_CONCERT,
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { oneConcert: [...concert, deleteSongs] },
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
+  const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
   
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
     update(cache, { data: { deleteUser } }) {
@@ -222,7 +206,7 @@ const AdminPortal = () => {
     handleHideConfirm();
     try {
       const { data } = await deleteManySongs({
-        variables: { id: id, songsToDelete: songs },
+        variables: { _id: id, songsToDelete: songs },
       });
       handleShowSuccess();
     } catch (err) {
@@ -230,6 +214,7 @@ const AdminPortal = () => {
       setErrThrown(err.message);
       handleShowErr();
     }
+    setSongsToDelete([]);
   };
 
   useEffect(() => {

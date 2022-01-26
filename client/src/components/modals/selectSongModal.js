@@ -22,7 +22,6 @@ const SelectSongModal = (props) => {
     e.preventDefault();
     const { dataset } = e.target
     props.setbtnname(dataset.btnname);
-    props.setSongsToDelete([]);
     props.confirm(e);
   }
 
