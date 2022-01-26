@@ -126,15 +126,15 @@ const resolvers = {
     },
 
     deleteManySongs: async (_, args) => {
-      let keepSongs = [];
       console.log({ args });
       const concert = await Concert.findOne({ _id: args._id });
-      console.log({ concert });
+      let keepSongs = concert.songs;
+      console.log("pre-filter", { keepSongs });
       await args.songsToDelete.forEach(song => {
         console.log({ song });
-        keepSongs = concert.songs.filter(concertSong => concertSong._id != song);
+        keepSongs = keepSongs.filter(concertSong => concertSong._id != song);
       });
-      console.log({ keepSongs });
+      console.log("post-filter", { keepSongs });
       const updatedConcert = await Concert.findByIdAndUpdate({ _id: args._id }, { $set: { songs: keepSongs } }, { new: true });
       return updatedConcert;
     },
