@@ -71,11 +71,11 @@ const Section = () => {
             <Card className="announcements">
               <Card.Header className="cardTitle">
                 <h1>{capsSection} Section Leader Announcements</h1>
-                {Object.keys(sectionData).length > 0 &&
+                {Object.keys(sectionPost).length > 0 &&
                   <p>{dayjs(JSON.parse(sectionPost.postDate)).format("MMM D, YYYY")} </p>}
               </Card.Header>
               <Card.Body className="cardBody">
-                {sectionData
+                {Object.keys(sectionPost).length > 0
                   ? <p>{sectionPost.postBody}</p>
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>

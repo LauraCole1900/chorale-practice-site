@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { postValidate } from "../../utils/validation";
-import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST } from "../../utils/gql";
+import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
@@ -25,15 +25,27 @@ const PostForm = () => {
 
   const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
+      console.log({ addPost });
       try {
         // Retrieve existing post data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ALL_POSTS });
-        const currentPosts = data.allPosts;
+        const allData = cache.readQuery({ query: QUERY_ALL_POSTS });
+        const currentPosts = allData.allPosts;
+        console.log({ currentPosts });
         // Update the cache by combining existing post data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_POSTS,
           // If we want new data to show up before or after existing data, adjust the order of this array
           data: { allPosts: [...currentPosts, addPost] },
+        });
+        // Retrieve existing post data that is stored in the cache
+        const oneData = cache.readQuery({ query: QUERY_ONE_SECT_POST });
+        const currentPost = oneData.oneSectPost;
+        console.log({ currentPost });
+        // Update the cache by combining existing post data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ONE_SECT_POST,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { oneSectPost: addPost },
         });
       } catch (err) {
         console.error(err);
@@ -207,7 +219,7 @@ const PostForm = () => {
           <Form.Group controlId="formPostTitle">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Post title:</Form.Label>
+                <Form.Label>Post title: (optional)</Form.Label>
                 <Form.Control type="input" name="postTitle" placeholder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>

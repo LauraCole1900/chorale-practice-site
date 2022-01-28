@@ -66,9 +66,9 @@ const Members = () => {
 
   const emergency = postArr.filter(post => post.postType === "emergency");
   const singersNote = postArr.filter(post => post.postType === "singers note");
-  const sortedSingersNote = singersNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
+  const sortedSingersNote = singersNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
   const directorNote = postArr.filter(post => post.postType === "director");
-  const sortedDirectorNote = directorNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
+  const sortedDirectorNote = directorNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
