@@ -147,7 +147,7 @@ const ProfilePage = () => {
   };
 
   if (meError) {
-    console.error(JSON.stringify(meError));
+    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {

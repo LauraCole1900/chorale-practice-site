@@ -100,7 +100,10 @@ const Members = () => {
   }
 
   if (adminError || bdayError || meError || postError) {
-    console.error(JSON.stringify(adminError, meError, postError));
+    console.error(JSON.stringify({ adminError }));
+    console.error(JSON.stringify({ bdayError }));
+    console.error(JSON.stringify({ meError }));
+    console.error(JSON.stringify({ postError }));
   }
 
 

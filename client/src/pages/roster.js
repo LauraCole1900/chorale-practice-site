@@ -54,7 +54,8 @@ const RosterPage = () => {
   }
 
   if (meError || usersError) {
-    console.error(JSON.stringify(meError, usersError));
+    console.error(JSON.stringify({ meError }));
+    console.error(JSON.stringify({ usersError }));
   }
 
   if (!Auth.loggedIn()) {

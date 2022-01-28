@@ -199,7 +199,8 @@ const SongForm = () => {
   };
 
   if (concertError || meError) {
-    console.error(JSON.stringify(concertError, meError));
+    console.error(JSON.stringify({ concertError }));
+    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {

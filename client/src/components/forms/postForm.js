@@ -138,7 +138,7 @@ const PostForm = () => {
   };
 
   useEffect(() => {
-    if (params) {
+    if (Object.keys(params).length > 0) {
       setPostData(post);
     }
   }, [post]);
@@ -148,7 +148,8 @@ const PostForm = () => {
   };
 
   if (meError || noteError) {
-    console.error(JSON.stringify(meError, noteError))
+    console.error(JSON.stringify({ meError }));
+    console.error(JSON.stringify({ noteError }));
   };
 
   if (!Auth.loggedIn()) {

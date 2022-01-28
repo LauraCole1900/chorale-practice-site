@@ -54,7 +54,12 @@ const Section = () => {
   }
 
   if (concertsError || meError || sopError || altoError || tenError || bassError) {
-    console.error(JSON.stringify(concertsError, meError, sopError, altoError, tenError, bassError));
+    console.error(JSON.stringify({ concertsError }));
+    console.error(JSON.stringify({ meError }));
+    console.error(JSON.stringify({ sopError }));
+    console.error(JSON.stringify({ altoError }));
+    console.error(JSON.stringify({ tenError }));
+    console.error(JSON.stringify({ bassError }));
   }
 
   if (!Auth.loggedIn()) {

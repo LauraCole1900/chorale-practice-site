@@ -230,7 +230,8 @@ const AdminUserForm = () => {
   };
 
   if (editError || meError) {
-    console.error(JSON.stringify(editError, meError));
+    console.error(JSON.stringify({ editError }));
+    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {

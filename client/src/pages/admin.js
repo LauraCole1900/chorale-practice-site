@@ -257,7 +257,10 @@ const AdminPortal = () => {
   }
 
   if (concertError || meError || postError || userError) {
-    console.error(JSON.stringify(concertError, meError, userError));
+    console.error(JSON.stringify({ concertError }));
+    console.error(JSON.stringify({ meError }));
+    console.error(JSON.stringify({ postError }));
+    console.error(JSON.stringify({ userError }));
   }
 
   if (!Auth.loggedIn()) {
