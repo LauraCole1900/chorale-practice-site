@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { postValidate } from "../../utils/validation";
-import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
+import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
@@ -40,7 +40,25 @@ const PostForm = () => {
     {
       variables: { id: params.postId }
     });
-  const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST);
+
+  const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST, {
+    update(cache, { data: { addPost } }) {
+      try {
+        // Retrieve existing post data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ALL_POSTS });
+        const currentPosts = data.allPosts;
+        // Update the cache by combining existing post data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_POSTS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allPosts: [...currentPosts, addPost] },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+
   const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_POST);
 
   const me = meData?.me || meData?.currentId || {};
