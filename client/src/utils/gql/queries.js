@@ -216,47 +216,12 @@ query oneAdminPost($id: ID!, $postType: String!) {
 }
 `;
 
-export const QUERY_ONE_SOP_SECT_POST = gql`
-query oneSopSectPost($id: ID!, $postType: String!) {
-  oneSopSectPost(_id: $id, postType: $postType) {
+export const QUERY_ONE_SECT_POST = gql`
+query oneSectPost($postType: String!, $postSection: String!) {
+  oneSectPost(postType: $postType, postSection: $postSection) {
     _id
     postType
-    postDate
-    postTitle
-    postBody
-  }
-}
-`;
-
-export const QUERY_ONE_ALTO_SECT_POST = gql`
-query oneAltoSectPost($id: ID!, $postType: String!) {
-  oneAltoSectPost(_id: $id, postType: $postType) {
-    _id
-    postType
-    postDate
-    postTitle
-    postBody
-  }
-}
-`;
-
-export const QUERY_ONE_TEN_SECT_POST = gql`
-query oneTenSectPost($id: ID!, $postType: String!) {
-  oneTenSectPost(_id: $id, postType: $postType) {
-    _id
-    postType
-    postDate
-    postTitle
-    postBody
-  }
-}
-`;
-
-export const QUERY_ONE_BASS_SECT_POST = gql`
-query oneBassSectPost($id: ID!, $postType: String!) {
-  oneBassSectPost(_id: $id, postType: $postType) {
-    _id
-    postType
+    postSection
     postDate
     postTitle
     postBody

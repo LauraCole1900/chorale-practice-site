@@ -50,6 +50,7 @@ const resolvers = {
     },
 
     onePost: async (_, args) => {
+      console.log({ args });
       return await Post.findOne({ _id: args._id });
     },
 
@@ -61,20 +62,8 @@ const resolvers = {
       return await Post.findOne({ _id: args._id, postType: args.postType === "admin" })
     },
 
-    oneSopSectPost: async (_, args) => {
-      return await Post.findOne({ _id: args._id, postType: args.postType === "sopSectAnnouncements" })
-    },
-
-    oneAltoSectPost: async (_, args) => {
-      return await Post.findOne({ _id: args._id, postType: args.postType === "altoSectAnnouncements" })
-    },
-
-    oneTenSectPost: async (_, args) => {
-      return await Post.findOne({ _id: args._id, postType: args.postType === "tenSectAnnouncements" })
-    },
-
-    oneBassSectPost: async (_, args) => {
-      return await Post.findOne({ _id: args._id, postType: args.postType === "bassSectAnnouncements" })
+    oneSectPost: async (_, args) => {
+      return await Post.findOne({ postType: args.postType, postSection: args.postSection })
     },
 
     oneProfile: async (_, args) => {
@@ -168,7 +157,8 @@ const resolvers = {
     },
 
     editPost: async (_, args) => {
-      const post = await Post.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+      const post = await Post.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
+      return post;
     },
 
     editUserAdmin: async (_, args) => {

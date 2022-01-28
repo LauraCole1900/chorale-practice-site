@@ -10,31 +10,18 @@ import "./style.css";
 
 const PostForm = () => {
   const params = useParams();
-
+  const [postId, setPostId] = useState(params.postId);
   const [errors, setErrors] = useState({});
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
+  const [thisSection, setThisSection] = useState();
 
-  // Determines which page user is on, specifically for use with modals
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 2]
-  const urlType = urlArray[urlArray.length - 3]
-
-  // Modal variables
-  const [showErr, setShowErr] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
-
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: noteLoading, data: noteData, error: noteError } = useQuery(QUERY_ONE_POST,
     {
-      variables: { id: params.postId }
+      variables: { id: postId }
     });
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
   const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -54,14 +41,29 @@ const PostForm = () => {
     }
   });
 
-  const [editRepertoire, { editRepertoireError, editRepertoireData }] = useMutation(EDIT_POST);
+  const [editPost, { editPostError, editPostData }] = useMutation(EDIT_POST);
 
   const me = meData?.me || meData?.currentId || {};
-  const post = noteData?.onePost || {};
+  const postToEdit = noteData?.onePost || {};
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 2]
+  const urlType = urlArray[urlArray.length - 3]
+
+  // Modal variables
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const [postData, setPostData] = useState({
     postType: "section leader",
-    postSection: me.section,
+    postSection: thisSection,
     postExpire: "",
     postTitle: "",
     postBody: ""
@@ -76,18 +78,15 @@ const PostForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ postData });
     // Validates required inputs
     const validationErrors = postValidate(postData);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Post submit", postData);
       try {
         const { data } = await addPost({
           variables: { ...postData }
         });
-        console.log({ data });
         handleShowSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
@@ -115,10 +114,9 @@ const PostForm = () => {
     setErrors(validationErrors);
     if (noErrors) {
       try {
-        const { data } = await editRepertoire({
-          variables: { id: params.postId, ...postData }
+        const { data } = await editPost({
+          variables: { id: postId, ...postData }
         });
-        console.log({ data });
         handleShowSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
@@ -138,10 +136,21 @@ const PostForm = () => {
   };
 
   useEffect(() => {
-    if (Object.keys(params).length > 0) {
-      setPostData(post);
+    if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
+      setPostData(postToEdit);
     }
-  }, [post]);
+    if (["Soprano I", "Soprano II"].includes(me.section)) {
+      setThisSection("soprano")
+    } else if (["Alto I", "Alto II"].includes(me.section)) {
+      setThisSection("alto")
+    } else if (["Tenor I", "Tenor II"].includes(me.section)) {
+      setThisSection("tenor")
+    } else if (["Bass I", "Bass II"].includes(me.section)) {
+      setThisSection("bass")
+    } else {
+      setThisSection(me.section)
+    }
+  }, [postToEdit]);
 
   if (meLoading || noteLoading) {
     return <h1>Loading....</h1>
@@ -165,7 +174,9 @@ const PostForm = () => {
       <Container>
         <Row>
           <Col sm={12} className="formHeader">
-            <h1>Create new post</h1>
+            {Object.keys(params).length > 0
+              ? <h1>Edit this post</h1>
+              : <h1>Create new post</h1>}
           </Col>
         </Row>
 

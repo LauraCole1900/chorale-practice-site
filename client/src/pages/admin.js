@@ -229,7 +229,9 @@ const AdminPortal = () => {
     }
 
     if (posts.length) {
-      const postsByDate = posts.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
+      const postsToSort = [...posts];
+      console.log({ postsToSort });
+      const postsByDate = postsToSort.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
       setSortedPosts(postsByDate);
     }
 

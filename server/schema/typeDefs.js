@@ -103,10 +103,7 @@ type Query {
   onePost(_id: ID!): Post
   oneDirectorPost(_id: ID!, postType: String!): Post
   oneAdminPost(_id: ID!, postType: String!): Post
-  oneSopSectPost(_id: ID!, postType: String!): Post
-  oneAltoSectPost(_id: ID!, postType: String!): Post
-  oneTenSectPost(_id: ID!, postType: String!): Post
-  oneBassSectPost(_id: ID!, postType: String!): Post
+  oneSectPost(postType: String!, postSection: String!): Post
   oneProfile(_id: ID!): User
   oneUser(_id: ID!): User
   oneUserAdmin(_id: ID!): User

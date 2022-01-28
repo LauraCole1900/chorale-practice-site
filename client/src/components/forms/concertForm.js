@@ -175,7 +175,9 @@ const ConcertForm = () => {
       <Container>
         <Row>
           <Col sm={12} className="formHeader">
-            <h1>Add a new concert or event</h1>
+            {Object.keys(params).length > 0
+            ? <h1>Edit this concert or event</h1>
+            : <h1>Add a new concert or event</h1>}
           </Col>
         </Row>
 

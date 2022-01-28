@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_ONE_SOP_SECT_POST, QUERY_ONE_ALTO_SECT_POST, QUERY_ONE_TEN_SECT_POST, QUERY_ONE_BASS_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
+import { QUERY_ME, QUERY_ONE_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
 import Auth from "../utils/auth";
 import "./style.css"
@@ -17,17 +17,13 @@ const Section = () => {
   const [sortedConcerts, setSortedConcerts] = useState([]);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: concertsLoading, data: concertsData, error: concertsError } = useQuery(QUERY_TRUE_CONCERTS);
-  const { loading: sopLoading, data: sopData, error: sopError } = useQuery(QUERY_ONE_SOP_SECT_POST);
-  const { loading: altoLoading, data: altoData, error: altoError } = useQuery(QUERY_ONE_ALTO_SECT_POST);
-  const { loading: tenLoading, data: tenData, error: tenError } = useQuery(QUERY_ONE_TEN_SECT_POST);
-  const { loading: bassLoading, data: bassData, error: bassError } = useQuery(QUERY_ONE_BASS_SECT_POST);
+  const { loading: sectionLoading, data: sectionData, error: sectionError } = useQuery(QUERY_ONE_SECT_POST, {
+    variables: { postType: "section leader", postSection: section }
+  });
 
   const me = meData?.me || meData?.currentId || {};
   const concertArr = concertsData?.trueConcerts || [];
-  const sopPost = sopData?.oneSopSectPost || {};
-  const altoPost = altoData?.oneSopSectPost || {};
-  const tenPost = tenData?.oneSopSectPost || {};
-  const bassPost = bassData?.oneSopSectPost || {};
+  const sectionPost = sectionData?.oneSectPost || {};
 
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
@@ -49,17 +45,14 @@ const Section = () => {
   }, [concertArr, navigate, section]);
 
 
-  if (concertsLoading || meLoading || sopLoading || altoLoading || tenLoading || bassLoading) {
+  if (concertsLoading || meLoading || sectionLoading) {
     return <h1>Loading....</h1>
   }
 
-  if (concertsError || meError || sopError || altoError || tenError || bassError) {
+  if (concertsError || meError || sectionError) {
     console.error(JSON.stringify({ concertsError }));
     console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ sopError }));
-    console.error(JSON.stringify({ altoError }));
-    console.error(JSON.stringify({ tenError }));
-    console.error(JSON.stringify({ bassError }));
+    console.error(JSON.stringify({ sectionError }));
   }
 
   if (!Auth.loggedIn()) {
@@ -78,24 +71,13 @@ const Section = () => {
             <Card className="announcements">
               <Card.Header className="cardTitle">
                 <h1>{capsSection} Section Leader Announcements</h1>
+                {Object.keys(sectionData).length > 0 &&
+                  <p>{dayjs(JSON.parse(sectionPost.postDate)).format("MMM D, YYYY")} </p>}
               </Card.Header>
               <Card.Body className="cardBody">
-                {section === "soprano" &&
-                  (sopData
-                    ? { sopPost }
-                    : <p>No {section} announcements at this time.</p>)}
-                {section === "alto" &&
-                  (altoData
-                    ? { altoPost }
-                    : <p>No {section} announcements at this time.</p>)}
-                {section === "tenor" &&
-                  (tenData
-                    ? { tenPost }
-                    : <p>No {section} announcements at this time.</p>)}
-                {section === "bass" &&
-                  (bassData
-                    ? { bassPost }
-                    : <p>No {section} announcements at this time.</p>)}
+                {sectionData
+                  ? <p>{sectionPost.postBody}</p>
+                  : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>
             {sortedConcerts.length > 0 &&
