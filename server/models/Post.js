@@ -8,7 +8,7 @@ const postSchema = new Schema(
     },
     postSection: {
       type: String
-    }
+    },
     postExpire: {
       type: Date
     },

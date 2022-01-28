@@ -61,6 +61,7 @@ const PostForm = () => {
 
   const [postData, setPostData] = useState({
     postType: "section leader",
+    postSection: me.section,
     postExpire: "",
     postTitle: "",
     postBody: ""
@@ -95,6 +96,7 @@ const PostForm = () => {
       }
       setPostData({
         postType: "",
+        postSection: "",
         postExpire: "",
         postTitle: "",
         postBody: ""
@@ -125,6 +127,7 @@ const PostForm = () => {
       }
       setPostData({
         postType: "",
+        postSection: "",
         postExpire: "",
         postTitle: "",
         postBody: ""
