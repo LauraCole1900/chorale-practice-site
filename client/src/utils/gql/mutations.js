@@ -27,10 +27,11 @@ mutation addConcert($name: String!, $date: [String!]!, $time: [String!]!, $venue
 `;
 
 export const ADD_POST = gql`
-mutation addPost($postType: String!, $postExpire: String, $postTitle: String, $postBody: String!) {
-  addPost(postType: $postType, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
+mutation addPost($postType: String!, $postSection: String, $postExpire: String, $postTitle: String, $postBody: String!) {
+  addPost(postType: $postType, postSection: $postSection, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
     _id
     postType
+    postSection
     postExpire
     postTitle
     postBody
@@ -102,6 +103,7 @@ mutation deletePost($id: ID!) {
   deletePost(_id: $id) {
     _id
     postType
+    postSection
     postExpire
     postDate
     postTitle
@@ -277,10 +279,11 @@ mutation editPassword($id: ID!, $oldPassword: String!, $newPassword: String!) {
 `;
 
 export const EDIT_POST = gql`
-mutation editPost($id: ID!, $postType: String!, $postExpire: String, $postTitle: String, $postBody: String!) {
-  editPost(_id: $id, postType: $postType, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
+mutation editPost($id: ID!, $postType: String!, $postSection: String, $postExpire: String, $postTitle: String, $postBody: String!) {
+  editPost(_id: $id, postType: $postType, postSection: $postSection, postExpire: $postExpire, postTitle: $postTitle, postBody: $postBody) {
     _id
     postType
+    postSection
     postExpire
     postTitle
     postBody

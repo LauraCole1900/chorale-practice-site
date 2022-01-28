@@ -6,6 +6,9 @@ const postSchema = new Schema(
       type: String,
       required: true
     },
+    postSection: {
+      type: String
+    }
     postExpire: {
       type: Date
     },

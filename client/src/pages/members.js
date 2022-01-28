@@ -49,7 +49,6 @@ const Members = () => {
   const bDays = bdayData?.allBirthdays || [];
   const me = meData?.me || meData?.currentId || {};
   const postArr = postData?.allPosts || [];
-  console.log({ postArr });
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
@@ -67,9 +66,7 @@ const Members = () => {
 
   const emergency = postArr.filter(post => post.postType === "emergency");
   const singersNote = postArr.filter(post => post.postType === "singers note");
-  console.log({ singersNote });
   const sortedSingersNote = singersNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
-  console.log({ sortedSingersNote });
   const directorNote = postArr.filter(post => post.postType === "director");
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
 

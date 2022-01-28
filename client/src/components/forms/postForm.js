@@ -60,7 +60,7 @@ const PostForm = () => {
   const post = noteData?.onePost || {};
 
   const [postData, setPostData] = useState({
-    postType: "",
+    postType: "section leader",
     postExpire: "",
     postTitle: "",
     postBody: ""
@@ -171,7 +171,7 @@ const PostForm = () => {
             <Row>
               <Col sm={{ span: 4, offset: 2 }}>
                 <Form.Label>Select type of post: <span className="red">*</span></Form.Label>
-                <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" onChange={handleInputChange}>
+                <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" disabled={me.position === "section leader"} onChange={handleInputChange}>
                   <option>Select</option>
                   <option value="emergency">Emergency Announcement</option>
                   <option value="singers note">Singer's Notes</option>
