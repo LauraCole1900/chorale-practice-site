@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-// import { userValidate } from "../../utils/validation";
+import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ONE_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
@@ -57,55 +57,61 @@ const PostForm = () => {
     e.preventDefault();
     console.log({ postData });
     // Validates required inputs
-    // const validationErrors = postValidate(postData);
-    // const noErrors = Object.keys(validationErrors).length === 0;
-    // setErrors(validationErrors);
-    // if (noErrors) {
-    console.log("Post submit", postData);
-    try {
-      const { data } = await addPost({
-        variables: { ...postData }
+    const validationErrors = postValidate(postData);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Post submit", postData);
+      try {
+        const { data } = await addPost({
+          variables: { ...postData }
+        });
+        console.log({ data });
+        handleShowSuccess();
+      } catch (error) {
+        console.error(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
+      }
+      setPostData({
+        postType: "",
+        postExpire: "",
+        postTitle: "",
+        postBody: ""
       });
-      console.log({ data });
-      handleShowSuccess();
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      setErrThrown(error.message);
-      handleShowErr();
+    } else {
+      console.error({ validationErrors });
     }
-    setPostData({
-      postType: "",
-      postExpire: "",
-      postTitle: "",
-      postBody: ""
-    });
   };
 
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
     // Validates required inputs
-    // const validationErrors = postValidate(postData);
-    // const noErrors = Object.keys(validationErrors).length === 0;
-    // setErrors(validationErrors);
-    // if (noErrors) {
-    try {
-      const { data } = await editRepertoire({
-        variables: { postId: params.postId, ...postData }
+    const validationErrors = postValidate(postData);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      try {
+        const { data } = await editRepertoire({
+          variables: { postId: params.postId, ...postData }
+        });
+        console.log({ data });
+        handleShowSuccess();
+      } catch (error) {
+        console.error(JSON.stringify(error));
+        setErrThrown(error.message);
+        handleShowErr();
+      }
+      setPostData({
+        postType: "",
+        postExpire: "",
+        postTitle: "",
+        postBody: ""
       });
-      console.log({ data });
-      handleShowSuccess();
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      setErrThrown(error.message);
-      handleShowErr();
+    } else {
+      console.error({ validationErrors });
     }
-    setPostData({
-      postType: "",
-      postExpire: "",
-      postTitle: "",
-      postBody: ""
-    });
   };
 
   if (meLoading || noteLoading) {
