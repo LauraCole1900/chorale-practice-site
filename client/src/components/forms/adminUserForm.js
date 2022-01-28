@@ -237,7 +237,7 @@ const AdminUserForm = () => {
     return <Navigate to="/login" />
   };
 
-  if (!["administrator", "assistant music director", "music director", "webdev"].includes(me.position)) {
+  if (!["administrator", "assistant music director", "music director", "section leader", "webdev"].includes(me.position)) {
     return <Navigate to="/members" />
   };
 
