@@ -63,7 +63,9 @@ const resolvers = {
     },
 
     oneSectPost: async (_, args) => {
-      return await Post.findOne({ postType: args.postType, postSection: args.postSection })
+      const post = await Post.findOne({ postType: args.postType, postSection: args.postSection }).sort({ "postDate": 1 });
+      console.log({ post });
+      return post;
     },
 
     oneProfile: async (_, args) => {
