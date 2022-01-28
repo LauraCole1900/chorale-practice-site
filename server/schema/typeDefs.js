@@ -139,7 +139,7 @@ type Mutation {
 
   editPassword(_id: ID!, oldPassword: String, password: String!): User
   
-  editPost(_id: ID!, postType: String!, postBody: String!): Post
+  editPost(_id: ID!, postType: String!, postExpire: String, postTitle: String, postBody: String!): Post
 
   editUserAdmin(_id: ID!, fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String, email2: String, password: String, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 

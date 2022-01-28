@@ -10,12 +10,7 @@ import "./style.css";
 
 const PostForm = () => {
   const params = useParams();
-  const [postData, setPostData] = useState({
-    postType: "",
-    postExpire: "",
-    postTitle: "",
-    postBody: ""
-  });
+
   const [errors, setErrors] = useState({});
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
@@ -63,6 +58,13 @@ const PostForm = () => {
 
   const me = meData?.me || meData?.currentId || {};
   const post = noteData?.onePost || {};
+
+  const [postData, setPostData] = useState({
+    postType: "",
+    postExpire: "",
+    postTitle: "",
+    postBody: ""
+  });
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -112,7 +114,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await editRepertoire({
-          variables: { postId: params.postId, ...postData }
+          variables: { id: params.postId, ...postData }
         });
         console.log({ data });
         handleShowSuccess();
@@ -131,6 +133,12 @@ const PostForm = () => {
       console.error({ validationErrors });
     }
   };
+
+  useEffect(() => {
+    if (params) {
+      setPostData(post);
+    }
+  }, [post]);
 
   if (meLoading || noteLoading) {
     return <h1>Loading....</h1>

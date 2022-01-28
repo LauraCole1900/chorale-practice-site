@@ -87,7 +87,7 @@ const AdminPortal = () => {
   });
 
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
-  
+
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
     update(cache, { data: { deleteUser } }) {
       try {
@@ -353,7 +353,7 @@ const AdminPortal = () => {
                 <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
                 <h5>Click existing post to edit or delete</h5>
                 {sortedPosts.map(post => (
-                  <li key={post._id} className="adminLink" onClick={(e) => handleShowSelect(e, post._id, post.title)} data-type="post">{dayjs(JSON.parse(post.postDate)).format("MMM D, YYYY")} - {post.postTitle}</li>
+                  <li key={post._id} className="adminLink" onClick={(e) => handleShowSelect(e, post._id, post.postTitle)} data-type="post">{dayjs(JSON.parse(post.postDate)).format("MMM D, YYYY")} - {post.postTitle}</li>
                 ))}
               </Card.Body>
             </Card>
