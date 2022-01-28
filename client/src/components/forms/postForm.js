@@ -63,7 +63,7 @@ const PostForm = () => {
 
   const [postData, setPostData] = useState({
     postType: "section leader",
-    postSection: thisSection,
+    postSection: "",
     postExpire: "",
     postTitle: "",
     postBody: ""
@@ -85,7 +85,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await addPost({
-          variables: { ...postData }
+          variables: { ...postData, postSection: thisSection }
         });
         handleShowSuccess();
       } catch (error) {
