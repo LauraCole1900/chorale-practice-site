@@ -153,13 +153,10 @@ const SongForm = () => {
     if (noErrors) {
       try {
         const { data } = await editRepertoire({
-          variables: { id: concertId, songId: songId, ...songData, concertOrder: parseInt(songData.concertOrder) }
+          variables: { concertId: concertId, songId: songId, ...songData, concertOrder: parseInt(songData.concertOrder) }
         });
-        if (e.target.title === "Update") {
-          handleShowSuccess();
-        } else {
-          navigate(`/repertoire/${concertId}`)
-        }
+        console.log({ data });
+        handleShowSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
         setErrThrown(error.message);
