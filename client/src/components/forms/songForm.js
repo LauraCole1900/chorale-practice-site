@@ -345,7 +345,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongTenPracticeATempo">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Tenor practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Label>Tenor practice track(s), performance tempo:</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsTenATempo &&
                   <div className="error"><p>{errors.practiceTrackUrlsTenATempo}</p></div>}
@@ -357,7 +357,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongBassPracticeATempo">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Bass practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Label>Bass practice track(s), performance tempo:</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsBassATempo &&
                   <div className="error"><p>{errors.practiceTrackUrlsBassATempo}</p></div>}
