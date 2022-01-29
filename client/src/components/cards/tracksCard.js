@@ -19,13 +19,13 @@ const TracksCard = ({ concert, section }) => {
   useEffect(() => {
     const filteredSongs = concert.songs.filter(song => song.concertOrder);
     const otherSongs = concert.songs.filter(song => !song.concertOrder);
-    
+
     if (filteredSongs.length) {
       const sortedSongs = filteredSongs.sort((a, b) => a.concertOrder > b.concertOrder ? 1 : -1);
       setAllSongs([...sortedSongs, otherSongs].flat());
     }
   }, []);
-  
+
 
   return (
     <>
@@ -35,6 +35,10 @@ const TracksCard = ({ concert, section }) => {
           <p>{dates} | {times} | <span className="boldOutline">Countdown to curtain</span>: {timeToCurtain(concert.date[0], concert.time[0])}</p>
         </Card.Header>
         <Card.Body className="cardBody">
+          {concert.addlMaterials?.length > 0 &&
+            concert.addlMaterials.map((item, i) => (
+              <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
+            ))}
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}

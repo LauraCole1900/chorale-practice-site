@@ -316,6 +316,7 @@ query trueConcerts {
     name
     date
     time
+    addlMaterials
     songs {
       _id
       title
