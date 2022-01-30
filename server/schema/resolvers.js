@@ -140,16 +140,15 @@ const resolvers = {
     },
 
     editRepertoire: async (_, args) => {
-      console.log({ args });
       const concert = await Concert.findOneAndUpdate({ _id: args._id, "songs._id": args.songId }, {
         $set: {
           "songs.$": {
-            title: args.title, composer: args.composer, concertOrder: args.concertOrder, practiceTrackUrlsSopSlow: args.practiceTrackUrlsSopSlow, practiceTrackUrlsAltoSlow: args.practiceTrackUrlsAltoSlow, practiceTrackUrlsTenSlow: args.practiceTrackUrlsTenSlow, practiceTrackUrlsBassSlow: args.practiceTrackUrlsBassSlow, practiceTrackUrlsSopATempo: args.practiceTrackUrlsSopATempo, practiceTrackUrlsAltoATempo: args.practiceTrackUrlsAltoATempo, practiceTrackUrlsTenATempo: args.practiceTrackUrlsTenATempo, practiceTrackUrlsBassATempo: args.practiceTrackUrlsBassATempo, videoUrls: args.videoUrls
+            _id: args.songId, title: args.title, composer: args.composer, concertOrder: args.concertOrder, practiceTrackUrlsSopSlow: args.practiceTrackUrlsSopSlow, practiceTrackUrlsAltoSlow: args.practiceTrackUrlsAltoSlow, practiceTrackUrlsTenSlow: args.practiceTrackUrlsTenSlow, practiceTrackUrlsBassSlow: args.practiceTrackUrlsBassSlow, practiceTrackUrlsSopATempo: args.practiceTrackUrlsSopATempo, practiceTrackUrlsAltoATempo: args.practiceTrackUrlsAltoATempo, practiceTrackUrlsTenATempo: args.practiceTrackUrlsTenATempo, practiceTrackUrlsBassATempo: args.practiceTrackUrlsBassATempo, videoUrls: args.videoUrls
           }
         }
       }, { new: true });
-      console.log({ concert });
-      return concert;
+      const song = concert.songs.filter(song => song._id == args.songId);
+      return song[0];
     },
 
     editPassword: async (_, args) => {
