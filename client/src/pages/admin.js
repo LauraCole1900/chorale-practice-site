@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME, QUERY_ONE_CONCERT } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";

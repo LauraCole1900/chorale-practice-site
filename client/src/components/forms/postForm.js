@@ -198,6 +198,8 @@ const PostForm = () => {
             <Row>
               <Col sm={{ span: 4, offset: 2 }}>
                 <Form.Label>Select type of post: <span className="red">*</span></Form.Label>
+                {errors.postType &&
+                  <div className="error"><p>{errors.postType}</p></div>}
                 <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" disabled={me.position === "section leader"} onChange={handleInputChange}>
                   <option>Select</option>
                   <option value="emergency">Emergency Announcement</option>
@@ -229,6 +231,8 @@ const PostForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Post body: <span className="red">*</span></Form.Label>
+                {errors.postBody &&
+                  <div className="error"><p>{errors.postBody}</p></div>}
                 <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} />
               </Col>
             </Row>

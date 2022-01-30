@@ -177,10 +177,8 @@ const Members = () => {
                   <Card.Header className="cardTitle">
                     <h2>Singer's Notes</h2>
                     {sortedSingersNote.length > 0 &&
-                      <>
-                        <h2>{sortedSingersNote[0].postTitle}</h2>
-                        <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
-                      </>}
+                      <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
+                    }
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedSingersNote.length > 0
