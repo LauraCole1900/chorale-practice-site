@@ -18,7 +18,7 @@ const PostForm = () => {
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
   const [thisSection, setThisSection] = useState();
-  const editorState = EditorState.createEmpty();
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const { loading: noteLoading, data: noteData, error: noteError } = useQuery(QUERY_ONE_POST,
     {
