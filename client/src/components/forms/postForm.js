@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
-import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import EditorContainer from "../richTextEditor";
 import "./style.css";
 
 const PostForm = () => {
@@ -18,7 +16,6 @@ const PostForm = () => {
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
   const [thisSection, setThisSection] = useState();
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const { loading: noteLoading, data: noteData, error: noteError } = useQuery(QUERY_ONE_POST,
     {
@@ -237,19 +234,8 @@ const PostForm = () => {
                 <Form.Label>Post body: <span className="red">*</span></Form.Label>
                 {errors.postBody &&
                   <div className="error"><p>{errors.postBody}</p></div>}
-                <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} />
-              </Col>
-            </Row>
-
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Editor
-                  editorState={editorState}
-                  toolbarClassName="toolbarClassName"
-                  wrapperClassName="wrapperClassName"
-                  editorClassName="editorClassName"
-                  onEditorStateChange={Editor.onEditorStateChange}
-                />
+                <EditorContainer value={postData.postBody} name="postBody" onChange={handleInputChange} />
+                {/* <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} /> */}
               </Col>
             </Row>
           </Form.Group>
