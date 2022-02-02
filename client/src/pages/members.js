@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
+import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_BIRTHDAYS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
@@ -9,7 +10,7 @@ import Auth from "../utils/auth";
 import "./style.css";
 
 const Members = () => {
-  // const [admins, setAdmins] = useState([]);
+  const [editorState, setEditorState] = useState();
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
   const { loading: bdayLoading, data: bdayData, error: bdayError } = useQuery(QUERY_ALL_BIRTHDAYS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);

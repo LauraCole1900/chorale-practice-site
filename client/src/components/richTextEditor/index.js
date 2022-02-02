@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { EditorState } from "draft-js";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./style.css";
@@ -7,16 +7,24 @@ import "./style.css";
 class EditorContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(props.value),
-    };
+    this.state = props.value
+      ? {
+        editorState: EditorState.convertFromRaw(JSON.parse(props.value))
+      }
+      : {
+        editorState: EditorState.createEmpty()
+      };
+    this.name = props.name;
+    this.value = props.value;
+    this.postData = props.postData;
+    this.setPostData = props.setPostData;
   }
 
   onEditorStateChange = (editorState) => {
-    // console.log(editorState)
     this.setState({
       editorState,
     });
+    this.setPostData({ ...this.postData, postBody: editorState })
   };
 
   render() {

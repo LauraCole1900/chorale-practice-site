@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
+import { convertFromRaw, convertToRaw } from "draft-js";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
@@ -91,6 +92,8 @@ const PostForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    // console.log(JSON.stringify(postData.postBody));
+    console.log({ postData });
     // Validates required inputs
     const validationErrors = postValidate(postData);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -98,7 +101,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await addPost({
-          variables: { ...postData, postSection: thisSection }
+          variables: { ...postData, postSection: thisSection, postBody: JSON.stringify(convertToRaw(postData.postBody.getCurrentContent())) }
         });
         handleShowSuccess();
       } catch (error) {
@@ -234,7 +237,7 @@ const PostForm = () => {
                 <Form.Label>Post body: <span className="red">*</span></Form.Label>
                 {errors.postBody &&
                   <div className="error"><p>{errors.postBody}</p></div>}
-                <EditorContainer value={postData.postBody} name="postBody" placeholder="Enter post here" className="formText" onChange={handleInputChange} />
+                <EditorContainer value={postData.postBody} name="postBody" postData={postData} setPostData={setPostData} />
                 {/* <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} /> */}
               </Col>
             </Row>
