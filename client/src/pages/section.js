@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
+import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
@@ -76,7 +77,7 @@ const Section = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 {Object.keys(sectionPost).length > 0
-                  ? <p>{sectionPost.postBody}</p>
+                  ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sectionPost.postBody)))} readOnly={true} />
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>
