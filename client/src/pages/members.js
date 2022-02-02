@@ -10,7 +10,6 @@ import Auth from "../utils/auth";
 import "./style.css";
 
 const Members = () => {
-  const [editorState, setEditorState] = useState();
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
   const { loading: bdayLoading, data: bdayData, error: bdayError } = useQuery(QUERY_ALL_BIRTHDAYS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
@@ -72,6 +71,8 @@ const Members = () => {
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
+
+  // setEmergencyState(EditorState.createWithContent(convertFromRaw(emergency[0]?.postBody)))
 
   // Handles deletion of expired emergency posts
   const handleDeleteExpired = async (id) => {
@@ -145,7 +146,7 @@ const Members = () => {
                       <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                     </Card.Header>
                     <Card.Body className="cardBody">
-                      {emergency[0].postBody}
+                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)))} readOnly={true} />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -165,7 +166,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedDirectorNote.length > 0
-                      ? <p>{sortedDirectorNote[0].body}</p>
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)))} readOnly={true} />
                       : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
@@ -183,7 +184,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedSingersNote.length > 0
-                      ? <p>{sortedSingersNote[0].postBody}</p>
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedSingersNote[0].postBody)))} readOnly={true} />
                       : <p>No Singer's Notes found</p>}
                   </Card.Body>
                 </Card>
