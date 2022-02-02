@@ -42,6 +42,14 @@
 .formSelect {
   margin-bottom: 2rem;
 }
+.formCheck:focus,
+.formEmail:focus,
+.formInput:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: var(--disabled);
+  box-shadow: 0 0 10px var(--disabled);
+}
 
 .form-label {
   margin-bottom: 0;

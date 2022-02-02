@@ -86,6 +86,13 @@ a.sideLinks:hover {
   padding: 0;
 }
 
+.formInput:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: var(--disabled);
+  box-shadow: 0 0 10px var(--disabled);
+}
+
 .loginBtn {
   color: var(--gcWhite);
   background-color: var(--gcRed);
