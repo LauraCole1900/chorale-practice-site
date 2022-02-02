@@ -20,7 +20,9 @@
 }
 
 .rdw-editor-main {
+  background: #fdfdfd;
   min-height: 20rem;
+  border-radius: 5px;
 }
 .rdw-editor-main:focus-within {
   outline: none;
@@ -28,5 +30,5 @@
   box-shadow: 0 0 10px #b14748;
 }
 .public-DraftStyleDefault-block {
-  margin: .5em .75em;
+  margin: 0.5em 0.75em;
 }
