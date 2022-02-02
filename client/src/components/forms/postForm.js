@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
+import dayjs from "dayjs";
 import { convertFromRaw, convertToRaw } from "draft-js";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
@@ -153,7 +154,7 @@ const PostForm = () => {
 
   useEffect(() => {
     if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
-      setPostData(postToEdit);
+      postToEdit.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
     }
     if (["Soprano I", "Soprano II"].includes(me.section)) {
       setThisSection("soprano")
