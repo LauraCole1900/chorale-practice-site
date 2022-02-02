@@ -18,3 +18,15 @@
 .richTextContainer {
   background-color: var(--gcWhite);
 }
+
+.rdw-editor-main {
+  min-height: 20rem;
+}
+.rdw-editor-main:focus-within {
+  outline: none;
+  border-color: #b14748;
+  box-shadow: 0 0 10px #b14748;
+}
+.public-DraftStyleDefault-block {
+  margin: .5em .75em;
+}
