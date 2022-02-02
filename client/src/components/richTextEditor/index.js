@@ -9,7 +9,7 @@ class EditorContainer extends Component {
     super(props);
     this.state = props.value
       ? {
-        editorState: EditorState.convertFromRaw(JSON.parse(props.value))
+        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(props.value)))
       }
       : {
         editorState: EditorState.createEmpty()

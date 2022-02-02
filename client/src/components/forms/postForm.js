@@ -132,7 +132,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await editPost({
-          variables: { id: postId, ...postData }
+          variables: { id: postId, ...postData, postBody: JSON.stringify(convertToRaw(postData.postBody.getCurrentContent())) }
         });
         handleShowSuccess();
       } catch (error) {
@@ -154,7 +154,7 @@ const PostForm = () => {
 
   useEffect(() => {
     if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
-      postToEdit.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
+      postToEdit?.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
     }
     if (["Soprano I", "Soprano II"].includes(me.section)) {
       setThisSection("soprano")
@@ -188,94 +188,93 @@ const PostForm = () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col sm={12} className="formHeader">
-            {Object.keys(params).length > 0
-              ? <h1>Edit this post</h1>
-              : <h1>Create new post</h1>}
-          </Col>
-        </Row>
-
-        <Form className="postForm">
-
-          <Form.Group controlId="formPostType">
-            <Row>
-              <Col sm={{ span: 4, offset: 2 }}>
-                <Form.Label>Select type of post: <span className="red">*</span></Form.Label>
-                {errors.postType &&
-                  <div className="error"><p>{errors.postType}</p></div>}
-                <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" disabled={me.position === "section leader"} onChange={handleInputChange}>
-                  <option>Select</option>
-                  <option value="emergency">Emergency Announcement</option>
-                  <option value="singers note">Singer's Notes</option>
-                  <option value="director">Director's Corner</option>
-                  <option value="section leader">Section Leader Announcement</option>
-                  <option value="general">General Announcement</option>
-                </Form.Select>
-              </Col>
-
-              {postData.postType === "emergency" &&
-                <Col sm={4}>
-                  <Form.Label>Post expires: <span className="red">*</span></Form.Label>
-                  <Form.Control type="date" name="postExpire" placeholder="04-05-2063" value={postData.postExpire} className="formDate" onChange={handleInputChange} />
-                </Col>}
-            </Row>
-          </Form.Group>
-
-          <Form.Group controlId="formPostTitle">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Post title: (optional)</Form.Label>
-                <Form.Control type="input" name="postTitle" placeholder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
-              </Col>
-            </Row>
-          </Form.Group>
-
-          <Form.Group controlId="formPostBody">
-            <Row>
-              <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Post body: <span className="red">*</span></Form.Label>
-                {errors.postBody &&
-                  <div className="error"><p>{errors.postBody}</p></div>}
-                <EditorContainer value={postData.postBody} name="postBody" postData={postData} setPostData={setPostData} />
-                {/* <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} /> */}
-              </Col>
-            </Row>
-          </Form.Group>
-
+        <Container>
           <Row>
-            <Col sm={{ span: 3, offset: 2 }}>
-              {!Object.keys(params).length
-                ? <Button data-toggle="popover" title="Submit" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
-                : <Button data-toggle="popover" title="Update" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
-              }
+            <Col sm={12} className="formHeader">
+              {Object.keys(params).length > 0
+                ? <h1>Edit this post</h1>
+                : <h1>Create new post</h1>}
             </Col>
           </Row>
 
-        </Form>
+          <Form className="postForm">
 
-        <SuccessModal
-          user={me}
-          urlid={urlId}
-          urltype={urlType}
-          btnname={btnName}
-          params={[]}
-          show={showSuccess === true}
-          hide={() => handleHideSuccess()}
-        />
+            <Form.Group controlId="formPostType">
+              <Row>
+                <Col sm={{ span: 4, offset: 2 }}>
+                  <Form.Label>Select type of post: <span className="red">*</span></Form.Label>
+                  {errors.postType &&
+                    <div className="error"><p>{errors.postType}</p></div>}
+                  <Form.Select name="postType" value={postData.postType} className="formSelect" aria-label="Type of post" disabled={me.position === "section leader"} onChange={handleInputChange}>
+                    <option>Select</option>
+                    <option value="emergency">Emergency Announcement</option>
+                    <option value="singers note">Singer's Notes</option>
+                    <option value="director">Director's Corner</option>
+                    <option value="section leader">Section Leader Announcement</option>
+                    <option value="general">General Announcement</option>
+                  </Form.Select>
+                </Col>
 
-        <ErrorModal
-          user={me}
-          urlid={urlId}
-          urltype={urlType}
-          errmsg={errThrown}
-          btnname={btnName}
-          show={showErr === true}
-          hide={() => handleHideErr()}
-        />
+                {postData.postType === "emergency" &&
+                  <Col sm={4}>
+                    <Form.Label>Post expires: <span className="red">*</span></Form.Label>
+                    <Form.Control type="date" name="postExpire" placeholder="04-05-2063" value={postData.postExpire} className="formDate" onChange={handleInputChange} />
+                  </Col>}
+              </Row>
+            </Form.Group>
 
-      </Container>
+            <Form.Group controlId="formPostTitle">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Post title: (optional)</Form.Label>
+                  <Form.Control type="input" name="postTitle" placeholder="Title of your post" value={postData.postTitle} className="formInput" onChange={handleInputChange} />
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Form.Group controlId="formPostBody">
+              <Row>
+                <Col sm={{ span: 8, offset: 2 }}>
+                  <Form.Label>Post body: <span className="red">*</span></Form.Label>
+                  {errors.postBody &&
+                    <div className="error"><p>{errors.postBody}</p></div>}
+                  <EditorContainer value={postData.postBody} name="postBody" postData={postData} setPostData={setPostData} />
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Row>
+              <Col sm={{ span: 3, offset: 2 }}>
+                {!Object.keys(params).length
+                  ? <Button data-toggle="popover" title="Submit" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                  : <Button data-toggle="popover" title="Update" disabled={!(postData.postType && postData.postBody)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
+                }
+              </Col>
+            </Row>
+
+          </Form>
+
+          <SuccessModal
+            user={me}
+            urlid={urlId}
+            urltype={urlType}
+            btnname={btnName}
+            params={[]}
+            show={showSuccess === true}
+            hide={() => handleHideSuccess()}
+          />
+
+          <ErrorModal
+            user={me}
+            urlid={urlId}
+            urltype={urlType}
+            errmsg={errThrown}
+            btnname={btnName}
+            show={showErr === true}
+            hide={() => handleHideErr()}
+          />
+
+        </Container>
     </>
   )
 }
