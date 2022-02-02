@@ -103,6 +103,20 @@ a.sideLinks:hover {
   background-color: var(--disabled);
   border: 1px solid var(--gcWhite);
 }
+.loginBtn:focus {
+  background-color: var(--gcCharcoal);
+  border: 1px solid var(--gcWhite);
+  cursor: pointer;
+  border-color: var(--disabled);
+  box-shadow: none;
+}
+.loginBtn:active {
+  background-color: var(--gcCharcoal);
+  border: 1px solid var(--gcWhite);
+  cursor: pointer;
+  border-color: var(--disabled);
+  box-shadow: none;
+}
 .loginBtn:hover {
   background-color: var(--gcCharcoal);
   border: 1px solid var(--gcWhite);
