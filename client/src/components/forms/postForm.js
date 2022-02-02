@@ -234,7 +234,7 @@ const PostForm = () => {
                 <Form.Label>Post body: <span className="red">*</span></Form.Label>
                 {errors.postBody &&
                   <div className="error"><p>{errors.postBody}</p></div>}
-                <EditorContainer value={postData.postBody} name="postBody" onChange={handleInputChange} />
+                <EditorContainer value={postData.postBody} name="postBody" placeholder="Enter post here" className="formText" onChange={handleInputChange} />
                 {/* <Form.Control required as="textarea" rows={10} type="input" name="postBody" placeholder="Enter post here" value={postData.postBody} className="formText" onChange={handleInputChange} /> */}
               </Col>
             </Row>
