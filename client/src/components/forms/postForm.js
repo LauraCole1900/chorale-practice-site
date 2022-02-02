@@ -13,6 +13,7 @@ import "./style.css";
 
 const PostForm = () => {
   const params = useParams();
+  const [pageReady, setPageReady] = useState(false);
   const [postId, setPostId] = useState(params.postId);
   const [errors, setErrors] = useState({});
   const [errThrown, setErrThrown] = useState();
@@ -155,6 +156,7 @@ const PostForm = () => {
   useEffect(() => {
     if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
       postToEdit?.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
+      setPageReady(true);
     }
     if (["Soprano I", "Soprano II"].includes(me.section)) {
       setThisSection("soprano")
@@ -166,6 +168,10 @@ const PostForm = () => {
       setThisSection("bass")
     } else {
       setThisSection(me.section)
+    }
+    
+    if (!Object.keys(params).length) {
+      setPageReady(true);
     }
   }, [postToEdit]);
 
@@ -188,6 +194,7 @@ const PostForm = () => {
 
   return (
     <>
+      {pageReady === true &&
         <Container>
           <Row>
             <Col sm={12} className="formHeader">
@@ -275,6 +282,7 @@ const PostForm = () => {
           />
 
         </Container>
+      }
     </>
   )
 }
