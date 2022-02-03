@@ -16,15 +16,14 @@ class EditorContainer extends Component {
       };
     this.name = props.name;
     this.value = props.value;
-    this.postData = props.postData;
-    this.setPostData = props.setPostData;
+    this.onChange = props.onChange
   }
 
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
     });
-    this.setPostData({ ...this.postData, postBody: editorState })
+    this.onChange(this.name, editorState)
   };
 
   render() {

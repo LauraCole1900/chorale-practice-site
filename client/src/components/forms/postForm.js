@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
@@ -29,12 +29,10 @@ const PostForm = () => {
 
   const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
-      console.log({ addPost });
       try {
         // Retrieve existing post data that is stored in the cache
         const allData = cache.readQuery({ query: QUERY_ALL_POSTS });
         const currentPosts = allData.allPosts;
-        console.log({ currentPosts });
         // Update the cache by combining existing post data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ALL_POSTS,
@@ -44,7 +42,6 @@ const PostForm = () => {
         // Retrieve existing post data that is stored in the cache
         const oneData = cache.readQuery({ query: QUERY_ONE_SECT_POST });
         const currentPost = oneData.oneSectPost;
-        console.log({ currentPost });
         // Update the cache by combining existing post data with the newly created data returned from the mutation
         cache.writeQuery({
           query: QUERY_ONE_SECT_POST,
@@ -84,18 +81,28 @@ const PostForm = () => {
     postTitle: "",
     postBody: ""
   });
+  const currentPostData = useRef(postData);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setPostData({ ...postData, [name]: value });
+    setPostData(prev => {
+      currentPostData.current = { ...prev, [name]: value };
+      return { ...prev, [name]: value };
+    });
+  };
+
+  // Handles input changes to editor
+  const handleEditorChange = (name, value) => {
+    setPostData(prev => {
+      currentPostData.current = { ...prev, [name]: value };
+      return { ...prev, [name]: value };
+    });
   };
 
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // console.log(JSON.stringify(postData.postBody));
-    console.log({ postData });
     // Validates required inputs
     const validationErrors = postValidate(postData);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -169,7 +176,7 @@ const PostForm = () => {
     } else {
       setThisSection(me.section)
     }
-    
+
     if (!Object.keys(params).length) {
       setPageReady(true);
     }
@@ -179,10 +186,10 @@ const PostForm = () => {
     return <h1>Loading....</h1>
   };
 
-  if (meError || noteError) {
-    console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ noteError }));
-  };
+  // if (meError || noteError) {
+  //   console.error(JSON.stringify({ meError }));
+  //   console.error(JSON.stringify({ noteError }));
+  // };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
@@ -245,7 +252,7 @@ const PostForm = () => {
                   <Form.Label>Post body: <span className="red">*</span></Form.Label>
                   {errors.postBody &&
                     <div className="error"><p>{errors.postBody}</p></div>}
-                  <EditorContainer value={postData.postBody} name="postBody" postData={postData} setPostData={setPostData} />
+                  <EditorContainer value={postData.postBody} name="postBody" onChange={handleEditorChange} />
                 </Col>
               </Row>
             </Form.Group>
