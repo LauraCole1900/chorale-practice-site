@@ -50,7 +50,6 @@ const resolvers = {
     },
 
     onePost: async (_, args) => {
-      console.log({ args });
       return await Post.findOne({ _id: args._id });
     },
 
