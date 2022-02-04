@@ -3,8 +3,18 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const ChangePasswordModal = (props) => {
+
+  //=====================//
+  //   State variables   //
+  //=====================//
   const [pwordMatch, setPwordMatch] = useState(false);
 
+
+  //=====================//
+  //      Functions      //
+  //=====================//
+
+  // Checks whether "new password" and "confirm new password" match
   const checkMatch = (pword1, pword2) => {
     const match = pword1 === pword2;
     setPwordMatch(match);
@@ -16,6 +26,7 @@ const ChangePasswordModal = (props) => {
     props.setUserData({ ...props.userData, [name]: value })
   };
 
+  // Handles click on "update password" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.update(e);
