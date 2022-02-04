@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs"
-import { Editor, EditorState, convertFromRaw } from "draft-js";
+import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
@@ -28,6 +28,36 @@ const Section = () => {
 
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
+
+  // Makes RTE links clickable in read-only mode
+  function linkStrategy(contentBlock, callback, contentState) {
+    contentBlock.findEntityRanges(
+      (character) => {
+        const entityKey = character.getEntity();
+        return (
+          entityKey !== null &&
+          contentState.getEntity(entityKey).getType() === 'LINK'
+        );
+      },
+      callback
+    );
+  }
+
+  const Link = (props) => {
+    const { url } = props.contentState.getEntity(props.entityKey).getData();
+    return (
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        {props.children}
+      </a>
+    );
+  };
+
+  const decorator = new CompositeDecorator([
+    {
+      strategy: linkStrategy,
+      component: Link,
+    },
+  ]);
 
   useEffect(() => {
     if (!["soprano", "alto", "tenor", "bass"].includes(section)) {
@@ -77,7 +107,7 @@ const Section = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 {Object.keys(sectionPost).length > 0
-                  ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sectionPost.postBody)))} readOnly={true} />
+                  ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sectionPost.postBody)), decorator)} readOnly={true} />
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>

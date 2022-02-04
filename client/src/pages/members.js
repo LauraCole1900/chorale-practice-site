@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import { Editor, EditorState, convertFromRaw } from "draft-js";
+import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_BIRTHDAYS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
@@ -72,7 +72,35 @@ const Members = () => {
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
-  // setEmergencyState(EditorState.createWithContent(convertFromRaw(emergency[0]?.postBody)))
+  // Makes RTE links clickable in read-only mode
+  function linkStrategy(contentBlock, callback, contentState) {
+    contentBlock.findEntityRanges(
+      (character) => {
+        const entityKey = character.getEntity();
+        return (
+          entityKey !== null &&
+          contentState.getEntity(entityKey).getType() === 'LINK'
+        );
+      },
+      callback
+    );
+  }
+
+  const Link = (props) => {
+    const { url } = props.contentState.getEntity(props.entityKey).getData();
+    return (
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        {props.children}
+      </a>
+    );
+  };
+
+  const decorator = new CompositeDecorator([
+    {
+      strategy: linkStrategy,
+      component: Link,
+    },
+  ]);
 
   // Handles deletion of expired emergency posts
   const handleDeleteExpired = async (id) => {
@@ -146,7 +174,7 @@ const Members = () => {
                       <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                     </Card.Header>
                     <Card.Body className="cardBody">
-                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)))} readOnly={true} />
+                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -166,7 +194,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedDirectorNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)))} readOnly={true} />
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} />
                       : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
@@ -184,7 +212,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedSingersNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedSingersNote[0].postBody)))} readOnly={true} />
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedSingersNote[0].postBody)), decorator)} readOnly={true} />
                       : <p>No Singer's Notes found</p>}
                   </Card.Body>
                 </Card>
