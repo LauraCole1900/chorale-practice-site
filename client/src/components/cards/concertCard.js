@@ -23,6 +23,7 @@ const ConcertCard = ({ concert }) => {
     return casedStr;
   }
 
+  
   //======================//
   //  Variables storing   //
   // dates, times, venues //
