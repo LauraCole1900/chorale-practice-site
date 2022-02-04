@@ -1,23 +1,29 @@
 import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
-// import gclogo from "../../pix/chorale-logo.webp";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import "./style.css";
 
 const Navibar = () => {
+
+  //=====================//
+  //    GraphQL Query    //
+  //=====================//
+
+  // eslint-disable-next-line no-unused-vars
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
   const me = meData?.me || {};
 
+
+  //=====================//
+  //     Conditionals    //
+  //=====================//
+
   if (meLoading) {
     return <p>Loading....</p>
   }
-
-  // if (meError) {
-  //   console.error(JSON.stringify(meError));
-  // }
 
 
   return (
