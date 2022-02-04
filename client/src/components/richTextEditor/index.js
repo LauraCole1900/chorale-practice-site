@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./style.css";
@@ -32,12 +32,20 @@ class EditorContainer extends Component {
       <Editor
         editorState={editorState}
         onEditorStateChange={this.onEditorStateChange}
+        toolbarClassName="gcToolbar"
         toolbar={{
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true }
+          options: ["inline", "blockType", "fontSize", "fontFamily", "list", "textAlign", "link", "colorPicker", "history"],
+          inline: {
+            inDropdown: false,
+            options: ["bold", "italic", "underline", "strikethrough"]
+          },
+          list: {
+            inDropdown: false,
+            options: ["unordered", "ordered"]
+          },
+          textAlign: { inDropdown: false },
+          link: { inDropdown: false },
+          history: { inDropdown: false }
         }}
       />
     </div>

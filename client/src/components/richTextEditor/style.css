@@ -15,6 +15,10 @@
   --bodyFont: "Lato", sans-serif;
 }
 
+.gcToolbar {
+  background-color: var(--disabled)
+}
+
 .richTextContainer {
   background-color: var(--gcWhite);
 }
