@@ -1,14 +1,15 @@
 import decode from 'jwt-decode';
 
 class AuthService {
+  
   // GET user data
   getProfile() {
     return decode(this.getToken());
   }
 
-  // Check if user's logged in
+  // Check whether user is logged in:
+  // Check for a saved token and that it's still valid
   loggedIn() {
-    // Check for a saved token and that it's still valid
     const token = this.getToken();
     return !!token && !this.isTokenExpired(token);
   }
@@ -25,21 +26,21 @@ class AuthService {
     }
   }
 
+  // GET user token from localStorage
   getToken() {
-    // GET user token from localStorage
     return localStorage.getItem("id_token");
   }
 
+  // POST user token to localStorage
   login(idToken) {
-    // POST user token to localStorage
     localStorage.setItem("id_token", idToken);
     window.location.assign("/members");
   }
 
+  // DELETE user token and profile data from localStorage,
+  // then reload the page and reset the state of the application
   logout() {
-    // DELETE user token and profile data from localStorage
     localStorage.removeItem("id_token");
-    // Reload the page and reset the state of the application
     window.location.assign("/");
   }
 }
