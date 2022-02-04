@@ -1,23 +1,33 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const SelectSongModal = (props) => {
 
+  //=====================//
+  //      Functions      //
+  //=====================//
+
+  // Handles clicks on checkboxes
   const handleInputChange = (e) => {
     const { value } = e.currentTarget;
     const songs = props.songsToDelete;
     let songArr;
+    // If the existing array includes the ID of the song clicked on, remove it
+    // Otherwise, add it to the array
     songs.includes(value) ? songArr = songs.filter(song => song !== value) : songArr = [...songs, value];
+    // Set the array of song IDs in state
     props.setSongsToDelete(songArr);
   };
 
+  // Handles click on "take me back button"
+  // Empties the songsToDelete array
   const handleGoBack = () => {
     props.setSongsToDelete([]);
     props.hide();
   };
 
+  // Handles click on "delete repertoire" button
   const handleGoOn = (e) => {
     e.preventDefault();
     const { dataset } = e.target
@@ -29,6 +39,8 @@ const SelectSongModal = (props) => {
   return (
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
+
+        {/* Renders clickable list of songs to choose one to edit */}
         {props.btnname === "songsEdit" &&
           <>
             <Modal.Header className="modalHead">
@@ -48,6 +60,7 @@ const SelectSongModal = (props) => {
             </Modal.Body>
           </>}
 
+        {/* Renders list of songs with checkboxes to choose one or more to delete */}
         {props.btnname === "songsDelete" &&
           <>
             <Modal.Header className="modalHead">
