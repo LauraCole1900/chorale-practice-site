@@ -1,81 +1,9 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_ME = gql`
-query me {
-  me {
-    _id
-    fullName
-    preferredName
-    section
-    position
-    isAdmin
-  }
-}
-`;
 
-export const QUERY_ME_PROFILE = gql`
-query meProfile {
-  meProfile {
-    _id
-    fullName
-    preferredName
-    birthday
-    email1
-    email2
-    phone1
-    phone1Type
-    phone2
-    phone2Type
-    phone3
-    phone3Type
-    section
-    position
-    streetAddress
-    city
-    state
-    zipCode
-    isAdmin
-  }
-}
-`;
-
-export const QUERY_CURRENT_ID = gql`
-query currentId ($id: ID!) {
-  currentId(_id: $id) {
-    _id
-    fullName
-    preferredName
-    section
-    position
-    isAdmin
-  }
-}
-`;
-
-export const QUERY_ALL_ADMINS = gql`
-query admins {
-  admins {
-    _id
-    fullName
-    preferredName
-    email1
-    phone1
-    section
-    position
-    isAdmin
-  }
-}
-`;
-
-export const QUERY_ALL_BIRTHDAYS = gql`
-query allBirthdays {
-  allBirthdays {
-    _id
-    fullName
-    birthday
-  }
-}
-`
+//=====================//
+//   Concert Queries   //
+//=====================//
 
 export const QUERY_ALL_CONCERTS = gql`
 query allConcerts {
@@ -106,48 +34,6 @@ query allConcerts {
 }
 `;
 
-export const QUERY_ALL_POSTS = gql`
-query allPosts {
-  allPosts {
-    _id
-    postType
-    postExpire
-    postDate
-    postTitle
-    postBody
-  }
-}
-`;
-
-export const QUERY_ALL_USERS = gql`
-query allUsers {
-  allUsers {
-    _id
-    fullName
-    firstName
-    lastName
-    preferredName
-    birthday
-    email1
-    email2
-    phone1
-    phone1Type
-    phone2
-    phone2Type
-    phone3
-    phone3Type
-    section
-    position
-    streetAddress
-    city
-    state
-    zipCode
-    isAdmin
-    isActive
-  }
-}
-`;
-
 export const QUERY_ONE_CONCERT = gql`
 query oneConcert ($id: ID!) {
   oneConcert(_id: $id) {
@@ -173,6 +59,51 @@ query oneConcert ($id: ID!) {
       practiceTrackUrlsBassATempo
       videoUrls
     }
+  }
+}
+`;
+
+export const QUERY_TRUE_CONCERTS = gql`
+query trueConcerts {
+  trueConcerts {
+    _id
+    name
+    date
+    time
+    addlMaterials
+    songs {
+      _id
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSopSlow
+      practiceTrackUrlsAltoSlow
+      practiceTrackUrlsTenSlow
+      practiceTrackUrlsBassSlow
+      practiceTrackUrlsSopATempo
+      practiceTrackUrlsAltoATempo
+      practiceTrackUrlsTenATempo
+      practiceTrackUrlsBassATempo
+      videoUrls
+      }
+    }
+  }
+`;
+
+
+//=====================//
+//    Post Queries     //
+//=====================//
+
+export const QUERY_ALL_POSTS = gql`
+query allPosts {
+  allPosts {
+    _id
+    postType
+    postExpire
+    postDate
+    postTitle
+    postBody
   }
 }
 `;
@@ -225,6 +156,117 @@ query oneSectPost($postType: String!, $postSection: String!) {
     postDate
     postTitle
     postBody
+  }
+}
+`;
+
+
+//=====================//
+//    User Queries     //
+//=====================//
+
+export const QUERY_ALL_ADMINS = gql`
+query admins {
+  admins {
+    _id
+    fullName
+    preferredName
+    email1
+    phone1
+    section
+    position
+    isAdmin
+  }
+}
+`;
+
+export const QUERY_ALL_BIRTHDAYS = gql`
+query allBirthdays {
+  allBirthdays {
+    _id
+    fullName
+    birthday
+  }
+}
+`;
+
+export const QUERY_ALL_USERS = gql`
+query allUsers {
+  allUsers {
+    _id
+    fullName
+    firstName
+    lastName
+    preferredName
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    city
+    state
+    zipCode
+    isAdmin
+    isActive
+  }
+}
+`;
+
+export const QUERY_CURRENT_ID = gql`
+query currentId ($id: ID!) {
+  currentId(_id: $id) {
+    _id
+    fullName
+    preferredName
+    section
+    position
+    isAdmin
+  }
+}
+`;
+
+export const QUERY_ME = gql`
+query me {
+  me {
+    _id
+    fullName
+    preferredName
+    section
+    position
+    isAdmin
+  }
+}
+`;
+
+export const QUERY_ME_PROFILE = gql`
+query meProfile {
+  meProfile {
+    _id
+    fullName
+    preferredName
+    birthday
+    email1
+    email2
+    phone1
+    phone1Type
+    phone2
+    phone2Type
+    phone3
+    phone3Type
+    section
+    position
+    streetAddress
+    city
+    state
+    zipCode
+    isAdmin
   }
 }
 `;
@@ -307,31 +349,5 @@ query oneUserAdmin($id: ID!) {
     isAdmin
     isActive
   }
-}`
-
-export const QUERY_TRUE_CONCERTS = gql`
-query trueConcerts {
-  trueConcerts {
-    _id
-    name
-    date
-    time
-    addlMaterials
-    songs {
-      _id
-      title
-      composer
-      concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackUrlsBassATempo
-      videoUrls
-      }
-    }
-  }
+}
 `;
