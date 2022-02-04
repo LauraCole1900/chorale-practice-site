@@ -5,7 +5,7 @@ import "./style.css";
 const SelectSongModal = (props) => {
 
   //=====================//
-  //      Functions      //
+  //       Methods       //
   //=====================//
 
   // Handles clicks on checkboxes

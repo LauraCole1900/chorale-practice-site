@@ -11,7 +11,7 @@ const ChangePasswordModal = (props) => {
 
 
   //=====================//
-  //      Functions      //
+  //       Methods       //
   //=====================//
 
   // Checks whether "new password" and "confirm new password" match

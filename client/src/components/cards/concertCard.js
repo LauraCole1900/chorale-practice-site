@@ -6,7 +6,7 @@ import "./style.css";
 const ConcertCard = ({ concert }) => {
 
   //====================//
-  //     Functions      //
+  //      Methods       //
   //====================//
 
   // Format the date

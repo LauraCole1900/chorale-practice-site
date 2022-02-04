@@ -14,7 +14,7 @@ const TracksCard = ({ concert, section }) => {
 
 
   //=====================//
-  //      Functions      //
+  //       Methods       //
   //=====================//
 
   // Format the date

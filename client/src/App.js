@@ -8,10 +8,17 @@ import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section }
 import { AdminUserForm, ConcertForm, PostForm, SongForm } from "./components/forms";
 import "./App.css";
 
+
+//=====================//
+//      Functions      //
+//=====================//
+
+// Creates Apollo Client http link for GraphQL operations
 const httpLink = createHttpLink({
   uri: "/graphql"
 });
 
+// Sets authentication into context
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
   return {
@@ -22,10 +29,10 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
+// Instantiates the client object and the cache object with some specific options
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache({
-    // addTypename: false,
     typePolicies: {
       Query: {
         fields: {
