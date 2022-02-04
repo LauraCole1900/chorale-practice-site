@@ -38,7 +38,7 @@ const TracksCard = ({ concert, section }) => {
   useEffect(() => {
     // Filter by which songs have an assigned concert order
     const filteredSongs = concert.songs.filter(song => song.concertOrder);
-    
+
     // Filter by which songs do NOT have an assigned concert order
     const otherSongs = concert.songs.filter(song => !song.concertOrder);
 
@@ -48,7 +48,8 @@ const TracksCard = ({ concert, section }) => {
       const sortedSongs = filteredSongs.sort((a, b) => a.concertOrder > b.concertOrder ? 1 : -1);
       setAllSongs([...sortedSongs, otherSongs].flat());
     }
-  }, []);
+
+  }, [concert.songs]);
 
 
   return (
