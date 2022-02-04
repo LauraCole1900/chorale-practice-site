@@ -2,9 +2,18 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 
+//=====================//
+//    dayjs Plugins    //
+//=====================//
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
 
+
+//====================//
+//     Functions      //
+//====================//
+
+// Splits times on spaces, then filters for actual times and formats those
 const formatTime = (time) => {
   let formattedTime = "";
   const timeArr = time.split(" ");
@@ -22,12 +31,15 @@ const formatTime = (time) => {
   return formattedTime;
 };
 
+// Runs the time through above function, then formats date-time
 export const timeToNow = (date, time) => {
   const formattedTime = formatTime(time);
   const dayjsDate = dayjs(`${date} ${formattedTime}`, "M-D-YYYY h:mma");
   return dayjsDate;
 }
 
+// Runs date and time through above function, then uses dayjs fromNow method
+// to find how far in the future the given date-time is
 export const timeToCurtain = (date, time) => {
   const dayjsDate = timeToNow(date, time);
   const counter = dayjs(dayjsDate, "M-D-YYYY h:mm a").fromNow();
