@@ -4,21 +4,32 @@ import { timeToCurtain } from "../../utils/dateUtils";
 import "./style.css";
 
 const ConcertCard = ({ concert }) => {
+
+  //====================//
+  //     Functions      //
+  //====================//
+
+  // Format the date
   const formatDate = (dates) => {
     const formattedDate = dates.map(date => dayjs(date, "M-D-YYYY").format("dddd, MMM D, YYYY"));
     return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
   }
 
-  const dates = formatDate(concert.date);
-  const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
-  const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
-
+  // Capitalize the first letter of each word, e.g. "By Appointment Only"
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
-    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
+    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1).toLowerCase());
     const casedStr = capsArr.join(" ");
     return casedStr;
   }
+
+  //======================//
+  //  Variables storing   //
+  // dates, times, venues //
+  //======================//
+  const dates = formatDate(concert.date);
+  const times = concert.time.length > 1 ? concert.time.join(" & ") : concert.time[0].toString();
+  const venues = concert.venue.length > 1 ? concert.venue.join(" & ") : concert.venue[0].toString();
 
 
   return (
