@@ -22,7 +22,7 @@ const AdminPortal = () => {
   const [songsToDelete, setSongsToDelete] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
-  // Determines which page user is on, specifically for use with modals
+  // Determines which page user is on, specifically for use with modals & sidenav
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const urlType = urlArray[urlArray.length - 2]
@@ -292,7 +292,7 @@ const AdminPortal = () => {
 
         <Row>
           <Col sm={2}>
-            <Sidenav user={me} />
+            <Sidenav user={me} urlId={urlId} />
           </Col>
           <Col sm={10}>
             <Card className="adminCard" id="events">

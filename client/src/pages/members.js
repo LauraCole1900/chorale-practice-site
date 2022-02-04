@@ -33,6 +33,10 @@ const Members = () => {
     }
   });
 
+  // Determines which page user is on, specifically for use with sidenav
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
     const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
@@ -142,7 +146,7 @@ const Members = () => {
       <Container>
         <Row>
           <Col sm={2}>
-            <Sidenav user={me} />
+            <Sidenav user={me} urlId={urlId} />
             <aside className="sideInfo">
               <h2 className="sideInfo">Quick Links</h2>
               <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />

@@ -26,6 +26,10 @@ const Section = () => {
   const concertArr = concertsData?.trueConcerts || [];
   const sectionPost = sectionData?.oneSectPost || {};
 
+  // Determines which page user is on, specifically for use with sidenav
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
 
@@ -96,7 +100,7 @@ const Section = () => {
       <Container>
         <Row>
           <Col sm={2}>
-            <Sidenav user={me} />
+            <Sidenav user={me} urlId={urlId} />
           </Col>
           <Col sm={10}>
             <Card className="announcements">
