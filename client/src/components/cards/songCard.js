@@ -2,6 +2,9 @@ import { Card } from "react-bootstrap";
 import "./style.css"
 
 const SongCard = ({ section, song }) => {
+
+  // If there's more than one composer, join their names into a single string
+  // If there's only one composer, convert the array to a string
   const composers = song.composer.length > 1 ? song.composer.join(" & ") : song.composer[0].toString();
 
 
