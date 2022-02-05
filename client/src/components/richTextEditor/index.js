@@ -4,9 +4,12 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./style.css";
 
+
 class EditorContainer extends Component {
   constructor(props) {
     super(props);
+
+    // State
     this.state = props.value
       ? {
         editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(props.value)))
@@ -19,6 +22,7 @@ class EditorContainer extends Component {
     this.onChange = props.onChange
   }
 
+  // Handles input changes to editor form
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
@@ -26,6 +30,7 @@ class EditorContainer extends Component {
     this.onChange(this.name, editorState)
   };
 
+  // Defines options to render
   render() {
     const { editorState } = this.state;
     return <div className='editor richTextEditor'>
