@@ -2,6 +2,10 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
 
+# //=====================//
+# //        Types        //
+# //=====================//
+
 type Concert {
   _id: ID!
   name: String!
@@ -73,6 +77,11 @@ type Auth {
   user: User
 }
 
+
+# //=====================//
+# //        Inputs       //
+# //=====================//
+
 input SongInput {
   title: String!
   composer: [String!]
@@ -90,58 +99,105 @@ input SongInput {
   videoUrls: [String]
 }
 
+
+# //=====================//
+# //       Queries       //
+# //=====================//
+
 type Query {
-  me: User
-  meProfile: User
-  currentId(_id: ID!): User
+
+  # //=====================//
+  # //   Concert Queries   //
+  # //=====================//
+
+  allConcerts: [Concert]
+  oneConcert(_id: ID!): Concert
+  trueConcerts: [Concert]
+
+
+  # //=====================//
+  # //     Post Queries    //
+  # //=====================//
+
+  allPosts: [Post]
+  onePost(_id: ID!): Post
+  oneAdminPost(_id: ID!, postType: String!): Post
+  oneDirectorPost(_id: ID!, postType: String!): Post
+  oneSectPost(postType: String!, postSection: String!): Post
+
+
+  # //=====================//
+  # //     User Queries    //
+  # //=====================//
+     
   admins: [User]
   allBirthdays: [User]
-  allConcerts: [Concert]
-  allPosts: [Post]
   allUsers: [User]
-  oneConcert(_id: ID!): Concert
-  onePost(_id: ID!): Post
-  oneDirectorPost(_id: ID!, postType: String!): Post
-  oneAdminPost(_id: ID!, postType: String!): Post
-  oneSectPost(postType: String!, postSection: String!): Post
+  currentId(_id: ID!): User
+  me: User
+  meProfile: User
   oneProfile(_id: ID!): User
   oneUser(_id: ID!): User
   oneUserAdmin(_id: ID!): User
-  trueConcerts: [Concert]
 }
 
+
+# //=====================//
+# //      Mutations      //
+# //=====================//
+
 type Mutation {
-  login(email: String! password: String!): Auth
+
+  # //=====================//
+  # //  Concert Mutations  //
+  # //=====================//
 
   addConcert(name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
 
-  addPost(postType: String!, postSection: String, postExpire: String, postTitle: String, postBody: String!): Post
-
-  addUser(fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String!, email2: String, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, city: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
-
   deleteConcert(_id: ID!): Concert
+  
+  editConcertBasic(_id: ID!, name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
 
-  deletePost(_id: ID!): Post
+
+  # //=====================//
+  # //    Song Mutations   //
+  # //=====================//
 
   deleteSong(_id: ID!, songId: ID!): Concert
 
   deleteManySongs(_id: ID!, songsToDelete: [ID!]!): Concert
+  
+  addRepertoire(_id: ID!, songs: SongInput!): Concert
+
+  editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSopSlow: [String!], practiceTrackUrlsAltoSlow: [String!], practiceTrackUrlsTenSlow: [String!], practiceTrackUrlsBassSlow: [String!], practiceTrackUrlsSopATempo: [String!], practiceTrackUrlsAltoATempo: [String!], practiceTrackUrlsTenATempo: [String!], practiceTrackUrlsBassATempo: [String], videoUrls: [String]): Song
+
+
+  # //=====================//
+  # //    Post Mutations   //
+  # //=====================//
+
+  addPost(postType: String!, postSection: String, postExpire: String, postTitle: String, postBody: String!): Post
+
+  deletePost(_id: ID!): Post
+    
+  editPost(_id: ID!, postType: String!, postSection: String, postExpire: String, postTitle: String, postBody: String!): Post
+
+
+  # //=====================//
+  # //    User Mutations   //
+  # //=====================//
+
+  addUser(fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String!, email2: String, password: String!, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, city: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 
   deleteUser(_id: ID!): User
 
-  editConcertBasic(_id: ID!, name: String!, date: [String!]! time: [String!]!, venue: [String!]! signUp: String, addlMaterials: [String!]): Concert
-
-  addRepertoire(_id: ID!, songs: SongInput!): Concert
-
-  editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSopSlow: [String!], practiceTrackUrlsAltoSlow: [String!], practiceTrackUrlsTenSlow: [String!], practiceTrackUrlsBassSlow: [String!], practiceTrackUrlsSopATempo: [String!], practiceTrackUrlsAltoATempo: [String!], practiceTrackUrlsTenATempo: [String!], practiceTrackUrlsBassATempo: [String!], videoUrls: [String]): Song
-
   editPassword(_id: ID!, oldPassword: String, password: String!): User
-  
-  editPost(_id: ID!, postType: String!, postSection: String, postExpire: String, postTitle: String, postBody: String!): Post
 
   editUserAdmin(_id: ID!, fullName: String!, firstName: String!, lastName: String!, preferredName: String!, birthday: String, email1: String, email2: String, password: String, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, section: String!, position: String!, streetAddress: String, state: String, zipCode: String, isAdmin: Boolean!, isActive: Boolean!): User
 
   editUserSelf(_id: ID!, fullName: String!, firstName: String, lastName: String, preferredName: String!, birthday: String, email1: String!, email2: String, phone1: String, phone1Type: String, phone2: String, phone2Type: String, phone3: String, phone3Type: String, streetAddress: String, city: String, state: String, zipCode: String): User
+
+  login(email: String! password: String!): Auth
 }
 `
 

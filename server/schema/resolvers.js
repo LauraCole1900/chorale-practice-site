@@ -40,12 +40,12 @@ const resolvers = {
       return await Post.findOne({ _id: args._id });
     },
 
-    oneDirectorPost: async (_, args) => {
-      return await Post.findOne({ _id: args._id, postType: args.postType === "director" }).sort({ "postDate": -1 });
-    },
-
     oneAdminPost: async (_, args) => {
       return await Post.findOne({ _id: args._id, postType: args.postType === "admin" }).sort({ "postDate": -1 });
+    },
+
+    oneDirectorPost: async (_, args) => {
+      return await Post.findOne({ _id: args._id, postType: args.postType === "director" }).sort({ "postDate": -1 });
     },
 
     oneSectPost: async (_, args) => {
