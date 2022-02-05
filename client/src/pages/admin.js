@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
@@ -11,6 +12,21 @@ import { Sidenav } from "../components/navbar";
 import "./style.css";
 
 const AdminPortal = () => {
+
+  //======================//
+  //    State variables   //
+  //======================//
+
+  // useEffect states
+  const [sortedConcerts, setSortedConcerts] = useState([]);
+  const [sortedSops, setSortedSops] = useState([]);
+  const [sortedAlts, setSortedAlts] = useState([]);
+  const [sortedTens, setSortedTens] = useState([]);
+  const [sortedBass, setSortedBass] = useState([]);
+  const [sortedOthers, setSortedOthers] = useState([]);
+  const [sortedPosts, setSortedPosts] = useState([]);
+
+  // States passed to modals
   const [btnName, setBtnName] = useState();
   const [type, setType] = useState();
   const [concertId, setConcertId] = useState();
@@ -22,32 +38,44 @@ const AdminPortal = () => {
   const [songsToDelete, setSongsToDelete] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
-  // Determines which page user is on, specifically for use with modals & sidenav
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
-
-  // Modal variables
+  // Modal states
   const [showConfirm, setShowConfirm] = useState(false);
   const [showErr, setShowErr] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const [showSelectSongs, setShowSelectSongs] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Sets boolean to show or hide relevant modal
-  const handleHideConfirm = () => setShowConfirm(false);
-  const handleHideSelect = () => setShowSelect(false);
-  const handleHideSelectSongs = () => setShowSelectSongs(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with modals & sidenav
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
 
   const { loading: concertLoading, data: concertData, error: concertError } = useQuery(QUERY_ALL_CONCERTS);
   const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ALL_USERS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
 
+  const concerts = useMemo(() => {return concertData?.allConcerts || []}, [concertData?.allConcerts]);
+  const users = useMemo(() => {return userData?.allUsers || []}, [userData?.allUsers]);
+  const posts = useMemo(() => {return postData?.allPosts || []}, [postData?.allPosts]);
+  const me = meData?.me || meData?.currentId || {};
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
+
+  // eslint-disable-next-line no-unused-vars
   const [deleteConcert, { deleteConcertError, deleteConcertData }] = useMutation(DELETE_CONCERT, {
     update(cache, { data: { deleteConcert } }) {
       try {
@@ -67,6 +95,7 @@ const AdminPortal = () => {
     }
   });
 
+  // eslint-disable-next-line no-unused-vars
   const [deletePost, { deletePostError, deletePostData }] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
       try {
@@ -86,6 +115,7 @@ const AdminPortal = () => {
     }
   });
 
+  // eslint-disable-next-line no-unused-vars
   const [deleteManySongs, { songsError, songsData }] = useMutation(DELETE_MANY_SONGS);
 
   const [deleteMember, { memberError, memberData }] = useMutation(DELETE_USER, {
@@ -106,18 +136,20 @@ const AdminPortal = () => {
       }
     }
   });
-  const [sortedConcerts, setSortedConcerts] = useState([]);
-  const [sortedSops, setSortedSops] = useState([]);
-  const [sortedAlts, setSortedAlts] = useState([]);
-  const [sortedTens, setSortedTens] = useState([]);
-  const [sortedBass, setSortedBass] = useState([]);
-  const [sortedOthers, setSortedOthers] = useState([]);
-  const [sortedPosts, setSortedPosts] = useState([]);
 
-  const concerts = concertData?.allConcerts || [];
-  const users = userData?.allUsers || [];
-  const posts = postData?.allPosts || [];
-  const me = meData?.me || meData?.currentId || {};
+
+  //=====================//
+  //    Modal Methods    //
+  //=====================//
+
+  // Sets boolean to show or hide relevant modal
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleHideSelect = () => setShowSelect(false);
+  const handleHideSelectSongs = () => setShowSelectSongs(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   // Shows Select modal
   const handleShowSelect = (e, id, name, songs) => {
@@ -217,7 +249,13 @@ const AdminPortal = () => {
     setSongsToDelete([]);
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
+    // If there are concerts
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
         ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
@@ -228,12 +266,14 @@ const AdminPortal = () => {
       setSortedConcerts(sortedByDate);
     }
 
+    // If there are posts
     if (posts.length) {
       const postsToSort = [...posts];
       const postsByDate = postsToSort.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
       setSortedPosts(postsByDate);
     }
 
+    // If there are users
     if (users.length) {
       const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
       const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
@@ -253,15 +293,13 @@ const AdminPortal = () => {
     }
   }, [concerts, posts, users])
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
+
   if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
-  }
-
-  if (concertError || meError || postError || userError) {
-    console.error(JSON.stringify({ concertError }));
-    console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ postError }));
-    console.error(JSON.stringify({ userError }));
   }
 
   if (!Auth.loggedIn()) {
