@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
@@ -9,11 +10,36 @@ import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_BIRTHDAYS, QUERY_ALL_POSTS, QU
 import Auth from "../utils/auth";
 import "./style.css";
 
+
 const Members = () => {
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with sidenav
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
   const { loading: adminLoading, data: adminData, error: adminError } = useQuery(QUERY_ALL_ADMINS);
   const { loading: bdayLoading, data: bdayData, error: bdayError } = useQuery(QUERY_ALL_BIRTHDAYS);
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
+
+  const adminArr = adminData?.admins || [];
+  const bDays = bdayData?.allBirthdays || [];
+  const me = meData?.me || meData?.currentId || {};
+  const postArr = postData?.allPosts || [];
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
 
   const [deleteExpired, { deleteError, deleteData }] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
@@ -33,26 +59,17 @@ const Members = () => {
     }
   });
 
-  // Determines which page user is on, specifically for use with sidenav
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
 
-  const capsCase = (str) => {
-    const wordsArr = str.split(" ");
-    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
-    const casedStr = capsArr.join(" ");
-    return casedStr;
-  }
+  //=====================//
+  //  Manipulations of   //
+  //    queried data     //
+  //=====================//
 
+  // Gets single-word sections
   const getSect = (str) => {
     const posArr = str.split(" ");
     return posArr[0];
-  }
-
-  const adminArr = adminData?.admins || [];
-  const bDays = bdayData?.allBirthdays || [];
-  const me = meData?.me || meData?.currentId || {};
-  const postArr = postData?.allPosts || [];
+  };
 
   const administrator = adminArr.filter(admin => admin.position === "administrator");
   const director = adminArr.filter(admin => admin.position === "music director");
@@ -76,35 +93,18 @@ const Members = () => {
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
-  // Makes RTE links clickable in read-only mode
-  function linkStrategy(contentBlock, callback, contentState) {
-    contentBlock.findEntityRanges(
-      (character) => {
-        const entityKey = character.getEntity();
-        return (
-          entityKey !== null &&
-          contentState.getEntity(entityKey).getType() === 'LINK'
-        );
-      },
-      callback
-    );
-  }
 
-  const Link = (props) => {
-    const { url } = props.contentState.getEntity(props.entityKey).getData();
-    return (
-      <a href={url} target="_blank" rel="noreferrer noopener">
-        {props.children}
-      </a>
-    );
+  //=====================//
+  //       Methods       //
+  //=====================//
+
+  // Capitalizes positions
+  const capsCase = (str) => {
+    const wordsArr = str.split(" ");
+    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1));
+    const casedStr = capsArr.join(" ");
+    return casedStr;
   };
-
-  const decorator = new CompositeDecorator([
-    {
-      strategy: linkStrategy,
-      component: Link,
-    },
-  ]);
 
   // Handles deletion of expired emergency posts
   const handleDeleteExpired = async (id) => {
@@ -117,28 +117,69 @@ const Members = () => {
     }
   };
 
+
+  //=====================//
+  //   Draftjs Methods   //
+  //=====================//
+
+  // Makes RTE links clickable in read-only mode
+  function linkStrategy(contentBlock, callback, contentState) {
+    contentBlock.findEntityRanges(
+      (character) => {
+        const entityKey = character.getEntity();
+        return (
+          entityKey !== null &&
+          contentState.getEntity(entityKey).getType() === 'LINK'
+        );
+      },
+      callback
+    );
+  };
+
+  // Returns <a> tags for links
+  const Link = (props) => {
+    const { url } = props.contentState.getEntity(props.entityKey).getData();
+    return (
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        {props.children}
+      </a>
+    );
+  };
+
+  // Consolidates decorators?
+  const decorator = new CompositeDecorator([
+    {
+      strategy: linkStrategy,
+      component: Link,
+    },
+  ]);
+
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     if (emergencyToDelete.length > 0) {
       emergencyToDelete.forEach(post => {
         handleDeleteExpired(post._id);
       });
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [emergencyToDelete]);
+
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
 
   if (adminLoading || bdayLoading || meLoading || postLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
-
-  if (adminError || bdayError || meError || postError) {
-    console.error(JSON.stringify({ adminError }));
-    console.error(JSON.stringify({ bdayError }));
-    console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ postError }));
-  }
+  };
 
 
   return (
