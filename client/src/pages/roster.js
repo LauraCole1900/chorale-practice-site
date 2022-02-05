@@ -87,6 +87,7 @@ const RosterPage = () => {
   if (me.position === "guest") {
     return <Navigate to="/members" />
   }
+  
 
   return (
     <>

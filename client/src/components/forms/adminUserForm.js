@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USER, EDIT_USER_ADMIN, QUERY_ALL_USERS, QUERY_ME, QUERY_ONE_USER_ADMIN } from "../../utils/gql";
@@ -9,42 +10,18 @@ import { ErrorModal, SuccessModal } from "../modals";
 import generatePassword from "../../utils/genPassword";
 import "./style.css";
 
+
 const AdminUserForm = () => {
+
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
+  // Params
   const params = useParams();
   const userId = params.userId;
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState();
 
-  const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER_ADMIN,
-    {
-      variables: { id: userId }
-    });
-
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
-
-  const [addUser, { addError, addData }] = useMutation(ADD_USER, {
-    update(cache, { data: { addUser } }) {
-      try {
-        // Retrieve existing user data that is stored in the cache
-        const data = cache.readQuery({ query: QUERY_ALL_USERS });
-        const currentUsers = data.allUsers;
-        // Update the cache by combining existing user data with the newly created data returned from the mutation
-        cache.writeQuery({
-          query: QUERY_ALL_USERS,
-          // If we want new data to show up before or after existing data, adjust the order of this array
-          data: { allUsers: [...currentUsers, addUser] }
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  });
-
-  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
-
-  const me = meData?.me || meData?.currentId || {};
-  const userToEdit = editData?.oneUserAdmin || {};
-
+  // State variables
   const [userData, setUserData] = useState({
     fullName: "",
     firstName: "",
@@ -69,16 +46,70 @@ const AdminUserForm = () => {
     isAdmin: false,
     isActive: true
   });
+
+  // States passed to modals
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
   const [errors, setErrors] = useState({});
+
+  // Modal states
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const urlType = urlArray[urlArray.length - 2]
 
-  // Modal variables
-  const [showErr, setShowErr] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+
+  const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_USER_ADMIN,
+    {
+      variables: { id: userId }
+    });
+
+  const me = meData?.me || meData?.currentId || {};
+  const userToEdit = useMemo(() => { return editData?.oneUserAdmin || {} }, [editData?.oneUserAdmin]);
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
+
+  const [addUser, { addError, addData }] = useMutation(ADD_USER, {
+    update(cache, { data: { addUser } }) {
+      try {
+        // Retrieve existing user data that is stored in the cache
+        const data = cache.readQuery({ query: QUERY_ALL_USERS });
+        const currentUsers = data.allUsers;
+        // Update the cache by combining existing user data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: QUERY_ALL_USERS,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { allUsers: [...currentUsers, addUser] }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  });
+
+  const [editUserAdmin, { editUserError, editUserData }] = useMutation(EDIT_USER_ADMIN);
+
+
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
@@ -92,6 +123,7 @@ const AdminUserForm = () => {
     setUserData({ ...userData, [name]: value });
   };
 
+  // Handles clicks on "is active" and "is admin" checkboxes
   const handleCheckbox = (e) => {
     const { name, value } = e.target;
     JSON.parse(value) ? setUserData({ ...userData, [name]: false }) : setUserData({ ...userData, [name]: true });
@@ -110,14 +142,7 @@ const AdminUserForm = () => {
     setUserData({ ...userData, firstName: fName, lastName: lName, preferredName: fName });
   };
 
-  const removeEmptyFields = (data) => {
-    Object.keys(data).forEach(key => {
-      if (["", null, undefined].includes(data[key])) {
-        delete data[key]
-      }
-    })
-  }
-
+  // Generates random password and sets it in user state
   const handleNewPassword = () => {
     const newPassword = generatePassword();
     setUserData({ ...userData, password: newPassword });
@@ -219,19 +244,24 @@ const AdminUserForm = () => {
     }
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     if (Object.keys(userToEdit).length > 0) {
       setUserData(userToEdit)
     }
   }, [userToEdit]);
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
+
   if (editLoading || meLoading) {
     return <h1>Loading....</h1>
-  };
-
-  if (editError || meError) {
-    console.error(JSON.stringify({ editError }));
-    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {
