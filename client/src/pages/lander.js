@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
@@ -8,10 +8,27 @@ import { timeToNow } from "../utils/dateUtils";
 import "./style.css";
 
 const Lander = () => {
+  
+  //=====================//
+  //   State Variables   //
+  //=====================//
+
   const [sortedConcerts, setSortedConcerts] = useState([]);
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
+  // eslint-disable-next-line no-unused-vars
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
-  const concerts = data?.allConcerts || [];
+  const concerts = useMemo(() => {return data?.allConcerts || []}, [data?.allConcerts]);
+
+
+  //=====================//
+  //       Hustle        //
+  //=====================//
 
   const message = `=============================
 |     Looking for a job     |
@@ -20,6 +37,11 @@ const Lander = () => {
 |   https://lcolearts.com   |
 =============================`
   const style = "color: #00ff00";
+
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
 
   useEffect(() => {
     console.log(`%c${message}`, style);
@@ -35,13 +57,14 @@ const Lander = () => {
     }
   }, [concerts, message])
 
+
+  //=====================//
+  //     Conditionals    //
+  //=====================//
+
   if (loading) {
     return <h1>Loading....</h1>
   }
-
-  // if (error) {
-  //   console.error(JSON.stringify(error));
-  // }
 
 
   return (
