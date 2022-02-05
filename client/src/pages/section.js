@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { TracksCard } from "../components/cards";
@@ -9,13 +10,38 @@ import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ONE_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
 import Auth from "../utils/auth";
-import "./style.css"
+import "./style.css";
+
 
 const Section = () => {
+
+  //======================//
+  //   Global variables   //
+  //======================//
+
+  // Params
   const { section } = useParams();
+
+  // Navigation
   const navigate = useNavigate();
 
+  // State variables
   const [sortedConcerts, setSortedConcerts] = useState([]);
+
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with sidenav
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: concertsLoading, data: concertsData, error: concertsError } = useQuery(QUERY_TRUE_CONCERTS);
   const { loading: sectionLoading, data: sectionData, error: sectionError } = useQuery(QUERY_ONE_SECT_POST, {
@@ -23,15 +49,21 @@ const Section = () => {
   });
 
   const me = meData?.me || meData?.currentId || {};
-  const concertArr = concertsData?.trueConcerts || [];
+  const concertArr = useMemo(() => { return concertsData?.trueConcerts || [] }, [concertsData?.trueConcerts]);
   const sectionPost = sectionData?.oneSectPost || {};
 
-  // Determines which page user is on, specifically for use with sidenav
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
+
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Capitalizes first letter of section name
   const capsSection = section.charAt(0).toUpperCase() + section.slice(1);
+
+
+  //=====================//
+  //   Draftjs Methods   //
+  //=====================//
 
   // Makes RTE links clickable in read-only mode
   function linkStrategy(contentBlock, callback, contentState) {
@@ -45,8 +77,9 @@ const Section = () => {
       },
       callback
     );
-  }
+  };
 
+  // Returns <a> tags for links
   const Link = (props) => {
     const { url } = props.contentState.getEntity(props.entityKey).getData();
     return (
@@ -56,12 +89,18 @@ const Section = () => {
     );
   };
 
+  // Consolidates decorators?
   const decorator = new CompositeDecorator([
     {
       strategy: linkStrategy,
       component: Link,
     },
   ]);
+
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
 
   useEffect(() => {
     if (!["soprano", "alto", "tenor", "bass"].includes(section)) {
@@ -80,19 +119,17 @@ const Section = () => {
   }, [concertArr, navigate, section]);
 
 
+  //=====================//
+  //    Conditionals     //
+  //=====================//
+
   if (concertsLoading || meLoading || sectionLoading) {
     return <h1>Loading....</h1>
-  }
-
-  if (concertsError || meError || sectionError) {
-    console.error(JSON.stringify({ concertsError }));
-    console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ sectionError }));
-  }
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
+  };
 
 
   return (
