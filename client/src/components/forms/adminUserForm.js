@@ -46,11 +46,11 @@ const AdminUserForm = () => {
     isAdmin: false,
     isActive: true
   });
+  const [errors, setErrors] = useState({});
 
   // States passed to modals
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
-  const [errors, setErrors] = useState({});
 
   // Modal states
   const [showErr, setShowErr] = useState(false);

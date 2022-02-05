@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
@@ -8,18 +9,65 @@ import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
+
 const ConcertForm = () => {
+
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
+  // Params
   const params = useParams();
+
+  // State variables
+  const [concertData, setConcertData] = useState({
+    name: "",
+    date: [],
+    time: [],
+    venue: [],
+    signUp: "",
+    addlMaterials: []
+  });
+  const [errors, setErrors] = useState({});
+
+  // States passed to modals
   const [concertId, setConcertId] = useState(params.concertId);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
+
+  // Modal states
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
+  const urlType = urlArray[urlArray.length - 2];
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
   const { loading: editLoading, data: editData, error: editError } = useQuery(QUERY_ONE_CONCERT,
     {
       variables: { id: concertId }
     });
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+  const me = meData?.me || meData?.currentId || {};
+  const concertToEdit = useMemo(() => { return editData?.oneConcert || {} }, [editData?.oneConcert]);
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
 
   const [addConcert, { addError }] = useMutation(ADD_CONCERT, {
     update(cache, { data: { addConcert } }) {
@@ -41,27 +89,10 @@ const ConcertForm = () => {
 
   const [editConcert, { editConcertError, editConcertData }] = useMutation(EDIT_CONCERT_BASIC);
 
-  const me = meData?.me || meData?.currentId || {};
-  const concertToEdit = editData?.oneConcert || {};
 
-  const [concertData, setConcertData] = useState({
-    name: "",
-    date: [],
-    time: [],
-    venue: [],
-    signUp: "",
-    addlMaterials: []
-  });
-  const [errors, setErrors] = useState({});
-
-  // Determines which page user is on, specifically for use with modals
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
-
-  // Modal variables
-  const [showErr, setShowErr] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
@@ -109,7 +140,7 @@ const ConcertForm = () => {
         venue: [],
         signUp: "",
         addlMaterials: []
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
@@ -140,25 +171,30 @@ const ConcertForm = () => {
         venue: [],
         signUp: "",
         addlMaterials: []
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     if (Object.keys(concertToEdit).length > 0) {
       setConcertData(concertToEdit)
-    }
+    };
   }, [concertToEdit]);
+
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
 
   if (editLoading || meLoading) {
     return <h1>Loading....</h1>
-  };
-
-  if (editError || meError) {
-    console.error(JSON.stringify({ editError }));
-    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {
@@ -176,8 +212,8 @@ const ConcertForm = () => {
         <Row>
           <Col sm={12} className="formHeader">
             {Object.keys(params).length > 0
-            ? <h1>Edit this concert or event</h1>
-            : <h1>Add a new concert or event</h1>}
+              ? <h1>Edit this concert or event</h1>
+              : <h1>Add a new concert or event</h1>}
           </Col>
         </Row>
 
