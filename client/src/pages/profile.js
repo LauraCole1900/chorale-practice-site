@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import dayjs from "dayjs";
@@ -11,7 +12,15 @@ import { Sidenav } from "../components/navbar";
 import "./style.css";
 
 const ProfilePage = () => {
+
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
+  // Auth
   const currentUserId = Auth.getProfile().data?._id;
+
+  // State variables
   const [editMode, setEditMode] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
@@ -35,25 +44,45 @@ const ProfilePage = () => {
     zipCode: ""
   });
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME_PROFILE,
-    {
-      variables: { id: currentUserId }
-    });
+  // Modal states
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showPword, setShowPword] = useState(false);
 
-  const me = meData?.meProfile || {};
 
-  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
-  const [editPassword, { editPasswordError, editPasswordData }] = useMutation(EDIT_PASSWORD);
+  //=====================//
+  //    URL Variables    //
+  //=====================//
 
   // Determines which page user is on, specifically for use with modals & sidenav
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const urlType = urlArray[urlArray.length - 2]
 
-  // Modal variables
-  const [showErr, setShowErr] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showPword, setShowPword] = useState(false);
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME_PROFILE,
+    {
+      variables: { id: currentUserId }
+    });
+
+  const me = useMemo(() => { return meData?.meProfile || {} }, [meData?.meProfile]);
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
+
+  const [editUserSelf, { editUserError, editUserData }] = useMutation(EDIT_USER_SELF);
+  const [editPassword, { editPasswordError, editPasswordData }] = useMutation(EDIT_PASSWORD);
+
+
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
@@ -63,6 +92,7 @@ const ProfilePage = () => {
   const handleShowPword = () => setShowPword(true);
   const handleHidePword = () => setShowPword(false);
 
+  // Formats the provided date object
   const formatDate = (date) => {
     return dayjs(date, "MM-DD").format("MMMM D")
   };
@@ -80,6 +110,7 @@ const ProfilePage = () => {
     setUserData({ ...userData, firstName: fName, lastName: lName });
   };
 
+  // Toggles edit mode on click
   const handleClick = (e) => {
     setEditMode(true);
   }
@@ -138,16 +169,22 @@ const ProfilePage = () => {
     }
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     setUserData(me)
   }, [me]);
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
+
   if (meLoading) {
     return <h1>Loading....</h1>
-  };
-
-  if (meError) {
-    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {
