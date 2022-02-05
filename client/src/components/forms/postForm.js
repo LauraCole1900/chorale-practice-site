@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
-import { convertFromRaw, convertToRaw } from "draft-js";
+import { convertToRaw } from "draft-js";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
@@ -11,21 +12,67 @@ import { ErrorModal, SuccessModal } from "../modals";
 import EditorContainer from "../richTextEditor";
 import "./style.css";
 
+
 const PostForm = () => {
+
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
+  // Params
   const params = useParams();
+
+  // State variables
   const [pageReady, setPageReady] = useState(false);
   const [postId, setPostId] = useState(params.postId);
   const [errors, setErrors] = useState({});
+  const [thisSection, setThisSection] = useState();
+  const [postData, setPostData] = useState({
+    postType: "section leader",
+    postSection: "",
+    postExpire: "",
+    postTitle: "",
+    postBody: ""
+  });
+  const currentPostData = useRef(postData);
+
+  // States passed to modals
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
-  const [thisSection, setThisSection] = useState();
+
+  // Modal states
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 2];
+  const urlType = urlArray[urlArray.length - 3];
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
   const { loading: noteLoading, data: noteData, error: noteError } = useQuery(QUERY_ONE_POST,
     {
       variables: { id: postId }
     });
 
-  const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
+  const me = meData?.me || meData?.currentId || {};
+  const postToEdit = useMemo(() => { return noteData?.onePost || {} }, [noteData?.onePost]);
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
 
   const [addPost, { addPostError, addPostData }] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -56,32 +103,16 @@ const PostForm = () => {
 
   const [editPost, { editPostError, editPostData }] = useMutation(EDIT_POST);
 
-  const me = meData?.me || meData?.currentId || {};
-  const postToEdit = noteData?.onePost || {};
 
-  // Determines which page user is on, specifically for use with modals
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 2]
-  const urlType = urlArray[urlArray.length - 3]
-
-  // Modal variables
-  const [showErr, setShowErr] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
-
-  const [postData, setPostData] = useState({
-    postType: "section leader",
-    postSection: "",
-    postExpire: "",
-    postTitle: "",
-    postBody: ""
-  });
-  const currentPostData = useRef(postData);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -160,6 +191,11 @@ const PostForm = () => {
     }
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
       postToEdit?.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
@@ -180,16 +216,16 @@ const PostForm = () => {
     if (!Object.keys(params).length) {
       setPageReady(true);
     }
-  }, [postToEdit]);
+  }, [postToEdit, me.section, params]);
+
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
 
   if (meLoading || noteLoading) {
     return <h1>Loading....</h1>
   };
-
-  // if (meError || noteError) {
-  //   console.error(JSON.stringify({ meError }));
-  //   console.error(JSON.stringify({ noteError }));
-  // };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
@@ -198,6 +234,7 @@ const PostForm = () => {
   if (!["administrator", "assistant music director", "music director", "webdev", "section leader"].includes(me.position)) {
     return <Navigate to="/members" />
   };
+
 
   return (
     <>
