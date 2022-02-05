@@ -1,3 +1,5 @@
+// This is a subdocument schema. Songs belong to their Concerts and exist as an array in the Concert document
+
 const { Schema } = require("mongoose");
 
 const songSchema = new Schema(
