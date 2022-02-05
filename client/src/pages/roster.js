@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
@@ -7,6 +8,11 @@ import Auth from "../utils/auth";
 import { RosterTable } from "../components/tables";
 
 const RosterPage = () => {
+
+  //=====================//
+  //   State Variables   //
+  //=====================//
+
   const [currSops, setCurrSops] = useState([]);
   const [currAlts, setCurrAlts] = useState([]);
   const [currTens, setCurrTens] = useState([]);
@@ -14,16 +20,32 @@ const RosterPage = () => {
   const [currStaff, setCurrStaff] = useState([]);
   const [currBoard, setCurrBoard] = useState([]);
 
+
+  //=====================//
+  //       Queries       //
+  //=====================//
+
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: usersLoading, data: usersData, error: usersError } = useQuery(QUERY_ALL_USERS);
 
   const me = meData?.me || meData?.currentId || {};
-  const members = usersData?.allUsers || [];
+  const members = useMemo(() => {return usersData?.allUsers || []}, [usersData?.allUsers]);
 
+
+  //=====================//
+  //       Methods       //
+  //=====================//
+
+  // Sort singer data by last name
   const sortSection = (singers) => {
     const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
     return sortedSingers;
   }
+
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
 
   useEffect(() => {
     if (members.length) {
@@ -49,13 +71,13 @@ const RosterPage = () => {
     }
   }, [members])
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
+  
   if (meLoading || usersLoading) {
     return <h1>Loading....</h1>
-  }
-
-  if (meError || usersError) {
-    console.error(JSON.stringify({ meError }));
-    console.error(JSON.stringify({ usersError }));
   }
 
   if (!Auth.loggedIn()) {
