@@ -7,11 +7,26 @@ import Auth from "../utils/auth";
 import "./style.css";
 
 const Login = () => {
-  const [userData, setUserData] = useState({ email: "", password: "" });
+  
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({ email: "", password: "" });
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
 
   // eslint-disable-next-line no-unused-vars
   const [login, { error }] = useMutation(LOGIN_USER);
+
+
+  //=====================//
+  //       Methods       //
+  //=====================//
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -22,8 +37,8 @@ const Login = () => {
   // Handles form submission
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     const form = e.currentTarget;
+
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -45,6 +60,11 @@ const Login = () => {
     });
     navigate("/members");
   };
+
+
+  //=====================//
+  //     Conditionals    //
+  //=====================//
 
   if (Auth.loggedIn()) {
     return <Navigate to="/members" />
