@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+/* eslint-disable no-unused-vars */
+import { useEffect, useMemo, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
@@ -8,11 +9,17 @@ import Auth from "../../utils/auth";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
+
 const SongForm = () => {
+
+  //=====================//
+  //   Global Variables  //
+  //=====================//
+
+  // Params
   const { concertId, songId } = useParams();
-  const navigate = useNavigate();
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState();
+
+  // State variables
   const [songData, setSongData] = useState({
     title: "",
     composer: [],
@@ -31,20 +38,28 @@ const SongForm = () => {
   });
   const [errors, setErrors] = useState({});
 
-  // Determines which page user is on, specifically for use with modals
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 2]
-  const urlType = urlArray[urlArray.length - 3]
+  // States passed to modals
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
 
-  // Modal variables
+  // Modal states
   const [showErr, setShowErr] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+
+  //=====================//
+  //    URL Variables    //
+  //=====================//
+
+  // Determines which page user is on, specifically for use with modals
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 2];
+  const urlType = urlArray[urlArray.length - 3];
+
+
+  //=====================//
+  //       Queries       //
+  //=====================//
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
 
@@ -52,6 +67,14 @@ const SongForm = () => {
     {
       variables: { id: concertId }
     });
+
+  const me = meData?.me || meData?.currentId || {};
+  const concert = useMemo(() => { return concertData?.oneConcert || {} }, [concertData?.oneConcert]);
+
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
 
   const [addRepertoire, { addRepertoireError, addRepertoireData }] = useMutation(ADD_REPERTOIRE, {
     update(cache, { data: { addRepertoire } }) {
@@ -91,8 +114,16 @@ const SongForm = () => {
     }
   });
 
-  const me = meData?.me || meData?.currentId || {};
-  const concert = concertData?.oneConcert || {};
+
+  //=====================//
+  //       Methods       //
+  //=====================//
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -137,7 +168,7 @@ const SongForm = () => {
         practiceTrackUrlsTenATempo: [],
         practiceTrackUrlsBassATempo: [],
         videoUrls: []
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
@@ -177,27 +208,31 @@ const SongForm = () => {
         practiceTrackUrlsTenATempo: [],
         practiceTrackUrlsBassATempo: [],
         videoUrls: []
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
   };
 
+
+  //=====================//
+  //   Run on page load  //
+  //=====================//
+
   useEffect(() => {
     if (urlType === "edit_repertoire" && Object.keys(concert).length) {
       const songToEdit = concert.songs.filter(song => song._id === songId);
       setSongData(songToEdit[0]);
-    }
-  }, [concert]);
+    };
+  }, [concert, songId, urlType]);
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
 
   if (concertLoading || meLoading) {
     return <h1>Loading....</h1>
-  };
-
-  if (concertError || meError) {
-    console.error(JSON.stringify({ concertError }));
-    console.error(JSON.stringify({ meError }));
   };
 
   if (!Auth.loggedIn()) {
