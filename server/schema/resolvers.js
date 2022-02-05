@@ -4,49 +4,36 @@ const bcrypt = require("bcrypt");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
+
+  //=====================//
+  //       Queries       //
+  //=====================//
   Query: {
-    me: async (_, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).select("-__v -password");
-      } else {
-        throw new AuthenticationError("Must be logged in");
-      }
-    },
 
-    meProfile: async (_, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).select("-__v -password");
-      } else {
-        throw new AuthenticationError("Must be logged in");
-      }
-    },
-
-    currentId: async (_, args) => {
-      return await User.findOne({ _id: args._id });
-    },
-
-    admins: async () => {
-      return await User.find({ "isAdmin": true });
-    },
-
-    allBirthdays: async () => {
-      return await User.find({});
-    },
+    //=====================//
+    //   Concert Queries   //
+    //=====================//
 
     allConcerts: async () => {
       return await Concert.find({});
     },
 
-    allPosts: async () => {
-      return await Post.find({});
-    },
-
-    allUsers: async () => {
-      return await User.find({});
-    },
-
     oneConcert: async (_, args) => {
       return await Concert.findOne({ _id: args._id });
+    },
+
+    // Returns events that have a non-empty songs array
+    trueConcerts: async () => {
+      return await Concert.find({ "songs": { $exists: true, $ne: [] } });
+    },
+
+
+    //=====================//
+    //     Post Queries    //
+    //=====================//
+
+    allPosts: async () => {
+      return await Post.find({});
     },
 
     onePost: async (_, args) => {
@@ -65,6 +52,45 @@ const resolvers = {
       return await Post.findOne({ postType: args.postType, postSection: args.postSection }).sort({ "postDate": -1 });
     },
 
+
+    //=====================//
+    //     User Queries    //
+    //=====================//
+
+    admins: async () => {
+      return await User.find({ "isAdmin": true });
+    },
+
+    allBirthdays: async () => {
+      return await User.find({});
+    },
+
+    allUsers: async () => {
+      return await User.find({});
+    },
+
+    currentId: async (_, args) => {
+      return await User.findOne({ _id: args._id });
+    },
+
+    // Uses the ID stored in context to find logged-in user
+    me: async (_, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
+    },
+
+    // Uses the ID stored in context to find logged-in user and returns profile information
+    meProfile: async (_, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
+    },
+
     oneProfile: async (_, args) => {
       return await User.findOne({ _id: args._id });
     },
@@ -75,27 +101,22 @@ const resolvers = {
 
     oneUserAdmin: async (_, args) => {
       return await User.findOne({ _id: args._id });
-    },
-
-    trueConcerts: async () => {
-      return await Concert.find({ "songs": { $exists: true, $ne: [] } });
-    },
+    }
   },
 
+
+  //=====================//
+  //      Mutations      //
+  //=====================//
   Mutation: {
+
+    //=====================//
+    //  Concert Mutations  //
+    //=====================//
+
     addConcert: async (_, args) => {
       const concert = await Concert.create(args);
       return concert;
-    },
-
-    addPost: async (_, args) => {
-      const post = await Post.create(args);
-      return post;
-    },
-
-    addUser: async (_, args) => {
-      const user = await User.create(args);
-      return user;
     },
 
     deleteConcert: async (_, args) => {
@@ -103,9 +124,20 @@ const resolvers = {
       return concert;
     },
 
-    deletePost: async (_, args) => {
-      const post = await Post.findByIdAndDelete({ _id: args._id });
-      return post;
+    // Edits non-repertoire event information
+    editConcertBasic: async (_, args) => {
+      const concert = await Concert.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
+      return concert;
+    },
+
+
+    //=====================//
+    //    Song Mutations   //
+    //=====================//
+
+    addRepertoire: async (_, args) => {
+      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: args.songs } }, { new: true })
+      return concert;
     },
 
     deleteSong: async (_, { _id, songId }) => {
@@ -113,6 +145,8 @@ const resolvers = {
       return updatedConcert;
     },
 
+    // Finds the relevant concert by ID, then loops through the provided array of song IDs
+    // and filters those songs out, then sets the remaining songs on the concert as the songs array
     deleteManySongs: async (_, args) => {
       const concert = await Concert.findOne({ _id: args._id });
       let keepSongs = concert.songs;
@@ -123,21 +157,9 @@ const resolvers = {
       return updatedConcert;
     },
 
-    deleteUser: async (_, args) => {
-      const user = await User.findByIdAndDelete({ _id: args._id });
-      return user;
-    },
-
-    editConcertBasic: async (_, args) => {
-      const concert = await Concert.findOneAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true })
-      return concert;
-    },
-
-    addRepertoire: async (_, args) => {
-      const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: args.songs } }, { new: true })
-      return concert;
-    },
-
+    // Finds the relevant concert by ID, then the relevant song by its ID and sets the updated information
+    // on the song subdocument. ID is included in the information to be set because if it isn't, the song's ID
+    // gets reset to match the concert's ID
     editRepertoire: async (_, args) => {
       const concert = await Concert.findOneAndUpdate({ _id: args._id, "songs._id": args.songId }, {
         $set: {
@@ -150,6 +172,44 @@ const resolvers = {
       return song[0];
     },
 
+
+    //=====================//
+    //    Post Mutations   //
+    //=====================//
+
+    addPost: async (_, args) => {
+      const post = await Post.create(args);
+      return post;
+    },
+
+    deletePost: async (_, args) => {
+      const post = await Post.findByIdAndDelete({ _id: args._id });
+      return post;
+    },
+
+    editPost: async (_, args) => {
+      const post = await Post.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
+      return post;
+    },
+
+
+    //=====================//
+    //    User Mutations   //
+    //=====================//
+
+    addUser: async (_, args) => {
+      const user = await User.create(args);
+      return user;
+    },
+
+    deleteUser: async (_, args) => {
+      const user = await User.findByIdAndDelete({ _id: args._id });
+      return user;
+    },
+
+    // Finds relevant user by ID, then compares the entered existing password to the one
+    // in the database. If they match, then hashes the new password and sets it into the
+    // database
     editPassword: async (_, args) => {
       const currentUser = await User.findOne({ _id: args._id });
       const correctPassword = await bcrypt.compare(args.oldPassword, currentUser.password);
@@ -161,11 +221,7 @@ const resolvers = {
       }
     },
 
-    editPost: async (_, args) => {
-      const post = await Post.findByIdAndUpdate({ _id: args._id }, { $set: { ...args } }, { new: true });
-      return post;
-    },
-
+    // If the password is included, it gets hashed here
     editUserAdmin: async (_, args) => {
       if (args.password) {
         const saltRounds = 10;
@@ -198,7 +254,7 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    },
+    }
   }
 }
 
