@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap";
-import "./style.css"
+import "./style.css";
+
 
 const SongCard = ({ section, song }) => {
 

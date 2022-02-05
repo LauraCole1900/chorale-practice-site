@@ -5,6 +5,7 @@ import { QUERY_ME } from "../../utils/gql";
 import Auth from "../../utils/auth";
 import "./style.css";
 
+
 const Navibar = () => {
 
   //=====================//
@@ -23,7 +24,7 @@ const Navibar = () => {
 
   if (meLoading) {
     return <p>Loading....</p>
-  }
+  };
 
 
   return (

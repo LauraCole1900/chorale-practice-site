@@ -62,9 +62,9 @@ const AdminUserForm = () => {
   //=====================//
 
   // Determines which page user is on, specifically for use with modals
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
+  const urlType = urlArray[urlArray.length - 2];
 
 
   //=====================//
@@ -127,7 +127,7 @@ const AdminUserForm = () => {
   const handleCheckbox = (e) => {
     const { name, value } = e.target;
     JSON.parse(value) ? setUserData({ ...userData, [name]: false }) : setUserData({ ...userData, [name]: true });
-  }
+  };
 
   // Gets first & last name from full name
   const splitName = (memberName) => {
@@ -135,9 +135,9 @@ const AdminUserForm = () => {
     const fName = nameArr[0];
     let lName;
     if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr[nameArr.length - 1])) {
-      lName = nameArr[nameArr.length - 2]
+      lName = nameArr[nameArr.length - 2];
     } else {
-      lName = nameArr[nameArr.length - 1]
+      lName = nameArr[nameArr.length - 1];
     }
     setUserData({ ...userData, firstName: fName, lastName: lName, preferredName: fName });
   };
@@ -146,7 +146,7 @@ const AdminUserForm = () => {
   const handleNewPassword = () => {
     const newPassword = generatePassword();
     setUserData({ ...userData, password: newPassword });
-  }
+  };
 
   // Handles click on "Submit" button
   const handleFormSubmit = async (e) => {
@@ -189,7 +189,7 @@ const AdminUserForm = () => {
         zipCode: "",
         isAdmin: false,
         isActive: true
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
@@ -198,7 +198,6 @@ const AdminUserForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = async (e) => {
     e.preventDefault();
-    // removeEmptyFields(userData);
     // Validates required inputs
     const validationErrors = adminUserValidate(userData);
     console.error({ validationErrors });
@@ -238,7 +237,7 @@ const AdminUserForm = () => {
         zipCode: "",
         isAdmin: false,
         isActive: true
-      })
+      });
     } else {
       console.error({ validationErrors });
     }
@@ -251,8 +250,8 @@ const AdminUserForm = () => {
 
   useEffect(() => {
     if (Object.keys(userToEdit).length > 0) {
-      setUserData(userToEdit)
-    }
+      setUserData(userToEdit);
+    };
   }, [userToEdit]);
 
 

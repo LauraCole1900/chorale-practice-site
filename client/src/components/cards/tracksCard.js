@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
-import SongCard from "./songCard"
+import SongCard from "./songCard";
 import "./style.css";
+
 
 const TracksCard = ({ concert, section }) => {
 

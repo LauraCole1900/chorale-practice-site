@@ -26,8 +26,8 @@ const formatTime = (time) => {
       formattedTime = `${addMins[0]}${findMeridiem[1]}`
     } else {
       formattedTime = addMins[0];
-    }
-  }
+    };
+  };
   return formattedTime;
 };
 
@@ -36,7 +36,7 @@ export const timeToNow = (date, time) => {
   const formattedTime = formatTime(time);
   const dayjsDate = dayjs(`${date} ${formattedTime}`, "M-D-YYYY h:mma");
   return dayjsDate;
-}
+};
 
 // Runs date and time through above function, then uses dayjs fromNow method
 // to find how far in the future the given date-time is

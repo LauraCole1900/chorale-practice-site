@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
+
 const ChangePasswordModal = (props) => {
 
   //=====================//
   //   State variables   //
   //=====================//
+
   const [pwordMatch, setPwordMatch] = useState(false);
 
 
@@ -18,19 +20,19 @@ const ChangePasswordModal = (props) => {
   const checkMatch = (pword1, pword2) => {
     const match = pword1 === pword2;
     setPwordMatch(match);
-  }
+  };
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    props.setUserData({ ...props.userData, [name]: value })
+    props.setUserData({ ...props.userData, [name]: value });
   };
 
   // Handles click on "update password" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.update(e);
-  }
+  };
 
 
   return (

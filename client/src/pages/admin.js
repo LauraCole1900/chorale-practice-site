@@ -11,6 +11,7 @@ import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } 
 import { Sidenav } from "../components/navbar";
 import "./style.css";
 
+
 const AdminPortal = () => {
 
   //======================//
@@ -51,9 +52,9 @@ const AdminPortal = () => {
   //=====================//
 
   // Determines which page user is on, specifically for use with modals & sidenav
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
+  const urlType = urlArray[urlArray.length - 2];
 
 
   //=====================//
@@ -65,9 +66,9 @@ const AdminPortal = () => {
   const { loading: meLoading, data: meData, error: meError } = useQuery(QUERY_ME);
   const { loading: postLoading, data: postData, error: postError } = useQuery(QUERY_ALL_POSTS);
 
-  const concerts = useMemo(() => {return concertData?.allConcerts || []}, [concertData?.allConcerts]);
-  const users = useMemo(() => {return userData?.allUsers || []}, [userData?.allUsers]);
-  const posts = useMemo(() => {return postData?.allPosts || []}, [postData?.allPosts]);
+  const concerts = useMemo(() => { return concertData?.allConcerts || [] }, [concertData?.allConcerts]);
+  const users = useMemo(() => { return userData?.allUsers || [] }, [userData?.allUsers]);
+  const posts = useMemo(() => { return postData?.allPosts || [] }, [postData?.allPosts]);
   const me = meData?.me || meData?.currentId || {};
 
 
@@ -172,12 +173,12 @@ const AdminPortal = () => {
   };
 
   // Shows Select Songs modal
-  const handleShowSelectSongs = (e, songs) => {
+  const handleShowSelectSongs = (e) => {
     const { dataset } = e.target;
     setBtnName(dataset.btnname);
     handleHideSelect();
     setShowSelectSongs(true);
-  }
+  };
 
   // Shows Confirm modal
   const handleShowConfirm = (e) => {
@@ -264,14 +265,14 @@ const AdminPortal = () => {
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);
       setSortedConcerts(sortedByDate);
-    }
+    };
 
     // If there are posts
     if (posts.length) {
       const postsToSort = [...posts];
       const postsByDate = postsToSort.sort((a, b) => a.postDate > b.postDate ? 1 : -1);
       setSortedPosts(postsByDate);
-    }
+    };
 
     // If there are users
     if (users.length) {
@@ -290,8 +291,8 @@ const AdminPortal = () => {
       setSortedTens(tensSortedByLName);
       setSortedBass(bassSortedByLName);
       setSortedOthers(othersSortedByLName);
-    }
-  }, [concerts, posts, users])
+    };
+  }, [concerts, posts, users]);
 
 
   //=====================//
@@ -300,15 +301,15 @@ const AdminPortal = () => {
 
   if (concertLoading || meLoading || postLoading || userLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
+  };
 
   if (!me.isAdmin) {
     return <Navigate to="/members" />
-  }
+  };
 
 
   return (

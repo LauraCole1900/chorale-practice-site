@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
+
 const SelectSongModal = (props) => {
 
   //=====================//
@@ -30,10 +31,10 @@ const SelectSongModal = (props) => {
   // Handles click on "delete repertoire" button
   const handleGoOn = (e) => {
     e.preventDefault();
-    const { dataset } = e.target
+    const { dataset } = e.target;
     props.setbtnname(dataset.btnname);
     props.confirm(e);
-  }
+  };
 
 
   return (

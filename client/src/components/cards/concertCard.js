@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
 import "./style.css";
 
+
 const ConcertCard = ({ concert }) => {
 
   //====================//
@@ -23,7 +24,7 @@ const ConcertCard = ({ concert }) => {
     return casedStr;
   }
 
-  
+
   //======================//
   //  Variables storing   //
   // dates, times, venues //
