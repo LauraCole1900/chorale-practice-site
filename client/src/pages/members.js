@@ -90,6 +90,8 @@ const Members = () => {
   const sortedSingersNote = singersNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
   const directorNote = postArr.filter(post => post.postType === "director");
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
+  console.log(JSON.parse(sortedDirectorNote[0].postBody));
+  console.log(JSON.parse(sortedSingersNote[0].postBody));
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
@@ -137,7 +139,7 @@ const Members = () => {
   };
 
   // Returns <a> tags for links
-  const Link = (props) => {
+  const LinkComponent = (props) => {
     const { url } = props.contentState.getEntity(props.entityKey).getData();
     return (
       <a href={url} target="_blank" rel="noreferrer noopener">
@@ -146,12 +148,57 @@ const Members = () => {
     );
   };
 
+  const colorRegex = /color-rgb\((\d+),(\d+),(\d+)\)$/;
+  const fontsizeRegex = /fontsize-?\d{ 1, 2}%$/;
+
+  function findWithRegex(regex, contentBlock, callback) {
+    const text = contentBlock.getText();
+    console.log({ text });
+    let matchArr, start;
+    while ((matchArr = regex.exec(text)) !== null) {
+      start = matchArr.index;
+      console.log({start});
+      callback(start, start + matchArr[0].length);
+    }
+  }
+
+  // Colors text as directed in read-only mode
+  function colorStrategy(contentBlock, callback, contentState) {
+    findWithRegex(colorRegex, contentBlock, callback);
+  };
+
+  const ColorComponent = (props) => {
+    console.log({props});
+    return (
+      <span style={{ color: props.decoratedText }}>{props.children}</span>
+    );
+  };
+
+  function fontsizeStrategy(contentBlock, callback, contentState) {
+    findWithRegex(fontsizeRegex, contentBlock, callback);
+  };
+
+  const FontsizeComponent = (props) => {
+    console.log({ props });
+    return (
+      <span style={{ fontSize: props.decoratedText }}>{props.children}</span>
+    );
+  };
+
   // Consolidates decorators?
   const decorator = new CompositeDecorator([
     {
       strategy: linkStrategy,
-      component: Link,
+      component: LinkComponent
     },
+    {
+      strategy: colorStrategy,
+      component: ColorComponent
+    },
+    {
+      strategy: fontsizeStrategy,
+      component: FontsizeComponent
+    }
   ]);
 
 
@@ -219,7 +266,7 @@ const Members = () => {
                       <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                     </Card.Header>
                     <Card.Body className="cardBody">
-                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} />
+                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} onchange={(editorState) => this.setState({ editorState })} />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -239,7 +286,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedDirectorNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} />
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} onChange={(editorState) => this.setState({ editorState })} />
                       : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
