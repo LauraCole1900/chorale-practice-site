@@ -90,8 +90,6 @@ const Members = () => {
   const sortedSingersNote = singersNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
   const directorNote = postArr.filter(post => post.postType === "director");
   const sortedDirectorNote = directorNote.sort((a, b) => a.postDate < b.postDate ? 1 : -1);
-  console.log(JSON.parse(sortedDirectorNote[0].postBody));
-  console.log(JSON.parse(sortedSingersNote[0].postBody));
 
   const emergencyToDelete = emergency.filter(post => dayjs(JSON.parse(post.postExpire)) < dayjs());
 
@@ -149,11 +147,13 @@ const Members = () => {
   };
 
   const colorRegex = /color-rgb\((\d+),(\d+),(\d+)\)$/;
-  const fontsizeRegex = /fontsize-?\d{ 1, 2}%$/;
+  const fontsizeRegex = /fontsize-?\d{1,2}%$/;
 
   function findWithRegex(regex, contentBlock, callback) {
     const text = contentBlock.getText();
-    console.log({ text });
+    console.log({text});
+    const data = contentBlock.getCharacterList();
+    console.log({data});
     let matchArr, start;
     while ((matchArr = regex.exec(text)) !== null) {
       start = matchArr.index;
