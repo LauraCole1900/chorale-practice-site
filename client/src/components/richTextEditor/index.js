@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { EditorState, convertFromRaw } from "draft-js";
+import { convertFromRaw, EditorState, RichUtils } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./style.css";
@@ -20,6 +20,15 @@ class EditorContainer extends Component {
     this.name = props.name;
     this.value = props.value;
     this.onChange = props.onChange
+  }
+
+  _toggleInlineStyle(inlineStyle) {
+    this.onChange(
+      RichUtils.toggleInlineStyle(
+        this.state.editorState,
+        inlineStyle
+      )
+    );
   }
 
   // Handles input changes to editor form
