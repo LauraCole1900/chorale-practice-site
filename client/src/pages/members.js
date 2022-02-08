@@ -151,13 +151,15 @@ const Members = () => {
 
   function findWithRegex(regex, contentBlock, callback) {
     const text = contentBlock.getText();
-    console.log({text});
+    console.log({ text });
     const data = contentBlock.getCharacterList();
-    console.log({data});
+    console.log({ data });
+    const style = contentBlock.getInlineStyleAt(0);
+    console.log({ style });
     let matchArr, start;
-    while ((matchArr = regex.exec(text)) !== null) {
+    while ((matchArr = regex.exec(style)) !== null) {
       start = matchArr.index;
-      console.log({start});
+      console.log({ start });
       callback(start, start + matchArr[0].length);
     }
   }
@@ -168,7 +170,7 @@ const Members = () => {
   };
 
   const ColorComponent = (props) => {
-    console.log({props});
+    console.log({ props });
     return (
       <span style={{ color: props.decoratedText }}>{props.children}</span>
     );
@@ -266,7 +268,7 @@ const Members = () => {
                       <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                     </Card.Header>
                     <Card.Body className="cardBody">
-                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} onchange={(editorState) => this.setState({ editorState })} />
+                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -286,7 +288,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedDirectorNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} onChange={(editorState) => this.setState({ editorState })} />
+                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} />
                       : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
