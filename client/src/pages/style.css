@@ -130,6 +130,9 @@ a.sideLinks:hover {
   align-items: center;
 }
 
+.loginDiv {
+  margin-top: 5px;
+}
 .membersCard {
   width: 100%;
 }

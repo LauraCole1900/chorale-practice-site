@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_CONCERTS } from "../utils/gql";
+import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import "./style.css";
 
 const Lander = () => {
-  
+
   //=====================//
   //   State Variables   //
   //=====================//
@@ -23,7 +25,7 @@ const Lander = () => {
   // eslint-disable-next-line no-unused-vars
   const { loading, data, error } = useQuery(QUERY_ALL_CONCERTS);
 
-  const concerts = useMemo(() => {return data?.allConcerts || []}, [data?.allConcerts]);
+  const concerts = useMemo(() => { return data?.allConcerts || [] }, [data?.allConcerts]);
 
 
   //=====================//
@@ -69,6 +71,10 @@ const Lander = () => {
 
   return (
     <>
+      {!Auth.loggedIn() &&
+        <Row className="d-block d-sm-none loginDiv">
+          <Link to="login"><Button className="loginBtn">Login</Button></Link>
+        </Row>}
       <Card className="card">
         <Card.Header className="cardTitle">
           <h1>Upcoming Events</h1>

@@ -167,12 +167,12 @@ const Members = () => {
   function colorStrategy(contentBlock, callback, contentState, editorState) {
     const data = contentBlock.getInlineStyleAt(0);
     const style = data._map._list._tail.array
-    const selectionState = editorState.getSelection();
+    // const selectionState = editorState.getSelection();
     console.log(style[0][0]);
     console.log(colorRegex.test(style[0][0]));
-    if (colorRegex.test(style[0][0])) {
-      return Modifier.applyInlineStyle(contentState, selectionState, {inlineStyle: style})
-    }
+    // if (colorRegex.test(style[0][0])) {
+    //   return Modifier.applyInlineStyle(contentState, selectionState, {inlineStyle: style})
+    // }
   };
 
   const ColorComponent = (props) => {
