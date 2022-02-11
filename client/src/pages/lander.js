@@ -71,9 +71,13 @@ const Lander = () => {
 
   return (
     <>
-      {!Auth.loggedIn() &&
-        <Row className="d-block d-sm-none loginDiv">
-          <Link to="login"><Button className="loginBtn">Login</Button></Link>
+      {!Auth.loggedIn()
+        ? <Row className="d-block d-sm-none loginDiv">
+          <Link to="/login"><Button className="loginBtn">Login</Button></Link>
+        </Row>
+        : <Row className="d-block d-sm-none center">
+          <Link to="/members"><Button className="button">Members</Button></Link>
+          <Link to="/logout"><Button className="button">Logout</Button></Link>
         </Row>}
       <Card className="card">
         <Card.Header className="cardTitle">
