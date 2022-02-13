@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { convertFromRaw, EditorState, Modifier, RichUtils } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
+import ColorPicker from "./colorPicker";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./style.css";
 
@@ -51,83 +52,113 @@ const styleMap = {
   "fontsize-96": {
     fontSize: 96
   },
-  "color-rgb(0,0,0)": {
-    color: "rgb(0, 0, 0)"
+  "color-#4d4d4d": {
+    color: "#4d4d4d"
   },
-  "color-rgb(26,188,156)": {
-    color: "rgb(26, 188, 156)"
+  "color-#333333": {
+    color: "#333333"
   },
-  "color-rgb(40,50,78)": {
-    color: "rgb(40, 50, 78)"
+  "color-#999999": {
+    color: "#999999"
   },
-  "color-rgb(41,105,176)": {
-    color: "rgb(41, 105, 176)"
+  "color-#000000": {
+    color: "#000000"
   },
-  "color-rgb(44,130,201)": {
-    color: "rgb(44, 130, 201)"
+  "color-#808080": {
+    color: "#808080"
   },
-  "color-rgb(61,142,185)": {
-    color: "rgb(61, 142, 185)"
+  "color-#666666": {
+    color: "#666666"
   },
-  "color-rgb(65,168,95)": {
-    color: "rgb(65, 168, 95)"
+  "color-#ffffff": {
+    color: "#ffffff"
   },
-  "color-rgb(71,85,119)": {
-    color: "rgb(71, 85, 119)"
+  "color-#cccccc": {
+    color: "#cccccc"
   },
-  "color-rgb(84,172,210)": {
-    color: "rgb(84, 172, 210)"
+  "color-#b3b3b3": {
+    color: "#b3b3b3"
   },
-  "color-rgb(85,57,130)": {
-    color: "rgb(85, 57, 130)"
+  "color-#f44e3b": {
+    color: "#f44e3b"
   },
-  "color-rgb(97,189,109)": {
-    color: "rgb(97, 189, 109)"
+  "color-#d33115": {
+    color: "#d33115"
   },
-  "color-rgb(124,112,107)": {
-    color: "rgb(124, 112, 107)"
+  "color-#9f0500": {
+    color: "#9f0500"
   },
-  "color-rgb(147,101,184)": {
-    color: "rgb(147, 101, 184)"
+  "color-#fe9200": {
+    color: "#fe9200"
   },
-  "color-rgb(163,143,132)": {
-    color: "rgb(163, 143, 132)"
+  "color-#e27300": {
+    color: "#e27300"
   },
-  "color-rgb(184,49,47)": {
-    color: "rgb(184, 49, 47)"
+  "color-#c45100": {
+    color: "#c45100"
   },
-  "color-rgb(204,204,204)": {
-    color: "rgb(204, 204, 204)"
+  "color-#fcdc00": {
+    color: "#fcdc00"
   },
-  "color-rgb(209,72,65)": {
-    color: "rgb(209, 72, 65)"
+  "color-#fcc400": {
+    color: "#fcc400"
   },
-  "color-rgb(209,213,216)": {
-    color: "rgb(209, 213, 216)"
+  "color-#fb9e00": {
+    color: "#fb9e00"
   },
-  "color-rgb(226,80,65)": {
-    color: "rgb(226, 80, 65)"
+  "color-#dbdf00": {
+    color: "#dbdf00"
   },
-  "color-rgb(235,107,86)": {
-    color: "rgb(235, 107, 86)"
+  "color-#b0bc00": {
+    color: "#b0bc00"
   },
-  "color-rgb(239,239,239)": {
-    color: "rgb(239, 239, 239)"
+  "color-#808900": {
+    color: "#808900"
   },
-  "color-rgb(243,121,52)": {
-    color: "rgb(243, 121, 52)"
+  "color-#a4dd00": {
+    color: "#a4dd00"
   },
-  "color-rgb(247,218,100)": {
-    color: "rgb(247, 218, 100)"
+  "color-#68bc00": {
+    color: "#68bc00"
   },
-  "color-rgb(250,197,28)": {
-    color: "rgb(250, 197, 28)"
+  "color-#194d33": {
+    color: "#194d33"
   },
-  "color-rgb(251,160,38)": {
-    color: "rgb(251, 160, 38)"
+  "color-#68ccca": {
+    color: "#68ccca"
   },
-  "color-rgb(255,255,255)": {
-    color: "rgb(255, 255, 255)"
+  "color-#16a5a5": {
+    color: "#16a5a5"
+  },
+  "color-#0c797d": {
+    color: "#0c797d"
+  },
+  "color-#73d8ff": {
+    color: "#73d8ff"
+  },
+  "color-#009ce0": {
+    color: "#009ce0"
+  },
+  "color-#0062b1": {
+    color: "#0062b1"
+  },
+  "color-#aea1ff": {
+    color: "#aea1ff"
+  },
+  "color-#7b64ff": {
+    color: "#7b64ff"
+  },
+  "color-#653294": {
+    color: "#653294"
+  },
+  "color-#fda1ff": {
+    color: "#fda1ff"
+  },
+  "color-#fa28ff": {
+    color: "#fa28ff"
+  },
+  "color-#ab149e": {
+    color: "#ab149e"
   }
 }
 
@@ -216,7 +247,8 @@ class EditorContainer extends Component {
           },
           textAlign: { inDropdown: false },
           link: { inDropdown: false },
-          history: { inDropdown: false }
+          history: { inDropdown: false },
+          colorPicker: { component: ColorPicker }
         }}
       />
     </div>
