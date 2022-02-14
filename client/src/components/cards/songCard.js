@@ -3,6 +3,7 @@ import "./style.css";
 
 
 const SongCard = ({ section, song }) => {
+  console.log({ song });
 
   // If there's more than one composer, join their names into a single string
   // If there's only one composer, convert the array to a string
@@ -19,64 +20,104 @@ const SongCard = ({ section, song }) => {
         <Card.Body className="songBody">
           {section === "soprano" && (song.practiceTrackUrlsSopSlow.length
             ? <>
-              {song.practiceTrackUrlsSopSlow.map((track, i) => (
-                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Tempo di learno:</p>
+              <ul>
+                {song.practiceTrackUrlsSopSlow.map((track, i) => (
+                  (song.practiceTrackTitlesSopSlow[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSopSlow[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
             </>)}
           {section === "soprano" && (song.practiceTrackUrlsSopATempo.length
             ? <>
-              {song.practiceTrackUrlsSopATempo.map((track, i) => (
-                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Performance tempo:</p>
+              <ul>
+                {song.practiceTrackUrlsSopATempo.map((track, i) => (
+                  (song.practiceTrackTitlesSopATempo[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSopATempo[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No a tempo practice tracks found</p>
             </>)}
           {section === "alto" && (song.practiceTrackUrlsAltoSlow.length
             ? <>
-              {song.practiceTrackUrlsAltoSlow.map((track, i) => (
-                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Tempo di learno:</p>
+              <ul>
+                {song.practiceTrackUrlsAltoSlow.map((track, i) => (
+                  (song.practiceTrackTitlesAltoSlow[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAltoSlow[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
             </>)}
           {section === "alto" && (song.practiceTrackUrlsAltoATempo.length
             ? <>
-              {song.practiceTrackUrlsAltoATempo.map((track, i) => (
-                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Performance tempo:</p>
+              <ul>
+                {song.practiceTrackUrlsAltoATempo.map((track, i) => (
+                  (song.practiceTrackTitlesAltoATempo[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAltoATempo[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No a tempo practice tracks found</p>
             </>)}
           {section === "tenor" && (song.practiceTrackUrlsTenSlow.length
             ? <>
-              {song.practiceTrackUrlsTenSlow.map((track, i) => (
-                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Tempo di learno:</p>
+              <ul>
+                {song.practiceTrackUrlsTenSlow.map((track, i) => (
+                  (song.practiceTrackTitlesTenSlow[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTenSlow[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
             </>)}
           {section === "tenor" && (song.practiceTrackUrlsTenATempo.length
             ? <>
-              {song.practiceTrackUrlsTenATempo.map((track, i) => (
-                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Performance tempo:</p>
+              <ul>
+                {song.practiceTrackUrlsTenATempo.map((track, i) => (
+                  (song.practiceTrackTitlesTenATempo[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTenATempo[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No a tempo practice tracks found</p>
             </>)}
           {section === "bass" && (song.practiceTrackUrlsBassSlow.length
             ? <>
-              {song.practiceTrackUrlsBassSlow.map((track, i) => (
-                <p key={i}>Tempo di learno: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Tempo di learno:</p>
+              <ul>
+                {song.practiceTrackUrlsBassSlow.map((track, i) => (
+                  (song.practiceTrackTitlesBassSlow[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBassSlow[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No slow-tempo practice tracks found</p>
             </>)}
           {section === "bass" && (song.practiceTrackUrlsBassATempo.length
             ? <>
-              {song.practiceTrackUrlsBassATempo.map((track, i) => (
-                <p key={i}>Performance tempo: <a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></p>))}
+              <p>Performance tempo:</p>
+              <ul>
+                {song.practiceTrackUrlsBassATempo.map((track, i) => (
+                  (song.practiceTrackTitlesBassATempo[i]
+                    ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBassATempo[i]}</a></li>
+                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+              </ul>
             </>
             : <>
               <p>No a tempo practice tracks found</p>

@@ -24,25 +24,49 @@ const songSchema = new Schema(
     practiceTrackUrlsSopSlow: {
       type: [String]
     },
+    practiceTrackTitlesSopSlow: {
+      type: [String]
+    },
     practiceTrackUrlsAltoSlow: {
+      type: [String]
+    },
+    practiceTrackTitlesAltoSlow: {
       type: [String]
     },
     practiceTrackUrlsTenSlow: {
       type: [String]
     },
+    practiceTrackTitlesTenSlow: {
+      type: [String]
+    },
     practiceTrackUrlsBassSlow: {
+      type: [String]
+    },
+    practiceTrackTitlesBassSlow: {
       type: [String]
     },
     practiceTrackUrlsSopATempo: {
       type: [String]
     },
+    practiceTrackTitlesSopATempo: {
+      type: [String]
+    },
     practiceTrackUrlsAltoATempo: {
+      type: [String]
+    },
+    practiceTrackTitlesAltoATempo: {
       type: [String]
     },
     practiceTrackUrlsTenATempo: {
       type: [String]
     },
+    practiceTrackTitlesTenATempo: {
+      type: [String]
+    },
     practiceTrackUrlsBassATempo: {
+      type: [String]
+    },
+    practiceTrackTitlesBassATempo: {
       type: [String]
     },
     videoUrls: {

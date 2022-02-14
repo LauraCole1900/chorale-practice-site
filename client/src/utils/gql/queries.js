@@ -21,13 +21,21 @@ query allConcerts {
       composer
       concertOrder
       practiceTrackUrlsSopSlow
+      practiceTrackTitlesSopSlow
       practiceTrackUrlsAltoSlow
+      practiceTrackTitlesAltoSlow
       practiceTrackUrlsTenSlow
+      practiceTrackTitlesTenSlow
       practiceTrackUrlsBassSlow
+      practiceTrackTitlesBassSlow
       practiceTrackUrlsSopATempo
+      practiceTrackTitlesSopATempo
       practiceTrackUrlsAltoATempo
+      practiceTrackTitlesAltoATempo
       practiceTrackUrlsTenATempo
+      practiceTrackTitlesTenATempo
       practiceTrackUrlsBassATempo
+      practiceTrackTitlesBassATempo
       videoUrls
     }
   }
@@ -50,13 +58,21 @@ query oneConcert ($id: ID!) {
       composer
       concertOrder
       practiceTrackUrlsSopSlow
+      practiceTrackTitlesSopSlow
       practiceTrackUrlsAltoSlow
+      practiceTrackTitlesAltoSlow
       practiceTrackUrlsTenSlow
+      practiceTrackTitlesTenSlow
       practiceTrackUrlsBassSlow
+      practiceTrackTitlesBassSlow
       practiceTrackUrlsSopATempo
+      practiceTrackTitlesSopATempo
       practiceTrackUrlsAltoATempo
+      practiceTrackTitlesAltoATempo
       practiceTrackUrlsTenATempo
+      practiceTrackTitlesTenATempo
       practiceTrackUrlsBassATempo
+      practiceTrackTitlesBassATempo
       videoUrls
     }
   }
@@ -77,13 +93,21 @@ query trueConcerts {
       composer
       concertOrder
       practiceTrackUrlsSopSlow
+      practiceTrackTitlesSopSlow
       practiceTrackUrlsAltoSlow
+      practiceTrackTitlesAltoSlow
       practiceTrackUrlsTenSlow
+      practiceTrackTitlesTenSlow
       practiceTrackUrlsBassSlow
+      practiceTrackTitlesBassSlow
       practiceTrackUrlsSopATempo
+      practiceTrackTitlesSopATempo
       practiceTrackUrlsAltoATempo
+      practiceTrackTitlesAltoATempo
       practiceTrackUrlsTenATempo
+      practiceTrackTitlesTenATempo
       practiceTrackUrlsBassATempo
+      practiceTrackTitlesBassATempo
       videoUrls
       }
     }

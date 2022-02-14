@@ -27,13 +27,21 @@ const SongForm = () => {
     publisher: "",
     copyrightDate: "",
     practiceTrackUrlsSopSlow: [],
+    practiceTrackTitlesSopSlow: [],
     practiceTrackUrlsAltoSlow: [],
+    practiceTrackTitlesAltoSlow: [],
     practiceTrackUrlsTenSlow: [],
+    practiceTrackTitlesTenSlow: [],
     practiceTrackUrlsBassSlow: [],
+    practiceTrackTitlesBassSlow: [],
     practiceTrackUrlsSopATempo: [],
+    practiceTrackTitlesSopATempo: [],
     practiceTrackUrlsAltoATempo: [],
+    practiceTrackTitlesAltoATempo: [],
     practiceTrackUrlsTenATempo: [],
+    practiceTrackTitlesTenATempo: [],
     practiceTrackUrlsBassATempo: [],
+    practiceTrackTitlesBassATempo: [],
     videoUrls: []
   });
   const [errors, setErrors] = useState({});
@@ -129,7 +137,7 @@ const SongForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSongData({ ...songData, [name]: value });
-    if (["composer", "practiceTrackUrlsSopSlow", "practiceTrackUrlsAltoSlow", "practiceTrackUrlsTenSlow", "practiceTrackUrlsBassSlow", "practiceTrackUrlsSopATempo", "practiceTrackUrlsAltoATempo", "practiceTrackUrlsTenATempo", "practiceTrackUrlsBassATempo", "videoUrls"].includes(name)) {
+    if (["composer", "practiceTrackUrlsSopSlow", "practiceTrackTitlesSopSlow", "practiceTrackUrlsAltoSlow", "practiceTrackTitlesAltoSlow", "practiceTrackUrlsTenSlow", "practiceTrackTitlesTenSlow", "practiceTrackUrlsBassSlow", "practiceTrackTitlesBassSlow", "practiceTrackUrlsSopATempo", "practiceTrackTitlesSopATempo", "practiceTrackUrlsAltoATempo", "practiceTrackTitlesAltoATempo", "practiceTrackUrlsTenATempo", "practiceTrackTitlesTenATempo", "practiceTrackUrlsBassATempo", "practiceTrackTitlesBassATempo", "videoUrls"].includes(name)) {
       let dataArr = value.split(",");
       setSongData({ ...songData, [name]: dataArr });
     }
@@ -149,7 +157,7 @@ const SongForm = () => {
         });
         handleShowSuccess();
       } catch (error) {
-        console.error(JSON.stringify(error));
+        console.error(JSON.parse(JSON.stringify(error)));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -160,13 +168,21 @@ const SongForm = () => {
         publisher: "",
         copyrightDate: "",
         practiceTrackUrlsSopSlow: [],
+        practiceTrackTitlesSopSlow: [],
         practiceTrackUrlsAltoSlow: [],
+        practiceTrackTitlesAltoSlow: [],
         practiceTrackUrlsTenSlow: [],
+        practiceTrackTitlesTenSlow: [],
         practiceTrackUrlsBassSlow: [],
+        practiceTrackTitlesBassSlow: [],
         practiceTrackUrlsSopATempo: [],
+        practiceTrackTitlesSopATempo: [],
         practiceTrackUrlsAltoATempo: [],
+        practiceTrackTitlesAltoATempo: [],
         practiceTrackUrlsTenATempo: [],
+        practiceTrackTitlesTenATempo: [],
         practiceTrackUrlsBassATempo: [],
+        practiceTrackTitlesBassATempo: [],
         videoUrls: []
       });
     } else {
@@ -186,10 +202,9 @@ const SongForm = () => {
         const { data } = await editRepertoire({
           variables: { concertId: concertId, songId: songId, ...songData, concertOrder: parseInt(songData.concertOrder) }
         });
-        console.log({ data });
         handleShowSuccess();
       } catch (error) {
-        console.error(JSON.stringify(error));
+        console.error(JSON.parse(JSON.stringify(error)));
         setErrThrown(error.message);
         handleShowErr();
       }
@@ -200,13 +215,21 @@ const SongForm = () => {
         publisher: "",
         copyrightDate: "",
         practiceTrackUrlsSopSlow: [],
+        practiceTrackTitlesSopSlow: [],
         practiceTrackUrlsAltoSlow: [],
+        practiceTrackTitlesAltoSlow: [],
         practiceTrackUrlsTenSlow: [],
+        practiceTrackTitlesTenSlow: [],
         practiceTrackUrlsBassSlow: [],
+        practiceTrackTitlesBassSlow: [],
         practiceTrackUrlsSopATempo: [],
+        practiceTrackTitlesSopATempo: [],
         practiceTrackUrlsAltoATempo: [],
+        practiceTrackTitlesAltoATempo: [],
         practiceTrackUrlsTenATempo: [],
+        practiceTrackTitlesTenATempo: [],
         practiceTrackUrlsBassATempo: [],
+        practiceTrackTitlesBassATempo: [],
         videoUrls: []
       });
     } else {
@@ -314,6 +337,18 @@ const SongForm = () => {
             </Row>
           </Form.Group>
 
+          <Form.Group controlId="formSongSopPracticeSlowTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of soprano practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesSopSlow &&
+                  <div className="error"><p>{errors.practiceTrackTitlesSopSlow}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesSopSlow" placeholder="Soprano 1 (K), Soprano 1 (L)" value={songData.practiceTrackTitlesSopSlow} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
           <Form.Group controlId="formSongAltoPracticeSlow">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
@@ -322,6 +357,17 @@ const SongForm = () => {
                 {errors.practiceTrackUrlsAltoSlow &&
                   <div className="error"><p>{errors.practiceTrackUrlsAltoSlow}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsAltoSlow" placeholder="http://link_to_slow_alto_practice_tracks.com" value={songData.practiceTrackUrlsAltoSlow} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group controlId="formSongAltoPracticeSlowTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of alto practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesAltoSlow &&
+                  <div className="error"><p>{errors.practiceTrackTitlesAltoSlow}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesAltoSlow" placeholder="Alto 1 (K), Alto 1 (L)" value={songData.practiceTrackTitlesAltoSlow} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
@@ -338,6 +384,18 @@ const SongForm = () => {
             </Row>
           </Form.Group>
 
+          <Form.Group controlId="formSongTenPracticeSlowTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of tenor practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesTenSlow &&
+                  <div className="error"><p>{errors.practiceTrackTitlesTenSlow}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesTenSlow" placeholder="Tenor 1 (K), Tenor 1 (L)" value={songData.practiceTrackTitlesTenSlow} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
           <Form.Group controlId="formSongBassPracticeSlow">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
@@ -346,6 +404,18 @@ const SongForm = () => {
                 {errors.practiceTrackUrlsBassSlow &&
                   <div className="error"><p>{errors.practiceTrackUrlsBassSlow}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsBassSlow" placeholder="http://link_to_slow_bass_practice_tracks.com" value={songData.practiceTrackUrlsBassSlow} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Form.Group controlId="formSongBassPracticeSlowTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of bass practice track(s), tempo di learno:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesBassSlow &&
+                  <div className="error"><p>{errors.practiceTrackTitlesBassSlow}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesBassSlow" placeholder="Bass 1 (K), Bass 1 (L)" value={songData.practiceTrackTitlesBassSlow} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
@@ -362,6 +432,18 @@ const SongForm = () => {
             </Row>
           </Form.Group>
 
+          <Form.Group controlId="formSongSopPracticeATempoTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of soprano practice track(s), performance tempo:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesSopATempo &&
+                  <div className="error"><p>{errors.practiceTrackTitlesSopATempo}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesSopATempo" placeholder="Soprano 1 (K), Soprano 1 (L)" value={songData.practiceTrackTitlesSopATempo} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
           <Form.Group controlId="formSongAltoPracticeATempo">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
@@ -370,6 +452,18 @@ const SongForm = () => {
                 {errors.practiceTrackUrlsAltoATempo &&
                   <div className="error"><p>{errors.practiceTrackUrlsAltoATempo}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsAltoATempo" placeholder="http://link_to_performance_tempo_alto_practice_tracks.com" value={songData.practiceTrackUrlsAltoATempo} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Form.Group controlId="formSongAltoPracticeATempoTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of alto practice track(s), performance tempo:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesAltoATempo &&
+                  <div className="error"><p>{errors.practiceTrackTitlesAltoATempo}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesAltoATempo" placeholder="Alto 1 (K), Alto 1 (L)" value={songData.practiceTrackTitlesAltoATempo} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
@@ -386,6 +480,18 @@ const SongForm = () => {
             </Row>
           </Form.Group>
 
+          <Form.Group controlId="formSongTenPracticeATempoTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of tenor practice track(s), performance tempo:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesTenATempo &&
+                  <div className="error"><p>{errors.practiceTrackTitlesTenATempo}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesTenATempo" placeholder="Tenor 1 (K), Tenor 1 (L)" value={songData.practiceTrackTitlesTenATempo} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
           <Form.Group controlId="formSongBassPracticeATempo">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
@@ -394,6 +500,18 @@ const SongForm = () => {
                 {errors.practiceTrackUrlsBassATempo &&
                   <div className="error"><p>{errors.practiceTrackUrlsBassATempo}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsBassATempo" placeholder="http://link_to_performance_tempo_bass_practice_tracks.com" value={songData.practiceTrackUrlsBassATempo} className="formInput" onChange={handleInputChange} />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Form.Group controlId="formSongBassPracticeATempoTitles">
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <Form.Label>Titles of bass practice track(s), performance tempo:</Form.Label><br />
+                <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
+                {errors.practiceTrackTitlesBassATempo &&
+                  <div className="error"><p>{errors.practiceTrackTitlesBassATempo}</p></div>}
+                <Form.Control type="input" name="practiceTrackTitlesBassATempo" placeholder="Bass 1 (K), Bass 1 (L)" value={songData.practiceTrackTitlesBassATempo} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
