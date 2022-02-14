@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import { CompositeDecorator, convertFromRaw, Editor, EditorState, Modifier } from "draft-js";
+import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
 import { Sidenav } from "../components/navbar";
 import { useMutation, useQuery } from "@apollo/client";
 import { DELETE_POST, QUERY_ALL_ADMINS, QUERY_ALL_BIRTHDAYS, QUERY_ALL_POSTS, QUERY_ME } from "../utils/gql";
@@ -146,66 +146,11 @@ const Members = () => {
     );
   };
 
-  const colorRegex = /color-rgb\((\d+),(\d+),(\d+)\)/;
-  const fontsizeRegex = /fontsize-?\d{1,2}%$/;
-
-  function findWithRegex(regex, contentBlock, callback) {
-    const text = contentBlock.getText();
-    console.log({ text });
-    const data = contentBlock.getCharacterList();
-    console.log({ data });
-    const style = contentBlock.getInlineStyleAt(0);
-    let matchArr, start;
-    while ((matchArr = regex.exec(style)) !== null) {
-      start = matchArr.index;
-      console.log({ start });
-      callback(start, start + matchArr[0].length);
-    }
-  }
-
-  // Colors text as directed in read-only mode
-  function colorStrategy(contentBlock, callback, contentState, editorState) {
-  //   const data = contentBlock.getInlineStyleAt(0);
-    // const style = data._map._list._tail.array
-    // const selectionState = editorState.getSelection();
-    // console.log(style[0][0]);
-    // console.log(colorRegex.test(style[0][0]));
-    // if (colorRegex.test(style[0][0])) {
-    //   return Modifier.applyInlineStyle(contentState, selectionState, {inlineStyle: style})
-    // }
-  };
-
-  const ColorComponent = (props) => {
-    console.log({ props });
-    return (
-      <span style={{ color: props.decoratedText }}>{props.children}</span>
-    );
-  };
-
-  function fontsizeStrategy(contentBlock, callback, contentState) {
-    findWithRegex(fontsizeRegex, contentBlock, callback);
-  };
-
-  const FontsizeComponent = (props) => {
-    console.log({ props });
-    return (
-      <span style={{ fontSize: props.decoratedText }}>{props.children}</span>
-    );
-  };
-
   // Consolidates decorators?
   const decorator = new CompositeDecorator([
     {
       strategy: linkStrategy,
       component: LinkComponent
-    },
-    {
-      strategy: colorStrategy,
-      component: ColorComponent
-    },
-    {
-      strategy: fontsizeStrategy,
-      component: FontsizeComponent
     }
   ]);
 
@@ -274,7 +219,7 @@ const Members = () => {
                       <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
                     </Card.Header>
                     <Card.Body className="cardBody">
-                      <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(emergency[0].postBody)), decorator)} readOnly={true} />
+                      <div dangerouslySetInnerHTML={{ __html: emergency[0].postBody }} />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -294,7 +239,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedDirectorNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedDirectorNote[0].postBody)), decorator)} readOnly={true} />
+                      ? <div dangerouslySetInnerHTML={{ __html: sortedDirectorNote[0].postBody }} />
                       : <p>No Director's Notes found</p>}
                   </Card.Body>
                 </Card>
@@ -312,7 +257,7 @@ const Members = () => {
                   </Card.Header>
                   <Card.Body className="cardBody">
                     {sortedSingersNote.length > 0
-                      ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sortedSingersNote[0].postBody)), decorator)} readOnly={true} />
+                      ? <div dangerouslySetInnerHTML={{ __html: sortedSingersNote[0].postBody }} />
                       : <p>No Singer's Notes found</p>}
                   </Card.Body>
                 </Card>

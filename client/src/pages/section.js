@@ -148,7 +148,7 @@ const Section = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 {Object.keys(sectionPost).length > 0
-                  ? <Editor editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(sectionPost.postBody)), decorator)} readOnly={true} />
+                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody}} />
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>

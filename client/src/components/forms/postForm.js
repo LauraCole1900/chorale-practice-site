@@ -5,6 +5,8 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
@@ -141,7 +143,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await addPost({
-          variables: { ...postData, postSection: thisSection, postBody: JSON.stringify(convertToRaw(postData.postBody.getCurrentContent())) }
+          variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
         });
         handleShowSuccess();
       } catch (error) {
@@ -171,7 +173,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await editPost({
-          variables: { id: postId, ...postData, postBody: JSON.stringify(convertToRaw(postData.postBody.getCurrentContent())) }
+          variables: { id: postId, ...postData, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
         });
         handleShowSuccess();
       } catch (error) {
