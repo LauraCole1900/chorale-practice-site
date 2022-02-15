@@ -19,7 +19,7 @@ const ConcertCard = ({ concert }) => {
   // Capitalize the first letter of each word, e.g. "By Appointment Only"
   const capsCase = (str) => {
     const wordsArr = str.split(" ");
-    const capsArr = wordsArr.map(word => word[0].toUpperCase() + word.substring(1).toLowerCase());
+    const capsArr = wordsArr.map(word => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase());
     const casedStr = capsArr.join(" ");
     return casedStr;
   }
