@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/gql";
 import { Sidenav } from "../components/navbar";
-import { VideoEmbed } from "../components/videoEmbed";
+import { VideoEmbed } from "../components/embed";
 import Auth from "../utils/auth";
 import "./style.css";
 
@@ -28,6 +28,10 @@ const VoiceBuilder = () => {
 
   const me = data?.me || data?.currentId || {};
 
+
+  //=====================//
+  //    Conditionals     //
+  //=====================//
 
   if (loading) {
     return <h1>Loading....</h1>

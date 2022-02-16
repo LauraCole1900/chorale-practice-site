@@ -15,7 +15,7 @@ const VideoEmbed = ({ src }) => (
 );
 
 VideoEmbed.propTypes = {
-  embedId: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired
 };
 
 export default VideoEmbed;

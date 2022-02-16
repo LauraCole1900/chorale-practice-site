@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { VideoEmbed } from "../videoEmbed";
+import { VideoEmbed } from "../embed";
 import "./style.css";
 
 
