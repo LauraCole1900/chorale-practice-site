@@ -68,7 +68,7 @@ npm run test
 
 ## Credits
 
-none yet
+Video-embed component from [bravemaster619](https://dev.to/bravemaster619) and found [here](https://dev.to/bravemaster619/simplest-way-to-embed-a-youtube-video-in-your-react-app-3bk2)
 
 ## Contributing
 

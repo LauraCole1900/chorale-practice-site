@@ -21,6 +21,9 @@ const Sidenav = ({ user, urlId }) => {
         <Nav>
           <Link to="/section/bass"><Button className="navBtn">Bass</Button></Link>
         </Nav>
+        <Nav>
+          <Link to="/voice_building"><Button className="navBtn">Voice Building Exercises</Button></Link>
+        </Nav>
         {(user.isAdmin === true &&
           urlId !== "admin_portal")
           ? <>

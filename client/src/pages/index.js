@@ -5,3 +5,4 @@ export { default as Members } from "./members";
 export { default as ProfilePage } from "./profile";
 export { default as RosterPage } from "./roster"
 export { default as Section } from "./section";
+export { default as VoiceBuilder } from "./voiceBuilder";
