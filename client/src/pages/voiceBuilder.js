@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Navigate } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";

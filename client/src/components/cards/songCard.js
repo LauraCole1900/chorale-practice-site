@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import { VideoEmbed } from "../videoEmbed";
 import "./style.css";
 
 
@@ -125,7 +126,8 @@ const SongCard = ({ section, song }) => {
           {song.videoUrls.length
             ? <>
               {song.videoUrls.map((video, i) => (
-                <p key={i}><a href={video} target="_blank" rel="noreferrer noopener">Video {i + 1}</a></p>))}
+                <VideoEmbed src={video} key={i} />
+              ))}
             </>
             : <>
               <p>No video links found</p>
