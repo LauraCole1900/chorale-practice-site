@@ -125,12 +125,13 @@ const SongCard = ({ section, song }) => {
             </>)}
           {song.videoUrls.length
             ? <>
+              <p>Video(s):</p>
               {song.videoUrls.map((video, i) => (
                 <VideoEmbed src={video} key={i} />
               ))}
             </>
             : <>
-              <p>No video links found</p>
+              <p>No videos found</p>
             </>}
         </Card.Body>
       </Card>

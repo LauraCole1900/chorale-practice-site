@@ -32,13 +32,13 @@ Landing page:
 Login page:
 ![Login page](assets/gcpm-login-screenshot.png)
 
-Members page as viewed by the Guest account:
-![Members page](assets/gcpm-members-page-screenshot.png)
+Members page as viewed by the Guest account (truncated):
+![Members page](assets/gcpm-members-page-screenshot-tr.png)
 
 Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)
 
-Section page:
+Section page (truncated):
 ![Section page](assets/gcpm-section-page-screenshot.png)
 
 New Event form:
