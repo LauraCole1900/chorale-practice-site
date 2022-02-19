@@ -4,7 +4,6 @@ import "./style.css";
 
 
 const SongCard = ({ section, song }) => {
-  console.log({ song });
 
   // If there's more than one composer, join their names into a single string
   // If there's only one composer, convert the array to a string
@@ -47,7 +46,7 @@ const SongCard = ({ section, song }) => {
                     ? (song.practiceTrackTitlesAlto[i] === "Cyberbass"
                       ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesAlto[i]}</p>
+                        <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></p>
                           <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}

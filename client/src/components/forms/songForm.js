@@ -304,7 +304,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongSopPractice">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Soprano practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Soprano practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsSop &&
                   <div className="error"><p>{errors.practiceTrackUrlsSop}</p></div>}
@@ -316,7 +316,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongSopPracticeTitles">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Titles of soprano practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Titles of soprano practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
                 {errors.practiceTrackTitlesSop &&
                   <div className="error"><p>{errors.practiceTrackTitlesSop}</p></div>}
@@ -328,7 +328,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongAltoPractice">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Alto practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Alto practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsAlto &&
                   <div className="error"><p>{errors.practiceTrackUrlsAlto}</p></div>}
@@ -340,7 +340,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongAltoPracticeTitles">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Titles of alto practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Titles of alto practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
                 {errors.practiceTrackTitlesAlto &&
                   <div className="error"><p>{errors.practiceTrackTitlesAlto}</p></div>}
@@ -352,7 +352,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongTenPractice">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Tenor practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Tenor practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsTen &&
                   <div className="error"><p>{errors.practiceTrackUrlsTen}</p></div>}
@@ -364,7 +364,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongTenPracticeTitles">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Titles of tenor practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Titles of tenor practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
                 {errors.practiceTrackTitlesTen &&
                   <div className="error"><p>{errors.practiceTrackTitlesTen}</p></div>}
@@ -376,7 +376,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongBassPractice">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Bass practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Bass practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsBass &&
                   <div className="error"><p>{errors.practiceTrackUrlsBass}</p></div>}
@@ -388,7 +388,7 @@ const SongForm = () => {
           <Form.Group controlId="formSongBassPracticeTitles">
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
-                <Form.Label>Titles of bass practice track(s), performance tempo:</Form.Label><br />
+                <Form.Label>Titles of bass practice track(s):</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
                 {errors.practiceTrackTitlesBass &&
                   <div className="error"><p>{errors.practiceTrackTitlesBass}</p></div>}
