@@ -34,22 +34,14 @@ mutation deleteConcert($id: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -89,22 +81,14 @@ mutation deleteSong($id: ID!, $songId: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -126,22 +110,14 @@ mutation deleteManySongs($_id: ID!, $songsToDelete: [ID!]!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -157,22 +133,14 @@ mutation addRepertoire($id: ID!, $songs: SongInput!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -180,28 +148,20 @@ mutation addRepertoire($id: ID!, $songs: SongInput!) {
 `;
 
 export const EDIT_REPERTOIRE = gql`
-mutation editRepertoire($concertId: ID!, $songId: ID!, $title: String!, $composer: [String!], $concertOrder: Int, $practiceTrackUrlsSopSlow: [String!], $practiceTrackTitlesSopSlow: [String!], $practiceTrackUrlsAltoSlow: [String!], $practiceTrackTitlesAltoSlow: [String!], $practiceTrackUrlsTenSlow: [String!], $practiceTrackTitlesTenSlow: [String!], $practiceTrackUrlsBassSlow: [String!], $practiceTrackTitlesBassSlow: [String!], $practiceTrackUrlsSopATempo: [String!], $practiceTrackTitlesSopATempo: [String!], $practiceTrackUrlsAltoATempo: [String!], $practiceTrackTitlesAltoATempo: [String!], $practiceTrackUrlsTenATempo: [String!], $practiceTrackTitlesTenATempo: [String!], $practiceTrackUrlsBassATempo: [String!], $practiceTrackTitlesBassATempo: [String!], $videoUrls: [String!]) {
-  editRepertoire(_id: $concertId, songId: $songId, title: $title, composer: $composer, concertOrder: $concertOrder, practiceTrackUrlsSopSlow: $practiceTrackUrlsSopSlow, practiceTrackTitlesSopSlow: $practiceTrackTitlesSopSlow, practiceTrackUrlsAltoSlow: $practiceTrackUrlsAltoSlow, practiceTrackTitlesAltoSlow: $practiceTrackTitlesAltoSlow, practiceTrackUrlsTenSlow: $practiceTrackUrlsTenSlow, practiceTrackTitlesTenSlow: $practiceTrackTitlesTenSlow, practiceTrackUrlsBassSlow: $practiceTrackUrlsBassSlow, practiceTrackTitlesBassSlow: $practiceTrackTitlesBassSlow, practiceTrackUrlsSopATempo: $practiceTrackUrlsSopATempo, practiceTrackTitlesSopATempo: $practiceTrackTitlesSopATempo, practiceTrackUrlsAltoATempo: $practiceTrackUrlsAltoATempo, practiceTrackTitlesAltoATempo: $practiceTrackTitlesAltoATempo, practiceTrackUrlsTenATempo: $practiceTrackUrlsTenATempo, practiceTrackTitlesTenATempo: $practiceTrackTitlesTenATempo, practiceTrackUrlsBassATempo: $practiceTrackUrlsBassATempo, practiceTrackTitlesBassATempo: $practiceTrackTitlesBassATempo, videoUrls: $videoUrls) {
+mutation editRepertoire($concertId: ID!, $songId: ID!, $title: String!, $composer: [String!], $concertOrder: Int, $practiceTrackUrlsSop: [String!], $practiceTrackTitlesSop: [String!], $practiceTrackUrlsAlto: [String!], $practiceTrackTitlesAlto: [String!], $practiceTrackUrlsTen: [String!], $practiceTrackTitlesTen: [String!], $practiceTrackUrlsBass: [String!], $practiceTrackTitlesBass: [String!], $videoUrls: [String!]) {
+  editRepertoire(_id: $concertId, songId: $songId, title: $title, composer: $composer, concertOrder: $concertOrder, practiceTrackUrlsSop: $practiceTrackUrlsSop, practiceTrackTitlesSop: $practiceTrackTitlesSop, practiceTrackUrlsAlto: $practiceTrackUrlsAlto, practiceTrackTitlesAlto: $practiceTrackTitlesAlto, practiceTrackUrlsTen: $practiceTrackUrlsTen, practiceTrackTitlesTen: $practiceTrackTitlesTen, practiceTrackUrlsBass: $practiceTrackUrlsBass, practiceTrackTitlesBass: $practiceTrackTitlesBass, videoUrls: $videoUrls) {
     _id
     title
     composer
     concertOrder
-    practiceTrackUrlsSopSlow
-    practiceTrackTitlesSopSlow
-    practiceTrackUrlsAltoSlow
-    practiceTrackTitlesAltoSlow
-    practiceTrackUrlsTenSlow
-    practiceTrackTitlesTenSlow
-    practiceTrackUrlsBassSlow
-    practiceTrackTitlesBassSlow
-    practiceTrackUrlsSopATempo
-    practiceTrackTitlesSopATempo
-    practiceTrackUrlsAltoATempo
-    practiceTrackTitlesAltoATempo
-    practiceTrackUrlsTenATempo
-    practiceTrackTitlesTenATempo
-    practiceTrackUrlsBassATempo
-    practiceTrackTitlesBassATempo
+    practiceTrackUrlsSop
+    practiceTrackTitlesSop
+    practiceTrackUrlsAlto
+    practiceTrackTitlesAlto
+    practiceTrackUrlsTen
+    practiceTrackTitlesTen
+    practiceTrackUrlsBass
+    practiceTrackTitlesBass
     videoUrls
   }
 }

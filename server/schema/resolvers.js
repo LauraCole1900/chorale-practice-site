@@ -147,25 +147,17 @@ const resolvers = {
 
     addRepertoire: async (_, args) => {
       const trimComposer = trimArr(args.songs.composer);
-      const trimSopSlowUrl = trimArr(args.songs.practiceTrackUrlsSopSlow);
-      const trimSopSlowTitle = trimArr(args.songs.practiceTrackTitlesSopSlow);
-      const trimAltoSlowUrl = trimArr(args.songs.practiceTrackUrlsAltoSlow);
-      const trimAltoSlowTitle = trimArr(args.songs.practiceTrackTitlesAltoSlow);
-      const trimTenSlowUrl = trimArr(args.songs.practiceTrackUrlsTenSlow);
-      const trimTenSlowTitle = trimArr(args.songs.practiceTrackTitlesTenSlow);
-      const trimBassSlowUrl = trimArr(args.songs.practiceTrackUrlsBassSlow);
-      const trimBassSlowTitle = trimArr(args.songs.practiceTrackTitlesBassSlow);
-      const trimSopATempoUrl = trimArr(args.songs.practiceTrackUrlsSopATempo);
-      const trimSopATempoTitle = trimArr(args.songs.practiceTrackTitlesSopATempo);
-      const trimAltoATempoUrl = trimArr(args.songs.practiceTrackUrlsAltoATempo);
-      const trimAltoATempoTitle = trimArr(args.songs.practiceTrackTitlesAltoATempo);
-      const trimTenATempoUrl = trimArr(args.songs.practiceTrackUrlsTenATempo);
-      const trimTenATempoTitle = trimArr(args.songs.practiceTrackTitlesTenATempo);
-      const trimBassATempoUrl = trimArr(args.songs.practiceTrackUrlsBassATempo);
-      const trimBassATempoTitle = trimArr(args.songs.practiceTrackTitlesBassATempo);
+      const trimSopUrl = trimArr(args.songs.practiceTrackUrlsSop);
+      const trimSopTitle = trimArr(args.songs.practiceTrackTitlesSop);
+      const trimAltoUrl = trimArr(args.songs.practiceTrackUrlsAlto);
+      const trimAltoTitle = trimArr(args.songs.practiceTrackTitlesAlto);
+      const trimTenUrl = trimArr(args.songs.practiceTrackUrlsTen);
+      const trimTenTitle = trimArr(args.songs.practiceTrackTitlesTen);
+      const trimBassUrl = trimArr(args.songs.practiceTrackUrlsBass);
+      const trimBassTitle = trimArr(args.songs.practiceTrackTitlesBass);
       const trimVideoUrl = trimArr(args.songs.videoUrls);
       const songToAdd = {
-        title: args.songs.title, composer: trimComposer, concertOrder: args.songs.concertOrder, publisher: args.songs.publisher, copyrightDate: args.songs.copyrightDate, practiceTrackUrlsSopSlow: trimSopSlowUrl, practiceTrackTitlesSopSlow: trimSopSlowTitle, practiceTrackUrlsAltoSlow: trimAltoSlowUrl, practiceTrackTitlesAltoSlow: trimAltoSlowTitle, practiceTrackUrlsTenSlow: trimTenSlowUrl, practiceTrackTitlesTenSlow: trimTenSlowTitle, TrackUrlsBassSlow: trimBassSlowUrl, practiceTrackTitlesBassSlow: trimBassSlowTitle, practiceTrackUrlsSopATempo: trimSopATempoUrl, practiceTrackTitlesSopATempo: trimSopATempoTitle, practiceTrackUrlsAltoATempo: trimAltoATempoUrl, practiceTrackTitlesAltoATempo: trimAltoATempoTitle, practiceTrackUrlsTenATempo: trimTenATempoUrl, practiceTrackTitlesTenATempo: trimTenATempoTitle, practiceTrackUrlsBassATempo: trimBassATempoUrl, practiceTrackTitlesBassATempo: trimBassATempoTitle, videoUrls: trimVideoUrl
+        title: args.songs.title, composer: trimComposer, concertOrder: args.songs.concertOrder, publisher: args.songs.publisher, copyrightDate: args.songs.copyrightDate, practiceTrackUrlsSop: trimSopUrl, practiceTrackTitlesSop: trimSopTitle, practiceTrackUrlsAlto: trimAltoUrl, practiceTrackTitlesAlto: trimAltoTitle, practiceTrackUrlsTen: trimTenUrl, practiceTrackTitlesTen: trimTenTitle, practiceTrackUrlsBass: trimBassUrl, practiceTrackTitlesBass: trimBassTitle, videoUrls: trimVideoUrl
       };
       const concert = await Concert.findByIdAndUpdate({ _id: args._id }, { $push: { songs: songToAdd } }, { new: true });
       return concert;
@@ -193,27 +185,19 @@ const resolvers = {
     // gets reset to match the concert's ID
     editRepertoire: async (_, args) => {
       const trimComposer = trimArr(args.composer);
-      const trimSopSlowUrl = trimArr(args.practiceTrackUrlsSopSlow);
-      const trimSopSlowTitle = trimArr(args.practiceTrackTitlesSopSlow);
-      const trimAltoSlowUrl = trimArr(args.practiceTrackUrlsAltoSlow);
-      const trimAltoSlowTitle = trimArr(args.practiceTrackTitlesAltoSlow);
-      const trimTenSlowUrl = trimArr(args.practiceTrackUrlsTenSlow);
-      const trimTenSlowTitle = trimArr(args.practiceTrackTitlesTenSlow);
-      const trimBassSlowUrl = trimArr(args.practiceTrackUrlsBassSlow);
-      const trimBassSlowTitle = trimArr(args.practiceTrackTitlesBassSlow);
-      const trimSopATempoUrl = trimArr(args.practiceTrackUrlsSopATempo);
-      const trimSopATempoTitle = trimArr(args.practiceTrackTitlesSopATempo);
-      const trimAltoATempoUrl = trimArr(args.practiceTrackUrlsAltoATempo);
-      const trimAltoATempoTitle = trimArr(args.practiceTrackTitlesAltoATempo);
-      const trimTenATempoUrl = trimArr(args.practiceTrackUrlsTenATempo);
-      const trimTenATempoTitle = trimArr(args.practiceTrackTitlesTenATempo);
-      const trimBassATempoUrl = trimArr(args.practiceTrackUrlsBassATempo);
-      const trimBassATempoTitle = trimArr(args.practiceTrackTitlesBassATempo);
+      const trimSopUrl = trimArr(args.practiceTrackUrlsSop);
+      const trimSopTitle = trimArr(args.practiceTrackTitlesSop);
+      const trimAltoUrl = trimArr(args.practiceTrackUrlsAlto);
+      const trimAltoTitle = trimArr(args.practiceTrackTitlesAlto);
+      const trimTenUrl = trimArr(args.practiceTrackUrlsTen);
+      const trimTenTitle = trimArr(args.practiceTrackTitlesTen);
+      const trimBassUrl = trimArr(args.practiceTrackUrlsBass);
+      const trimBassTitle = trimArr(args.practiceTrackTitlesBass);
       const trimVideoUrl = trimArr(args.videoUrls);
       const concert = await Concert.findOneAndUpdate({ _id: args._id, "songs._id": args.songId }, {
         $set: {
           "songs.$": {
-            _id: args.songId, title: args.title, composer: trimComposer, concertOrder: args.concertOrder, copyrightDate: args.copyrightDate, publisher: args.publisher, practiceTrackUrlsSopSlow: trimSopSlowUrl, practiceTrackTitlesSopSlow: trimSopSlowTitle, practiceTrackUrlsAltoSlow: trimAltoSlowUrl, practiceTrackTitlesAltoSlow: trimAltoSlowTitle, practiceTrackUrlsTenSlow: trimTenSlowUrl, practiceTrackTitlesTenSlow: trimTenSlowTitle, practiceTrackUrlsBassSlow: trimBassSlowUrl, practiceTrackTitlesBassSlow: trimBassSlowTitle, practiceTrackUrlsSopATempo: trimSopATempoUrl, practiceTrackTitlesSopATempo: trimSopATempoTitle, practiceTrackUrlsAltoATempo: trimAltoATempoUrl, practiceTrackTitlesAltoATempo: trimAltoATempoTitle, practiceTrackUrlsTenATempo: trimTenATempoUrl, practiceTrackTitlesTenATempo: trimTenATempoTitle, practiceTrackUrlsBassATempo: trimBassATempoUrl, practiceTrackTitlesBassATempo: trimBassATempoTitle, videoUrls: trimVideoUrl
+            _id: args.songId, title: args.title, composer: trimComposer, concertOrder: args.concertOrder, copyrightDate: args.copyrightDate, publisher: args.publisher, practiceTrackUrlsSop: trimSopUrl, practiceTrackTitlesSop: trimSopTitle, practiceTrackUrlsAlto: trimAltoUrl, practiceTrackTitlesAlto: trimAltoTitle, practiceTrackUrlsTen: trimTenUrl, practiceTrackTitlesTen: trimTenTitle, practiceTrackUrlsBass: trimBassUrl, practiceTrackTitlesBass: trimBassTitle, videoUrls: trimVideoUrl
           }
         }
       }, { new: true });

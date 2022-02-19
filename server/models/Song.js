@@ -21,52 +21,28 @@ const songSchema = new Schema(
     copyrightDate: {
       type: String
     },
-    practiceTrackUrlsSopSlow: {
+    practiceTrackUrlsSop: {
       type: [String]
     },
-    practiceTrackTitlesSopSlow: {
+    practiceTrackTitlesSop: {
       type: [String]
     },
-    practiceTrackUrlsAltoSlow: {
+    practiceTrackUrlsAlto: {
       type: [String]
     },
-    practiceTrackTitlesAltoSlow: {
+    practiceTrackTitlesAlto: {
       type: [String]
     },
-    practiceTrackUrlsTenSlow: {
+    practiceTrackUrlsTen: {
       type: [String]
     },
-    practiceTrackTitlesTenSlow: {
+    practiceTrackTitlesTen: {
       type: [String]
     },
-    practiceTrackUrlsBassSlow: {
+    practiceTrackUrlsBass: {
       type: [String]
     },
-    practiceTrackTitlesBassSlow: {
-      type: [String]
-    },
-    practiceTrackUrlsSopATempo: {
-      type: [String]
-    },
-    practiceTrackTitlesSopATempo: {
-      type: [String]
-    },
-    practiceTrackUrlsAltoATempo: {
-      type: [String]
-    },
-    practiceTrackTitlesAltoATempo: {
-      type: [String]
-    },
-    practiceTrackUrlsTenATempo: {
-      type: [String]
-    },
-    practiceTrackTitlesTenATempo: {
-      type: [String]
-    },
-    practiceTrackUrlsBassATempo: {
-      type: [String]
-    },
-    practiceTrackTitlesBassATempo: {
+    practiceTrackTitlesBass: {
       type: [String]
     },
     videoUrls: {

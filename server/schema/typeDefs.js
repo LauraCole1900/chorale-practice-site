@@ -35,22 +35,14 @@ type Song {
   concertOrder: Int
   publisher: String
   copyrightDate: String
-  practiceTrackUrlsSopSlow: [String!]
-  practiceTrackTitlesSopSlow: [String!]
-  practiceTrackUrlsAltoSlow: [String!]
-  practiceTrackTitlesAltoSlow: [String!]
-  practiceTrackUrlsTenSlow: [String!]
-  practiceTrackTitlesTenSlow: [String!]
-  practiceTrackUrlsBassSlow: [String!]
-  practiceTrackTitlesBassSlow: [String!]
-  practiceTrackUrlsSopATempo: [String!]
-  practiceTrackTitlesSopATempo: [String!]
-  practiceTrackUrlsAltoATempo: [String!]
-  practiceTrackTitlesAltoATempo: [String!]
-  practiceTrackUrlsTenATempo: [String!]
-  practiceTrackTitlesTenATempo: [String!]
-  practiceTrackUrlsBassATempo: [String!]
-  practiceTrackTitlesBassATempo: [String!]
+  practiceTrackUrlsSop: [String!]
+  practiceTrackTitlesSop: [String!]
+  practiceTrackUrlsAlto: [String!]
+  practiceTrackTitlesAlto: [String!]
+  practiceTrackUrlsTen: [String!]
+  practiceTrackTitlesTen: [String!]
+  practiceTrackUrlsBass: [String!]
+  practiceTrackTitlesBass: [String!]
   videoUrls: [String]
 }
 
@@ -97,22 +89,14 @@ input SongInput {
   concertOrder: Int
   publisher: String
   copyrightDate: String
-  practiceTrackUrlsSopSlow: [String!]
-  practiceTrackTitlesSopSlow: [String!]
-  practiceTrackUrlsAltoSlow: [String!]
-  practiceTrackTitlesAltoSlow: [String!]
-  practiceTrackUrlsTenSlow: [String!]
-  practiceTrackTitlesTenSlow: [String!]
-  practiceTrackUrlsBassSlow: [String!]
-  practiceTrackTitlesBassSlow: [String!]
-  practiceTrackUrlsSopATempo: [String!]
-  practiceTrackTitlesSopATempo: [String!]
-  practiceTrackUrlsAltoATempo: [String!]
-  practiceTrackTitlesAltoATempo: [String!]
-  practiceTrackUrlsTenATempo: [String!]
-  practiceTrackTitlesTenATempo: [String!]
-  practiceTrackUrlsBassATempo: [String!]
-  practiceTrackTitlesBassATempo: [String!]
+  practiceTrackUrlsSop: [String!]
+  practiceTrackTitlesSop: [String!]
+  practiceTrackUrlsAlto: [String!]
+  practiceTrackTitlesAlto: [String!]
+  practiceTrackUrlsTen: [String!]
+  practiceTrackTitlesTen: [String!]
+  practiceTrackUrlsBass: [String!]
+  practiceTrackTitlesBass: [String!]
   videoUrls: [String]
 }
 
@@ -186,7 +170,7 @@ type Mutation {
   
   addRepertoire(_id: ID!, songs: SongInput!): Concert
 
-  editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSopSlow: [String!], practiceTrackTitlesSopSlow: [String!], practiceTrackUrlsAltoSlow: [String!], practiceTrackTitlesAltoSlow: [String!], practiceTrackUrlsTenSlow: [String!], practiceTrackTitlesTenSlow: [String!], practiceTrackUrlsBassSlow: [String!], practiceTrackTitlesBassSlow: [String!], practiceTrackUrlsSopATempo: [String!], practiceTrackTitlesSopATempo: [String!], practiceTrackUrlsAltoATempo: [String!], practiceTrackTitlesAltoATempo: [String!], practiceTrackUrlsTenATempo: [String!], practiceTrackTitlesTenATempo: [String!], practiceTrackUrlsBassATempo: [String], practiceTrackTitlesBassATempo: [String!], videoUrls: [String]): Song
+  editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSop: [String!], practiceTrackTitlesSop: [String!], practiceTrackUrlsAlto: [String!], practiceTrackTitlesAlto: [String!], practiceTrackUrlsTen: [String!], practiceTrackTitlesTen: [String!], practiceTrackUrlsBass: [String], practiceTrackTitlesBass: [String!], videoUrls: [String]): Song
 
 
   # //=====================//

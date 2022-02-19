@@ -20,22 +20,14 @@ query allConcerts {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -57,22 +49,14 @@ query oneConcert ($id: ID!) {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
     }
   }
@@ -92,22 +76,14 @@ query trueConcerts {
       title
       composer
       concertOrder
-      practiceTrackUrlsSopSlow
-      practiceTrackTitlesSopSlow
-      practiceTrackUrlsAltoSlow
-      practiceTrackTitlesAltoSlow
-      practiceTrackUrlsTenSlow
-      practiceTrackTitlesTenSlow
-      practiceTrackUrlsBassSlow
-      practiceTrackTitlesBassSlow
-      practiceTrackUrlsSopATempo
-      practiceTrackTitlesSopATempo
-      practiceTrackUrlsAltoATempo
-      practiceTrackTitlesAltoATempo
-      practiceTrackUrlsTenATempo
-      practiceTrackTitlesTenATempo
-      practiceTrackUrlsBassATempo
-      practiceTrackTitlesBassATempo
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
       videoUrls
       }
     }

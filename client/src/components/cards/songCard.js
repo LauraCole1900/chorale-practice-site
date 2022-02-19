@@ -19,149 +19,80 @@ const SongCard = ({ section, song }) => {
           <p>{composers}</p>
         </Card.Header>
         <Card.Body className="songBody">
-          {section === "soprano" && (song.practiceTrackUrlsSopSlow.length
+          {section === "soprano" && (song.practiceTrackUrlsSop.length
             ? <>
-              <p>Tempo di learno:</p>
+              <p>Practice tracks:</p>
               <ul>
-                {song.practiceTrackUrlsSopSlow.map((track, i) => (
-                  (song.practiceTrackTitlesSopSlow[i]
-                    ? (song.practiceTrackTitlesSopSlow[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSopSlow[i]}</a></li>
+                {song.practiceTrackUrlsSop.map((track, i) => (
+                  (song.practiceTrackTitlesSop[i]
+                    ? (song.practiceTrackTitlesSop[i] === "Cyberbass"
+                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesSopSlow[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesSopSlow[i]} /></li>
+                        <li key={i}><p>{song.practiceTrackTitlesSop[i]}</p>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
               </ul>
             </>
             : <>
-              <p>No slow-tempo practice tracks found</p>
+              <p>No practice tracks found</p>
             </>)}
-          {section === "soprano" && (song.practiceTrackUrlsSopATempo.length
+
+          {section === "alto" && (song.practiceTrackUrlsAlto.length
             ? <>
-              <p>Performance tempo:</p>
+              <p>Practice tracks:</p>
               <ul>
-                {song.practiceTrackUrlsSopATempo.map((track, i) => (
-                  (song.practiceTrackTitlesSopATempo[i]
-                    ? (song.practiceTrackTitlesSopATempo[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSopATempo[i]}</a></li>
+                {song.practiceTrackUrlsAlto.map((track, i) => (
+                  (song.practiceTrackTitlesAlto[i]
+                    ? (song.practiceTrackTitlesAlto[i] === "Cyberbass"
+                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesSopATempo[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesSopATempo[i]} /></li>
+                        <li key={i}><p>{song.practiceTrackTitlesAlto[i]}</p>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
               </ul>
             </>
             : <>
-              <p>No a tempo practice tracks found</p>
+              <p>No practice tracks found</p>
             </>)}
-          {section === "alto" && (song.practiceTrackUrlsAltoSlow.length
+
+          {section === "tenor" && (song.practiceTrackUrlsTen.length
             ? <>
-              <p>Tempo di learno:</p>
+              <p>Practice tracks:</p>
               <ul>
-                {song.practiceTrackUrlsAltoSlow.map((track, i) => (
-                  (song.practiceTrackTitlesAltoSlow[i]
-                    ? (song.practiceTrackTitlesAltoSlow[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAltoSlow[i]}</a></li>
+                {song.practiceTrackUrlsTen.map((track, i) => (
+                  (song.practiceTrackTitlesTen[i]
+                    ? (song.practiceTrackTitlesTen[i] === "Cyberbass"
+                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesAltoSlow[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesAltoSlow[i]} /></li>
+                        <li key={i}><p>{song.practiceTrackTitlesTen[i]}</p>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
               </ul>
             </>
             : <>
-              <p>No slow-tempo practice tracks found</p>
+              <p>No practice tracks found</p>
             </>)}
-          {section === "alto" && (song.practiceTrackUrlsAltoATempo.length
+
+          {section === "bass" && (song.practiceTrackUrlsBass.length
             ? <>
-              <p>Performance tempo:</p>
+              <p>Practice tracks:</p>
               <ul>
-                {song.practiceTrackUrlsAltoATempo.map((track, i) => (
-                  (song.practiceTrackTitlesAltoATempo[i]
-                    ? (song.practiceTrackTitlesAltoATempo[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAltoATempo[i]}</a></li>
+                {song.practiceTrackUrlsBass.map((track, i) => (
+                  (song.practiceTrackTitlesBass[i]
+                    ? (song.practiceTrackTitlesBass[i] === "Cyberbass"
+                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesAltoATempo[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesAltoATempo[i]} /></li>
+                        <li key={i}><p>{song.practiceTrackTitlesBass[i]}</p>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
               </ul>
             </>
             : <>
-              <p>No a tempo practice tracks found</p>
-            </>)}
-          {section === "tenor" && (song.practiceTrackUrlsTenSlow.length
-            ? <>
-              <p>Tempo di learno:</p>
-              <ul>
-                {song.practiceTrackUrlsTenSlow.map((track, i) => (
-                  (song.practiceTrackTitlesTenSlow[i]
-                    ? (song.practiceTrackTitlesTenSlow[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTenSlow[i]}</a></li>
-                      : <>
-                        <li key={i}><p>{song.practiceTrackTitlesTenSlow[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesTenSlow[i]} /></li>
-                      </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
-              </ul>
-            </>
-            : <>
-              <p>No slow-tempo practice tracks found</p>
-            </>)}
-          {section === "tenor" && (song.practiceTrackUrlsTenATempo.length
-            ? <>
-              <p>Performance tempo:</p>
-              <ul>
-                {song.practiceTrackUrlsTenATempo.map((track, i) => (
-                  (song.practiceTrackTitlesTenATempo[i]
-                    ? (song.practiceTrackTitlesTenATempo[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTenATempo[i]}</a></li>
-                      : <>
-                        <li key={i}><p>{song.practiceTrackTitlesTenATempo[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesTenATempo[i]} /></li>
-                      </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
-              </ul>
-            </>
-            : <>
-              <p>No a tempo practice tracks found</p>
-            </>)}
-          {section === "bass" && (song.practiceTrackUrlsBassSlow.length
-            ? <>
-              <p>Tempo di learno:</p>
-              <ul>
-                {song.practiceTrackUrlsBassSlow.map((track, i) => (
-                  (song.practiceTrackTitlesBassSlow[i]
-                    ? (song.practiceTrackTitlesBassSlow[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBassSlow[i]}</a></li>
-                      : <>
-                        <li key={i}><p>{song.practiceTrackTitlesBassSlow[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesBassSlow[i]} /></li>
-                      </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
-              </ul>
-            </>
-            : <>
-              <p>No slow-tempo practice tracks found</p>
-            </>)}
-          {section === "bass" && (song.practiceTrackUrlsBassATempo.length
-            ? <>
-              <p>Performance tempo:</p>
-              <ul>
-                {song.practiceTrackUrlsBassATempo.map((track, i) => (
-                  (song.practiceTrackTitlesBassATempo[i]
-                    ? (song.practiceTrackTitlesBassATempo[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBassATempo[i]}</a></li>
-                      : <>
-                        <li key={i}><p>{song.practiceTrackTitlesBassATempo[i]}</p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesBassATempo[i]} /></li>
-                      </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
-              </ul>
-            </>
-            : <>
-              <p>No a tempo practice tracks found</p>
+              <p>No practice tracks found</p>
             </>)}
           {song.videoUrls.length
             ? <>
