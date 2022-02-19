@@ -33,6 +33,7 @@ class EditorContainer extends Component {
     });
     this.onChange(this.name, editorState)
   };
+  
 
   // Defines options to render
   render() {
@@ -41,6 +42,7 @@ class EditorContainer extends Component {
       <Editor
         editorState={editorState}
         onEditorStateChange={this.onEditorStateChange}
+        stripPastedStyles={true}
         ref={(ref) => this.editor = ref}
         toolbarClassName="gcToolbar"
         toolbar={{
