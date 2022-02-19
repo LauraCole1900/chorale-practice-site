@@ -27,7 +27,7 @@ const SongCard = ({ section, song }) => {
                     ? (song.practiceTrackTitlesSop[i] === "Cyberbass"
                       ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesSop[i]}</p>
+                        <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></p>
                           <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
@@ -65,7 +65,7 @@ const SongCard = ({ section, song }) => {
                     ? (song.practiceTrackTitlesTen[i] === "Cyberbass"
                       ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesTen[i]}</p>
+                        <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></p>
                           <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
@@ -84,7 +84,7 @@ const SongCard = ({ section, song }) => {
                     ? (song.practiceTrackTitlesBass[i] === "Cyberbass"
                       ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></li>
                       : <>
-                        <li key={i}><p>{song.practiceTrackTitlesBass[i]}</p>
+                        <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></p>
                           <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
