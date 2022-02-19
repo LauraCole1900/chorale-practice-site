@@ -233,7 +233,7 @@ const Members = () => {
                     <h2>Director's Corner</h2>
                     {sortedDirectorNote.length > 0 &&
                       <>
-                        <h3>{sortedDirectorNote[0].title}</h3>
+                        <h3>{sortedDirectorNote[0].postTitle}</h3>
                         <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
                       </>}
                   </Card.Header>
