@@ -8,6 +8,7 @@ const AudioEmbed = ({ title, src }) => {
       <audio
         src={src}
         title={title}
+        type="audio/mp3"
         controls
       />
     </div>
