@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
+import { CompositeDecorator } from "draft-js";
 import { Sidenav } from "../components/navbar";
-import { TracksCard } from "../components/cards";
+import { TracksAccordion } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ONE_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
@@ -157,7 +157,7 @@ const Section = () => {
                 <p className="accordionInstr">Click or tap concert title to see practice tracks & videos</p>
                 <Accordion>
                   {sortedConcerts.map((concert, i) => (
-                    <TracksCard concert={concert} i={i} key={concert._id} section={section} />
+                    <TracksAccordion concert={concert} i={i} key={concert._id} section={section} />
                   ))}
                 </Accordion>
               </>}

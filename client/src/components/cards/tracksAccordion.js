@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Accordion, Card } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
 import SongCard from "./songCard";
 import "./style.css";
 
 
-const TracksCard = ({ concert, i, section }) => {
+const TracksAccordion = ({ concert, i, section }) => {
 
   //=====================//
   //   State variables   //
@@ -74,4 +74,4 @@ const TracksCard = ({ concert, i, section }) => {
   )
 }
 
-export default TracksCard;
+export default TracksAccordion;
