@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
+import "./style.css";
 
 const VideoEmbed = ({ src }) => {
 
 
   return (
-    <div className="video-responsive">
+    <div className="videoResponsive">
       <iframe
         width="853"
         height="480"

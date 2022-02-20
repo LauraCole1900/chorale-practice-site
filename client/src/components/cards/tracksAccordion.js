@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
 import SongCard from "./songCard";
 import "./style.css";
 
 
-const TracksCard = ({ concert, section }) => {
+const TracksAccordion = ({ concert, i, section }) => {
 
   //=====================//
   //   State variables   //
@@ -55,12 +55,12 @@ const TracksCard = ({ concert, section }) => {
 
   return (
     <>
-      <Card className="tracksCard">
-        <Card.Header className="tracksTitle">
+      <Accordion.Item eventKey={i} className="tracksCard">
+        <Accordion.Header className="tracksTitle">
           <h2>{concert.name}</h2>
           <p>{dates} | {times} | <span className="boldOutline">Countdown to curtain</span>: {timeToCurtain(concert.date[0], concert.time[0])}</p>
-        </Card.Header>
-        <Card.Body className="cardBody">
+        </Accordion.Header>
+        <Accordion.Body className="cardBody">
           {concert.addlMaterials?.length > 0 &&
             concert.addlMaterials.map((item, i) => (
               <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
@@ -68,10 +68,10 @@ const TracksCard = ({ concert, section }) => {
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}
-        </Card.Body>
-      </Card>
+        </Accordion.Body>
+      </Accordion.Item>
     </>
   )
 }
 
-export default TracksCard;
+export default TracksAccordion;

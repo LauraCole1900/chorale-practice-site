@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
+import { CompositeDecorator } from "draft-js";
 import { Sidenav } from "../components/navbar";
-import { TracksCard } from "../components/cards";
+import { TracksAccordion } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ONE_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
 import { timeToNow } from "../utils/dateUtils";
@@ -148,14 +148,19 @@ const Section = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 {Object.keys(sectionPost).length > 0
-                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody}} />
+                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody }} />
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>
             {sortedConcerts.length > 0 &&
-              sortedConcerts.map(concert => (
-                <TracksCard concert={concert} key={concert._id} section={section} />
-              ))}
+              <>
+                <p className="accordionInstr">Click or tap concert title to see practice tracks & videos</p>
+                <Accordion>
+                  {sortedConcerts.map((concert, i) => (
+                    <TracksAccordion concert={concert} i={i} key={concert._id} section={section} />
+                  ))}
+                </Accordion>
+              </>}
           </Col>
         </Row>
       </Container>
