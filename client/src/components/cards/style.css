@@ -20,6 +20,18 @@ a:hover {
   color: var(--gcBlack);
 }
 
+.accordion-button {
+  color: var(--gcWhite);
+}
+.accordion-button:focus,
+.accordion-button:hover {
+  box-shadow: 0 0 10px var(--disabled);
+}
+
+.block {
+  display: block;
+}
+
 .bold {
   color: var(--gcRed);
   font-weight: 700;
@@ -37,16 +49,21 @@ a:hover {
   width: 100%;
 }
 
+.tracksCard {
+  border-radius: 15px;
+}
+
 .concertTitle,
-.tracksTitle {
+.tracksTitle,
+.tracksTitle > .accordion-button {
   color: var(--gcWhite);
   background-color: var(--gcCharcoal);
-  border-radius: 15px 15px 0 0 !important;
 }
 
 .concertTitle {
   height: 9rem;
   text-align: center;
+  border-radius: 15px 15px 0 0 !important;
   display: flex;
   justify-content: center;
   align-items: center;
