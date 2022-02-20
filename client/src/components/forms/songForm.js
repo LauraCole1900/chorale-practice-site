@@ -305,7 +305,7 @@ const SongForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Soprano practice track(s):</Form.Label><br />
-                <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
+                <Form.Text className="subtitle" muted>Please use the format "https://docs.google.com/uc?export=open&id=SomeGoogleDocsID" and comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsSop &&
                   <div className="error"><p>{errors.practiceTrackUrlsSop}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsSop" placeholder="http://link_to_performance_tempo_soprano_practice_tracks.com" value={songData.practiceTrackUrlsSop} className="formInput" onChange={handleInputChange} />
@@ -329,7 +329,7 @@ const SongForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Alto practice track(s):</Form.Label><br />
-                <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
+                <Form.Text className="subtitle" muted>Please use the format "https://docs.google.com/uc?export=open&id=SomeGoogleDocsID" and comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsAlto &&
                   <div className="error"><p>{errors.practiceTrackUrlsAlto}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsAlto" placeholder="http://link_to_performance_tempo_alto_practice_tracks.com" value={songData.practiceTrackUrlsAlto} className="formInput" onChange={handleInputChange} />
@@ -353,7 +353,7 @@ const SongForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Tenor practice track(s):</Form.Label><br />
-                <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
+                <Form.Text className="subtitle" muted>Please use the format "https://docs.google.com/uc?export=open&id=SomeGoogleDocsID" and comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsTen &&
                   <div className="error"><p>{errors.practiceTrackUrlsTen}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsTen" placeholder="http://link_to_performance_tempo_tenor_practice_tracks.com" value={songData.practiceTrackUrlsTen} className="formInput" onChange={handleInputChange} />
@@ -377,7 +377,7 @@ const SongForm = () => {
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>Bass practice track(s):</Form.Label><br />
-                <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
+                <Form.Text className="subtitle" muted>Please use the format "https://docs.google.com/uc?export=open&id=SomeGoogleDocsID" and comma-separate multiple URLs</Form.Text>
                 {errors.practiceTrackUrlsBass &&
                   <div className="error"><p>{errors.practiceTrackUrlsBass}</p></div>}
                 <Form.Control type="input" name="practiceTrackUrlsBass" placeholder="http://link_to_performance_tempo_bass_practice_tracks.com" value={songData.practiceTrackUrlsBass} className="formInput" onChange={handleInputChange} />
