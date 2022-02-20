@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { CompositeDecorator, convertFromRaw, Editor, EditorState } from "draft-js";
 import { Sidenav } from "../components/navbar";
@@ -148,14 +148,16 @@ const Section = () => {
               </Card.Header>
               <Card.Body className="cardBody">
                 {Object.keys(sectionPost).length > 0
-                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody}} />
+                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody }} />
                   : <p>No {section} announcements at this time.</p>}
               </Card.Body>
             </Card>
             {sortedConcerts.length > 0 &&
-              sortedConcerts.map(concert => (
-                <TracksCard concert={concert} key={concert._id} section={section} />
-              ))}
+              <Accordion>
+                {sortedConcerts.map((concert, i) => (
+                  <TracksCard concert={concert} i={i} key={concert._id} section={section} />
+                ))}
+              </Accordion>}
           </Col>
         </Row>
       </Container>
