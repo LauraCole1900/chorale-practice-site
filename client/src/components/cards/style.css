@@ -23,13 +23,16 @@ a:hover {
 .accordion-button {
   color: var(--gcWhite);
 }
-.accordion-button:focus,
+.accordion-button:focus {
+  box-shadow: none;
+}
 .accordion-button:hover {
   box-shadow: 0 0 10px var(--disabled);
 }
 
-.block {
-  display: block;
+.accordionInstr {
+  color: var(--gcRed);
+  margin-top: 50px;
 }
 
 .bold {
@@ -40,7 +43,8 @@ a:hover {
 .boldOutline {
   color: var(--gcRed);
   font-weight: 700;
-  text-shadow: -1px 1px 0 var(--lightSil), 1px 1px 0 var(--lightSil), 1px -1px 0 var(--lightSil), -1px -1px 0 var(--lightSil);
+  text-shadow: -1px 1px 0 var(--lightSil), 1px 1px 0 var(--lightSil),
+    1px -1px 0 var(--lightSil), -1px -1px 0 var(--lightSil);
 }
 
 .announcements,
@@ -49,8 +53,13 @@ a:hover {
   width: 100%;
 }
 
+.announcements {
+  margin-left: 0;
+}
+
 .tracksCard {
   border-radius: 15px;
+  box-shadow: 10px 10px 10px 5px var(--gcCharcoal);
 }
 
 .concertTitle,
@@ -58,6 +67,7 @@ a:hover {
 .tracksTitle > .accordion-button {
   color: var(--gcWhite);
   background-color: var(--gcCharcoal);
+  display: block;
 }
 
 .concertTitle {

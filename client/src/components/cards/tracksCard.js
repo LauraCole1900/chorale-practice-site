@@ -57,8 +57,8 @@ const TracksCard = ({ concert, i, section }) => {
     <>
       <Accordion.Item eventKey={i} className="tracksCard">
         <Accordion.Header className="tracksTitle">
-          <h2 className="block">{concert.name}</h2>
-          <p className="block">{dates} | {times} | <span className="boldOutline">Countdown to curtain</span>: {timeToCurtain(concert.date[0], concert.time[0])}</p>
+          <h2>{concert.name}</h2>
+          <p>{dates} | {times} | <span className="boldOutline">Countdown to curtain</span>: {timeToCurtain(concert.date[0], concert.time[0])}</p>
         </Accordion.Header>
         <Accordion.Body className="cardBody">
           {concert.addlMaterials?.length > 0 &&

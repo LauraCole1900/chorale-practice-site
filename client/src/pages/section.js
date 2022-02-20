@@ -153,11 +153,14 @@ const Section = () => {
               </Card.Body>
             </Card>
             {sortedConcerts.length > 0 &&
-              <Accordion>
-                {sortedConcerts.map((concert, i) => (
-                  <TracksCard concert={concert} i={i} key={concert._id} section={section} />
-                ))}
-              </Accordion>}
+              <>
+                <p className="accordionInstr">Click or tap concert title to see practice tracks & videos</p>
+                <Accordion>
+                  {sortedConcerts.map((concert, i) => (
+                    <TracksCard concert={concert} i={i} key={concert._id} section={section} />
+                  ))}
+                </Accordion>
+              </>}
           </Col>
         </Row>
       </Container>
