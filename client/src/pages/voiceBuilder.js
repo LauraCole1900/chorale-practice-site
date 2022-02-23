@@ -41,6 +41,10 @@ const VoiceBuilder = () => {
     return <Navigate to="/login" />
   };
 
+  if (me.position === "guest") {
+    return <Navigate to="/members" />
+  };
+
 
   return (
     <>

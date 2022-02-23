@@ -45,7 +45,8 @@
 .formCheck:focus,
 .formEmail:focus,
 .formInput:focus,
-.formSelect:focus {
+.formSelect:focus,
+.subtitleInput:focus {
   outline: none;
   border-color: var(--disabled);
   box-shadow: 0 0 10px var(--disabled);

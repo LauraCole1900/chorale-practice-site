@@ -281,10 +281,14 @@ const AdminPortal = () => {
       const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
       const bass = users.filter(user => ["Bass I", "Bass II"].includes(user.section));
       const other = users.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"].includes(user.section));
-      const sopsSortedByLName = sops.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const altsSortedByLName = alts.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const tensSortedByLName = tens.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const bassSortedByLName = bass.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const sopsSortedByFName = sops.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+      const sopsSortedByLName = sopsSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const altsSortedByFName = alts.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+      const altsSortedByLName = altsSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const tensSortedByFName = tens.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+      const tensSortedByLName = tensSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      const bassSortedByFName = bass.sort((a, b) => (a.firstName < b.firstName ? 1 : -1));
+      const bassSortedByLName = bassSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       const othersSortedByLName = other.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
       setSortedSops(sopsSortedByLName);
       setSortedAlts(altsSortedByLName);
