@@ -328,7 +328,7 @@ const AdminUserForm = () => {
                 <Form.Label>Member's birthday: <span className="red">*</span></Form.Label>
                 {errors.birthday &&
                   <div className="error"><p>{errors.birthday}</p></div>}
-                <Form.Control type="input" name="birthday" placeholder={"10-13"} value={userData.birthday} className="subtitleInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="birthday" placeholder={"10-13"} value={userData.birthday} className="formInput" onChange={handleInputChange} />
                 <Form.Text className="subtitle" muted>Please use the format MM-DD</Form.Text>
               </Col>
             </Row>
