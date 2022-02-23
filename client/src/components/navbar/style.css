@@ -20,7 +20,7 @@
   font-size: 20px;
 }
 
-.navbarCollapse {
+.navbarKeep {
   display: flex;
   justify-content: flex-end;
   padding-right: 1rem;
@@ -44,7 +44,8 @@
 .navlink {
   color: var(--gcWhite) !important;
   text-decoration: underline;
-  justify-self: flex-end;
+  text-align: center;
+  /* justify-self: center; */
   font-family: var(--headerFont);
   padding: 1rem;
 }
