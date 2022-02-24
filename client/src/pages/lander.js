@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { ConcertCard } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_CONCERTS } from "../utils/gql";
-import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import "./style.css";
 
@@ -71,14 +69,6 @@ const Lander = () => {
 
   return (
     <>
-      {!Auth.loggedIn()
-        ? <Row className="d-block d-sm-none loginDiv">
-          <Link to="/login"><Button className="loginBtn">Login</Button></Link>
-        </Row>
-        : <Row className="d-block d-sm-none center">
-          <Link to="/members"><Button className="button">Members</Button></Link>
-          <Link to="/logout"><Button className="button">Logout</Button></Link>
-        </Row>}
       <Card className="card">
         <Card.Header className="cardTitle">
           <h1>Upcoming Events</h1>
