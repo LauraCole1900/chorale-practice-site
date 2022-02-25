@@ -25,12 +25,19 @@ const SongCard = ({ section, song }) => {
                 {song.practiceTrackUrlsSop.map((track, i) => (
                   (song.practiceTrackTitlesSop[i]
                     ? (song.practiceTrackTitlesSop[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></li>
+                      ? <>
+                        <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></li>
+                        <hr />
+                      </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} songId={song._id} /></li>
+                        <hr />
                       </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+                    : <>
+                      <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>
+                      <hr />
+                    </>)))}
               </ul>
             </>
             : <>
@@ -44,12 +51,19 @@ const SongCard = ({ section, song }) => {
                 {song.practiceTrackUrlsAlto.map((track, i) => (
                   (song.practiceTrackTitlesAlto[i]
                     ? (song.practiceTrackTitlesAlto[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></li>
+                      ? <>
+                        <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></li>
+                        <hr />
+                      </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></p>
                           <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} songId={song._id} /></li>
+                        <hr />
                       </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+                    : <>
+                      <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>
+                      <hr />
+                    </>)))}
               </ul>
             </>
             : <>
@@ -63,12 +77,19 @@ const SongCard = ({ section, song }) => {
                 {song.practiceTrackUrlsTen.map((track, i) => (
                   (song.practiceTrackTitlesTen[i]
                     ? (song.practiceTrackTitlesTen[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></li>
+                      ? <>
+                        <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></li>
+                        <hr />
+                      </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} songId={song._id} /></li>
+                        <hr />
                       </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+                    : <>
+                      <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>
+                      <hr />
+                    </>)))}
               </ul>
             </>
             : <>
@@ -82,12 +103,19 @@ const SongCard = ({ section, song }) => {
                 {song.practiceTrackUrlsBass.map((track, i) => (
                   (song.practiceTrackTitlesBass[i]
                     ? (song.practiceTrackTitlesBass[i] === "Cyberbass"
-                      ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></li>
+                      ? <>
+                        <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></li>
+                        <hr />
+                      </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} songId={song._id} /></li>
+                        <hr />
                       </>)
-                    : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
+                    : <>
+                      <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>
+                      <hr />
+                    </>)))}
               </ul>
             </>
             : <>
