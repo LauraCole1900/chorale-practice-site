@@ -47,7 +47,7 @@ const SongCard = ({ section, song }) => {
                       ? <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></li>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} songId={song._id} /></li>
                       </>)
                     : <li key={i}><a href={track} target="_blank" rel="noreferrer noopener">Practice track {i + 1}</a></li>)))}
               </ul>
