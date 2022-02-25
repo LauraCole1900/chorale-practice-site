@@ -39,7 +39,7 @@ Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)
 
 Section page (truncated):
-![Section page](assets/gcpm-section-page-screenshot.png)
+![Section page](assets/gcpm-section-page-screenshot-tr.png)
 
 New Event form:
 ![New Event form](assets/gcpm-new-event-form-screenshot.png)
