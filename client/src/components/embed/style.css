@@ -7,6 +7,18 @@
   max-width: 5rem;
 }
 
+.pbrLabel {
+  margin-top: .5rem;
+}
+
+.pbrSlider::-webkit-slider-thumb,
+.pbrSlider::-moz-range-thumb, 
+.pbrSlider::-ms-thumb {
+  -webkit-appearance: none;
+  background-color: var(--gcRed);
+  max-width: 95%;
+}
+
 .videoResponsive {
   overflow: hidden;
   padding-bottom: 56.25%;

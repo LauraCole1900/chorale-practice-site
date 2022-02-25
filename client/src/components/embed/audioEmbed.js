@@ -16,28 +16,33 @@ const AudioEmbed = ({ title, src, songId }) => {
   //     Methods     //
   //=================//
 
-  // returns playbackRate to 1.0
+  // returns playbackRate to 1.0 on button click
   const normal = () => {
     setPbr(1.0)
-  }
+  };
 
-  // slows down playbackRate by increments of 5%
+  // slows down playbackRate by increments of 5% on button click
   const slowDown = () => {
     let varPbr = pbr - .05;
     if (pbr <= .50) {
       varPbr = .50;
     }
     setPbr(varPbr);
-  }
+  };
 
-  // speeds up playbackRate by increments of 5%
+  // speeds up playbackRate by increments of 5% on button click
   const speedUp = () => {
     let varPbr = pbr + .05;
     if (pbr >= 2.00) {
       varPbr = 2.00;
     }
     setPbr(varPbr);
-  }
+  };
+
+  // sets playback rate from slider
+  const handleSetPlayback = (e) => {
+    setPbr(e.target.value);
+  };
 
 
   //======================//
@@ -47,7 +52,7 @@ const AudioEmbed = ({ title, src, songId }) => {
   // sets initial playbackRate on page load
   useEffect(() => {
     audioRef.current.playbackRate = pbr
-  }, [pbr])
+  }, [pbr]);
 
 
   return (
@@ -63,11 +68,17 @@ const AudioEmbed = ({ title, src, songId }) => {
         />
       </Row>
 
-      <Row className="around">
+      <Form>
+        <Form.Group controlId="pbrSlider">
+          <Row>
+            <Form.Label className="pbrLabel">Playback Rate: {pbr * 100}%</Form.Label>
+            <Form.Range onChange={handleSetPlayback} value={pbr} min="0.5" max="2.0" step="0.05" className="pbrSlider" />
+          </Row>
+        </Form.Group>
         <Button className="pbrButton button" onClick={slowDown}>Slower</Button>
         <Button className="pbrButton button" onClick={normal}>Normal</Button>
         <Button className="pbrButton button" onClick={speedUp}>Faster</Button>
-      </Row>
+      </Form>
     </>
   )
 };
