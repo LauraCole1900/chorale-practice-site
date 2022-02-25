@@ -70,6 +70,8 @@ npm run test
 
 Video-embed component from [bravemaster619](https://dev.to/bravemaster619) and found [here](https://dev.to/bravemaster619/simplest-way-to-embed-a-youtube-video-in-your-react-app-3bk2)
 
+Code controlling playback rate of embedded audio files from [ynishi](https://stackoverflow.com/users/15015691/ynishi) and found [here](https://stackoverflow.com/questions/58731760/how-to-use-playbackrate-parameter-for-video-element-in-reactjs)
+
 ## Contributing
 
 We believe code is never finished, and welcome your contributions to enhance the application's functionality. Please adhere to the Code of Conduct for the Contributor Covenant, version 2.0, at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
