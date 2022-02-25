@@ -71,13 +71,15 @@ const AudioEmbed = ({ title, src, songId }) => {
       <Form>
         <Form.Group controlId="pbrSlider">
           <Row>
-            <Form.Label className="pbrLabel">Playback Rate: {pbr * 100}%</Form.Label>
-            <Form.Range onChange={handleSetPlayback} value={pbr} min="0.5" max="2.0" step="0.05" className="pbrSlider" />
+            <Form.Label className="pbrLabel">Playback Speed: {Math.round(pbr * 100)}%</Form.Label>
+            <Form.Range onChange={handleSetPlayback} value={pbr} min="0.5" max="2.0" step="0.05" className="pbrSlider" variant="dark" />
           </Row>
         </Form.Group>
-        <Button className="pbrButton button" onClick={slowDown}>Slower</Button>
-        <Button className="pbrButton button" onClick={normal}>Normal</Button>
-        <Button className="pbrButton button" onClick={speedUp}>Faster</Button>
+        <Row className="around">
+          <Button className="pbrButton button" onClick={slowDown}>Slower</Button>
+          <Button className="pbrButton button" onClick={normal}>Normal</Button>
+          <Button className="pbrButton button" onClick={speedUp}>Faster</Button>
+        </Row>
       </Form>
     </>
   )
