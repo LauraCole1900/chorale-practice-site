@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 
@@ -29,49 +28,27 @@ const setConcertOrderModal = (props) => {
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
 
-        {/* Renders clickable list of songs to choose one to edit */}
-        {props.btnname === "songsEdit" &&
+        {/* Renders draggable list of songs to order */}
+        {props.btnname === "songsOrder" &&
           <>
             <Modal.Header className="modalHead">
-              <Modal.Title className="modalTitle">Click on a song title to edit</Modal.Title>
+              <Modal.Title className="modalTitle">Drag repertoire into concert order</Modal.Title>
             </Modal.Header>
 
             <Modal.Body className="modalBody">
               {props.songs.map(song => (
                 <Row key={song._id}>
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <Link to={`/edit_repertoire/${props.concertId}/${song._id}`}>{song.title}</Link>
+                    {/* TODO: List of draggable songs here */}
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
                 <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
+                <Button data-toggle="popover" title="Set concert order" className="button" type="button" onClick={setConcertOrder}>Set concert order</Button>
               </Modal.Footer>
             </Modal.Body>
           </>}
 
-        {/* Renders list of songs with checkboxes to choose one or more to delete */}
-        {props.btnname === "songsDelete" &&
-          <>
-            <Modal.Header className="modalHead">
-              <Modal.Title className="modalTitle">Choose repertoire to delete</Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body className="modalBody">
-              <Form className="checkboxForm">
-                <Form.Group controlId="formDeleteSongs">
-                  {props.songs.map(song => (
-                    <Form.Check key={song._id} type="checkbox" name="deleteThis" value={song._id} label={song.title} checked={props.songsToDelete.includes(song._id)} onChange={handleInputChange} />
-                  ))}
-                </Form.Group>
-
-                <Modal.Footer className="modalFooter">
-                  <Button data-toggle="popover" title="Set order" disabled={!props.songsToDelete} className="button formBtn" data-btnname="songsOrder" onClick={(e) => setConcertOrder(e)} type="submit">Set Concert Order</Button>
-
-                  <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
-                </Modal.Footer>
-              </Form>
-            </Modal.Body>
-          </>}
       </Modal>
     </>
   )
