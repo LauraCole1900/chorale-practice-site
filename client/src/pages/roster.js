@@ -36,7 +36,7 @@ const RosterPage = () => {
   //       Methods       //
   //=====================//
 
-  // Sort singer data by last name
+  // Filter users by section or position, then sort by first name, then by last name
   const sortSection = (singers, section) => {
     let filteredSingers;
     if (section.length <= 2) {
@@ -56,24 +56,17 @@ const RosterPage = () => {
 
   useEffect(() => {
     if (members.length) {
-      // const sopranos = members.filter(member => member.section === "Soprano I" || member.section === "Soprano II");
-      // const altos = members.filter(member => member.section === "Alto I" || member.section === "Alto II");
-      // const tenors = members.filter(member => member.section === "Tenor I" || member.section === "Tenor II");
-      // const basses = members.filter(member => member.section === "Bass I" || member.section === "Bass II");
-      // const staff = members.filter(member => !["section leader", "singer", "webdev", "guest"].includes(member.position));
-      // const board = members.filter(member => member.section === "Board");
-
       const sortedSops = sortSection(members, ["Soprano I", "Soprano II"]);
-      setCurrSops(sortedSops);
       const sortedAltos = sortSection(members, ["Alto I", "Alto II"]);
-      setCurrAlts(sortedAltos);
       const sortedTenors = sortSection(members, ["Tenor I", "Tenor II"]);
-      setCurrTens(sortedTenors);
       const sortedBasses = sortSection(members, ["Bass I", "Bass II"]);
-      setCurrBass(sortedBasses);
       const sortedStaff = sortSection(members, ["section leader", "singer", "webdev", "guest"]);
-      setCurrStaff(sortedStaff);
       const sortedBoard = sortSection(members, ["Board"]);
+      setCurrSops(sortedSops);
+      setCurrAlts(sortedAltos);
+      setCurrTens(sortedTenors);
+      setCurrBass(sortedBasses);
+      setCurrStaff(sortedStaff);
       setCurrBoard(sortedBoard);
     }
   }, [members])
