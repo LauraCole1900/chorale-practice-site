@@ -250,6 +250,19 @@ const AdminPortal = () => {
     setSongsToDelete([]);
   };
 
+  // Filters users by section, then sorts by first name, then last name
+  const sortSection = (singers, section) => {
+    let filteredSingers;
+    if (section.length === 2) {
+      filteredSingers = singers.filter(singer => section.includes(singer.section));
+    } else {
+      filteredSingers = singers.filter(singer => !section.includes(singer.section));
+    }
+    const sortByFName = filteredSingers.sort((a, b) => a.firstName < b.firstName ? 1 : -1);
+    const sortedSingers = sortByFName.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
+    return sortedSingers;
+  };
+
 
   //=====================//
   //   Run on page load  //
@@ -276,25 +289,16 @@ const AdminPortal = () => {
 
     // If there are users
     if (users.length) {
-      const sops = users.filter(user => ["Soprano I", "Soprano II"].includes(user.section));
-      const alts = users.filter(user => ["Alto I", "Alto II"].includes(user.section));
-      const tens = users.filter(user => ["Tenor I", "Tenor II"].includes(user.section));
-      const bass = users.filter(user => ["Bass I", "Bass II"].includes(user.section));
-      const other = users.filter(user => !["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"].includes(user.section));
-      const sopsSortedByFName = sops.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
-      const sopsSortedByLName = sopsSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const altsSortedByFName = alts.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
-      const altsSortedByLName = altsSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const tensSortedByFName = tens.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
-      const tensSortedByLName = tensSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const bassSortedByFName = bass.sort((a, b) => (a.firstName < b.firstName ? 1 : -1));
-      const bassSortedByLName = bassSortedByFName.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      const othersSortedByLName = other.sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
-      setSortedSops(sopsSortedByLName);
-      setSortedAlts(altsSortedByLName);
-      setSortedTens(tensSortedByLName);
-      setSortedBass(bassSortedByLName);
-      setSortedOthers(othersSortedByLName);
+      const sortedSoprano = sortSection(users, ["Soprano I", "Soprano II"]);
+      const sortedAlto = sortSection(users, ["Alto I", "Alto II"]);
+      const sortedTenor = sortSection(users, ["Tenor I", "Tenor II"]);
+      const sortedBass = sortSection(users, ["Bass I", "Bass II"]);
+      const sortedOther = sortSection(users, ["Soprano I", "Soprano II", "Alto I", "Alto II", "Tenor I", "Tenor II", "Bass I", "Bass II", "Guest"]);
+      setSortedSops(sortedSoprano);
+      setSortedAlts(sortedAlto);
+      setSortedTens(sortedTenor);
+      setSortedBass(sortedBass);
+      setSortedOthers(sortedOther);
     };
   }, [concerts, posts, users]);
 

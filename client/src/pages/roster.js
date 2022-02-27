@@ -37,8 +37,15 @@ const RosterPage = () => {
   //=====================//
 
   // Sort singer data by last name
-  const sortSection = (singers) => {
-    const sortedSingers = singers.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
+  const sortSection = (singers, section) => {
+    let filteredSingers;
+    if (section.length <= 2) {
+      filteredSingers = singers.filter(singer => section.includes(singer.section));
+    } else {
+      filteredSingers = singers.filter(singer => !section.includes(singer.position));
+    }
+    const sortByFName = filteredSingers.sort((a, b) => a.firstName < b.firstName ? 1 : -1);
+    const sortedSingers = sortByFName.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
     return sortedSingers;
   }
 
@@ -49,24 +56,24 @@ const RosterPage = () => {
 
   useEffect(() => {
     if (members.length) {
-      const sopranos = members.filter(member => member.section === "Soprano I" || member.section === "Soprano II");
-      const altos = members.filter(member => member.section === "Alto I" || member.section === "Alto II");
-      const tenors = members.filter(member => member.section === "Tenor I" || member.section === "Tenor II");
-      const basses = members.filter(member => member.section === "Bass I" || member.section === "Bass II");
-      const staff = members.filter(member => !["section leader", "singer", "webdev", "guest"].includes(member.position));
-      const board = members.filter(member => member.section === "Board");
+      // const sopranos = members.filter(member => member.section === "Soprano I" || member.section === "Soprano II");
+      // const altos = members.filter(member => member.section === "Alto I" || member.section === "Alto II");
+      // const tenors = members.filter(member => member.section === "Tenor I" || member.section === "Tenor II");
+      // const basses = members.filter(member => member.section === "Bass I" || member.section === "Bass II");
+      // const staff = members.filter(member => !["section leader", "singer", "webdev", "guest"].includes(member.position));
+      // const board = members.filter(member => member.section === "Board");
 
-      const sortedSops = sortSection(sopranos);
+      const sortedSops = sortSection(members, ["Soprano I", "Soprano II"]);
       setCurrSops(sortedSops);
-      const sortedAltos = sortSection(altos);
+      const sortedAltos = sortSection(members, ["Alto I", "Alto II"]);
       setCurrAlts(sortedAltos);
-      const sortedTenors = sortSection(tenors);
+      const sortedTenors = sortSection(members, ["Tenor I", "Tenor II"]);
       setCurrTens(sortedTenors);
-      const sortedBasses = sortSection(basses);
+      const sortedBasses = sortSection(members, ["Bass I", "Bass II"]);
       setCurrBass(sortedBasses);
-      const sortedStaff = sortSection(staff);
+      const sortedStaff = sortSection(members, ["section leader", "singer", "webdev", "guest"]);
       setCurrStaff(sortedStaff);
-      const sortedBoard = sortSection(board);
+      const sortedBoard = sortSection(members, ["Board"]);
       setCurrBoard(sortedBoard);
     }
   }, [members])
