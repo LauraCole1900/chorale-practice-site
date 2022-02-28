@@ -47,7 +47,7 @@ const RosterPage = () => {
     const sortByFName = filteredSingers.sort((a, b) => a.firstName < b.firstName ? 1 : -1);
     const sortedSingers = sortByFName.sort((a, b) => a.lastName > b.lastName ? 1 : -1);
     return sortedSingers;
-  }
+  };
 
 
   //=====================//
@@ -69,7 +69,7 @@ const RosterPage = () => {
       setCurrStaff(sortedStaff);
       setCurrBoard(sortedBoard);
     }
-  }, [members])
+  }, [members]);
 
 
   //=====================//
@@ -78,15 +78,15 @@ const RosterPage = () => {
   
   if (meLoading || usersLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
-  }
+  };
 
   if (me.position === "guest") {
     return <Navigate to="/members" />
-  }
+  };
   
 
   return (

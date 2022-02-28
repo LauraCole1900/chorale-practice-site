@@ -14,6 +14,8 @@ const setConcertOrderModal = (props) => {
     // songs.includes(value) ? songArr = songs.filter(song => song !== value) : songArr = [...songs, value];
     // // Set the array of song IDs in state
     // props.setSongsToDelete(songArr);
+
+    // sets concert order as i + 1
   };
 
   // Handles click on 'Set Concert Order' button
