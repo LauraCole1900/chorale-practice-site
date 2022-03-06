@@ -14,6 +14,8 @@ const setConcertOrderModal = (props) => {
     // songs.includes(value) ? songArr = songs.filter(song => song !== value) : songArr = [...songs, value];
     // // Set the array of song IDs in state
     // props.setSongsToDelete(songArr);
+
+    // sets concert order as i + 1
   };
 
   // Handles click on 'Set Concert Order' button
@@ -39,7 +41,7 @@ const setConcertOrderModal = (props) => {
               {props.songs.map(song => (
                 <Row key={song._id}>
                   <Col sm={{ span: 10, offset: 1 }}>
-                    {/* TODO: List of draggable songs here */}
+                    <p>{song.title}</p>
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
