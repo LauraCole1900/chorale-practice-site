@@ -2,7 +2,7 @@ import { Button, Col, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 
-const setConcertOrderModal = (props) => {
+const ConcertOrderModal = (props) => {
 
   // Handles drag-n-drop
   const handleInputChange = (e) => {
@@ -56,4 +56,4 @@ const setConcertOrderModal = (props) => {
   )
 };
 
-export default setConcertOrderModal
+export default ConcertOrderModal

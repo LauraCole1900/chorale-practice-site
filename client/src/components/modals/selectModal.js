@@ -42,6 +42,11 @@ const SelectModal = (props) => {
               props.songs.length > 0 &&
               <Button data-toggle="popover" title="Delete Repertoire" className="button" type="button" data-btnname="songsDelete" onClick={props.showSelectSongs}>Select Repertoire to Delete</Button>}
 
+            {/* Set Concert Order */}
+            {props.type === "event" &&
+              props.songs.length > 0 &&
+              <Button data-toggle="popover" title="Set Concert Order" className="button" type="button" data-btnname="songsOrder" onClick={props.showConcertOrder}>Set Concert Order</Button>}
+
             {/* Delete Event */}
             {props.type === "event" &&
               <Button data-toggle="popover" title="Delete Event" className="button" type="button" data-btnname="concertDelete" onClick={props.confirm}>Delete This Event</Button>}
