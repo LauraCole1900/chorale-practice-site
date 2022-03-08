@@ -1,8 +1,12 @@
+import { useEffect, useRef } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
+import Sortable from "sortablejs";
 import "./style.css";
 
 
 const ConcertOrderModal = (props) => {
+  const sortableRef = useRef(null);
+
 
   // Handles drag-n-drop
   const handleInputChange = (e) => {
@@ -26,6 +30,13 @@ const ConcertOrderModal = (props) => {
   };
 
 
+  useEffect(() => {
+    if (props.show) {
+      Sortable.create(sortableRef.current);
+    }
+  }, [props.show]);
+
+
   return (
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
@@ -37,11 +48,11 @@ const ConcertOrderModal = (props) => {
               <Modal.Title className="modalTitle">Drag repertoire into concert order</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body className="modalBody">
+            <Modal.Body className="modalBody" ref={sortableRef} id="sortableId">
               {props.songs.map(song => (
-                <Row key={song._id}>
+                <Row key={song._id} className="bordered">
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <p>{song.title}</p>
+                    <p className="closeSpace">{song.title}</p>
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
