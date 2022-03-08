@@ -6,33 +6,23 @@ import "./style.css";
 
 const ConcertOrderModal = (props) => {
   const sortableRef = useRef(null);
+  let sortable;
 
-
-  // Handles drag-n-drop
-  const handleInputChange = (e) => {
-    // const { value } = e.currentTarget;
-    // const songs = props.songsToDelete;
-    // let songArr;
-    // // If the existing array includes the ID of the song clicked on, remove it
-    // // Otherwise, add it to the array
-    // songs.includes(value) ? songArr = songs.filter(song => song !== value) : songArr = [...songs, value];
-    // // Set the array of song IDs in state
-    // props.setSongsToDelete(songArr);
-
-    // sets concert order as i + 1
-  };
 
   // Handles click on 'Set Concert Order' button
+  // Gets the new index value for each song -- how?
+  // Sets concertOrder on each song to index + 1
   const setConcertOrder = (e) => {
     e.preventDefault();
-
+    // const { dataset } = e.target;
+    console.log(sortable.toArray());
 
   };
 
 
   useEffect(() => {
     if (props.show) {
-      Sortable.create(sortableRef.current);
+      sortable = Sortable.create(sortableRef.current);
     }
   }, [props.show]);
 
@@ -49,10 +39,10 @@ const ConcertOrderModal = (props) => {
             </Modal.Header>
 
             <Modal.Body className="modalBody" ref={sortableRef} id="sortableId">
-              {props.songs.map(song => (
+              {props.songs.map((song, i) => (
                 <Row key={song._id} className="bordered">
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <p className="closeSpace">{song.title}</p>
+                    <p className="closeSpace" data-id={i}>{song.title}</p>
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
