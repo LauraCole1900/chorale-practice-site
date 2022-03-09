@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import Sortable from "sortablejs";
 import "./style.css";
@@ -6,6 +6,8 @@ import "./style.css";
 
 const ConcertOrderModal = (props) => {
   const sortableRef = useRef(null);
+  // const [currSong, setCurrSong] = useState();
+  // const [songsToSave, setSongsToSave] = useState([]);
   let sortable;
 
 
@@ -14,12 +16,17 @@ const ConcertOrderModal = (props) => {
   // Sets concertOrder on each song to index + 1
   const setConcertOrder = (e) => {
     e.preventDefault();
-    const { dataset } = e.target;
-    console.log(sortable.toArray());
-    // sortable.forEach(song => {
-    // console.log(dataset.id, song._id);
-    // });
-
+    const songArr = sortable.toArray();
+    let songsToSave = [];
+    songArr.forEach((song, i) => {
+      console.log({ song }, { i })
+      let currentSong = { id: song, concertOrder: i + 1 };
+      console.log({ currentSong });
+      songsToSave = [...songsToSave, currentSong];
+    });
+    if (songsToSave.length) {
+      console.log({ songsToSave });
+    }
   };
 
 
@@ -28,17 +35,17 @@ const ConcertOrderModal = (props) => {
       sortable = Sortable.create(sortableRef.current, {
         animation: 150,
         dataIdAttr: "data-id",
-        group: "repertoire",
-        store: {
-          get: function (sortable) {
-            var order = localStorage.getItem(sortable.options.group.name);
-            return order ? order.split('|') : [];
-          },
-          set: function (sortable) {
-            var order = sortable.toArray();
-            localStorage.setItem(sortable.options.group.name, order.join('|'));
-          }
-        }
+        // group: "repertoire",
+        // store: {
+        //   get: function (sortable) {
+        //     var order = localStorage.getItem(sortable.options.group.name);
+        //     return order ? order.split('|') : [];
+        //   },
+        //   set: function (sortable) {
+        //     var order = sortable.toArray();
+        //     localStorage.setItem(sortable.options.group.name, order.join('|'));
+        //   }
+        // }
       });
     }
   }, [props.show]);
@@ -57,9 +64,9 @@ const ConcertOrderModal = (props) => {
 
             <Modal.Body className="modalBody" ref={sortableRef} id="sortableId">
               {props.songs.map((song, i) => (
-                <Row key={song._id} className="bordered">
+                <Row key={song._id} data-id={song._id} className="bordered">
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <p className="closeSpace" data-id={i + 1}>{song.title}</p>
+                    <p className="closeSpace">{song.title}</p>
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
