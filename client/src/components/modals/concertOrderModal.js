@@ -6,46 +6,38 @@ import "./style.css";
 
 const ConcertOrderModal = (props) => {
   const sortableRef = useRef(null);
-  // const [currSong, setCurrSong] = useState();
-  // const [songsToSave, setSongsToSave] = useState([]);
+  const [songsToSave, setSongsToSave] = useState([]);
   let sortable;
 
 
   // Handles click on 'Set Concert Order' button
-  // Gets the new index value for each song -- how?
   // Sets concertOrder on each song to index + 1
   const setConcertOrder = (e) => {
     e.preventDefault();
     const songArr = sortable.toArray();
-    let songsToSave = [];
+    let orderedSongs = [];
     songArr.forEach((song, i) => {
       console.log({ song }, { i })
       let currentSong = { id: song, concertOrder: i + 1 };
       console.log({ currentSong });
-      songsToSave = [...songsToSave, currentSong];
+      orderedSongs = [...orderedSongs, currentSong];
     });
-    if (songsToSave.length) {
-      console.log({ songsToSave });
+    if (orderedSongs.length) {
+      console.log({ orderedSongs });
+      orderedSongs.pop();
+      console.log({ orderedSongs });
+      setSongsToSave(orderedSongs);
     }
   };
+
+  // TODO: Match up each song's ID with the correct song object and update with new concert order value, then send the array of updated song objects to the back end
 
 
   useEffect(() => {
     if (props.show) {
       sortable = Sortable.create(sortableRef.current, {
         animation: 150,
-        dataIdAttr: "data-id",
-        // group: "repertoire",
-        // store: {
-        //   get: function (sortable) {
-        //     var order = localStorage.getItem(sortable.options.group.name);
-        //     return order ? order.split('|') : [];
-        //   },
-        //   set: function (sortable) {
-        //     var order = sortable.toArray();
-        //     localStorage.setItem(sortable.options.group.name, order.join('|'));
-        //   }
-        // }
+        dataIdAttr: "data-id"
       });
     }
   }, [props.show]);

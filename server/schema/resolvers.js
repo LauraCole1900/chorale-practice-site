@@ -205,6 +205,12 @@ const resolvers = {
       return song[0];
     },
 
+    // Finds the relevant concert by ID, then loops through the provided array of song objects
+    // and sets the concert order on each subdocument
+    setConcertOrder: async (_, args) => {
+      const concert = await Concert.findOne({ _id: args._id });
+    },
+
 
     //=====================//
     //    Post Mutations   //

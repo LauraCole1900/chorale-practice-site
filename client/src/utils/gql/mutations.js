@@ -167,6 +167,30 @@ mutation editRepertoire($concertId: ID!, $songId: ID!, $title: String!, $compose
 }
 `;
 
+export const SET_CONCERT_ORDER = gql`
+mutation setConcertOrder($id: ID!, $songs: [SongInput]!) {
+  setConcertOrder(_id: $id, songs: $songs) {
+    _id
+    songs {
+      _id
+      title
+      composer
+      concertOrder
+      practiceTrackUrlsSop
+      practiceTrackTitlesSop
+      practiceTrackUrlsAlto
+      practiceTrackTitlesAlto
+      practiceTrackUrlsTen
+      practiceTrackTitlesTen
+      practiceTrackUrlsBass
+      practiceTrackTitlesBass
+      videoUrls
+    }
+  }
+}
+`
+;
+
 
 //=====================//
 //   Post Mutations    //
