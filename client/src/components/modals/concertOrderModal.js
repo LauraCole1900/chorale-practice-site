@@ -14,15 +14,32 @@ const ConcertOrderModal = (props) => {
   // Sets concertOrder on each song to index + 1
   const setConcertOrder = (e) => {
     e.preventDefault();
-    // const { dataset } = e.target;
+    const { dataset } = e.target;
     console.log(sortable.toArray());
+    // sortable.forEach(song => {
+    // console.log(dataset.id, song._id);
+    // });
 
   };
 
 
   useEffect(() => {
     if (props.show) {
-      sortable = Sortable.create(sortableRef.current);
+      sortable = Sortable.create(sortableRef.current, {
+        animation: 150,
+        dataIdAttr: "data-id",
+        group: "repertoire",
+        store: {
+          get: function (sortable) {
+            var order = localStorage.getItem(sortable.options.group.name);
+            return order ? order.split('|') : [];
+          },
+          set: function (sortable) {
+            var order = sortable.toArray();
+            localStorage.setItem(sortable.options.group.name, order.join('|'));
+          }
+        }
+      });
     }
   }, [props.show]);
 
@@ -42,7 +59,7 @@ const ConcertOrderModal = (props) => {
               {props.songs.map((song, i) => (
                 <Row key={song._id} className="bordered">
                   <Col sm={{ span: 10, offset: 1 }}>
-                    <p className="closeSpace" data-id={i}>{song.title}</p>
+                    <p className="closeSpace" data-id={i + 1}>{song.title}</p>
                   </Col>
                 </Row>))}
               <Modal.Footer className="modalFooter">
