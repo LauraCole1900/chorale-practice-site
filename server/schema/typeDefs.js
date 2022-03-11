@@ -84,6 +84,7 @@ type Auth {
 # //=====================//
 
 input SongInput {
+  _id: ID
   title: String!
   composer: [String!]
   concertOrder: Int
@@ -171,6 +172,8 @@ type Mutation {
   addRepertoire(_id: ID!, songs: SongInput!): Concert
 
   editRepertoire(_id: ID!, songId: ID!, title: String!, composer: [String!], concertOrder: Int,  publisher: String, copyrightDate: String, practiceTrackUrlsSop: [String!], practiceTrackTitlesSop: [String!], practiceTrackUrlsAlto: [String!], practiceTrackTitlesAlto: [String!], practiceTrackUrlsTen: [String!], practiceTrackTitlesTen: [String!], practiceTrackUrlsBass: [String], practiceTrackTitlesBass: [String!], videoUrls: [String]): Song
+
+  setConcertOrder(_id: ID!, songs: [SongInput]!): Concert
 
 
   # //=====================//

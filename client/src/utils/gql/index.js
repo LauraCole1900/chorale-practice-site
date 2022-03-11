@@ -14,7 +14,8 @@ export {
   EDIT_POST,
   EDIT_USER_ADMIN,
   EDIT_USER_SELF,
-  LOGIN_USER
+  LOGIN_USER,
+  SET_CONCERT_ORDER
 } from "./mutations";
 
 export {

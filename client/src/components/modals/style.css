@@ -1,0 +1,11 @@
+.bordered {
+  background-color: var(--lightSil);
+  padding: .5rem 0;
+  margin-bottom: .1rem;
+  border: 1px solid var(--gcCharcoal);
+  border-radius: 7px;
+}
+
+.closeSpace {
+  margin-bottom: .25rem;
+}

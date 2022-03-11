@@ -4,10 +4,10 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME, SET_CONCERT_ORDER } from "../utils/gql";
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
-import { ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
+import { ConcertOrderModal, ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
 import { Sidenav } from "../components/navbar";
 import "./style.css";
 
@@ -37,6 +37,7 @@ const AdminPortal = () => {
   const [postId, setPostId] = useState();
   const [songs, setSongs] = useState([]);
   const [songsToDelete, setSongsToDelete] = useState([]);
+  const [songsToOrder, setSongsToOrder] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
   // Modal states
@@ -44,6 +45,7 @@ const AdminPortal = () => {
   const [showErr, setShowErr] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const [showSelectSongs, setShowSelectSongs] = useState(false);
+  const [showSetConcertOrder, setShowConcertOrder] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
 
@@ -138,6 +140,8 @@ const AdminPortal = () => {
     }
   });
 
+  const [setConcertOrder, { concertOrderError, concertOrderData }] = useMutation(SET_CONCERT_ORDER);
+
 
   //=====================//
   //    Modal Methods    //
@@ -147,6 +151,7 @@ const AdminPortal = () => {
   const handleHideConfirm = () => setShowConfirm(false);
   const handleHideSelect = () => setShowSelect(false);
   const handleHideSelectSongs = () => setShowSelectSongs(false);
+  const handleHideSetConcertOrder = () => setShowConcertOrder(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
@@ -157,11 +162,13 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     setType(dataset.type);
     setShowSelect(true);
+    const copiedSongs = [...songs];
+    const sortedSongs = copiedSongs.sort((a,b) => a.concertOrder > b.concertOrder ? 1 : -1)
     switch (dataset.type) {
       case "event":
         setConcertId(id);
         setConcertName(name);
-        setSongs(songs);
+        setSongs(sortedSongs);
         break;
       case "member":
         setMemberId(id);
@@ -178,6 +185,14 @@ const AdminPortal = () => {
     setBtnName(dataset.btnname);
     handleHideSelect();
     setShowSelectSongs(true);
+  };
+
+  // Shows Set Concert Order modal
+  const handleShowConcertOrder = (e) => {
+    const { dataset } = e.target;
+    setBtnName(dataset.btnname);
+    handleHideSelect();
+    setShowConcertOrder(true);
   };
 
   // Shows Confirm modal
@@ -249,6 +264,22 @@ const AdminPortal = () => {
     }
     setSongsToDelete([]);
   };
+
+  // Handles click on "Set Concert Order" on Concert Order modal
+  const handleConcertOrder = async (id, songs) => {
+    handleHideSetConcertOrder();
+    try {
+      const { data } = await setConcertOrder({
+        variables: { id: id, songs: songs },
+      });
+      handleShowSuccess();
+    } catch (err) {
+      console.log(JSON.parse(JSON.stringify(err)));
+      setErrThrown(err.message);
+      handleShowErr();
+    }
+    setSongsToOrder([]);
+  }
 
   // Filters users by section, then sorts by first name, then last name
   const sortSection = (singers, section) => {
@@ -421,6 +452,7 @@ const AdminPortal = () => {
           hide={() => handleHideSelect()}
           confirm={(e) => handleShowConfirm(e)}
           showSelectSongs={(e) => handleShowSelectSongs(e)}
+          showConcertOrder={(e) => handleShowConcertOrder(e)}
         />
 
         <SelectSongModal
@@ -433,6 +465,19 @@ const AdminPortal = () => {
           confirm={(e) => handleShowConfirm(e)}
           setSongsToDelete={setSongsToDelete}
           songsToDelete={songsToDelete}
+        />
+
+        <ConcertOrderModal
+          btnname={btnName}
+          setbtnname={setBtnName}
+          concertId={concertId}
+          songs={songs}
+          show={showSetConcertOrder === true}
+          hide={() => handleHideSetConcertOrder()}
+          confirm={(e) => handleShowConfirm(e)}
+          setConcertOrder={handleConcertOrder}
+          setSongsToOrder={setSongsToOrder}
+          songsToOrder={songsToOrder}
         />
 
         <ConfirmModal

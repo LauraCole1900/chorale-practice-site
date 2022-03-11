@@ -38,6 +38,9 @@ const client = new ApolloClient({
         fields: {
           oneConcert: {
             merge: true
+          },
+          addRepertoire: {
+            merge: true
           }
         }
       }
