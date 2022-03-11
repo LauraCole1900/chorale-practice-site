@@ -5,9 +5,18 @@ import "./style.css";
 
 
 const ConcertOrderModal = (props) => {
+
+  //================//
+  //   Vars & Ref   //
+  //================//
+
   const sortableRef = useRef(null);
   let sortable;
 
+
+  //=================//
+  //     Methods     //
+  //=================//
 
   // Handles click on 'Set Concert Order' button
   const handleConcertOrderClick = (e) => {
@@ -45,6 +54,10 @@ const ConcertOrderModal = (props) => {
     return key === '__typename' ? undefined : value
   }
 
+
+  //======================//
+  //   Run on page load   //
+  //======================//
 
   useEffect(() => {
     if (props.show) {
