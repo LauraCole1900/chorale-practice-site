@@ -48,6 +48,7 @@ const ConcertOrderModal = (props) => {
 
   useEffect(() => {
     if (props.show) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       sortable = Sortable.create(sortableRef.current, {
         animation: 150,
         dataIdAttr: "data-id"
