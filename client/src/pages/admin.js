@@ -4,7 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { useMutation, useQuery } from "@apollo/client";
-import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME } from "../utils/gql";
+import { DELETE_CONCERT, DELETE_POST, DELETE_USER, DELETE_MANY_SONGS, QUERY_ALL_CONCERTS, QUERY_ALL_POSTS, QUERY_ALL_USERS, QUERY_ME, SET_CONCERT_ORDER } from "../utils/gql";
 import Auth from "../utils/auth";
 import { timeToNow } from "../utils/dateUtils";
 import { ConcertOrderModal, ConfirmModal, ErrorModal, SelectModal, SelectSongModal, SuccessModal } from "../components/modals";
@@ -37,6 +37,7 @@ const AdminPortal = () => {
   const [postId, setPostId] = useState();
   const [songs, setSongs] = useState([]);
   const [songsToDelete, setSongsToDelete] = useState([]);
+  const [songsToOrder, setSongsToOrder] = useState([]);
   const [errThrown, setErrThrown] = useState();
 
   // Modal states
@@ -139,6 +140,8 @@ const AdminPortal = () => {
     }
   });
 
+  const [setConcertOrder, { concertOrderError, concertOrderData }] = useMutation(SET_CONCERT_ORDER);
+
 
   //=====================//
   //    Modal Methods    //
@@ -159,11 +162,13 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     setType(dataset.type);
     setShowSelect(true);
+    const copiedSongs = [...songs];
+    const sortedSongs = copiedSongs.sort((a,b) => a.concertOrder > b.concertOrder ? 1 : -1)
     switch (dataset.type) {
       case "event":
         setConcertId(id);
         setConcertName(name);
-        setSongs(songs);
+        setSongs(sortedSongs);
         break;
       case "member":
         setMemberId(id);
@@ -259,6 +264,22 @@ const AdminPortal = () => {
     }
     setSongsToDelete([]);
   };
+
+  // Handles click on "Set Concert Order" on Concert Order modal
+  const handleConcertOrder = async (id, songs) => {
+    handleHideSetConcertOrder();
+    try {
+      const { data } = await setConcertOrder({
+        variables: { id: id, songs: songs },
+      });
+      handleShowSuccess();
+    } catch (err) {
+      console.log(JSON.parse(JSON.stringify(err)));
+      setErrThrown(err.message);
+      handleShowErr();
+    }
+    setSongsToOrder([]);
+  }
 
   // Filters users by section, then sorts by first name, then last name
   const sortSection = (singers, section) => {
@@ -454,6 +475,9 @@ const AdminPortal = () => {
           show={showSetConcertOrder === true}
           hide={() => handleHideSetConcertOrder()}
           confirm={(e) => handleShowConfirm(e)}
+          setConcertOrder={handleConcertOrder}
+          setSongsToOrder={setSongsToOrder}
+          songsToOrder={songsToOrder}
         />
 
         <ConfirmModal

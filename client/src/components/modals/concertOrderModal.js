@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import Sortable from "sortablejs";
 import "./style.css";
@@ -6,31 +6,44 @@ import "./style.css";
 
 const ConcertOrderModal = (props) => {
   const sortableRef = useRef(null);
-  const [songsToSave, setSongsToSave] = useState([]);
   let sortable;
 
 
   // Handles click on 'Set Concert Order' button
-  // Sets concertOrder on each song to index + 1
-  const setConcertOrder = (e) => {
+  const handleConcertOrderClick = (e) => {
     e.preventDefault();
     const songArr = sortable.toArray();
     let orderedSongs = [];
-    songArr.forEach((song, i) => {
-      console.log({ song }, { i })
-      let currentSong = { id: song, concertOrder: i + 1 };
-      console.log({ currentSong });
+    songArr.forEach((songId, i) => {
+      let currentSong = { id: songId, concertOrder: i + 1 };
       orderedSongs = [...orderedSongs, currentSong];
     });
     if (orderedSongs.length) {
-      console.log({ orderedSongs });
-      orderedSongs.pop();
-      console.log({ orderedSongs });
-      setSongsToSave(orderedSongs);
+      handleSetSongsAttr(orderedSongs);
     }
   };
 
-  // TODO: Match up each song's ID with the correct song object and update with new concert order value, then send the array of updated song objects to the back end
+  // Sets each song's concertOrder attribute to the above-set index
+  // Runs setConcertOrder mutation
+  const handleSetSongsAttr = (songIndices) => {
+    let songObjs = [];
+    const copiedSongs = JSON.parse(JSON.stringify(props.songs), omitTypename);
+    copiedSongs.forEach(song => {
+      songIndices.forEach(ind => {
+        if (song._id === ind.id) {
+          const newSong = Object.assign({}, song, { concertOrder: ind.concertOrder });
+          songObjs = [...songObjs, newSong];
+        }
+      })
+    });
+    props.setSongsToOrder(songObjs);
+    props.setConcertOrder(props.concertId, songObjs);
+  };
+
+  // Strips __typename out of each song so mutation will actually run
+  function omitTypename(key, value) {
+    return key === '__typename' ? undefined : value
+  }
 
 
   useEffect(() => {
@@ -61,11 +74,11 @@ const ConcertOrderModal = (props) => {
                     <p className="closeSpace">{song.title}</p>
                   </Col>
                 </Row>))}
-              <Modal.Footer className="modalFooter">
-                <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
-                <Button data-toggle="popover" title="Set concert order" className="button" type="button" onClick={setConcertOrder}>Set concert order</Button>
-              </Modal.Footer>
             </Modal.Body>
+            <Modal.Footer className="modalFooter">
+              <Button data-toggle="popover" title="Take me back" className="button" type="button" onClick={props.hide}>Take me back</Button>
+              <Button data-toggle="popover" title="Set concert order" className="button" type="button" onClick={handleConcertOrderClick}>Set concert order</Button>
+            </Modal.Footer>
           </>}
 
       </Modal>

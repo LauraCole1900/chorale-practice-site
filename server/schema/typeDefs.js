@@ -84,6 +84,7 @@ type Auth {
 # //=====================//
 
 input SongInput {
+  _id: ID
   title: String!
   composer: [String!]
   concertOrder: Int
