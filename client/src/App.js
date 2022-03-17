@@ -60,7 +60,7 @@ function App() {
               <Route path="/" element={<Lander />} />
               <Route path="/admin_portal" element={<AdminPortal />} />
               <Route path="/edit_event/:concertId" element={<ConcertForm />} />
-              <Route path="/edit_member/:userId" element={<AdminUserForm />} />
+              <Route path="/edit_member/:memberId" element={<AdminUserForm />} />
               <Route path="/edit_post/:postId" element={<PostForm />} />
               <Route path="/edit_repertoire/:concertId/:songId" element={<SongForm />} />
               <Route path="/login" element={<Login />} />

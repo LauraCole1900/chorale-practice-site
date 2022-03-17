@@ -162,10 +162,10 @@ const AdminPortal = () => {
     const { dataset } = e.target;
     setType(dataset.type);
     setShowSelect(true);
-    const copiedSongs = [...songs];
-    const sortedSongs = copiedSongs.sort((a,b) => a.concertOrder > b.concertOrder ? 1 : -1)
     switch (dataset.type) {
       case "event":
+        const copiedSongs = [...songs];
+        const sortedSongs = copiedSongs.sort((a,b) => a.concertOrder > b.concertOrder ? 1 : -1)
         setConcertId(id);
         setConcertName(name);
         setSongs(sortedSongs);

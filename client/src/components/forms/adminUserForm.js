@@ -19,7 +19,7 @@ const AdminUserForm = () => {
 
   // Params
   const params = useParams();
-  const userId = params.userId;
+  const userId = params.memberId;
 
   // State variables
   const [userData, setUserData] = useState({
