@@ -53,8 +53,8 @@ const SongForm = () => {
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 2];
-  const urlType = urlArray[urlArray.length - 3];
+  const urlId = urlArray.at(-2);
+  const urlType = urlArray.at(-3);
 
 
   //=====================//

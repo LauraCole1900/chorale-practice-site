@@ -17,7 +17,7 @@ const VoiceBuilder = () => {
 
   // Determines which page user is on, specifically for use with sidenav
   const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 1];
+  const urlId = urlArray.at(-1);
 
 
   //=====================//

@@ -102,10 +102,10 @@ const ProfilePage = () => {
     const nameArr = memberName.split(" ");
     const fName = nameArr[0];
     let lName;
-    if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr[nameArr.length - 1])) {
-      lName = nameArr[nameArr.length - 2]
+    if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr.at(-1))) {
+      lName = nameArr.at(-2)
     } else {
-      lName = nameArr[nameArr.length - 1]
+      lName = nameArr.at(-1)
     }
     setUserData({ ...userData, firstName: fName, lastName: lName });
   };

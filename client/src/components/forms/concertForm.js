@@ -46,8 +46,8 @@ const ConcertForm = () => {
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 1];
-  const urlType = urlArray[urlArray.length - 2];
+  const urlId = urlArray.at(-1);
+  const urlType = urlArray.at(-2);
 
 
   //=====================//
