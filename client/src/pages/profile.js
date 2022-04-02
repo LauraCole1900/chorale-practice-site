@@ -198,7 +198,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Container>
+      <Container fluid>
         <Row>
           <Col sm={2}>
             <Sidenav user={me} urlId={urlId} />
