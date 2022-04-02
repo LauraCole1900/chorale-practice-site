@@ -55,8 +55,8 @@ const AdminPortal = () => {
 
   // Determines which page user is on, specifically for use with modals & sidenav
   const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 1];
-  const urlType = urlArray[urlArray.length - 2];
+  const urlId = urlArray.at(-1);
+  const urlType = urlArray.at(-2);
 
 
   //=====================//
@@ -303,8 +303,8 @@ const AdminPortal = () => {
     // If there are concerts
     if (concerts.length) {
       const upcomingConcerts = concerts.filter(concert => !concert.time[0].includes("am") && !concert.time[0].includes("pm")
-        ? dayjs(concert.date[concert.date.length - 1], "M-D-YYYY") >= dayjs()
-        : (timeToNow(concert.date[concert.date.length - 1], concert.time[concert.time.length - 1])) > dayjs()
+        ? dayjs(concert.date.at(-1), "M-D-YYYY") >= dayjs()
+        : (timeToNow(concert.date.at(-1), concert.time.at(-1))) > dayjs()
       );
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
       const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);

@@ -63,8 +63,8 @@ const AdminUserForm = () => {
 
   // Determines which page user is on, specifically for use with modals
   const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 1];
-  const urlType = urlArray[urlArray.length - 2];
+  const urlId = urlArray.at(-1);
+  const urlType = urlArray.at(-2);
 
 
   //=====================//
@@ -134,10 +134,10 @@ const AdminUserForm = () => {
     const nameArr = memberName.split(" ");
     const fName = nameArr[0];
     let lName;
-    if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr[nameArr.length - 1])) {
-      lName = nameArr[nameArr.length - 2];
+    if (["Sr", "Snr", "Sr.", "Snr.", "Senior", "Jr", "Jnr", "Jr.", "Jnr.", "Junior", "II", "III", "IV", "V", "VI"].includes(nameArr.at(-1))) {
+      lName = nameArr.at(-2);
     } else {
-      lName = nameArr[nameArr.length - 1];
+      lName = nameArr.at(-1);
     }
     setUserData({ ...userData, firstName: fName, lastName: lName, preferredName: fName });
   };

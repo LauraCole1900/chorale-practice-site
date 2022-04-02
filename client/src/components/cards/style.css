@@ -11,13 +11,13 @@
 }
 
 a {
-  color: var(--gcRed);
+  color: var(--disabled);
 }
 a:visited {
-  color: var(--gcCharcoal);
+  color: var(--gcRed);
 }
 a:hover {
-  color: var(--gcBlack);
+  color: var(--gcGray);
 }
 
 .accordion-button {
@@ -31,7 +31,7 @@ a:hover {
 }
 
 .accordionInstr {
-  color: var(--gcRed);
+  color: var(--disabled);
   margin-top: 50px;
 }
 

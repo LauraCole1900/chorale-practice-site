@@ -10,10 +10,10 @@
 }
 
 a.sideLinks {
-  color: var(--gcRed);
+  color: var(--disabled);
 }
 a.sideLinks:visited {
-  color: var(--gcCharcoal);
+  color: var(--gcRed);
 }
 a.sideLinks:hover {
   font-family: var(--headerFont);
@@ -32,7 +32,7 @@ a.sideLinks:hover {
   color: var(--disabled);
 }
 .adminLink:hover {
-  color: var(--gcCharcoal);
+  color: var(--gcGray);
   cursor: pointer;
 }
 
@@ -159,6 +159,7 @@ a.sideLinks:hover {
 }
 
 .rosterNav ul li {
+  color: var(--disabled);
   list-style-type: none;
   display: inline-block;
 }
@@ -167,7 +168,7 @@ a.sideLinks:hover {
   font-family: var(--bodyFont);
   font-size: 18px;
   margin-top: 1.5rem;
-  color: var(--gcBlack);
+  color: var(--lightSil);
   order: 3;
 }
 
@@ -179,6 +180,7 @@ a.sideLinks:hover {
 }
 
 .upcomingBdays {
+  color: var(--gcGray);
   font-size: 14px;
   margin-bottom: .25rem;
 }
