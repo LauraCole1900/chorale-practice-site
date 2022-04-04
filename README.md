@@ -38,8 +38,11 @@ Members page as viewed by the Guest account (truncated):
 Profile page:
 ![Profile page](assets/gcpm-profile-page-screenshot.png)
 
-Section page (truncated):
-![Section page](assets/gcpm-section-page-screenshot-tr.png)
+Section page, accordion closed:
+![Section page closed](assets/gcpm-section-page-closed-screenshot.png)
+
+Section page, accordion open (truncated):
+![Section page open](assets/gcpm-section-page-open-screenshot-tr.png)
 
 New Event form:
 ![New Event form](assets/gcpm-new-event-form-screenshot.png)
