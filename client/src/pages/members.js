@@ -83,7 +83,7 @@ const Members = () => {
   const bdayCopy = [...bDays];
   const filteredBdays = bdayCopy.filter(user => user.birthday);
   const sortedBdays = filteredBdays.sort((a, b) => a.birthday > b.birthday ? 1 : -1);
-  const nextMonthBdays = sortedBdays.filter(bday => dayjs(bday.birthday, "MM-DD") > dayjs().subtract(1, "day") && dayjs(bday.birthday, "MM-DD") < dayjs().add(1, "month"));
+  const nextMonthBdays = sortedBdays.filter(bday => dayjs(bday.birthday, "MM-DD") > dayjs().subtract(1, "day") && dayjs(bday.birthday, "MM-DD") < dayjs().add(5, "month"));
 
   const emergency = postArr.filter(post => post.postType === "emergency");
   const singersNote = postArr.filter(post => post.postType === "singers note");
