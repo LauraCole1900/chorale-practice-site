@@ -36,8 +36,14 @@ th {
   color: var(--gcWhite);
 }
 
+tr {
+  color: var(--gcCharcoal);
+}
 tr:nth-child(even) {
   background-color: var(--darkSil);
+}
+tr:nth-child(odd) {
+  background-color: var(--lightSil);
 }
 tr:hover,
 tr:focus {
