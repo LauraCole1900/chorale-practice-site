@@ -188,7 +188,7 @@ const Members = () => {
         <Row>
           <Col sm={2}>
             <Sidenav user={me} urlId={urlId} />
-            <aside className="sideInfo">
+            <aside className="sideBars">
               <h2 className="sideInfo">Quick Links</h2>
               <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />
               <a href="https://www.facebook.com/greeleychorale/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Facebook</a><br />
@@ -268,7 +268,7 @@ const Members = () => {
 
           <Col sm={2}>
             {adminArr.length
-              ? <>
+              ? <div className="sideBars">
                 <h2 className="sideInfo">Staff</h2>
                 {me.position !== "guest"
                   ? <>
@@ -326,7 +326,7 @@ const Members = () => {
                     <br />
                     <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
                   </>}
-              </>
+              </div>
               : <>
               </>
             }
