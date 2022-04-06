@@ -13,12 +13,12 @@ a.sideLinks {
   color: var(--disabled);
 }
 a.sideLinks:visited {
-  color: var(--gcRed);
+  color: var(--gcGray);
 }
 a.sideLinks:hover {
-  color: var(--lightSil);
+  color: var(--darkSil);
   font-family: var(--headerFont);
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .adminCard {
@@ -165,23 +165,34 @@ a.sideLinks:hover {
   display: inline-block;
 }
 
+.sideBars {
+  background-color: var(--gcCharcoal);
+  margin-top: 1.5rem;
+  border: 3px solid var(--gcRed);
+  border-radius: 7px;
+  padding-bottom: .5rem;
+}
+
 .sideInfo {
+  background-color: var(--gcCharcoal);
   font-family: var(--bodyFont);
   font-size: 18px;
-  margin-top: 1.5rem;
   color: var(--lightSil);
   order: 3;
+  padding: 10px;
 }
 
 .sideLinks {
+  color: var(--darkSil);
   font-family: var(--bodyFont);
   font-size: 14px;
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
 }
 
 .upcomingBdays {
-  color: var(--gcGray);
+  color: var(--darkSil);
   font-size: 14px;
   margin-bottom: .25rem;
+  padding: 0 10px;
 }
