@@ -8,7 +8,7 @@ const Sidenav = ({ user, urlId }) => {
 
   return (
     <>
-      <Navbar className="sideNav">
+      <Navbar className={"sideNav " + (urlId !== "members" ? "sticky" : "")}>
         <Nav>
           <Link to="/section/soprano"><Button className="navBtn">Soprano</Button></Link>
         </Nav>
