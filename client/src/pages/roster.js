@@ -29,7 +29,7 @@ const RosterPage = () => {
   const { loading: usersLoading, data: usersData, error: usersError } = useQuery(QUERY_ALL_USERS);
 
   const me = meData?.me || meData?.currentId || {};
-  const members = useMemo(() => {return usersData?.allUsers || []}, [usersData?.allUsers]);
+  const members = useMemo(() => { return usersData?.allUsers || [] }, [usersData?.allUsers]);
 
 
   //=====================//
@@ -75,7 +75,7 @@ const RosterPage = () => {
   //=====================//
   //    Conditionals     //
   //=====================//
-  
+
   if (meLoading || usersLoading) {
     return <h1>Loading....</h1>
   };
@@ -87,71 +87,75 @@ const RosterPage = () => {
   if (me.position === "guest") {
     return <Navigate to="/members" />
   };
-  
+
 
   return (
     <>
       <Container fluid>
-        <Row>
-          <Col sm={12} className="pageHeader">
-            <h1>Roster</h1>
-          </Col>
-        </Row>
+        <div className="bground">
+          <div className="fground">
+            <Row>
+              <Col sm={12} className="pageHeader">
+                <h1>Roster</h1>
+              </Col>
+            </Row>
 
-        <Row className="rosterNav">
-          <ul>
-            <li><a href="#sopranos">Sopranos</a></li>
-            <li><a href="#altos">Altos</a></li>
-            <li><a href="#tenors">Tenors</a></li>
-            <li><a href="#basses">Basses</a></li>
-            <li><a href="#staff">Staff</a></li>
-            <li><a href="#board">Board</a></li>
-            {me.isAdmin === true &&
-              <li><Link to="/admin_portal">Admin Portal</Link></li>}
-          </ul>
-        </Row>
+            <Row className="rosterNav">
+              <ul>
+                <li><a href="#sopranos">Sopranos</a></li>
+                <li><a href="#altos">Altos</a></li>
+                <li><a href="#tenors">Tenors</a></li>
+                <li><a href="#basses">Basses</a></li>
+                <li><a href="#staff">Staff</a></li>
+                <li><a href="#board">Board</a></li>
+                {me.isAdmin === true &&
+                  <li><Link to="/admin_portal">Admin Portal</Link></li>}
+              </ul>
+            </Row>
 
-        <Row>
-          <h3 id="sopranos">Sopranos</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currSops} />
-        </Row>
+            <Row>
+              <h3 id="sopranos">Sopranos</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currSops} />
+            </Row>
 
-        <Row>
-          <h3 id="altos">Altos</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currAlts} />
-        </Row>
+            <Row>
+              <h3 id="altos">Altos</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currAlts} />
+            </Row>
 
-        <Row>
-          <h3 id="tenors">Tenors</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currTens} />
-        </Row>
+            <Row>
+              <h3 id="tenors">Tenors</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currTens} />
+            </Row>
 
-        <Row>
-          <h3 id="basses">Basses</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currBass} />
-        </Row>
+            <Row>
+              <h3 id="basses">Basses</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currBass} />
+            </Row>
 
-        <Row>
-          <h3 id="staff">Staff</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currStaff} />
-        </Row>
+            <Row>
+              <h3 id="staff">Staff</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currStaff} />
+            </Row>
 
-        <Row>
-          <h3 id="board">Board</h3>
-        </Row>
-        <Row>
-          <RosterTable members={currBoard} />
-        </Row>
+            <Row>
+              <h3 id="board">Board</h3>
+            </Row>
+            <Row>
+              <RosterTable members={currBoard} />
+            </Row>
+          </div>
+        </div>
       </Container>
     </>
   )

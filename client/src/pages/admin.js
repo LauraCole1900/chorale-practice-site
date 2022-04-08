@@ -165,7 +165,7 @@ const AdminPortal = () => {
     switch (dataset.type) {
       case "event":
         const copiedSongs = [...songs];
-        const sortedSongs = copiedSongs.sort((a,b) => a.concertOrder > b.concertOrder ? 1 : -1)
+        const sortedSongs = copiedSongs.sort((a, b) => a.concertOrder > b.concertOrder ? 1 : -1)
         setConcertId(id);
         setConcertName(name);
         setSongs(sortedSongs);
@@ -354,169 +354,173 @@ const AdminPortal = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col sm={12} className="center">
-            <h1>Admin Portal</h1>
-          </Col>
-        </Row>
+        <div className="bground">
+          <div className="fground">
+            <Row>
+              <Col sm={12} className="center">
+                <h1>Admin Portal</h1>
+              </Col>
+            </Row>
 
-        <Row className="rosterNav">
-          <ul>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#members">Members</a></li>
-            <li><a href="#posts">Posts</a></li>
-          </ul>
-        </Row>
+            <Row className="rosterNav">
+              <ul>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#members">Members</a></li>
+                <li><a href="#posts">Posts</a></li>
+              </ul>
+            </Row>
 
-        <Row>
-          <Col sm={2}>
-            <Sidenav user={me} urlId={urlId} />
-          </Col>
-          <Col sm={10}>
-            <Card className="adminCard" id="events">
-              <Card.Header className="cardTitle">
-                <h2>Event Actions</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <h5><Link to="/new_event" className="adminLink">Create new event</Link></h5>
-                <h5>Click name of existing event to edit or delete</h5>
-                <ul>
-                  {sortedConcerts.map(concert => (
-                    <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name, concert.songs)} data-type="event" data-name={concert.name}>{concert.name}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
+            <Row>
+              <Col sm={2}>
+                <Sidenav user={me} urlId={urlId} />
+              </Col>
+              <Col sm={10}>
+                <Card className="adminCard" id="events">
+                  <Card.Header className="cardTitle">
+                    <h2>Event Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_event" className="adminLink">Create new event</Link></h5>
+                    <h5>Click name of existing event to edit or delete</h5>
+                    <ul>
+                      {sortedConcerts.map(concert => (
+                        <li key={concert._id} className="adminLink" onClick={(e) => handleShowSelect(e, concert._id, concert.name, concert.songs)} data-type="event" data-name={concert.name}>{concert.name}</li>
+                      ))}
+                    </ul>
+                  </Card.Body>
+                </Card>
 
-            <Card className="adminCard" id="members">
-              <Card.Header className="cardTitle">
-                <h2>Member Actions</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <h5><Link to="/new_member" className="adminLink">Add new member</Link></h5>
-                <h5>Click name of existing member to edit or delete</h5>
-                <h5>Sopranos</h5>
-                <ul>
-                  {sortedSops.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
-                  ))}
-                </ul>
-                <h5>Altos</h5>
-                <ul>
-                  {sortedAlts.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
-                  ))}
-                </ul>
-                <h5>Tenors</h5>
-                <ul>
-                  {sortedTens.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
-                  ))}
-                </ul>
-                <h5>Basses</h5>
-                <ul>
-                  {sortedBass.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
-                  ))}
-                </ul>
-                <h5>Non-Singer Staff & Board</h5>
-                <ul>
-                  {sortedOthers.map(user => (
-                    <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
-                  ))}
-                </ul>
-              </Card.Body>
-            </Card>
-            <Card className="adminCard" id="posts">
-              <Card.Header className="cardTitle">
-                <h2>Post Actions</h2>
-              </Card.Header>
-              <Card.Body className="cardBody">
-                <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
-                <h5>Click existing post to edit or delete</h5>
-                {sortedPosts.map(post => (
-                  <li key={post._id} className="adminLink" onClick={(e) => handleShowSelect(e, post._id, post.postTitle)} data-type="post">{dayjs(JSON.parse(post.postDate)).format("MMM D, YYYY")} - {post.postTitle}</li>
-                ))}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+                <Card className="adminCard" id="members">
+                  <Card.Header className="cardTitle">
+                    <h2>Member Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_member" className="adminLink">Add new member</Link></h5>
+                    <h5>Click name of existing member to edit or delete</h5>
+                    <h5>Sopranos</h5>
+                    <ul>
+                      {sortedSops.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Altos</h5>
+                    <ul>
+                      {sortedAlts.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Tenors</h5>
+                    <ul>
+                      {sortedTens.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Basses</h5>
+                    <ul>
+                      {sortedBass.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
+                      ))}
+                    </ul>
+                    <h5>Non-Singer Staff & Board</h5>
+                    <ul>
+                      {sortedOthers.map(user => (
+                        <li key={user._id} className="adminLink" onClick={(e) => handleShowSelect(e, user._id, user.fullName)} data-type="member">{user.fullName}</li>
+                      ))}
+                    </ul>
+                  </Card.Body>
+                </Card>
+                <Card className="adminCard" id="posts">
+                  <Card.Header className="cardTitle">
+                    <h2>Post Actions</h2>
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    <h5><Link to="/new_post" className="adminLink">Add new post</Link></h5>
+                    <h5>Click existing post to edit or delete</h5>
+                    {sortedPosts.map(post => (
+                      <li key={post._id} className="adminLink" onClick={(e) => handleShowSelect(e, post._id, post.postTitle)} data-type="post">{dayjs(JSON.parse(post.postDate)).format("MMM D, YYYY")} - {post.postTitle}</li>
+                    ))}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
 
-        <SelectModal
-          concertId={concertId}
-          memberId={memberId}
-          postId={postId}
-          type={type}
-          songs={songs}
-          show={showSelect === true}
-          hide={() => handleHideSelect()}
-          confirm={(e) => handleShowConfirm(e)}
-          showSelectSongs={(e) => handleShowSelectSongs(e)}
-          showConcertOrder={(e) => handleShowConcertOrder(e)}
-        />
+            <SelectModal
+              concertId={concertId}
+              memberId={memberId}
+              postId={postId}
+              type={type}
+              songs={songs}
+              show={showSelect === true}
+              hide={() => handleHideSelect()}
+              confirm={(e) => handleShowConfirm(e)}
+              showSelectSongs={(e) => handleShowSelectSongs(e)}
+              showConcertOrder={(e) => handleShowConcertOrder(e)}
+            />
 
-        <SelectSongModal
-          btnname={btnName}
-          setbtnname={setBtnName}
-          concertId={concertId}
-          songs={songs}
-          show={showSelectSongs === true}
-          hide={() => handleHideSelectSongs()}
-          confirm={(e) => handleShowConfirm(e)}
-          setSongsToDelete={setSongsToDelete}
-          songsToDelete={songsToDelete}
-        />
+            <SelectSongModal
+              btnname={btnName}
+              setbtnname={setBtnName}
+              concertId={concertId}
+              songs={songs}
+              show={showSelectSongs === true}
+              hide={() => handleHideSelectSongs()}
+              confirm={(e) => handleShowConfirm(e)}
+              setSongsToDelete={setSongsToDelete}
+              songsToDelete={songsToDelete}
+            />
 
-        <ConcertOrderModal
-          btnname={btnName}
-          setbtnname={setBtnName}
-          concertId={concertId}
-          songs={songs}
-          show={showSetConcertOrder === true}
-          hide={() => handleHideSetConcertOrder()}
-          confirm={(e) => handleShowConfirm(e)}
-          setConcertOrder={handleConcertOrder}
-          setSongsToOrder={setSongsToOrder}
-          songsToOrder={songsToOrder}
-        />
+            <ConcertOrderModal
+              btnname={btnName}
+              setbtnname={setBtnName}
+              concertId={concertId}
+              songs={songs}
+              show={showSetConcertOrder === true}
+              hide={() => handleHideSetConcertOrder()}
+              confirm={(e) => handleShowConfirm(e)}
+              setConcertOrder={handleConcertOrder}
+              setSongsToOrder={setSongsToOrder}
+              songsToOrder={songsToOrder}
+            />
 
-        <ConfirmModal
-          btnname={btnName}
-          urlid={urlId}
-          urltype={urlType}
-          concertId={concertId}
-          concertName={concertName}
-          memberId={memberId}
-          memberName={memberName}
-          postId={postId}
-          eventDelete={() => handleDeleteConcert(concertId)}
-          memberDelete={() => handleDeleteMember(memberId)}
-          postDelete={() => handleDeletePost(postId)}
-          songsDelete={() => handleDeleteSongs(concertId, songsToDelete)}
-          show={showConfirm === true}
-          hide={() => handleHideConfirm()}
-        />
+            <ConfirmModal
+              btnname={btnName}
+              urlid={urlId}
+              urltype={urlType}
+              concertId={concertId}
+              concertName={concertName}
+              memberId={memberId}
+              memberName={memberName}
+              postId={postId}
+              eventDelete={() => handleDeleteConcert(concertId)}
+              memberDelete={() => handleDeleteMember(memberId)}
+              postDelete={() => handleDeletePost(postId)}
+              songsDelete={() => handleDeleteSongs(concertId, songsToDelete)}
+              show={showConfirm === true}
+              hide={() => handleHideConfirm()}
+            />
 
-        <SuccessModal
-          user={me}
-          urlid={urlId}
-          urltype={urlType}
-          btnname={btnName}
-          params={[]}
-          show={showSuccess === true}
-          hide={() => handleHideSuccess()}
-        />
+            <SuccessModal
+              user={me}
+              urlid={urlId}
+              urltype={urlType}
+              btnname={btnName}
+              params={[]}
+              show={showSuccess === true}
+              hide={() => handleHideSuccess()}
+            />
 
-        <ErrorModal
-          user={me}
-          urlid={urlId}
-          urltype={urlType}
-          errmsg={errThrown}
-          btnname={btnName}
-          show={showErr === true}
-          hide={() => handleHideErr()}
-        />
+            <ErrorModal
+              user={me}
+              urlid={urlId}
+              urltype={urlType}
+              errmsg={errThrown}
+              btnname={btnName}
+              show={showErr === true}
+              hide={() => handleHideErr()}
+            />
 
+          </div>
+        </div>
       </Container>
     </>
   )
