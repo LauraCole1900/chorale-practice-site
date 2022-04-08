@@ -135,34 +135,38 @@ const Section = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col sm={2}>
-            <Sidenav user={me} urlId={urlId} />
-          </Col>
-          <Col sm={10}>
-            <Card className="announcements">
-              <Card.Header className="cardTitle">
-                <h1>{capsSection} Section Leader Announcements</h1>
-                {Object.keys(sectionPost).length > 0 &&
-                  <p>{dayjs(JSON.parse(sectionPost.postDate)).format("MMM D, YYYY")} </p>}
-              </Card.Header>
-              <Card.Body className="cardBody">
-                {Object.keys(sectionPost).length > 0
-                  ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody }} />
-                  : <p>No {section} announcements at this time.</p>}
-              </Card.Body>
-            </Card>
-            {sortedConcerts.length > 0 &&
-              <>
-                <p className="accordionInstr">Click or tap concert title to see practice tracks & videos</p>
-                <Accordion>
-                  {sortedConcerts.map((concert, i) => (
-                    <TracksAccordion concert={concert} i={i} key={concert._id} section={section} />
-                  ))}
-                </Accordion>
-              </>}
-          </Col>
-        </Row>
+        <div className="bground">
+          <div className="fground">
+            <Row>
+              <Col sm={2}>
+                <Sidenav user={me} urlId={urlId} />
+              </Col>
+              <Col sm={10}>
+                <Card className="announcements">
+                  <Card.Header className="cardTitle">
+                    <h1>{capsSection} Section Leader Announcements</h1>
+                    {Object.keys(sectionPost).length > 0 &&
+                      <p>{dayjs(JSON.parse(sectionPost.postDate)).format("MMM D, YYYY")} </p>}
+                  </Card.Header>
+                  <Card.Body className="cardBody">
+                    {Object.keys(sectionPost).length > 0
+                      ? <div dangerouslySetInnerHTML={{ __html: sectionPost.postBody }} />
+                      : <p>No {section} announcements at this time.</p>}
+                  </Card.Body>
+                </Card>
+                {sortedConcerts.length > 0 &&
+                  <>
+                    <p className="accordionInstr">Click or tap concert title to see practice tracks & videos</p>
+                    <Accordion>
+                      {sortedConcerts.map((concert, i) => (
+                        <TracksAccordion concert={concert} i={i} key={concert._id} section={section} />
+                      ))}
+                    </Accordion>
+                  </>}
+              </Col>
+            </Row>
+          </div>
+        </div>
       </Container>
     </>
   )

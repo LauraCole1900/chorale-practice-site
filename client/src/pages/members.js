@@ -185,153 +185,157 @@ const Members = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col sm={2}>
-            <Sidenav user={me} urlId={urlId} />
-            <aside className="sideBars">
-              <h2 className="sideInfo">Quick Links</h2>
-              <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />
-              <a href="https://www.facebook.com/greeleychorale/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Facebook</a><br />
-              {me.position !== "guest" &&
-                <>
-                  <a href="https://mcusercontent.com/a8e2ad8a001699980605e15e4/files/bfd19bde-0fce-117a-d571-5b55f50af1f1/GChandbook_2021_2022_rev_2021_11_15.pdf" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Handbook</a><br />
-                  <a href="https://docs.google.com/spreadsheets/d/1V-8VwBaETctcQRyHIbVTXFvsAVutFlCktdyv-TRrOas/edit#gid=1766265975" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Roster</a><br />
-                  <a href="https://mcusercontent.com/a8e2ad8a001699980605e15e4/files/c246cf1f-0f53-e9f3-a3f2-0bc7210c6972/2020_FINAL_ROSTER_CHORALE_BOARD_2020_2021.pdf" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Board</a><br />
-                  <a href="https://drive.google.com/drive/folders/1rC_Sts79-gVboreuuiyYr5TjjV6Dr2WS" target="_blank" rel="noreferrer noopener" className="sideLinks">Travel Committee Folder</a><br />
-                  <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a><br />
+        <div className="bground">
+          <div className="fground">
+            <Row>
+              <Col sm={2}>
+                <Sidenav user={me} urlId={urlId} />
+                <aside className="sideBars">
+                  <h2 className="sideInfo">Quick Links</h2>
+                  <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />
+                  <a href="https://www.facebook.com/greeleychorale/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Facebook</a><br />
+                  {me.position !== "guest" &&
+                    <>
+                      <a href="https://mcusercontent.com/a8e2ad8a001699980605e15e4/files/bfd19bde-0fce-117a-d571-5b55f50af1f1/GChandbook_2021_2022_rev_2021_11_15.pdf" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Handbook</a><br />
+                      <a href="https://docs.google.com/spreadsheets/d/1V-8VwBaETctcQRyHIbVTXFvsAVutFlCktdyv-TRrOas/edit#gid=1766265975" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Roster</a><br />
+                      <a href="https://mcusercontent.com/a8e2ad8a001699980605e15e4/files/c246cf1f-0f53-e9f3-a3f2-0bc7210c6972/2020_FINAL_ROSTER_CHORALE_BOARD_2020_2021.pdf" target="_blank" rel="noreferrer noopener" className="sideLinks">Current Board</a><br />
+                      <a href="https://drive.google.com/drive/folders/1rC_Sts79-gVboreuuiyYr5TjjV6Dr2WS" target="_blank" rel="noreferrer noopener" className="sideLinks">Travel Committee Folder</a><br />
+                      <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a><br />
+                      <br />
+                      <h2 className="sideInfo">Upcoming Birthdays</h2>
+                      {nextMonthBdays.map(bday => (
+                        <p key={bday._id} className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
+                      ))}
+                    </>}
                   <br />
-                  <h2 className="sideInfo">Upcoming Birthdays</h2>
-                  {nextMonthBdays.map(bday => (
-                    <p key={bday._id} className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
-                  ))}
-                </>}
-              <br />
-            </aside>
-          </Col>
+                </aside>
+              </Col>
 
-          <Col sm={8}>
-            {emergency.length > 0 &&
-              <Row>
-                <Col sm={11} className="centerCol">
-                  <Card className="membersCard emergencyCard">
-                    <Card.Header className="cardTitle">
-                      <h1>{emergency[0].postTitle}</h1>
-                      <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
-                    </Card.Header>
-                    <Card.Body className="cardBody">
-                      <div dangerouslySetInnerHTML={{ __html: emergency[0].postBody }} />
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            }
+              <Col sm={8}>
+                {emergency.length > 0 &&
+                  <Row>
+                    <Col sm={11} className="centerCol">
+                      <Card className="membersCard emergencyCard">
+                        <Card.Header className="cardTitle">
+                          <h1>{emergency[0].postTitle}</h1>
+                          <p>{dayjs(JSON.parse(emergency[0].postDate)).format("MMM D, YYYY")}</p>
+                        </Card.Header>
+                        <Card.Body className="cardBody">
+                          <div dangerouslySetInnerHTML={{ __html: emergency[0].postBody }} />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                }
 
-            <Row>
-              <Col sm={11} className="centerCol">
-                <Card className="membersCard">
-                  <Card.Header className="cardTitle">
-                    <h2>Director's Corner</h2>
-                    {sortedDirectorNote.length > 0 &&
-                      <>
-                        <h3>{sortedDirectorNote[0].postTitle}</h3>
-                        <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
+                <Row>
+                  <Col sm={11} className="centerCol">
+                    <Card className="membersCard">
+                      <Card.Header className="cardTitle">
+                        <h2>Director's Corner</h2>
+                        {sortedDirectorNote.length > 0 &&
+                          <>
+                            <h3>{sortedDirectorNote[0].postTitle}</h3>
+                            <p>{dayjs(JSON.parse(sortedDirectorNote[0].postDate)).format("MMM D, YYYY")}</p>
+                          </>}
+                      </Card.Header>
+                      <Card.Body className="cardBody">
+                        {sortedDirectorNote.length > 0
+                          ? <div dangerouslySetInnerHTML={{ __html: sortedDirectorNote[0].postBody }} />
+                          : <p>No Director's Notes found</p>}
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col sm={11} className="centerCol">
+                    <Card className="membersCard">
+                      <Card.Header className="cardTitle">
+                        <h2>Singer's Notes</h2>
+                        {sortedSingersNote.length > 0 &&
+                          <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
+                        }
+                      </Card.Header>
+                      <Card.Body className="cardBody">
+                        {sortedSingersNote.length > 0
+                          ? <div dangerouslySetInnerHTML={{ __html: sortedSingersNote[0].postBody }} />
+                          : <p>No Singer's Notes found</p>}
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+
+              </Col>
+
+              <Col sm={2}>
+                {adminArr.length
+                  ? <div className="sideBars">
+                    <h2 className="sideInfo">Staff</h2>
+                    {me.position !== "guest"
+                      ? <>
+                        <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                        <a href={`mailto:${administrator[0].email1}`} className="sideLinks">email {administrator[0].preferredName}</a>
+                        <p className="sideLinks">{administrator[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                        <a href={`mailto:${director[0].email1}`} className="sideLinks">email {director[0].preferredName}</a>
+                        <p className="sideLinks">{director[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                        <a href={`mailto:${social[0].email1}`} className="sideLinks">email {social[0].preferredName}</a>
+                        <p className="sideLinks">{social[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
+                        <a href={`mailto:${marketing[0].email1}`} className="sideLinks">email {marketing[0].preferredName}</a>
+                        <p className="sideLinks">{marketing[0].phone1}</p>
+                      </>
+                      : <>
+                        <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
+                        <br />
+                        <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
+                        <br />
+                        <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
+                        <br />
+                        <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
                       </>}
-                  </Card.Header>
-                  <Card.Body className="cardBody">
-                    {sortedDirectorNote.length > 0
-                      ? <div dangerouslySetInnerHTML={{ __html: sortedDirectorNote[0].postBody }} />
-                      : <p>No Director's Notes found</p>}
-                  </Card.Body>
-                </Card>
+
+                    <h2 className="sideInfo">Section Leaders</h2>
+                    {me.position !== "guest"
+                      ? <>
+                        <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
+                        <a href={`mailto:${soprano[0].email1}`} className="sideLinks">email {soprano[0].preferredName}</a>
+                        <p className="sideLinks">{soprano[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
+                        <a href={`mailto:${alto[0].email1}`} className="sideLinks">email {alto[0].preferredName}</a>
+                        <p className="sideLinks">{alto[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
+                        <a href={`mailto:${tenor[0].email1}`} className="sideLinks">email {tenor[0].preferredName}</a>
+                        <p className="sideLinks">{tenor[0].phone1}</p>
+                        <br />
+                        <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
+                        <a href={`mailto:${bass[0].email1}`} className="sideLinks">email {bass[0].preferredName}</a>
+                        <p className="sideLinks">{bass[0].phone1}</p>
+                      </>
+                      : <>
+                        <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
+                        <br />
+                        <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
+                        <br />
+                        <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
+                        <br />
+                        <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
+                      </>}
+                  </div>
+                  : <>
+                  </>
+                }
               </Col>
             </Row>
-
-            <Row>
-              <Col sm={11} className="centerCol">
-                <Card className="membersCard">
-                  <Card.Header className="cardTitle">
-                    <h2>Singer's Notes</h2>
-                    {sortedSingersNote.length > 0 &&
-                      <p>{dayjs(JSON.parse(sortedSingersNote[0].postDate)).format("MMM D, YYYY")}</p>
-                    }
-                  </Card.Header>
-                  <Card.Body className="cardBody">
-                    {sortedSingersNote.length > 0
-                      ? <div dangerouslySetInnerHTML={{ __html: sortedSingersNote[0].postBody }} />
-                      : <p>No Singer's Notes found</p>}
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-
-          </Col>
-
-          <Col sm={2}>
-            {adminArr.length
-              ? <div className="sideBars">
-                <h2 className="sideInfo">Staff</h2>
-                {me.position !== "guest"
-                  ? <>
-                    <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
-                    <a href={`mailto:${administrator[0].email1}`} className="sideLinks">email {administrator[0].preferredName}</a>
-                    <p className="sideLinks">{administrator[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
-                    <a href={`mailto:${director[0].email1}`} className="sideLinks">email {director[0].preferredName}</a>
-                    <p className="sideLinks">{director[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
-                    <a href={`mailto:${social[0].email1}`} className="sideLinks">email {social[0].preferredName}</a>
-                    <p className="sideLinks">{social[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
-                    <a href={`mailto:${marketing[0].email1}`} className="sideLinks">email {marketing[0].preferredName}</a>
-                    <p className="sideLinks">{marketing[0].phone1}</p>
-                  </>
-                  : <>
-                    <p className="sideLinks">{administrator[0].fullName}, {capsCase(administrator[0].position)}</p>
-                    <br />
-                    <p className="sideLinks">{director[0].fullName}, {capsCase(director[0].position)}</p>
-                    <br />
-                    <p className="sideLinks">{social[0].fullName}, {capsCase(social[0].position)}</p>
-                    <br />
-                    <p className="sideLinks">{marketing[0].fullName}, {capsCase(marketing[0].position)}</p>
-                  </>}
-
-                <h2 className="sideInfo">Section Leaders</h2>
-                {me.position !== "guest"
-                  ? <>
-                    <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
-                    <a href={`mailto:${soprano[0].email1}`} className="sideLinks">email {soprano[0].preferredName}</a>
-                    <p className="sideLinks">{soprano[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
-                    <a href={`mailto:${alto[0].email1}`} className="sideLinks">email {alto[0].preferredName}</a>
-                    <p className="sideLinks">{alto[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
-                    <a href={`mailto:${tenor[0].email1}`} className="sideLinks">email {tenor[0].preferredName}</a>
-                    <p className="sideLinks">{tenor[0].phone1}</p>
-                    <br />
-                    <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
-                    <a href={`mailto:${bass[0].email1}`} className="sideLinks">email {bass[0].preferredName}</a>
-                    <p className="sideLinks">{bass[0].phone1}</p>
-                  </>
-                  : <>
-                    <p className="sideLinks">{soprano[0].fullName}, {getSect(soprano[0].section)}</p>
-                    <br />
-                    <p className="sideLinks">{alto[0].fullName}, {getSect(alto[0].section)}</p>
-                    <br />
-                    <p className="sideLinks">{tenor[0].fullName}, {getSect(tenor[0].section)}</p>
-                    <br />
-                    <p className="sideLinks">{bass[0].fullName}, {getSect(bass[0].section)}</p>
-                  </>}
-              </div>
-              : <>
-              </>
-            }
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Container >
     </>
   )

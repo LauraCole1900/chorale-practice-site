@@ -29,15 +29,21 @@
 }
 
 .rdw-editor-main {
-  background: #fdfdfd;
+  color: var(--gcCharcoal);
+  background: var(--darkSil);
   min-height: 20rem;
   border-radius: 5px;
 }
 .rdw-editor-main:focus-within {
+  background: var(--lightSil);
   outline: none;
   border-color: #b14748;
   box-shadow: 0 0 10px #b14748;
 }
 .public-DraftStyleDefault-block {
   margin: 0.5em 0.75em;
+}
+.rdw-dropdown-selectedtext,
+.rdw-option-wrapper {
+  background: var(--lightSil);
 }

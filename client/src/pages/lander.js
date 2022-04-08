@@ -69,26 +69,30 @@ const Lander = () => {
 
   return (
     <>
-      <Card className="card">
-        <Card.Header className="cardTitle">
-          <h1>Upcoming Events</h1>
-        </Card.Header>
-        <Card.Body className="cardBody">
-          <Row>
-            {sortedConcerts.length > 0
-              ? <>
-                {sortedConcerts.map(concert => (
-                  <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
-                    <ConcertCard concert={concert} />
-                  </Col>
-                ))}
-              </>
-              : <>
-                <h3>No upcoming events found</h3>
-              </>}
-          </Row>
-        </Card.Body>
-      </Card>
+      <div className="bground">
+        <div className="fground">
+          <Card className="card">
+            <Card.Header className="cardTitle">
+              <h1>Upcoming Events</h1>
+            </Card.Header>
+            <Card.Body className="cardBody">
+              <Row>
+                {sortedConcerts.length > 0
+                  ? <>
+                    {sortedConcerts.map(concert => (
+                      <Col sm={12} md={6} lg={4} className="eventCards" key={concert._id}>
+                        <ConcertCard concert={concert} />
+                      </Col>
+                    ))}
+                  </>
+                  : <>
+                    <h3>No upcoming events found</h3>
+                  </>}
+              </Row>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
     </>
   )
 }

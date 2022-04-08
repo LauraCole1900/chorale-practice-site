@@ -58,31 +58,27 @@ function App() {
             <Navibar />
           </header>
           <Container fluid>
-            <div class="bground">
-              <div class="fground">
-                <main>
-                  <Routes>
-                    <Route path="/" element={<Lander />} />
-                    <Route path="/admin_portal" element={<AdminPortal />} />
-                    <Route path="/edit_event/:concertId" element={<ConcertForm />} />
-                    <Route path="/edit_member/:memberId" element={<AdminUserForm />} />
-                    <Route path="/edit_post/:postId" element={<PostForm />} />
-                    <Route path="/edit_repertoire/:concertId/:songId" element={<SongForm />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/members" element={<Members />} />
-                    <Route path="/new_event" element={<ConcertForm />} />
-                    <Route path="/new_member" element={<AdminUserForm />} />
-                    <Route path="/new_post" element={<PostForm />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/repertoire/:concertId" element={<SongForm />} />
-                    <Route path="/roster" element={<RosterPage />} />
-                    <Route path="/section/:section" element={<Section />} />
-                    <Route path="/voice_building" element={<VoiceBuilder />} />
-                    <Route path="*" element={<Lander />} />
-                  </Routes>
-                </main>
-              </div>
-            </div>
+            <main>
+              <Routes>
+                <Route path="/" element={<Lander />} />
+                <Route path="/admin_portal" element={<AdminPortal />} />
+                <Route path="/edit_event/:concertId" element={<ConcertForm />} />
+                <Route path="/edit_member/:memberId" element={<AdminUserForm />} />
+                <Route path="/edit_post/:postId" element={<PostForm />} />
+                <Route path="/edit_repertoire/:concertId/:songId" element={<SongForm />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/members" element={<Members />} />
+                <Route path="/new_event" element={<ConcertForm />} />
+                <Route path="/new_member" element={<AdminUserForm />} />
+                <Route path="/new_post" element={<PostForm />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/repertoire/:concertId" element={<SongForm />} />
+                <Route path="/roster" element={<RosterPage />} />
+                <Route path="/section/:section" element={<Section />} />
+                <Route path="/voice_building" element={<VoiceBuilder />} />
+                <Route path="*" element={<Lander />} />
+              </Routes>
+            </main>
           </Container>
         </Router>
       </ApolloProvider>

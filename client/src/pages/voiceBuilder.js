@@ -35,8 +35,8 @@ const VoiceBuilder = () => {
 
   if (loading) {
     return <h1>Loading....</h1>
-  }; 
-  
+  };
+
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" />
   };
@@ -49,16 +49,20 @@ const VoiceBuilder = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col sm={2}>
-            <Sidenav user={me} urlId={urlId} />
-          </Col>
+        <div className="bground">
+          <div className="fground">
+            <Row>
+              <Col sm={2}>
+                <Sidenav user={me} urlId={urlId} />
+              </Col>
 
-          <Col sm={8}>
-            <h1>Building Beautiful Voices (playlist)</h1>
-            <VideoEmbed src="https://www.youtube.com/embed/videoseries?list=PLjJPaTQW9-OjO0-oSvL68mMg7VYhyjrgZ" />
-          </Col>
-        </Row>
+              <Col sm={8}>
+                <h1>Building Beautiful Voices (playlist)</h1>
+                <VideoEmbed src="https://www.youtube.com/embed/videoseries?list=PLjJPaTQW9-OjO0-oSvL68mMg7VYhyjrgZ" />
+              </Col>
+            </Row>
+          </div>
+        </div>
       </Container>
     </>
   )

@@ -7,7 +7,7 @@ import Auth from "../utils/auth";
 import "./style.css";
 
 const Login = () => {
-  
+
   //=====================//
   //   Global Variables  //
   //=====================//
@@ -74,36 +74,40 @@ const Login = () => {
   return (
     <>
       <Container className="login">
-        <Card>
-          <Card.Header className="cardTitle">
-            <h1>Log in</h1>
-          </Card.Header>
-          <Card.Body className="cardBody">
-            <Form onSubmit={handleFormSubmit}>
-              <Row>
-                <Col sm={6}>
-                  <Form.Group>
-                    <Form.Label>Email: <span className="red">*</span></Form.Label>
-                    <Form.Control type="email" name="email" placeholder="name@email.com" value={userData.email} className="formInput" onChange={e => handleInputChange(e)} required />
-                    <Form.Control.Feedback type="invalid">Please enter your email</Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col sm={6}>
-                  <Form.Group>
-                    <Form.Label>Password: <span className="red">*</span></Form.Label>
-                    <Form.Control type="password" name="password" placeholder="Enter password here" value={userData.password} className="formInput" onChange={e => handleInputChange(e)} required />
-                    <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Button disabled={!(userData.email && userData.password)} type="submit" className="loginBtn">
-                  Login
-                </Button>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
+        <div className="bground">
+          <div className="fground">
+            <Card>
+              <Card.Header className="cardTitle">
+                <h1>Log in</h1>
+              </Card.Header>
+              <Card.Body className="cardBody">
+                <Form onSubmit={handleFormSubmit}>
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group>
+                        <Form.Label>Email: <span className="red">*</span></Form.Label>
+                        <Form.Control type="email" name="email" placeholder="name@email.com" value={userData.email} className="formInput" onChange={e => handleInputChange(e)} required />
+                        <Form.Control.Feedback type="invalid">Please enter your email</Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Group>
+                        <Form.Label>Password: <span className="red">*</span></Form.Label>
+                        <Form.Control type="password" name="password" placeholder="Enter password here" value={userData.password} className="formInput" onChange={e => handleInputChange(e)} required />
+                        <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Button disabled={!(userData.email && userData.password)} type="submit" className="loginBtn">
+                      Login
+                    </Button>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </div>
+        </div>
       </Container>
     </>
   )
