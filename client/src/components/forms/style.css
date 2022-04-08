@@ -1,5 +1,6 @@
 :root {
   --lightSil: #e2e2e2;
+  --darkSil: #cacaca;
   --gcWhite: #fdfdfd;
   --gcGray: #a19f95;
   --gcCharcoal: #282825;
@@ -9,6 +10,10 @@
   --disabled: #b14748;
   --headerFont: "Sree Krushnadevaraya", serif;
   --bodyFont: "Lato", sans-serif;
+}
+
+label {
+  color: var(--lightSil);
 }
 
 .bottom {
@@ -32,8 +37,32 @@
   border: 1px solid var(--gcWhite);
 }
 
+.form-check-input:focus {
+  outline: none;
+  border-color: var(--disabled);
+  box-shadow: 0 0 10px var(--disabled);
+}
+.form-check-input:checked {
+  background-color: var(--gcRed);
+  border-color: var(--gcRed);
+}
+
 .formHeader {
+  color: var(--lightSil);
   text-align: center;
+}
+
+.formEmail,
+.formInput,
+.formSelect,
+.subtitleInput {
+  background-color: var(--darkSil);
+}
+.formEmail:focus,
+.formInput:focus,
+.formSelect:focus,
+.subtitleInput:focus {
+  background-color: var(--lightSil);
 }
 
 .formCheck,
@@ -81,6 +110,10 @@
 .subtitle {
   font-size: 0.75em;
   margin-bottom: 0.85em;
+}
+
+.text-muted {
+  color: var(--gcGray);
 }
 
 .underlined {
