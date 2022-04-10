@@ -4,7 +4,7 @@ import { setContext } from "@apollo/client/link/context";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import { Navibar } from "./components/navbar";
-import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section, VoiceBuilder } from "./pages";
+import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section, Travel, VoiceBuilder } from "./pages";
 import { AdminUserForm, ConcertForm, PostForm, SongForm } from "./components/forms";
 import "./App.css";
 
@@ -75,6 +75,7 @@ function App() {
                 <Route path="/repertoire/:concertId" element={<SongForm />} />
                 <Route path="/roster" element={<RosterPage />} />
                 <Route path="/section/:section" element={<Section />} />
+                <Route path="/travel" element={<Travel />} />
                 <Route path="/voice_building" element={<VoiceBuilder />} />
                 <Route path="*" element={<Lander />} />
               </Routes>
