@@ -134,14 +134,11 @@ const Section = () => {
 
   return (
     <>
-      <Container>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
-              <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
-              </Col>
-              <Col sm={10}>
+              <Col sm={{ span: 8, offset: 2 }}>
                 <Card className="announcements">
                   <Card.Header className="cardTitle">
                     <h1>{capsSection} Section Leader Announcements</h1>
@@ -165,9 +162,9 @@ const Section = () => {
                   </>}
               </Col>
             </Row>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

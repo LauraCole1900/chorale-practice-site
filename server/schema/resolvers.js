@@ -62,6 +62,13 @@ const resolvers = {
       return await Post.findOne({ postType: args.postType, postSection: args.postSection }).sort({ "postDate": -1 });
     },
 
+    travelPosts: async (_, args) => {
+      console.log({ args });
+      const posts = await Post.find({ postType: args.postType }).sort({ "postDate": -1 }).exec();
+      console.log({ posts });
+      return posts;
+    },
+
 
     //=====================//
     //     User Queries    //

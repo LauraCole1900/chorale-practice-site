@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/gql";
 import Auth from "../../utils/auth";
@@ -33,7 +33,6 @@ const Navibar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Navbar.Brand>
             <div>
-              {/* <Image src={gclogo} alt="Greeley Chorale logo" /> */}
               <Link to="/" className="navlink" aria-label="Greeley Chorale Logo">
                 The Greeley Chorale Practice Site
               </Link>
@@ -46,10 +45,36 @@ const Navibar = () => {
           </Link>
           {Auth.loggedIn() ? (
             <>
-              {me.position !== "guest" &&
-                <Link to="/profile" className="navlink">
-                  Profile
+              {me.isAdmin === true &&
+                <Link to="/admin_portal" className="navlink">
+                  Admin Portal
                 </Link>}
+              {me.position !== "guest" &&
+                <>
+                  <Link to="/profile" className="navlink">
+                    Profile
+                  </Link>
+                  <Link to="/travel" className="navlink">
+                    Travel
+                  </Link>
+                  <Link to="/voice_building" className="navlink">
+                    Voice Building
+                  </Link>
+                </>}
+              <NavDropdown title="Section" id="nav-dropdown" className="navlink">
+                <NavDropdown.Item eventKey="3.1" className="droplink" as={Link} to="/section/soprano">
+                  Soprano
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey="3.2" className="droplink" as={Link} to="/section/alto">
+                  Alto
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey="3.3" className="droplink" as={Link} to="/section/tenor">
+                  Tenor
+                </NavDropdown.Item>
+                <NavDropdown.Item eventKey="3.4" className="droplink" as={Link} to="/section/bass">
+                  Bass
+                </NavDropdown.Item>
+              </NavDropdown>
               <Link to="/members" className="navlink">
                 Members
               </Link>

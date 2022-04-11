@@ -184,12 +184,11 @@ const Members = () => {
 
   return (
     <>
-      <Container>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
                 <aside className="sideBars">
                   <h2 className="sideInfo">Quick Links</h2>
                   <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />
@@ -334,9 +333,9 @@ const Members = () => {
                 }
               </Col>
             </Row>
-          </div>
+          </Container >
         </div>
-      </Container >
+      </div>
     </>
   )
 }

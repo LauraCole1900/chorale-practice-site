@@ -198,14 +198,11 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Container fluid>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
-              <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
-              </Col>
-              <Col sm={8}>
+              <Col sm={{ span: 8, offset: 2 }}>
                 <Card className="profileCard">
                   <Card.Header className="cardTitle">
                     <h1>My Profile</h1>
@@ -397,9 +394,9 @@ const ProfilePage = () => {
               hide={() => handleHideErr()}
             />
 
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

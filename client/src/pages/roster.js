@@ -91,9 +91,9 @@ const RosterPage = () => {
 
   return (
     <>
-      <Container fluid>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={12} className="pageHeader">
                 <h1>Roster</h1>
@@ -154,9 +154,9 @@ const RosterPage = () => {
             <Row>
               <RosterTable members={currBoard} />
             </Row>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

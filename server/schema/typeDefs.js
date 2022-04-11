@@ -120,6 +120,7 @@ const typeDefs = gql`
     oneAdminPost(_id: ID!, postType: String!): Post
     oneDirectorPost(_id: ID!, postType: String!): Post
     oneSectPost(postType: String!, postSection: String!): Post
+    travelPosts(postType: String!): [Post]
 
     # //=====================//
     # //     User Queries    //

@@ -353,26 +353,18 @@ const AdminPortal = () => {
 
   return (
     <>
-      <Container>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={12} className="center">
                 <h1>Admin Portal</h1>
               </Col>
             </Row>
 
-            <Row className="rosterNav">
-              <ul>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#members">Members</a></li>
-                <li><a href="#posts">Posts</a></li>
-              </ul>
-            </Row>
-
             <Row>
               <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
+                <Sidenav />
               </Col>
               <Col sm={10}>
                 <Card className="adminCard" id="events">
@@ -519,9 +511,9 @@ const AdminPortal = () => {
               hide={() => handleHideErr()}
             />
 
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }
