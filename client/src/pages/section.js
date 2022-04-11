@@ -138,7 +138,7 @@ const Section = () => {
         <div className="fground">
           <Container fluid>
             <Row>
-              <Col sm={12}>
+              <Col sm={{ span: 8, offset: 2 }}>
                 <Card className="announcements">
                   <Card.Header className="cardTitle">
                     <h1>{capsSection} Section Leader Announcements</h1>

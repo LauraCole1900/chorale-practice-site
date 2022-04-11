@@ -158,6 +158,19 @@ export const QUERY_ONE_SECT_POST = gql`
   }
 `;
 
+export const QUERY_TRAVEL_POSTS = gql`
+  query travelPosts($postType: String!) {
+    travelPosts(postType: $postType) {
+      _id
+      postType
+      postExpire
+      postDate
+      postTitle
+      postBody
+    }
+  }
+`;
+
 //=====================//
 //    User Queries     //
 //=====================//

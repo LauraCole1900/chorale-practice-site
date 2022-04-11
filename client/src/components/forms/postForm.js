@@ -264,6 +264,7 @@ const PostForm = () => {
                     <option value="singers note">Singer's Notes</option>
                     <option value="director">Director's Corner</option>
                     <option value="section leader">Section Leader Announcement</option>
+                    <option value="travel">Travel Committee Announcement</option>
                     <option value="general">General Announcement</option>
                   </Form.Select>
                 </Col>
