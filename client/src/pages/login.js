@@ -73,9 +73,9 @@ const Login = () => {
 
   return (
     <>
-      <Container className="login">
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid className="login">
             <Card>
               <Card.Header className="cardTitle">
                 <h1>Log in</h1>
@@ -106,9 +106,9 @@ const Login = () => {
                 </Form>
               </Card.Body>
             </Card>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

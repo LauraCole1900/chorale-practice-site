@@ -134,9 +134,9 @@ const Section = () => {
 
   return (
     <>
-      <Container>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={2}>
                 <Sidenav user={me} urlId={urlId} />
@@ -165,9 +165,9 @@ const Section = () => {
                   </>}
               </Col>
             </Row>
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

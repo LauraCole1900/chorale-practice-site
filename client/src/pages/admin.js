@@ -353,9 +353,9 @@ const AdminPortal = () => {
 
   return (
     <>
-      <Container>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={12} className="center">
                 <h1>Admin Portal</h1>
@@ -519,9 +519,9 @@ const AdminPortal = () => {
               hide={() => handleHideErr()}
             />
 
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

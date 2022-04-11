@@ -33,7 +33,6 @@ const Navibar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Navbar.Brand>
             <div>
-              {/* <Image src={gclogo} alt="Greeley Chorale logo" /> */}
               <Link to="/" className="navlink" aria-label="Greeley Chorale Logo">
                 The Greeley Chorale Practice Site
               </Link>
@@ -47,9 +46,14 @@ const Navibar = () => {
           {Auth.loggedIn() ? (
             <>
               {me.position !== "guest" &&
-                <Link to="/profile" className="navlink">
-                  Profile
-                </Link>}
+                <>
+                  <Link to="/profile" className="navlink">
+                    Profile
+                  </Link>
+                  <Link to="/voice_building" className="navlink">
+                    Voice Building
+                  </Link>
+                </>}
               <Link to="/members" className="navlink">
                 Members
               </Link>

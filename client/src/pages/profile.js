@@ -198,9 +198,9 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Container fluid>
-        <div className="bground">
-          <div className="fground">
+      <div className="bground">
+        <div className="fground">
+          <Container fluid>
             <Row>
               <Col sm={2}>
                 <Sidenav user={me} urlId={urlId} />
@@ -397,9 +397,9 @@ const ProfilePage = () => {
               hide={() => handleHideErr()}
             />
 
-          </div>
+          </Container>
         </div>
-      </Container>
+      </div>
     </>
   )
 }
