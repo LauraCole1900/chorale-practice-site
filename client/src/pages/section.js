@@ -138,10 +138,7 @@ const Section = () => {
         <div className="fground">
           <Container fluid>
             <Row>
-              <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
-              </Col>
-              <Col sm={10}>
+              <Col sm={12}>
                 <Card className="announcements">
                   <Card.Header className="cardTitle">
                     <h1>{capsSection} Section Leader Announcements</h1>

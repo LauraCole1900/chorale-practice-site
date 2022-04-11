@@ -362,17 +362,9 @@ const AdminPortal = () => {
               </Col>
             </Row>
 
-            <Row className="rosterNav">
-              <ul>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#members">Members</a></li>
-                <li><a href="#posts">Posts</a></li>
-              </ul>
-            </Row>
-
             <Row>
               <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
+                <Sidenav />
               </Col>
               <Col sm={10}>
                 <Card className="adminCard" id="events">

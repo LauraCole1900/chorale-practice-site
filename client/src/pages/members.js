@@ -189,7 +189,6 @@ const Members = () => {
           <Container fluid>
             <Row>
               <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
                 <aside className="sideBars">
                   <h2 className="sideInfo">Quick Links</h2>
                   <a href="https://www.greeleychorale.org/" target="_blank" rel="noreferrer noopener" className="sideLinks">GC Website</a><br />

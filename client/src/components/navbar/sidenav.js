@@ -10,30 +10,14 @@ const Sidenav = ({ user, urlId }) => {
     <>
       <Navbar className={"sideNav " + (urlId !== "members" ? "sticky" : "")}>
         <Nav>
-          <Link to="/section/soprano"><Button className="navBtn">Soprano</Button></Link>
+          <a href="#events"><Button className="navBtn">Events</Button></a>
         </Nav>
         <Nav>
-          <Link to="/section/alto"><Button className="navBtn">Alto</Button></Link>
+          <a href="#members"><Button className="navBtn">Members</Button></a>
         </Nav>
         <Nav>
-          <Link to="/section/tenor"><Button className="navBtn">Tenor</Button></Link>
+          <a href="#posts"><Button className="navBtn">Posts</Button></a>
         </Nav>
-        <Nav>
-          <Link to="/section/bass"><Button className="navBtn">Bass</Button></Link>
-        </Nav>
-        {(user.position !== "guest" &&
-          <Nav>
-            <Link to="/voice_building"><Button className="navBtn">Voice Building</Button></Link>
-          </Nav>)}
-        {(user.isAdmin === true &&
-          urlId !== "admin_portal")
-          ? <>
-            <Nav>
-              <Link to="/admin_portal"><Button className="navBtn">Admin Portal</Button></Link>
-            </Nav>
-          </>
-          : <>
-          </>}
       </Navbar>
     </>
   )

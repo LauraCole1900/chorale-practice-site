@@ -52,11 +52,8 @@ const VoiceBuilder = () => {
         <div className="fground">
           <Container fluid>
             <Row>
-              <Col sm={2}>
-                <Sidenav user={me} urlId={urlId} />
-              </Col>
 
-              <Col sm={8}>
+              <Col sm={{ span: 8, offset: 2 }}>
                 <h1>Building Beautiful Voices (playlist)</h1>
                 <VideoEmbed src="https://www.youtube.com/embed/videoseries?list=PLjJPaTQW9-OjO0-oSvL68mMg7VYhyjrgZ" />
               </Col>

@@ -12,6 +12,10 @@
   border: 1px solid red;
 } */
 
+.active {
+  background-color: none;
+}
+
 .dropdown-item.active {
   background-color: var(--darkSil);
   text-decoration: underline;
