@@ -65,6 +65,10 @@ a.sideLinks:hover {
   margin-bottom: .5em;
 }
 
+.cardBody > div > p > a:hover {
+  color: var(--gcCharcoal);
+}
+
 .center {
   text-align: center;
 }
