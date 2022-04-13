@@ -108,8 +108,6 @@ const RosterPage = () => {
                 <li><a href="#basses">Basses</a></li>
                 <li><a href="#staff">Staff</a></li>
                 <li><a href="#board">Board</a></li>
-                {me.isAdmin === true &&
-                  <li><Link to="/admin_portal">Admin Portal</Link></li>}
               </ul>
             </Row>
 

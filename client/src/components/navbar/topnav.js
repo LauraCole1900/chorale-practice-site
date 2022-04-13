@@ -54,6 +54,9 @@ const Navibar = () => {
                   <Link to="/profile" className="navlink">
                     Profile
                   </Link>
+                  <Link to="/roster" className="navlink">
+                    Current Roster
+                  </Link>
                   <Link to="/travel" className="navlink">
                     Travel
                   </Link>

@@ -85,14 +85,14 @@ const Login = () => {
                   <Row>
                     <Col sm={6}>
                       <Form.Group>
-                        <Form.Label>Email: <span className="red">*</span></Form.Label>
+                        <Form.Label className="loginLabel">Email: <span className="red">*</span></Form.Label>
                         <Form.Control type="email" name="email" placeholder="name@email.com" value={userData.email} className="formInput" onChange={e => handleInputChange(e)} required />
                         <Form.Control.Feedback type="invalid">Please enter your email</Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                     <Col sm={6}>
                       <Form.Group>
-                        <Form.Label>Password: <span className="red">*</span></Form.Label>
+                        <Form.Label className="loginLabel">Password: <span className="red">*</span></Form.Label>
                         <Form.Control type="password" name="password" placeholder="Enter password here" value={userData.password} className="formInput" onChange={e => handleInputChange(e)} required />
                         <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
                       </Form.Group>

@@ -138,6 +138,11 @@ a.sideLinks:hover {
 .loginDiv {
   margin-top: 5px;
 }
+
+.loginLabel {
+  color: var(--gcCharcoal);
+}
+
 .membersCard {
   width: 100%;
 }
