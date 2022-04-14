@@ -3,22 +3,12 @@ import { Navigate } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../utils/gql";
-import { Sidenav } from "../components/navbar";
 import { VideoEmbed } from "../components/embed";
 import Auth from "../utils/auth";
 import "./style.css";
 
 
 const VoiceBuilder = () => {
-
-  //=====================//
-  //    URL Variables    //
-  //=====================//
-
-  // Determines which page user is on, specifically for use with sidenav
-  const urlArray = window.location.href.split("/");
-  const urlId = urlArray.at(-1);
-
 
   //=====================//
   //       Queries       //

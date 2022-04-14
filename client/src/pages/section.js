@@ -4,7 +4,6 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import dayjs from "dayjs";
 import { CompositeDecorator } from "draft-js";
-import { Sidenav } from "../components/navbar";
 import { TracksAccordion } from "../components/cards";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_ONE_SECT_POST, QUERY_TRUE_CONCERTS } from "../utils/gql";
@@ -27,15 +26,6 @@ const Section = () => {
 
   // State variables
   const [sortedConcerts, setSortedConcerts] = useState([]);
-
-
-  //=====================//
-  //    URL Variables    //
-  //=====================//
-
-  // Determines which page user is on, specifically for use with sidenav
-  const urlArray = window.location.href.split("/");
-  const urlId = urlArray.at(-1);
 
 
   //=====================//
