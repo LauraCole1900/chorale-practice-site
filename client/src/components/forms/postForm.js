@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
 import { postValidate } from "../../utils/validation";
 import { ADD_POST, EDIT_POST, QUERY_ME, QUERY_ALL_POSTS, QUERY_ONE_POST, QUERY_ONE_SECT_POST } from "../../utils/gql";
 import Auth from "../../utils/auth";
