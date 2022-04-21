@@ -3,12 +3,12 @@ const postValidate = (post) => {
 
   // type errors
   if (!post.postType) {
-    errors.name = "What type of post is this? This determines where the post will render."
+    errors.postType = "What type of post is this? This determines where the post will render."
   }
 
   // content errors
   if (!post.postBody) {
-    errors.date = "You must enter content for this post!"
+    errors.postBody = "You must enter content for this post!"
   }
 
   return errors;
