@@ -84,12 +84,9 @@ const ProfilePage = () => {
   //=====================//
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
-  const handleShowPword = () => setShowPword(true);
-  const handleHidePword = () => setShowPword(false);
+  const handleToggleSuccess = () => setShowSuccess(showSuccess => !showSuccess);
+  const handleToggleErr = () => setShowErr(showErr => !showErr);
+  const handleTogglePword = () => setShowPword(showPword => !showPword);
 
   // Formats the provided date object
   const formatDate = (date) => {
@@ -122,23 +119,23 @@ const ProfilePage = () => {
 
   // Handles password update from password modal
   const handlePasswordUpdate = async (e) => {
-    handleHidePword();
+    handleTogglePword();
     e.preventDefault();
     try {
       const { data } = await editPassword({
         variables: { id: userData._id, ...userData }
       });
       if (data.editPassword) {
-        handleShowSuccess();
+        handleToggleSuccess();
       } else {
         setErrThrown("Incorrect data sent");
-        handleShowErr();
+        handleToggleErr();
       }
       setUserData({ ...userData, password: "", newPassword: "", oldPassword: "" });
     } catch (error) {
       console.error(JSON.stringify(error));
       setErrThrown(error.message);
-      handleShowErr();
+      handleToggleErr();
       setUserData({ ...userData, password: "", newPassword: "", oldPassword: "" });
     }
   }
@@ -156,11 +153,11 @@ const ProfilePage = () => {
         const { data } = await editUserSelf({
           variables: { id: userData._id, ...userData }
         });
-        handleShowSuccess();
+        handleToggleSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
         setErrThrown(error.message);
-        handleShowErr();
+        handleToggleErr();
       }
       setEditMode(false);
     } else {
@@ -210,7 +207,7 @@ const ProfilePage = () => {
                     {editMode === false
                       ? <>
                         <div className="between">
-                          <p className="editMode" onClick={handleClick}>Edit my info</p><p className="editMode" onClick={handleShowPword}>Change my password</p>
+                          <p className="editMode" onClick={handleClick}>Edit my info</p><p className="editMode" onClick={handleTogglePword}>Change my password</p>
                         </div>
                         <p>Full name: {me.fullName}</p>
                         <p>Prefer to be called: {me.preferredName}</p>
@@ -371,7 +368,7 @@ const ProfilePage = () => {
               urltype={urlType}
               params={[]}
               show={showPword === true}
-              hide={() => handleHidePword()}
+              hide={() => handleTogglePword()}
               update={(e) => handlePasswordUpdate(e)}
             />
 
@@ -381,7 +378,7 @@ const ProfilePage = () => {
               urltype={urlType}
               params={[]}
               show={showSuccess === true}
-              hide={() => handleHideSuccess()}
+              hide={() => handleToggleSuccess()}
             />
 
             <ErrorModal
@@ -390,7 +387,7 @@ const ProfilePage = () => {
               urltype={urlType}
               errmsg={errThrown}
               show={showErr === true}
-              hide={() => handleHideErr()}
+              hide={() => handleToggleErr()}
             />
 
           </Container>

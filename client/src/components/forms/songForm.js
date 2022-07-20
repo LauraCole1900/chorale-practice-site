@@ -120,10 +120,8 @@ const SongForm = () => {
   //=====================//
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleToggleSuccess = () => setShowSuccess(showSuccess => !showSuccess);
+  const handleToggleErr = () => setShowErr(showErr => !showErr);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -147,11 +145,11 @@ const SongForm = () => {
         const { data } = await addRepertoire({
           variables: { id: concertId, songs: { ...songData, concertOrder: parseInt(songData.concertOrder) } }
         });
-        handleShowSuccess();
+        handleToggleSuccess();
       } catch (error) {
         console.error(JSON.parse(JSON.stringify(error)));
         setErrThrown(error.message);
-        handleShowErr();
+        handleToggleErr();
       }
       setSongData({
         title: "",
@@ -186,11 +184,11 @@ const SongForm = () => {
         const { data } = await editRepertoire({
           variables: { concertId: concertId, songId: songId, ...songData, concertOrder: parseInt(songData.concertOrder) }
         });
-        handleShowSuccess();
+        handleToggleSuccess();
       } catch (error) {
         console.error(JSON.parse(JSON.stringify(error)));
         setErrThrown(error.message);
-        handleShowErr();
+        handleToggleErr();
       }
       setSongData({
         title: "",
@@ -432,7 +430,7 @@ const SongForm = () => {
           concertid={concertId}
           params={[]}
           show={showSuccess === true}
-          hide={() => handleHideSuccess()}
+          hide={() => handleToggleSuccess()}
         />
 
         <ErrorModal
@@ -442,7 +440,7 @@ const SongForm = () => {
           errmsg={errThrown}
           btnname={btnName}
           show={showErr === true}
-          hide={() => handleHideErr()}
+          hide={() => handleToggleErr()}
         />
 
       </Container>

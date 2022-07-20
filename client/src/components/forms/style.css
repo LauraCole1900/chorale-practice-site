@@ -12,7 +12,7 @@
   --bodyFont: "Lato", sans-serif;
 }
 
-label {
+label[class="form-label"] {
   color: var(--lightSil);
 }
 
