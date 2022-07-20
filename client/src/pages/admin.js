@@ -152,10 +152,8 @@ const AdminPortal = () => {
   const handleHideSelect = () => setShowSelect(false);
   const handleHideSelectSongs = () => setShowSelectSongs(false);
   const handleHideSetConcertOrder = () => setShowConcertOrder(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleToggleSuccess = () => setShowSuccess(showSuccess => !showSuccess);
+  const handleToggleErr = () => setShowErr(showErr => !showErr);
 
   // Shows Select modal
   const handleShowSelect = (e, id, name, songs) => {
@@ -211,11 +209,11 @@ const AdminPortal = () => {
       const { data } = await deleteConcert({
         variables: { id: id },
       });
-      handleShowSuccess();
+      handleToggleSuccess();
     } catch (err) {
       console.error(err.message);
       setErrThrown(err.message);
-      handleShowErr();
+      handleToggleErr();
     }
   };
 
@@ -226,11 +224,11 @@ const AdminPortal = () => {
       const { data } = await deleteMember({
         variables: { id: id },
       });
-      handleShowSuccess();
+      handleToggleSuccess();
     } catch (err) {
       console.error(err.message);
       setErrThrown(err.message);
-      handleShowErr();
+      handleToggleErr();
     }
   };
 
@@ -241,11 +239,11 @@ const AdminPortal = () => {
       const { data } = await deletePost({
         variables: { id: id },
       });
-      handleShowSuccess();
+      handleToggleSuccess();
     } catch (err) {
       console.error(err.message);
       setErrThrown(err.message);
-      handleShowErr();
+      handleToggleErr();
     }
   };
 
@@ -256,11 +254,11 @@ const AdminPortal = () => {
       const { data } = await deleteManySongs({
         variables: { _id: id, songsToDelete: songs },
       });
-      handleShowSuccess();
+      handleToggleSuccess();
     } catch (err) {
       console.error(err.message);
       setErrThrown(err.message);
-      handleShowErr();
+      handleToggleErr();
     }
     setSongsToDelete([]);
   };
@@ -272,11 +270,11 @@ const AdminPortal = () => {
       const { data } = await setConcertOrder({
         variables: { id: id, songs: songs },
       });
-      handleShowSuccess();
+      handleToggleSuccess();
     } catch (err) {
       console.log(JSON.parse(JSON.stringify(err)));
       setErrThrown(err.message);
-      handleShowErr();
+      handleToggleErr();
     }
     setSongsToOrder([]);
   }
@@ -498,7 +496,7 @@ const AdminPortal = () => {
               btnname={btnName}
               params={[]}
               show={showSuccess === true}
-              hide={() => handleHideSuccess()}
+              hide={() => handleToggleSuccess()}
             />
 
             <ErrorModal
@@ -508,7 +506,7 @@ const AdminPortal = () => {
               errmsg={errThrown}
               btnname={btnName}
               show={showErr === true}
-              hide={() => handleHideErr()}
+              hide={() => handleToggleErr()}
             />
 
           </Container>

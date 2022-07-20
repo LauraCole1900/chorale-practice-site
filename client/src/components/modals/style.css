@@ -1,3 +1,7 @@
+label[class="form-check-label"] {
+  color: var(--gcCharcoal);
+}
+
 .bordered {
   background-color: var(--lightSil);
   padding: .5rem 0;
@@ -7,5 +11,6 @@
 }
 
 .closeSpace {
+  color: var(--gcCharcoal);
   margin-bottom: .25rem;
 }

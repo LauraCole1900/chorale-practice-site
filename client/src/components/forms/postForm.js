@@ -110,10 +110,8 @@ const PostForm = () => {
   //=====================//
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleToggleSuccess = () => setShowSuccess(showSuccess => !showSuccess);
+  const handleToggleErr = () => setShowErr(showErr => !showErr);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -144,11 +142,11 @@ const PostForm = () => {
         const { data } = await addPost({
           variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
         });
-        handleShowSuccess();
+        handleToggleSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
         setErrThrown(error.message);
-        handleShowErr();
+        handleToggleErr();
       }
       setPostData({
         postType: "",
@@ -174,11 +172,11 @@ const PostForm = () => {
         const { data } = await editPost({
           variables: { id: postId, ...postData, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
         });
-        handleShowSuccess();
+        handleToggleSuccess();
       } catch (error) {
         console.error(JSON.stringify(error));
         setErrThrown(error.message);
-        handleShowErr();
+        handleToggleErr();
       }
       setPostData({
         postType: "",
@@ -314,7 +312,7 @@ const PostForm = () => {
             btnname={btnName}
             params={[]}
             show={showSuccess === true}
-            hide={() => handleHideSuccess()}
+            hide={() => handleToggleSuccess()}
           />
 
           <ErrorModal
@@ -324,7 +322,7 @@ const PostForm = () => {
             errmsg={errThrown}
             btnname={btnName}
             show={showErr === true}
-            hide={() => handleHideErr()}
+            hide={() => handleToggleErr()}
           />
 
         </Container>
