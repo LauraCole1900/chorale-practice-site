@@ -52,7 +52,7 @@ const Lander = () => {
         : (timeToNow(concert.date.at(-1), concert.time.at(-1))) > dayjs()
       );
       const sortedByTime = upcomingConcerts.sort((a, b) => a.time[0] > b.time[0] ? 1 : -1);
-      const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0]) > dayjs(b.date[0])) ? 1 : -1);
+      const sortedByDate = sortedByTime.sort((a, b) => (dayjs(a.date[0], "MM-DD-YYYY") > dayjs(b.date[0], "MM-DD-YYYY")) ? 1 : -1);
       setSortedConcerts(sortedByDate);
     }
   }, [concerts, message])
