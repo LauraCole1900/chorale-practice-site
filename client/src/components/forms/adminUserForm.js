@@ -323,7 +323,7 @@ const AdminUserForm = () => {
               </Col>
 
               <Col lg={4} className="bottom">
-                <Form.Label>Member's birthday: <span className="red">*</span></Form.Label>
+                <Form.Label>Member's birthday:</Form.Label>
                 {errors.birthday &&
                   <div className="error"><p>{errors.birthday}</p></div>}
                 <Form.Control type="input" name="birthday" placeholder={"10-13"} value={userData.birthday} className="subtitleInput" onChange={handleInputChange} />
@@ -539,9 +539,9 @@ const AdminUserForm = () => {
             <Col sm={{ span: 3, offset: 2 }}>
               {!Object.keys(params).length
 
-                ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.birthday && userData.email1 && userData.password.length > 8 && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
+                ? <Button data-toggle="popover" title="Submit" disabled={!(userData.fullName && userData.email1 && userData.password.length > 8 && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit</Button>
 
-                : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.birthday && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode && (!userData.password || userData.password?.length > 8))} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
+                : <Button data-toggle="popover" title="Update" disabled={!(userData.fullName && userData.phone1 && userData.phone1Type && userData.section && userData.streetAddress && userData.city && userData.state && userData.zipCode && (!userData.password || userData.password?.length > 8))} className="button formBtn" onClick={handleFormUpdate} type="submit">Update</Button>
               }
             </Col>
           </Row>
