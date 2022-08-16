@@ -73,7 +73,7 @@ const Members = () => {
   const bdayCopy = [...bDays];
   const filteredBdays = bdayCopy.filter(user => user.birthday);
   const sortedBdays = filteredBdays.sort((a, b) => a.birthday > b.birthday ? 1 : -1);
-  const nextMonthBdays = sortedBdays.filter(bday => dayjs(bday.birthday, "MM-DD") > dayjs().subtract(1, "day") && dayjs(bday.birthday, "MM-DD") < dayjs().add(5, "month"));
+  const nextMonthBdays = sortedBdays.filter(bday => dayjs(bday.birthday, "MM-DD") > dayjs().subtract(1, "day") && dayjs(bday.birthday, "MM-DD") < dayjs().add(1, "month"));
 
   const emergency = postArr.filter(post => post.postType === "emergency");
   const singersNote = postArr.filter(post => post.postType === "singers note");
@@ -192,9 +192,10 @@ const Members = () => {
                       <a href="https://drive.google.com/drive/folders/1xsKVJ4I8162VVGzDlCV2pIksLocR1aZD" target="_blank" rel="noreferrer noopener" className="sideLinks">Singer Info Folder</a><br />
                       <br />
                       <h2 className="sideInfo">Upcoming Birthdays</h2>
-                      {nextMonthBdays.map(bday => (
+                      <p>Currently disabled pending results of opt-in</p>
+                      {/* {nextMonthBdays.map(bday => (
                         <p key={bday._id} className="upcomingBdays">{dayjs(bday.birthday, "MM-DD").format("MMM D")} - {bday.fullName}</p>
-                      ))}
+                      ))} */}
                     </>}
                   <br />
                 </aside>
