@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Accordion, Button } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
 import SongCard from "./songCard";
+import { AudioEmbed } from "../embed";
 import "./style.css";
 
 
@@ -22,6 +23,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
   //=====================//
   const [allSongs, setAllSongs] = useState(concert.songs);
   const [playlist, setPlaylist] = useState([]);
+  const [plistIdx, setPlistIdx] = useState(0);
 
 
   //=====================//
@@ -33,24 +35,6 @@ const TracksAccordion = ({ concert, i, section, user }) => {
     const formattedDate = dates.map(date => dayjs(date, "M-D-YYYY").format("dddd, MMM D, YYYY"));
     return formattedDate.length > 1 ? formattedDate.join(" & ") : formattedDate[0].toString();
   }
-
-  // Handles click on "play full playlist" button
-  const handlePlaylistPlay = (e) => {
-    const { value } = e.target;
-    console.log({ playlist });
-  };
-
-  // Handles click on "pause full playlist" button
-  const handlePlaylistPause = (e) => {
-    const { value } = e.target;
-    JSON.parse(value) ? setPlaylist(false) : setPlaylist(true);
-  };
-
-  // Handles click on "stop full playlist" button
-  const handlePlaylistStop = (e) => {
-    const { value } = e.target;
-    JSON.parse(value) ? setPlaylist(false) : setPlaylist(true);
-  };
 
 
   //=====================//
@@ -94,15 +78,16 @@ const TracksAccordion = ({ concert, i, section, user }) => {
           <p>{dates} | {times} | <span className="boldOutline">Countdown to curtain</span>: {timeToCurtain(concert.date[0], concert.time[0])}</p>
         </Accordion.Header>
         <Accordion.Body className="cardBody">
-          {allSongs.length > 0 &&
-            <>
-              
-            </>
-          }
           {concert.addlMaterials?.length > 0 &&
             concert.addlMaterials.map((item, i) => (
               <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
             ))}
+          {playlist.length > 0 &&
+            <>
+              <p>Full Playlist of Kati Tracks:</p>
+              <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} />
+            </>
+          }
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Form, Row } from "react-bootstrap"
 import PropTypes from "prop-types";
 
-const AudioEmbed = ({ title, src, songId }) => {
+const AudioEmbed = ({ title, src, songId, tracker, setPlistIdx }) => {
 
   //=================//
   //   State & Ref   //
@@ -44,6 +44,13 @@ const AudioEmbed = ({ title, src, songId }) => {
     setPbr(e.target.value);
   };
 
+  if (setPlistIdx) {
+    if (audioRef.current?.ended) {
+      tracker = ++tracker;
+      setPlistIdx(tracker);
+    }
+  }
+
 
   //======================//
   //   Run on page load   //
@@ -58,14 +65,25 @@ const AudioEmbed = ({ title, src, songId }) => {
   return (
     <>
       <Row className="audio-responsive" >
-        <audio
-          src={process.env.PUBLIC_URL + src}
-          title={title}
-          type="audio/mp3"
-          id={songId}
-          ref={audioRef}
-          controls
-        />
+        {parseInt(tracker) === 0 &&
+          <audio
+            src={process.env.PUBLIC_URL + src}
+            title={title}
+            type="audio/mp3"
+            id={songId}
+            ref={audioRef}
+            controls
+          />}
+        {parseInt(tracker) > 0 &&
+          <audio
+            src={process.env.PUBLIC_URL + src}
+            title={title}
+            type="audio/mp3"
+            id={songId}
+            ref={audioRef}
+            controls
+            autoplay
+          />}
       </Row>
 
       <Form>
