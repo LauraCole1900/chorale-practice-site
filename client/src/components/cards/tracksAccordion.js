@@ -3,15 +3,27 @@ import { Accordion } from "react-bootstrap";
 import dayjs from "dayjs";
 import { timeToCurtain } from "../../utils/dateUtils";
 import SongCard from "./songCard";
+import { AudioEmbed } from "../embed";
 import "./style.css";
 
 
-const TracksAccordion = ({ concert, i, section }) => {
+const TracksAccordion = ({ concert, i, section, user }) => {
+
+  let truncSect = "";
+  if (section === "soprano" || section === "tenor") {
+    const truncated = section.slice(0, 3);
+    truncSect = `${truncated.charAt(0).toUpperCase()}${truncated.slice(1)}`;
+  } else if (section === "alto" || section === "bass") {
+    truncSect = `${section.charAt(0).toUpperCase()}${section.slice(1)}`;
+  };
+
 
   //=====================//
   //   State variables   //
   //=====================//
   const [allSongs, setAllSongs] = useState(concert.songs);
+  const [playlist, setPlaylist] = useState([]);
+  const [plistIdx, setPlistIdx] = useState(0);
 
 
   //=====================//
@@ -48,9 +60,14 @@ const TracksAccordion = ({ concert, i, section }) => {
     if (filteredSongs.length) {
       const sortedSongs = filteredSongs.sort((a, b) => a.concertOrder > b.concertOrder ? 1 : -1);
       setAllSongs([...sortedSongs, otherSongs].flat());
+      const trackUrls = sortedSongs.map(song => song[`practiceTrackUrls${truncSect}`]);
+      const flattenedUrls = trackUrls.flat();
+      const filteredUrls = flattenedUrls.filter(url => !url.includes("cyberbass"));
+      setPlaylist(filteredUrls);
     }
 
-  }, [concert.songs]);
+
+  }, [concert.songs, section]);
 
 
   return (
@@ -65,6 +82,12 @@ const TracksAccordion = ({ concert, i, section }) => {
             concert.addlMaterials.map((item, i) => (
               <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
             ))}
+          {playlist.length > 0 &&
+            <>
+              <p>Full Playlist of Kati Tracks:</p>
+              <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} />
+            </>
+          }
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}

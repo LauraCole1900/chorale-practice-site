@@ -31,7 +31,7 @@ const SongCard = ({ section, song }) => {
                       </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesSop[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} songId={song._id} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesSop[i]} songId={song._id} tracker="0" /></li>
                         <hr />
                       </>)
                     : <>
@@ -57,7 +57,7 @@ const SongCard = ({ section, song }) => {
                       </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesAlto[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} songId={song._id} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesAlto[i]} songId={song._id} tracker="0" /></li>
                         <hr />
                       </>)
                     : <>
@@ -83,7 +83,7 @@ const SongCard = ({ section, song }) => {
                       </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesTen[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} songId={song._id} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesTen[i]} songId={song._id} tracker="0" /></li>
                         <hr />
                       </>)
                     : <>
@@ -109,7 +109,7 @@ const SongCard = ({ section, song }) => {
                       </>
                       : <>
                         <li key={i}><p><a href={track} target="_blank" rel="noreferrer noopener">{song.practiceTrackTitlesBass[i]}</a></p>
-                          <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} songId={song._id} /></li>
+                          <AudioEmbed src={track} title={song.practiceTrackTitlesBass[i]} songId={song._id} tracker="0" /></li>
                         <hr />
                       </>)
                     : <>
