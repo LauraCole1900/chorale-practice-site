@@ -82,12 +82,12 @@ const TracksAccordion = ({ concert, i, section, user }) => {
             concert.addlMaterials.map((item, i) => (
               <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
             ))}
-          {playlist.length > 0 &&
+          {/* {playlist.length > 0 &&
             <>
               <p>Full Playlist of Kati Tracks:</p>
               <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} />
             </>
-          }
+          } */}
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}
