@@ -66,24 +66,21 @@ const AudioEmbed = ({ title, src, songId, tracker, setPlistIdx }) => {
     <>
       <Row className="audio-responsive" >
         {parseInt(tracker) === 0 &&
-          <audio
-            src={process.env.PUBLIC_URL + src}
+          <audio controls>
+            <source src={process.env.PUBLIC_URL + src}
             title={title}
             type="audio/mp3"
             id={songId}
-            ref={audioRef}
-            controls
-          />}
+            ref={audioRef} />
+          </audio>}
         {parseInt(tracker) > 0 &&
-          <audio
-            src={process.env.PUBLIC_URL + src}
+          <audio controls>
+            <source src={process.env.PUBLIC_URL + src}
             title={title}
             type="audio/mp3"
             id={songId}
-            ref={audioRef}
-            controls
-            autoplay
-          />}
+            ref={audioRef} />
+          </audio>}
       </Row>
 
       <Form>
