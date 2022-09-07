@@ -67,7 +67,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
     }
 
 
-  }, [concert.songs, section]);
+  }, [concert.songs, section, plistIdx]);
 
 
   return (
@@ -85,7 +85,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
           {playlist.length > 0 &&
             <>
               <p>Full Playlist of Kati Tracks:</p>
-              <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} />
+              <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} length={playlist.length} />
             </>
           }
           {allSongs.map((song, i) => (
