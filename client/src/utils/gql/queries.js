@@ -14,6 +14,7 @@ export const QUERY_ALL_CONCERTS = gql`
       venue
       signUp
       addlMaterials
+      addlMaterialsNames
       songs {
         _id
         title
@@ -43,6 +44,7 @@ export const QUERY_ONE_CONCERT = gql`
       venue
       signUp
       addlMaterials
+      addlMaterialsNames
       songs {
         _id
         title
@@ -70,6 +72,7 @@ export const QUERY_TRUE_CONCERTS = gql`
       date
       time
       addlMaterials
+      addlMaterialsNames
       songs {
         _id
         title

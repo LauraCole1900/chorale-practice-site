@@ -80,7 +80,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
         <Accordion.Body className="cardBody">
           {concert.addlMaterials?.length > 0 &&
             concert.addlMaterials.map((item, i) => (
-              <h4 key={i}>Supplemental materials: <a href={item} target="_blank" rel="noreferrer noopener">Supplement {i + 1}</a></h4>
+              <h4 key={i}><a href={item} target="_blank" rel="noreferrer noopener">${concert.addlMaterialsNames[i]}</a></h4>
             ))}
           {playlist.length > 0 &&
             <>
