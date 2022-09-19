@@ -74,7 +74,7 @@ export const EDIT_CONCERT_BASIC = gql`
     $venue: [String!]!
     $signUp: String
     $addlMaterials: [String!]
-    $$addlMaterialsNames: [String!]
+    $addlMaterialsNames: [String!]
   ) {
     editConcertBasic(
       _id: $id

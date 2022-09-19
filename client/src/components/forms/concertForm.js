@@ -284,7 +284,7 @@ const ConcertForm = () => {
               <Col sm={{ span: 8, offset: 2 }}>
                 <Form.Label>If there are supplemental materials, please enter their title(s) here:</Form.Label><br />
                 <Form.Text className="subtitle" muted>Please comma-separate multiple titles and ensure the titles are in the same order as the above URLs</Form.Text>
-                <Form.Control type="input" name="addlMaterials" placeholder="http://link_to_lyric_sheet_etc.com" value={concertData.addlMaterialsNames} className="formInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="addlMaterialsNames" placeholder="Michael's rehearsal notes, or whatever" value={concertData.addlMaterialsNames} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>
