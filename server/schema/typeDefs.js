@@ -13,6 +13,7 @@ const typeDefs = gql`
     venue: [String!]!
     signUp: String
     addlMaterials: [String!]
+    addlMaterialsNames: [String!]
     songs: [Song!]
   }
 
@@ -153,6 +154,7 @@ const typeDefs = gql`
       venue: [String!]!
       signUp: String
       addlMaterials: [String!]
+      addlMaterialsNames: [String!]
     ): Concert
 
     deleteConcert(_id: ID!): Concert
@@ -165,6 +167,7 @@ const typeDefs = gql`
       venue: [String!]!
       signUp: String
       addlMaterials: [String!]
+      addlMaterialsNames: [String!]
     ): Concert
 
     # //=====================//
