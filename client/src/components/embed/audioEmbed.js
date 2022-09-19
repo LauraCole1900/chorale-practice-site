@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Form, Row } from "react-bootstrap"
 import PropTypes from "prop-types";
 
-const AudioEmbed = ({ title, src, songId, tracker, setPlistIdx }) => {
+const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
 
   //=================//
   //   State & Ref   //
@@ -45,8 +45,14 @@ const AudioEmbed = ({ title, src, songId, tracker, setPlistIdx }) => {
   };
 
   if (setPlistIdx) {
-    if (audioRef.current?.ended) {
-      tracker = ++tracker;
+    console.log(audioRef);
+    if (audioRef.current?.parentElement.currentTime === audioRef.current?.parentElement.duration && tracker < length) {
+      tracker = tracker++;
+      console.log({ tracker });
+      setPlistIdx(tracker);
+    } else if (audioRef.current?.parentElement.currentTime === audioRef.current?.parentElement.duration && tracker === length) {
+      tracker = 0;
+      console.log({ tracker });
       setPlistIdx(tracker);
     }
   }
@@ -68,18 +74,18 @@ const AudioEmbed = ({ title, src, songId, tracker, setPlistIdx }) => {
         {parseInt(tracker) === 0 &&
           <audio controls>
             <source src={process.env.PUBLIC_URL + src}
-            title={title}
-            type="audio/mp3"
-            id={songId}
-            ref={audioRef} />
+              title={title}
+              type="audio/mp3"
+              id={songId}
+              ref={audioRef} />
           </audio>}
         {parseInt(tracker) > 0 &&
           <audio controls>
             <source src={process.env.PUBLIC_URL + src}
-            title={title}
-            type="audio/mp3"
-            id={songId}
-            ref={audioRef} />
+              title={title}
+              type="audio/mp3"
+              id={songId}
+              ref={audioRef} />
           </audio>}
       </Row>
 

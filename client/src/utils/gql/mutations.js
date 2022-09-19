@@ -12,6 +12,7 @@ export const ADD_CONCERT = gql`
     $venue: [String!]!
     $signUp: String
     $addlMaterials: [String!]
+    $addlMaterialsNames: [String!]
   ) {
     addConcert(
       name: $name
@@ -20,6 +21,7 @@ export const ADD_CONCERT = gql`
       venue: $venue
       signUp: $signUp
       addlMaterials: $addlMaterials
+      addlMaterialsNames: $addlMaterialsNames
     ) {
       _id
       name
@@ -28,6 +30,7 @@ export const ADD_CONCERT = gql`
       venue
       signUp
       addlMaterials
+      addlMaterialsNames
     }
   }
 `;
@@ -42,6 +45,7 @@ export const DELETE_CONCERT = gql`
       venue
       signUp
       addlMaterials
+      addlMaterialsNames
       songs {
         _id
         title
@@ -70,6 +74,7 @@ export const EDIT_CONCERT_BASIC = gql`
     $venue: [String!]!
     $signUp: String
     $addlMaterials: [String!]
+    $addlMaterialsNames: [String!]
   ) {
     editConcertBasic(
       _id: $id
@@ -79,6 +84,7 @@ export const EDIT_CONCERT_BASIC = gql`
       venue: $venue
       signUp: $signUp
       addlMaterials: $addlMaterials
+      addlMaterialsNames: $addlMaterialsNames
     ) {
       _id
       name
@@ -87,6 +93,7 @@ export const EDIT_CONCERT_BASIC = gql`
       venue
       signUp
       addlMaterials
+      addlMaterialsNames
     }
   }
 `;
