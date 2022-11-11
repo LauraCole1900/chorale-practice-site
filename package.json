@@ -5,7 +5,7 @@
   "author": "Laura E. Cole",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/server.js --openssl-legacy-provider start",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i --legacy-peer-deps && cd ../client && npm i",
     "build": "cd client && npm run build"
