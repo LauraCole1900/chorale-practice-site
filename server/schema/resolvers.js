@@ -1,5 +1,5 @@
 const { Concert, Post, User } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
+const { AuthenticationError } = require("@apollo/server/express4");
 const bcrypt = require("bcrypt");
 const { signToken } = require("../utils/auth");
 
