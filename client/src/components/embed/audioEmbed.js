@@ -91,9 +91,9 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
           </Row>
         </Form.Group>
         <Row className="around">
-          <Button className="pbrButton button" onClick={handleSetRate}>Slower</Button>
-          <Button className="pbrButton button" onClick={handleSetRate}>Normal</Button>
-          <Button className="pbrButton button" onClick={handleSetRate}>Faster</Button>
+          <Button className="pbrButton button" value="slow" onClick={handleSetRate}>Slower</Button>
+          <Button className="pbrButton button" value="normal" onClick={handleSetRate}>Normal</Button>
+          <Button className="pbrButton button" value="fast" onClick={handleSetRate}>Faster</Button>
         </Row>
       </Form>
     </>
