@@ -52,7 +52,7 @@ const client = new ApolloClient({
 // Instantiates Cloudinary
 const cld = new Cloudinary({
   cloud: {
-    cloudName: "gcpmcloud2022"
+    cloudName: "lauracloud"
   },
   url: {
     secureDistribution: "gcpm.herokuapp.com",
