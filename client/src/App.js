@@ -3,7 +3,6 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@ap
 import { setContext } from "@apollo/client/link/context";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
-import { Cloudinary } from "@cloudinary/url-gen";
 import { Navibar } from "./components/navbar";
 import { AdminPortal, Lander, Login, Members, ProfilePage, RosterPage, Section, Travel, VoiceBuilder } from "./pages";
 import { AdminUserForm, ConcertForm, PostForm, SongForm } from "./components/forms";
@@ -47,17 +46,6 @@ const client = new ApolloClient({
       }
     }
   })
-});
-
-// Instantiates Cloudinary
-const cld = new Cloudinary({
-  cloud: {
-    cloudName: "lauracloud"
-  },
-  url: {
-    secureDistribution: "gcpm.herokuapp.com",
-    secure: true
-  }
 });
 
 
