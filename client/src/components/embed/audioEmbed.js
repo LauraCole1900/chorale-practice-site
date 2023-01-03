@@ -16,25 +16,21 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
   //     Methods     //
   //=================//
 
-  // returns playbackRate to 1.0 on button click
-  const normal = () => {
-    setPbr(1.0)
-  };
-
-  // slows down playbackRate by increments of 5% on button click
-  const slowDown = () => {
-    let varPbr = pbr - .05;
-    if (pbr <= .50) {
-      varPbr = .50;
-    }
-    setPbr(varPbr);
-  };
-
-  // speeds up playbackRate by increments of 5% on button click
-  const speedUp = () => {
-    let varPbr = pbr + .05;
-    if (pbr >= 2.00) {
-      varPbr = 2.00;
+  // sets playback rate
+  const handleSetRate = (e) => {
+    let varPbr = 1;
+    if (e.target.value === "slow") {
+      varPbr = pbr - .05;
+      if (pbr <= .50) {
+        varPbr = .50;
+      }
+    } else if (e.target.value === "fast") {
+      varPbr = pbr + .05;
+      if (pbr >= 2.00) {
+        varPbr = 2.00;
+      }
+    } else {
+      varPbr = 1.00;
     }
     setPbr(varPbr);
   };
@@ -46,11 +42,11 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
 
   if (setPlistIdx) {
     console.log(audioRef);
-    if (audioRef.current?.parentElement.currentTime === audioRef.current?.parentElement.duration && tracker < length) {
+    if (audioRef.current?.currentTime === audioRef.current?.duration && tracker < length) {
       tracker = tracker++;
       console.log({ tracker });
       setPlistIdx(tracker);
-    } else if (audioRef.current?.parentElement.currentTime === audioRef.current?.parentElement.duration && tracker === length) {
+    } else if (audioRef.current?.currentTime === audioRef.current?.duration && tracker === length) {
       tracker = 0;
       console.log({ tracker });
       setPlistIdx(tracker);
@@ -72,20 +68,18 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
     <>
       <Row className="audio-responsive" >
         {parseInt(tracker) === 0 &&
-          <audio controls>
+          <audio controls ref={audioRef} playbackRate={pbr}>
             <source src={process.env.PUBLIC_URL + src}
               title={title}
               type="audio/mp3"
-              id={songId}
-              ref={audioRef} />
+              id={songId} />
           </audio>}
         {parseInt(tracker) > 0 &&
-          <audio controls>
+          <audio controls ref={audioRef} playbackRate={pbr}>
             <source src={process.env.PUBLIC_URL + src}
               title={title}
               type="audio/mp3"
-              id={songId}
-              ref={audioRef} />
+              id={songId}/>
           </audio>}
       </Row>
 
@@ -97,9 +91,9 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
           </Row>
         </Form.Group>
         <Row className="around">
-          <Button className="pbrButton button" onClick={slowDown}>Slower</Button>
-          <Button className="pbrButton button" onClick={normal}>Normal</Button>
-          <Button className="pbrButton button" onClick={speedUp}>Faster</Button>
+          <Button className="pbrButton button" value="slow" onClick={handleSetRate}>Slower</Button>
+          <Button className="pbrButton button" value="normal" onClick={handleSetRate}>Normal</Button>
+          <Button className="pbrButton button" value="fast" onClick={handleSetRate}>Faster</Button>
         </Row>
       </Form>
     </>

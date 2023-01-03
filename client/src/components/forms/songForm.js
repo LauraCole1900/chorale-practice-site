@@ -404,7 +404,7 @@ const SongForm = () => {
                 <Form.Text className="subtitle" muted>Please comma-separate multiple URLs</Form.Text>
                 {errors.videoUrls &&
                   <div className="error"><p>{errors.videoUrls}</p></div>}
-                <Form.Control type="input" name="videoUrls" placeholder="http://some_youTube_video.com" value={songData.videoUrls} className="formInput" onChange={handleInputChange} />
+                <Form.Control type="input" name="videoUrls" placeholder="https://youtube.com/embed/youTubeID" value={songData.videoUrls} className="formInput" onChange={handleInputChange} />
               </Col>
             </Row>
           </Form.Group>

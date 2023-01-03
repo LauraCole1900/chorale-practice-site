@@ -81,7 +81,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
           {concert.addlMaterials?.length > 0 &&
           <ol>
             {concert.addlMaterials.map((item, i) => (
-              <li key={i}><h4><a href={item} target="_blank" rel="noreferrer noopener" class="accordionLink">{concert.addlMaterialsNames[i]}</a></h4></li>
+              <li key={i}><h4><a href={item} target="_blank" rel="noreferrer noopener" className="accordionLink">{concert.addlMaterialsNames[i]}</a></h4></li>
             ))}
             </ol>}
           {/* {playlist.length > 0 &&
