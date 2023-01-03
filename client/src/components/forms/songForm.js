@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_REPERTOIRE, EDIT_REPERTOIRE, QUERY_ME, QUERY_ONE_CONCERT } from "../../utils/gql";
 import { songValidate } from "../../utils/validation";
 import Auth from "../../utils/auth";
+import CloudinaryUploadWidget from "../uploadWidget";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -37,6 +38,7 @@ const SongForm = () => {
     videoUrls: []
   });
   const [errors, setErrors] = useState({});
+  const [dataRes, setDataRes] = useState({});
 
   // States passed to modals
   const [errThrown, setErrThrown] = useState();
@@ -406,6 +408,19 @@ const SongForm = () => {
               </Col>
             </Row>
           </Form.Group>
+
+          <Row>
+            <Col sm={{ span: 3, offset: 2 }}>
+              <CloudinaryUploadWidget dataRes={dataRes} setDataRes={setDataRes} />
+            </Col>
+          </Row>
+
+          {Object.keys(dataRes).length > 0 &&
+            <Row>
+              <Col sm={{ span: 8, offset: 2 }}>
+                <p className="bold">Here is the URL of the uploaded file: {dataRes.info.secure_url}</p>
+              </Col>
+            </Row>}
 
           {!songId
             ? <Row>

@@ -12,7 +12,8 @@
   --bodyFont: "Lato", sans-serif;
 }
 
-label[class="form-label"] {
+label[class="form-label"],
+label[class="form-check-label"] {
   color: var(--lightSil);
 }
 
