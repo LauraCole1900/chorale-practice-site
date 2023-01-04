@@ -64,8 +64,14 @@ const TracksAccordion = ({ concert, i, section, user }) => {
       const flattenedUrls = trackUrls.flat();
       const filteredUrls = flattenedUrls.filter(url => !url.includes("cyberbass"));
       setPlaylist(filteredUrls);
+    } else {
+      const trackUrls = otherSongs.map(song => song[`practiceTrackUrls${truncSect}`]);
+      const flattenedUrls = trackUrls.flat();
+      const filteredUrls = flattenedUrls.filter(url => !url.includes("cyberbass"));
+      setPlaylist(filteredUrls);
     }
-
+    console.log({ plistIdx });
+    console.log(playlist[plistIdx]);
 
   }, [concert.songs, section, plistIdx]);
 
@@ -79,17 +85,17 @@ const TracksAccordion = ({ concert, i, section, user }) => {
         </Accordion.Header>
         <Accordion.Body className="cardBody">
           {concert.addlMaterials?.length > 0 &&
-          <ol>
-            {concert.addlMaterials.map((item, i) => (
-              <li key={i}><h4><a href={item} target="_blank" rel="noreferrer noopener" className="accordionLink">{concert.addlMaterialsNames[i]}</a></h4></li>
-            ))}
+            <ol>
+              {concert.addlMaterials.map((item, i) => (
+                <li key={i}><h4><a href={item} target="_blank" rel="noreferrer noopener" className="accordionLink">{concert.addlMaterialsNames[i]}</a></h4></li>
+              ))}
             </ol>}
-          {/* {playlist.length > 0 &&
+          {playlist.length > 0 &&
             <>
               <p>Full Playlist of Kati Tracks:</p>
               <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} length={playlist.length} />
             </>
-          } */}
+          }
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}

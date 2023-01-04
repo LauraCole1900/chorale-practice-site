@@ -9,6 +9,7 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
   //=================//
 
   const audioRef = useRef();
+  const trackerRef = useRef(tracker);
   const [pbr, setPbr] = useState(1.0);
 
 
@@ -40,16 +41,19 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
     setPbr(e.target.value);
   };
 
-  if (setPlistIdx) {
-    console.log(audioRef);
-    if (audioRef.current?.currentTime === audioRef.current?.duration && tracker < length) {
-      tracker = tracker++;
-      console.log({ tracker });
-      setPlistIdx(tracker);
-    } else if (audioRef.current?.currentTime === audioRef.current?.duration && tracker === length) {
+  // advances tracker for playlist
+  const advanceTracker = () => {
+    if (trackerRef.current < (length - 1)) {
+      console.log('ding');
+      trackerRef.current = ++tracker;
+      console.log({ tracker }, { trackerRef });
+      setPlistIdx(trackerRef.current);
+    } else if (trackerRef.current === (length - 1)) {
+      console.log('dong');
       tracker = 0;
-      console.log({ tracker });
-      setPlistIdx(tracker);
+      trackerRef.current = tracker;
+      console.log({ tracker }, { trackerRef });
+      setPlistIdx(trackerRef.current);
     }
   }
 
@@ -61,25 +65,31 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
   // sets initial playbackRate on page load
   useEffect(() => {
     audioRef.current.playbackRate = pbr
-  }, [pbr]);
+  }, [pbr, tracker, trackerRef]);
 
 
   return (
     <>
       <Row className="audio-responsive" >
-        {parseInt(tracker) === 0 &&
-          <audio controls ref={audioRef} playbackRate={pbr}>
+        {length
+          ? (tracker > 0
+            ? <audio controls ref={audioRef} playbackrate={pbr} onEnded={advanceTracker} autoPlay={true}>
+              <source src={process.env.PUBLIC_URL + src}
+                title={title}
+                type="audio/mp3"
+                id={songId} />
+            </audio>
+            : <audio controls ref={audioRef} playbackrate={pbr} onEnded={advanceTracker}>
+              <source src={process.env.PUBLIC_URL + src}
+                title={title}
+                type="audio/mp3"
+                id={songId} />
+            </audio>)
+          : <audio controls ref={audioRef} playbackrate={pbr}>
             <source src={process.env.PUBLIC_URL + src}
               title={title}
               type="audio/mp3"
               id={songId} />
-          </audio>}
-        {parseInt(tracker) > 0 &&
-          <audio controls ref={audioRef} playbackRate={pbr}>
-            <source src={process.env.PUBLIC_URL + src}
-              title={title}
-              type="audio/mp3"
-              id={songId}/>
           </audio>}
       </Row>
 
