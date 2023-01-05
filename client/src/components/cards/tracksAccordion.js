@@ -58,17 +58,17 @@ const TracksAccordion = ({ concert, i, section, user }) => {
     // If there are songs with assigned concert order, sort them into concert order,
     // then add all other songs in the concert to the resulting array
     if (filteredSongs.length) {
+      console.log('concert order');
       const sortedSongs = filteredSongs.sort((a, b) => a.concertOrder > b.concertOrder ? 1 : -1);
-      setAllSongs([...sortedSongs, otherSongs].flat());
-      const trackUrls = sortedSongs.map(song => song[`practiceTrackUrls${truncSect}`]);
-      const flattenedUrls = trackUrls.flat();
-      const filteredUrls = flattenedUrls.filter(url => !url.includes("cyberbass"));
-      setPlaylist(filteredUrls);
+      setAllSongs([...sortedSongs, ...otherSongs]);
+      const urlsToGet = [...sortedSongs, ...otherSongs]
+      const trackUrls = urlsToGet.map(song => song[`practiceTrackUrls${truncSect}`]).flat().filter(url => !url.includes("cyberbass"));
+      setPlaylist(trackUrls);
     } else {
-      const trackUrls = otherSongs.map(song => song[`practiceTrackUrls${truncSect}`]);
-      const flattenedUrls = trackUrls.flat();
-      const filteredUrls = flattenedUrls.filter(url => !url.includes("cyberbass"));
-      setPlaylist(filteredUrls);
+      console.log('no concert order');
+      setAllSongs([...otherSongs]);
+      const trackUrls = otherSongs.map(song => song[`practiceTrackUrls${truncSect}`]).flat().filter(url => !url.includes("cyberbass"));
+      setPlaylist(trackUrls);
     }
     console.log({ plistIdx });
     console.log(playlist[plistIdx]);
