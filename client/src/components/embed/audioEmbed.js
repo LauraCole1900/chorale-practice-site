@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 
 const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
 
+  
   //=================//
   //   State & Ref   //
   //=================//
 
   const audioRef = useRef();
-  const trackerRef = useRef(tracker);
   const [pbr, setPbr] = useState(1.0);
 
 
@@ -43,17 +43,21 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
 
   // advances tracker for playlist
   const advanceTracker = () => {
-    if (trackerRef.current < (length - 1)) {
-      console.log('ding');
-      trackerRef.current = ++tracker;
-      console.log({ tracker }, { trackerRef });
-      setPlistIdx(trackerRef.current);
-    } else if (trackerRef.current === (length - 1)) {
-      console.log('dong');
-      tracker = 0;
-      trackerRef.current = tracker;
-      console.log({ tracker }, { trackerRef });
-      setPlistIdx(trackerRef.current);
+    let trackIndex = tracker;
+    if (length > 1) {
+      if (tracker < (length - 1)) {
+        console.log('ding');
+        trackIndex = ++trackIndex;
+        console.log({ trackIndex });
+        setPlistIdx(trackIndex);
+      } else if (tracker === (length - 1)) {
+        console.log('dong');
+        trackIndex = 0;
+        console.log({ trackIndex });
+        setPlistIdx(trackIndex);
+      }
+    } else {
+      setPlistIdx(0);
     }
   }
 
@@ -65,7 +69,7 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
   // sets initial playbackRate on page load
   useEffect(() => {
     audioRef.current.playbackRate = pbr
-  }, [pbr, tracker, trackerRef]);
+  }, [pbr]);
 
 
   return (
