@@ -50,11 +50,13 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
         trackIndex = ++trackIndex;
         console.log({ trackIndex });
         setPlistIdx(trackIndex);
+        audioRef.current.play();
       } else if (tracker === (length - 1)) {
         console.log('dong');
         trackIndex = 0;
         console.log({ trackIndex });
         setPlistIdx(trackIndex);
+        audioRef.current.play();
       }
     } else {
       setPlistIdx(0);
@@ -68,8 +70,8 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
 
   // sets initial playbackRate on page load
   useEffect(() => {
-    audioRef.current.playbackRate = pbr
-  }, [pbr]);
+    audioRef.current.playbackRate = pbr;
+  }, [pbr, tracker]);
 
 
   return (
@@ -77,20 +79,20 @@ const AudioEmbed = ({ title, src, songId, tracker, length, setPlistIdx }) => {
       <Row className="audio-responsive" >
         {length
           ? (tracker > 0
-            ? <audio controls ref={audioRef} playbackrate={pbr} onEnded={advanceTracker} autoPlay={true}>
-              <source src={process.env.PUBLIC_URL + src}
+            ? <audio controls ref={audioRef} playbackrate={pbr} onEnded={advanceTracker} autoPlay>
+              <source src={src}
                 title={title}
                 type="audio/mp3"
                 id={songId} />
             </audio>
             : <audio controls ref={audioRef} playbackrate={pbr} onEnded={advanceTracker}>
-              <source src={process.env.PUBLIC_URL + src}
+              <source src={src}
                 title={title}
                 type="audio/mp3"
                 id={songId} />
             </audio>)
           : <audio controls ref={audioRef} playbackrate={pbr}>
-            <source src={process.env.PUBLIC_URL + src}
+            <source src={src}
               title={title}
               type="audio/mp3"
               id={songId} />
