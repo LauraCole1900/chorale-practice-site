@@ -73,7 +73,7 @@ const TracksAccordion = ({ concert, i, section, user }) => {
     console.log({ plistIdx });
     console.log(playlist[plistIdx]);
 
-  }, [concert.songs, section, plistIdx]);
+  }, [plistIdx, section]);
 
 
   return (
@@ -90,12 +90,12 @@ const TracksAccordion = ({ concert, i, section, user }) => {
                 <li key={i}><h4><a href={item} target="_blank" rel="noreferrer noopener" className="accordionLink">{concert.addlMaterialsNames[i]}</a></h4></li>
               ))}
             </ol>}
-          {playlist.length > 0 &&
+          {/* {playlist.length > 0 &&
             <>
               <p>Full Playlist of Kati Tracks:</p>
               <AudioEmbed src={playlist[plistIdx]} title="Full Playlist" songId={plistIdx} tracker={plistIdx} setPlistIdx={setPlistIdx} length={playlist.length} />
             </>
-          }
+          } */}
           {allSongs.map((song, i) => (
             <SongCard section={section} song={song} key={i} />
           ))}
