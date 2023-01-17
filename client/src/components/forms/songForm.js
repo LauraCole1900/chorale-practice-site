@@ -72,7 +72,7 @@ const SongForm = () => {
 
   const me = meData?.me || meData?.currentId || {};
   const concert = useMemo(() => { return concertData?.oneConcert || {} }, [concertData?.oneConcert]);
-
+  console.log({ concert });
 
   //=====================//
   //      Mutations      //

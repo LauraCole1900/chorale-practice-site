@@ -20,6 +20,8 @@ export const QUERY_ALL_CONCERTS = gql`
         title
         composer
         concertOrder
+        publisher
+        copyrightDate
         practiceTrackUrlsSop
         practiceTrackTitlesSop
         practiceTrackUrlsAlto
@@ -50,6 +52,8 @@ export const QUERY_ONE_CONCERT = gql`
         title
         composer
         concertOrder
+        publisher
+        copyrightDate
         practiceTrackUrlsSop
         practiceTrackTitlesSop
         practiceTrackUrlsAlto
@@ -78,6 +82,8 @@ export const QUERY_TRUE_CONCERTS = gql`
         title
         composer
         concertOrder
+        publisher
+        copyrightDate
         practiceTrackUrlsSop
         practiceTrackTitlesSop
         practiceTrackUrlsAlto
