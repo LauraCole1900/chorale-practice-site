@@ -21,6 +21,15 @@ a.sideLinks:hover {
   font-size: 16px;
 }
 
+hr {
+  background-color: var(--gcBlack);
+  border: none;
+  height: 3px;
+  box-shadow: 5px 3px 5px 1px var(--gcRed);
+  border-radius: 3px;
+  font-weight: bold;
+}
+
 .adminCard {
   padding: 0;
 }
