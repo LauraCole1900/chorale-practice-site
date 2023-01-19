@@ -140,7 +140,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await addPost({
-          variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
+          variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())).replaceAll('<p></p>', '<hr />') }
         });
         handleToggleSuccess();
       } catch (error) {
