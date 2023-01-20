@@ -1,6 +1,6 @@
 {
   "name": "gcpm",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Greeley Chorale Practice Materials",
   "author": "Laura E. Cole",
   "main": "server/server.js",
