@@ -140,7 +140,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await addPost({
-          variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
+          variables: { ...postData, postSection: thisSection, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())).replaceAll('<p></p>', '<hr />') }
         });
         handleToggleSuccess();
       } catch (error) {
@@ -170,7 +170,7 @@ const PostForm = () => {
     if (noErrors) {
       try {
         const { data } = await editPost({
-          variables: { id: postId, ...postData, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())) }
+          variables: { id: postId, ...postData, postBody: draftToHtml(convertToRaw(postData.postBody.getCurrentContent())).replaceAll('<p></p>', '<hr />') }
         });
         handleToggleSuccess();
       } catch (error) {
@@ -197,7 +197,8 @@ const PostForm = () => {
 
   useEffect(() => {
     if (Object.keys(params).length > 0 && Object.keys(postToEdit).length > 0) {
-      postToEdit?.postExpire ? setPostData({ ...postToEdit, postExpire: dayjs(JSON.parse(postToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(postToEdit);
+      const convertedPostToEdit = { ...postToEdit, postBody: postToEdit.postBody.replaceAll('<hr />', '<p></p>') }
+      postToEdit?.postExpire ? setPostData({ ...convertedPostToEdit, postExpire: dayjs(JSON.parse(convertedPostToEdit.postExpire)).add(1, "day").format("YYYY-MM-DD") }) : setPostData(convertedPostToEdit);
       setPageReady(true);
     }
     if (["Soprano I", "Soprano II"].includes(me.section)) {
