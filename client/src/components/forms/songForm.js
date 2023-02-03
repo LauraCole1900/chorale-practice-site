@@ -412,25 +412,21 @@ const SongForm = () => {
             <Col sm={{ span: 3, offset: 2 }}>
               <CloudinaryUploadWidget dataRes={dataRes} setDataRes={setDataRes} />
             </Col>
+
+          {!songId
+            ? <Col sm={{ span: 3, offset: 2 }}>
+                <Button data-toggle="popover" title="Submit" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit Selection</Button>
+              </Col>
+
+            : <Col sm={{ span: 3, offset: 2 }}>
+                <Button data-toggle="popover" title="Update" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update Selection</Button>
+              </Col>}
           </Row>
 
           {Object.keys(dataRes).length > 0 &&
             <Row>
               <Col sm={{ span: 8, offset: 2 }}>
                 <p className="bold">Here is the URL of the uploaded file: {dataRes.info.secure_url}</p>
-              </Col>
-            </Row>}
-
-          {!songId
-            ? <Row>
-              <Col sm={{ span: 3, offset: 2 }}>
-                <Button data-toggle="popover" title="Submit" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormSubmit} type="submit">Submit Selection</Button>
-              </Col>
-            </Row>
-
-            : <Row>
-              <Col sm={{ span: 3, offset: 2 }}>
-                <Button data-toggle="popover" title="Update" disabled={!(songData.title && songData.composer)} className="button formBtn" onClick={handleFormUpdate} type="submit">Update Selection</Button>
               </Col>
             </Row>}
 

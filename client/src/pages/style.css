@@ -23,9 +23,8 @@ a.sideLinks:hover {
 
 hr {
   background-color: var(--gcBlack);
-  border: none;
   height: 3px;
-  box-shadow: 5px 3px 5px 1px var(--gcRed);
+  box-shadow: 0 0 3px 1px var(--disabled);
   border-radius: 3px;
   font-weight: bold;
 }
